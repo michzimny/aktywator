@@ -1,0 +1,102 @@
+﻿Known issues:
+- nie działa oddzielne maksowanie każdego sektora
+
+---------------------
+Aktywator 1.0.4
+12.04.2013
+
+???
+
+---------------------
+Aktywator 1.0.3
+24.08.2011
+
+Fixed:
+- plik .pbn jest prawidłowo zamykany po wczytaniu rozkładów
+
+---------------------
+Aktywator 1.0.2
+24.08.2011
+
+New:
+- pokazywanie rozkładów (wymaga BCS 2.5.15, serwera 1.3.107d i pierników 1.6.1)
+(nasz dotychczasowy firmware to serwer 1.3.1d i pierniki 1.4.1)
+- pierniki i serwerki ze starym i nowym firmware'em można mieszać 
+(testy (na normalnych turniejach) pokazują, że te wersje ze sobą współpracują)
+
+Fixed:
+- program się wywalał jeśli nie było serwera MySQL
+
+---------------------
+Aktywator 0.4.3
+09.06.2011
+
+Fixed:
+- BCS wywalał się czasem przy starcie małych turniejów
+
+---------------------
+Aktywator 0.4.2
+07.05.2011
+
+New:
+- możliwość kontroli formatu w jakim prezentowane są zapisy z rozdania po wklepaniu
+(domyślnie wybrany "najlepszy" format: frekwens, 6 wierszy, zapisy w 2 kolumnach NS/EW)
+
+Changes:
+- kilka ustawień domyślnych się zmieniło (np. domyślnie wyłączone jest automatyczne wypełnianie numeru rozdania)
+
+---------------------
+Aktywator 0.4.1
+16.04.2011
+
+New:
+- obsługa "nazwisk" w Teamach (wyświetlamy nazwę teamu w pierniczku)
+- można (nie trzeba) sobie ustawić w Windowsie, żeby zawsze bws-y były otwierane za pomocą Aktywatora (może być wygodne)
+- cykliczny update nazwisk (przydatne np. w czasie wklepywania listy startowej)
+- możliwość wymuszenia synchronizacji wszystkich nazwisk na linii bws->serwerek (ponieważ to, że nazwiska są w bws-ie, nie musi znaczyć, że są także w serwerku, jeśli serwer był resetowany w trakcie sesji)
+
+Fixed:
+- w parach czasem nazwiska NS i EW były odwrotnie wpisane do bws
+
+---------------------
+Aktywator 0.3
+13.04.2011
+
+New:
+- obsługa nazwisk w Parach; można update'ować nazwiska dowolnie w trakcie sesji (tylko te które zmieniły się od ostatniego razu są wysyłane do serwerka)
+
+Fixed:
+- poprawnie odnajduje katalog "Program Files" jak się ma x64
+
+---------------------
+Aktywator 0.2
+12.04.2011
+
+Changes:
+- kliknięcie "Uruchom BCS" i "Update ustawień w trakcie sesji" biorą pod uwagę niezapisane zmiany w formularzu ustawień (zapisują te zmiany)
+- dużo spraw kosmetycznych
+
+---------------------
+Aktywator 0.1
+11.04.2011
+
+- konwersja bws'ów do formatu Bm II (dodanie brakujących ustawień i miejsc na nazwiska)
+- obsługa ustawień Bm I i Bm II (większości, bez tych niegdy nieżywanych i bez ustawień pokazywania rankingu, ale te ostatnie będą niedługo)
+- możliwość update'u ustawień w trakcie sesji
+
+---------------------
+Procedura użycia:
+1) normalnie generujemy bws'a z Par lub Teamów (BMKopsowi mówimy "nie" - robi jakieś stare bws'y)
+2) uruchamiamy go przez Aktywatora
+3) zgadzamy się na konwersję (wykonywana jednorazowo dla każdego bws'a)
+4) wybieramy ustawienia, zwłaszcza np. PIN i zatwierdzamy je klikając "Zapisz" (ustawienia domyślne Bm I są wzięte z Par/Teamów, ustawienia domyślne Bm II są zrobione wg mojego widzimisię)
+5) klikamy "Uruchom BCS"
+--
+W trakcie sesji możemy np.:
+- zmienić ustawienia: zmieniamy, klikamy "Zapisz", a następnie z menu wybieramy wymuszenie na serwerku synchronizacji ustawień (to ostatnie jest konieczne w trakcie sesji, bo inaczej zmiany trafią tylko do bws'a, ale serwerek się o nich nie dowie)
+- wrzucić nazwiska, poprawiać itd.
+
+Tips & tricks:
+- Puszczamy I sesję. Jeśli od razu włączymy ustawienie "pokazuj nazwiska", a nazwisk jeszcze nie ma, to przed każdą rundą będzie wyskakiwał pusty ekran. Lepiej więc pierwszą sesję puścić bez pokazywania nazwisk, a dopiero w trakcie uzupełniania listy startowej włączyć cykliczną synchronizację nazwisk i zmienić ustawienie "pokazuj nazwiska" (zatwierdzając opcją z menu).
+
+ZAWSZE UPEWNIAMY SIĘ ŻE UŻYWAMY NAJŚWIEŻSZEJ WERSJI :)
