@@ -174,7 +174,7 @@ namespace Aktywator
             try
             {
                 sql.query("CREATE TABLE PlayData ("
-                    + "`ID` integer, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
                     + "`Counter` integer, `Direction` text(2), `Card` text(10), `DateLog` datetime,"
                     + "`TimeLog` datetime, `Erased` bit"
                     + ");");
@@ -185,7 +185,7 @@ namespace Aktywator
             try
             {
                 sql.query("CREATE TABLE BiddingData ("
-                    + "`ID` integer, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
                     + "`Counter` integer, `Direction` text(2), `Bid` text(10), `DateLog` datetime,"
                     + "`TimeLog` datetime, `Erased` bit"
                     + ");");
