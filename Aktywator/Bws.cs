@@ -54,6 +54,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2AutoBoardNumber", main.xAutoBoardNumber, this));
             settings.Add(new Setting("BM2ResetFunctionKey", main.xResetFunctionKey, this));
             settings.Add(new Setting("BM2ViewHandrecord", main.xViewHandrecord, this));
+            settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this));
         }
 
         public string sectionsForHandRecords()
@@ -131,6 +132,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2NameSource", "integer", "2"));
             settings.Add(new Setting("BM2ViewHandrecord", "bit", "false"));
             settings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
+            settings.Add(new Setting("BM2ValidateLeadCard", "bit", "false"));
 
             settings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
             settings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));

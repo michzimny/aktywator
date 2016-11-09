@@ -286,5 +286,11 @@ namespace Aktywator
                 }
             }
         }
+
+        private void xViewHandrecord_CheckedChanged(object sender, EventArgs e)
+        {
+            this.xCheckLeadCard.Enabled = this.xViewHandrecord.Checked;
+            this.xCheckLeadCard.Checked &= this.xViewHandrecord.Checked;
+        }
     }
 }
