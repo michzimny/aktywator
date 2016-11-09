@@ -45,6 +45,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
             this.xViewHandrecord = new System.Windows.Forms.CheckBox();
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
             this.bLoad = new System.Windows.Forms.Button();
@@ -240,6 +241,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.xCheckLeadCard);
             this.tabPage1.Controls.Add(this.xViewHandrecord);
             this.tabPage1.Controls.Add(this.xResultsOverview);
             this.tabPage1.Controls.Add(this.bLoad);
@@ -276,6 +278,16 @@
             this.tabPage1.Text = "Ustawienia";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // xCheckLeadCard
+            // 
+            this.xCheckLeadCard.AutoSize = true;
+            this.xCheckLeadCard.Location = new System.Drawing.Point(339, 253);
+            this.xCheckLeadCard.Name = "xCheckLeadCard";
+            this.xCheckLeadCard.Size = new System.Drawing.Size(180, 17);
+            this.xCheckLeadCard.TabIndex = 32;
+            this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
+            this.xCheckLeadCard.UseVisualStyleBackColor = true;
+            //
             // xViewHandrecord
             // 
             this.xViewHandrecord.AutoSize = true;
@@ -490,7 +502,7 @@
             // xLeadCard
             // 
             this.xLeadCard.AutoSize = true;
-            this.xLeadCard.Location = new System.Drawing.Point(339, 253);
+            this.xLeadCard.Location = new System.Drawing.Point(339, 230);
             this.xLeadCard.Name = "xLeadCard";
             this.xLeadCard.Size = new System.Drawing.Size(111, 17);
             this.xLeadCard.TabIndex = 21;
@@ -500,7 +512,7 @@
             // xShowContract
             // 
             this.xShowContract.AutoSize = true;
-            this.xShowContract.Location = new System.Drawing.Point(339, 230);
+            this.xShowContract.Location = new System.Drawing.Point(339, 207);
             this.xShowContract.Name = "xShowContract";
             this.xShowContract.Size = new System.Drawing.Size(150, 17);
             this.xShowContract.TabIndex = 20;
@@ -571,7 +583,7 @@
             this.label1.Size = new System.Drawing.Size(398, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Te same ustawienia są ustawiane dla wszystkich sektorów, przynajmniej na razie :-" +
-    ")";
+                ")";
             // 
             // tabPage2
             // 
@@ -846,7 +858,7 @@
             this.label13.Size = new System.Drawing.Size(476, 13);
             this.label13.TabIndex = 4;
             this.label13.Text = "Jeżeli Server->Show hand records w BCS nie pokazuje rozkładów (i/lub nie pokazują" +
-    " ich pierniczki)";
+                " ich pierniczki)";
             // 
             // lWczytywane
             // 
@@ -1008,6 +1020,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox eOomRounds;
+        public System.Windows.Forms.CheckBox xCheckLeadCard;
     }
 }
 
