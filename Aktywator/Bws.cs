@@ -434,7 +434,15 @@ namespace Aktywator
                                     ddStr.Append(",");
                                 }
                             }
-                            ddStr.Append("0,0,0,0)"); // HCP not supported yet
+                            for (int j = 0; j < 4; j++)
+                            {
+                                ddStr.Append(b.hpcs[j]);
+                                if (j < 3)
+                                {
+                                    ddStr.Append(",");
+                                }
+                            }
+                            ddStr.Append(")");
                             sql.query(ddStr.ToString());
                         }
                     }
