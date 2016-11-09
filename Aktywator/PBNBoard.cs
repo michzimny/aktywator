@@ -87,7 +87,8 @@ namespace Aktywator
 
         public String GetLayout()
         {
-            return this.GetField("Deal");
+            string[] dealParts = this.GetField("Deal").Split(':');
+            return dealParts[dealParts.Length - 1];
         }
 
         public String GetNumber()

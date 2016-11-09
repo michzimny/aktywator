@@ -14,7 +14,8 @@ namespace Aktywator
 
     class DDTable
     {
-        public static char[] DENOMINATIONS = { 'C', 'D', 'H', 'S', 'N' };
+        public static char[] DENOMINATIONS = { 'S', 'H', 'D', 'C', 'N' };
+        private static char[] JFR_DENOMS = {'N', 'S', 'H', 'D', 'C'};
         public static char[] PLAYERS = { 'N', 'E', 'S', 'W' };
 
         private PBNBoard board;
@@ -58,11 +59,13 @@ namespace Aktywator
             {
                 char player = playerAbility.Groups[1].Value[0];
                 int playerID = Array.IndexOf(PLAYERS, player);
-                int denomID = 4;
+                int denomID;
+                int denom = 0;
                 foreach (char tricks in playerAbility.Groups[2].Value.ToCharArray())
                 {
+                    denomID = Array.IndexOf(DENOMINATIONS, JFR_DENOMS[denom]);
                     result[playerID, denomID] = (tricks > '9') ? (tricks - 'A' + 10) : (tricks - '0');
-                    denomID--;
+                    denom++;
                 }
             }
             return this.validateTable(result);

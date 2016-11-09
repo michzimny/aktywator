@@ -104,6 +104,8 @@ namespace Aktywator
                 return false;
             if (!sql.checkTableExists("HandRecord"))
                 return false;
+            if (!sql.checkTableExists("HandEvaluation"))
+                return false;
 
             return true;
         }
@@ -162,6 +164,19 @@ namespace Aktywator
                     + "EastSpades text(13),EastHearts text(13),EastDiamonds text(13),EastClubs text(13),"
                     + "SouthSpades text(13),SouthHearts text(13),SouthDiamonds text(13),SouthClubs text(13),"
                     + "WestSpades text(13),WestHearts text(13),WestDiamonds text(13),WestClubs text(13)"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                sql.query("CREATE TABLE HandEvaluation (`Section` integer, `Board` integer, "
+                    + "NorthSpades integer,NorthHearts integer,NorthDiamonds integer,NorthClubs integer,NorthNotrump integer,"
+                    + "EastSpades integer,EastHearts integer,EastDiamonds integer,EastClubs integer,EastNotrump integer,"
+                    + "SouthSpades integer,SouthHearts integer,SouthDiamonds integer,SouthClubs integer,SouthNotrump integer,"
+                    + "WestSpades integer,WestHearts integer,WestDiamonds integer,WestClubs integer,WestNotrump integer,"
+                    + "NorthHcp integer,EastHcp integer,SouthHcp integer,WestHcp integer"
                     + ");");
             }
             catch (OleDbException)
@@ -377,6 +392,7 @@ namespace Aktywator
         public void loadHandRecords(PBN pbn)
         {
             sql.query("DELETE FROM HandRecord");
+            sql.query("DELETE FROM HandEvaluation");
             for (int i = 0; i < pbn.handRecords.Length; i++)
                 if (pbn.handRecords[i] != null)
                     for (int section = 1; section <= highSection(); section++)
@@ -403,6 +419,24 @@ namespace Aktywator
                         str.Append(b.west[2]); str.Append("','");
                         str.Append(b.west[3]); str.Append("')");
                         sql.query(str.ToString());
+                        int[,] ddTable = pbn.ddTables[i].GetDDTable();
+                        if (ddTable != null)
+                        {
+                            StringBuilder ddStr = new StringBuilder();
+                            ddStr.Append("INSERT INTO HandEvaluation VALUES(");
+                            ddStr.Append(section); ddStr.Append(",");
+                            ddStr.Append(i); ddStr.Append(",");
+                            for (int player = 0; player < 4; player++)
+                            {
+                                for (int denom = 0; denom < 5; denom++)
+                                {
+                                    ddStr.Append(ddTable[player, denom]);
+                                    ddStr.Append(",");
+                                }
+                            }
+                            ddStr.Append("0,0,0,0)"); // HCP not supported yet
+                            sql.query(ddStr.ToString());
+                        }
                     }
         }
     }
