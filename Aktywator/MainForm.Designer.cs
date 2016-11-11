@@ -45,6 +45,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
             this.xCollectPlay = new System.Windows.Forms.CheckBox();
             this.xCollectBidding = new System.Windows.Forms.CheckBox();
             this.xViewHandrecord = new System.Windows.Forms.CheckBox();
@@ -107,7 +108,6 @@
             this.bLoadHands = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
-            this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
             this.groupBoxTop.SuspendLayout();
             this.menu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -281,6 +281,16 @@
             this.tabPage1.Text = "Ustawienia";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // xCheckLeadCard
+            // 
+            this.xCheckLeadCard.AutoSize = true;
+            this.xCheckLeadCard.Location = new System.Drawing.Point(339, 253);
+            this.xCheckLeadCard.Name = "xCheckLeadCard";
+            this.xCheckLeadCard.Size = new System.Drawing.Size(180, 17);
+            this.xCheckLeadCard.TabIndex = 32;
+            this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
+            this.xCheckLeadCard.UseVisualStyleBackColor = true;
+            // 
             // xCollectPlay
             // 
             this.xCollectPlay.AutoSize = true;
@@ -311,7 +321,6 @@
             this.xViewHandrecord.TabIndex = 29;
             this.xViewHandrecord.Text = "pokazuj rozkłady";
             this.xViewHandrecord.UseVisualStyleBackColor = true;
-            this.xViewHandrecord.CheckedChanged += new System.EventHandler(this.xViewHandrecord_CheckedChanged);
             // 
             // xResultsOverview
             // 
@@ -919,17 +928,6 @@
             // openPBN
             // 
             this.openPBN.Filter = "PBN|*.pbn";
-            // 
-            // xCheckLeadCard
-            // 
-            this.xCheckLeadCard.AutoSize = true;
-            this.xCheckLeadCard.Enabled = false;
-            this.xCheckLeadCard.Location = new System.Drawing.Point(339, 253);
-            this.xCheckLeadCard.Name = "xCheckLeadCard";
-            this.xCheckLeadCard.Size = new System.Drawing.Size(180, 17);
-            this.xCheckLeadCard.TabIndex = 32;
-            this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
-            this.xCheckLeadCard.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
