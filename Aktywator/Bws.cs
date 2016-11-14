@@ -409,6 +409,14 @@ namespace Aktywator
             else return 0;
         }
 
+        public int lowSection()
+        {
+            string s = sql.selectOne("SELECT min(`Section`) FROM `Tables`");
+            int i;
+            if (int.TryParse(s, out i)) return i;
+            else return 0;
+        }
+
         public int highSection()
         {
             string s = sql.selectOne("SELECT max(`Section`) FROM `Tables`");
@@ -423,7 +431,7 @@ namespace Aktywator
             sql.query("DELETE FROM HandEvaluation");
             for (int i = 0; i < pbn.handRecords.Length; i++)
                 if (pbn.handRecords[i] != null)
-                    for (int section = 1; section <= highSection(); section++)
+                    for (int section = lowSection(); section <= highSection(); section++)
                     {
                         HandRecord b = pbn.handRecords[i];
                         StringBuilder str = new StringBuilder(50);
