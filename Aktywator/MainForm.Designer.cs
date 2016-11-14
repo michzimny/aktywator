@@ -108,8 +108,6 @@
             this.bLoadHands = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
-            this.xCollectBidding = new System.Windows.Forms.CheckBox();
-            this.xCollectPlay = new System.Windows.Forms.CheckBox();
             this.groupBoxTop.SuspendLayout();
             this.menu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -293,26 +291,6 @@
             this.xCheckLeadCard.TabIndex = 32;
             this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
             this.xCheckLeadCard.UseVisualStyleBackColor = true;
-            // 
-            // xCollectPlay
-            // 
-            this.xCollectPlay.AutoSize = true;
-            this.xCollectPlay.Location = new System.Drawing.Point(339, 138);
-            this.xCollectPlay.Name = "xCollectPlay";
-            this.xCollectPlay.Size = new System.Drawing.Size(146, 17);
-            this.xCollectPlay.TabIndex = 31;
-            this.xCollectPlay.Text = "zbieraj przebieg rozgrywki";
-            this.xCollectPlay.UseVisualStyleBackColor = true;
-            // 
-            // xCollectBidding
-            // 
-            this.xCollectBidding.AutoSize = true;
-            this.xCollectBidding.Location = new System.Drawing.Point(339, 115);
-            this.xCollectBidding.Name = "xCollectBidding";
-            this.xCollectBidding.Size = new System.Drawing.Size(97, 17);
-            this.xCollectBidding.TabIndex = 30;
-            this.xCollectBidding.Text = "zbieraj licytację";
-            this.xCollectBidding.UseVisualStyleBackColor = true;
             // 
             // xViewHandrecord
             // 
