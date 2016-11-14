@@ -54,6 +54,9 @@ namespace Aktywator
             settings.Add(new Setting("BM2AutoBoardNumber", main.xAutoBoardNumber, this));
             settings.Add(new Setting("BM2ResetFunctionKey", main.xResetFunctionKey, this));
             settings.Add(new Setting("BM2ViewHandrecord", main.xViewHandrecord, this));
+            settings.Add(new Setting("BM2RecordBidding", main.xCollectBidding, this));
+            settings.Add(new Setting("BM2RecordPlay", main.xCollectPlay, this));
+            settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this));
         }
 
         public string sectionsForHandRecords()
@@ -104,6 +107,8 @@ namespace Aktywator
                 return false;
             if (!sql.checkTableExists("HandRecord"))
                 return false;
+            if (!sql.checkTableExists("HandEvaluation"))
+                return false;
 
             return true;
         }
@@ -131,6 +136,9 @@ namespace Aktywator
             settings.Add(new Setting("BM2NameSource", "integer", "2"));
             settings.Add(new Setting("BM2ViewHandrecord", "bit", "false"));
             settings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
+            settings.Add(new Setting("BM2RecordBidding", "bit", "false"));
+            settings.Add(new Setting("BM2RecordPlay", "bit", "false"));
+            settings.Add(new Setting("BM2ValidateLeadCard", "bit", "false"));
 
             settings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
             settings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
@@ -162,6 +170,41 @@ namespace Aktywator
                     + "EastSpades text(13),EastHearts text(13),EastDiamonds text(13),EastClubs text(13),"
                     + "SouthSpades text(13),SouthHearts text(13),SouthDiamonds text(13),SouthClubs text(13),"
                     + "WestSpades text(13),WestHearts text(13),WestDiamonds text(13),WestClubs text(13)"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                sql.query("CREATE TABLE HandEvaluation (`Section` integer, `Board` integer, "
+                    + "NorthSpades integer,NorthHearts integer,NorthDiamonds integer,NorthClubs integer,NorthNotrump integer,"
+                    + "EastSpades integer,EastHearts integer,EastDiamonds integer,EastClubs integer,EastNotrump integer,"
+                    + "SouthSpades integer,SouthHearts integer,SouthDiamonds integer,SouthClubs integer,SouthNotrump integer,"
+                    + "WestSpades integer,WestHearts integer,WestDiamonds integer,WestClubs integer,WestNotrump integer,"
+                    + "NorthHcp integer,EastHcp integer,SouthHcp integer,WestHcp integer"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                sql.query("CREATE TABLE PlayData ("
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`Counter` integer, `Direction` text(2), `Card` text(10), `DateLog` datetime,"
+                    + "`TimeLog` datetime, `Erased` bit"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                sql.query("CREATE TABLE BiddingData ("
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`Counter` integer, `Direction` text(2), `Bid` text(10), `DateLog` datetime,"
+                    + "`TimeLog` datetime, `Erased` bit"
                     + ");");
             }
             catch (OleDbException)
@@ -366,6 +409,14 @@ namespace Aktywator
             else return 0;
         }
 
+        public int lowSection()
+        {
+            string s = sql.selectOne("SELECT min(`Section`) FROM `Tables`");
+            int i;
+            if (int.TryParse(s, out i)) return i;
+            else return 0;
+        }
+
         public int highSection()
         {
             string s = sql.selectOne("SELECT max(`Section`) FROM `Tables`");
@@ -377,9 +428,10 @@ namespace Aktywator
         public void loadHandRecords(PBN pbn)
         {
             sql.query("DELETE FROM HandRecord");
+            sql.query("DELETE FROM HandEvaluation");
             for (int i = 0; i < pbn.handRecords.Length; i++)
                 if (pbn.handRecords[i] != null)
-                    for (int section = 1; section <= highSection(); section++)
+                    for (int section = lowSection(); section <= highSection(); section++)
                     {
                         HandRecord b = pbn.handRecords[i];
                         StringBuilder str = new StringBuilder(50);
@@ -403,6 +455,32 @@ namespace Aktywator
                         str.Append(b.west[2]); str.Append("','");
                         str.Append(b.west[3]); str.Append("')");
                         sql.query(str.ToString());
+                        int[,] ddTable = pbn.ddTables[i].GetDDTable();
+                        if (ddTable != null)
+                        {
+                            StringBuilder ddStr = new StringBuilder();
+                            ddStr.Append("INSERT INTO HandEvaluation VALUES(");
+                            ddStr.Append(section); ddStr.Append(",");
+                            ddStr.Append(i); ddStr.Append(",");
+                            for (int player = 0; player < 4; player++)
+                            {
+                                for (int denom = 0; denom < 5; denom++)
+                                {
+                                    ddStr.Append(ddTable[player, denom]);
+                                    ddStr.Append(",");
+                                }
+                            }
+                            for (int j = 0; j < 4; j++)
+                            {
+                                ddStr.Append(b.hpcs[j]);
+                                if (j < 3)
+                                {
+                                    ddStr.Append(",");
+                                }
+                            }
+                            ddStr.Append(")");
+                            sql.query(ddStr.ToString());
+                        }
                     }
         }
     }

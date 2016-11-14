@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Aktywator
 {
     class PBN
     {
         public HandRecord[] handRecords;
+        public DDTable[] ddTables;
         protected int lowBoard;
         protected int highBoard;
         private int _count;
@@ -19,32 +21,22 @@ namespace Aktywator
         public PBN(string filename, int lowBoard, int highBoard)
         {
             this.handRecords = new HandRecord[highBoard + 1];
+            this.ddTables = new DDTable[highBoard + 1];
 
-            StreamReader f = new StreamReader(new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read));
-            try
+            this.lowBoard = lowBoard;
+            this.highBoard = highBoard;
+
+            this._count = 0;
+            PBNFile pbn = new PBNFile(filename);
+            foreach (PBNBoard board in pbn.Boards)
             {
-                int board = lowBoard;
-                bool canBeRead = false;
-                _count = 0;
-                while (!f.EndOfStream && (board <= highBoard))
+                int boardNo = Int32.Parse(board.GetNumber());
+                if (lowBoard <= boardNo && boardNo <= highBoard)
                 {
-                    string line = f.ReadLine();
-                    if (line.Trim() == "[Board \"" + board + "\"]")
-                        canBeRead = true;
-                    else if (canBeRead && (line.Substring(0, 6) == "[Deal "))
-                    {
-                        line = line.Substring(line.IndexOf(':') + 1);
-                        line = line.Substring(0, line.IndexOf('"'));
-                        handRecords[board] = new HandRecord(line);
-                        canBeRead = false;
-                        _count++;
-                        board++;
-                    }
+                    this.handRecords[boardNo] = new HandRecord(board.GetLayout());
+                    this.ddTables[boardNo] = new DDTable(board);
+                    this._count++;
                 }
-            }
-            finally
-            {
-                f.Close();
             }
         }
 
