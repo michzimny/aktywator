@@ -81,6 +81,7 @@
       <DependentUpon>ChooseTournament.cs</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="DDTable.cs" />
     <Compile Include="HandRecord.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -96,6 +97,8 @@
       <DependentUpon>MysqlSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="PBN.cs" />
+    <Compile Include="PBNBoard.cs" />
+    <Compile Include="PBNFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setting.cs" />
