@@ -2,6 +2,13 @@
 - nie działa oddzielne maksowanie każdego sektora
 
 ---------------------
+Aktywator 1.0.5
+20.11.2016 [mkl]
+ * opcje zbierania licytacji i rozgrywki (BM2)
+ * opcja weryfikacji pierwszego wistu wobec wczytanych rozkładów (BM2, firmware 2.2.1+, BCS 3.2.x+)
+ * wczytywanie rozkładów wraz z analizą w widne (do użycia np. z wykrywaniem burtówek w BCS 3.2.23+)
+
+---------------------
 Aktywator 1.0.4
 12.04.2013
 
