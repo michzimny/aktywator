@@ -56,6 +56,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2ViewHandrecord", main.xViewHandrecord, this));
             settings.Add(new Setting("BM2RecordBidding", main.xCollectBidding, this));
             settings.Add(new Setting("BM2RecordPlay", main.xCollectPlay, this));
+            settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this));
         }
 
         public string sectionsForHandRecords()
@@ -137,6 +138,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
             settings.Add(new Setting("BM2RecordBidding", "bit", "false"));
             settings.Add(new Setting("BM2RecordPlay", "bit", "false"));
+            settings.Add(new Setting("BM2ValidateLeadCard", "bit", "false"));
 
             settings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
             settings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
