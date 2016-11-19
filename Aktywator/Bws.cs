@@ -54,6 +54,8 @@ namespace Aktywator
             settings.Add(new Setting("BM2AutoBoardNumber", main.xAutoBoardNumber, this));
             settings.Add(new Setting("BM2ResetFunctionKey", main.xResetFunctionKey, this));
             settings.Add(new Setting("BM2ViewHandrecord", main.xViewHandrecord, this));
+            settings.Add(new Setting("BM2RecordBidding", main.xCollectBidding, this));
+            settings.Add(new Setting("BM2RecordPlay", main.xCollectPlay, this));
         }
 
         public string sectionsForHandRecords()
@@ -133,6 +135,8 @@ namespace Aktywator
             settings.Add(new Setting("BM2NameSource", "integer", "2"));
             settings.Add(new Setting("BM2ViewHandrecord", "bit", "false"));
             settings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
+            settings.Add(new Setting("BM2RecordBidding", "bit", "false"));
+            settings.Add(new Setting("BM2RecordPlay", "bit", "false"));
 
             settings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
             settings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
@@ -177,6 +181,28 @@ namespace Aktywator
                     + "SouthSpades integer,SouthHearts integer,SouthDiamonds integer,SouthClubs integer,SouthNotrump integer,"
                     + "WestSpades integer,WestHearts integer,WestDiamonds integer,WestClubs integer,WestNotrump integer,"
                     + "NorthHcp integer,EastHcp integer,SouthHcp integer,WestHcp integer"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                sql.query("CREATE TABLE PlayData ("
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`Counter` integer, `Direction` text(2), `Card` text(10), `DateLog` datetime,"
+                    + "`TimeLog` datetime, `Erased` bit"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                sql.query("CREATE TABLE BiddingData ("
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`Counter` integer, `Direction` text(2), `Bid` text(10), `DateLog` datetime,"
+                    + "`TimeLog` datetime, `Erased` bit"
                     + ");");
             }
             catch (OleDbException)
