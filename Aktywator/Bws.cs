@@ -514,9 +514,10 @@ namespace Aktywator
             }
         }
 
-        public void loadHandRecords(PBN pbn)
+        public int loadHandRecords(PBN pbn)
         {
-            foreach (string section in this.getSections().Split(','))
+            int count = 0;
+            foreach (string section in this.getSelectedSections())
             {
                 this.clearRecords(section);
                 for (int i = this.lowBoard(section.Trim()); i <= this.highBoard(section.Trim()); i++)
@@ -570,8 +571,10 @@ namespace Aktywator
                             ddStr.Append(")");
                             sql.query(ddStr.ToString());
                         }
+                        count++;
                     }
             }
+            return count;
         }
     }
 }

@@ -277,8 +277,8 @@ namespace Aktywator
                 try
                 {
                     PBN pbn = new PBN(openPBN.FileName, bws.lowBoard(), bws.highBoard());
-                    bws.loadHandRecords(pbn);
-                    MessageBox.Show("Wczytanych rozkładów: " + pbn.count, "Rozkłady wczytane!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int count = bws.loadHandRecords(pbn);
+                    MessageBox.Show("Wczytanych rozkładów: " + count, "Rozkłady wczytane!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
