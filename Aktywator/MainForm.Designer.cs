@@ -868,7 +868,7 @@
             // 
             this.lWczytywane.AutoSize = true;
             this.lWczytywane.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lWczytywane.Location = new System.Drawing.Point(192, 99);
+            this.lWczytywane.Location = new System.Drawing.Point(218, 84);
             this.lWczytywane.Name = "lWczytywane";
             this.lWczytywane.Size = new System.Drawing.Size(139, 13);
             this.lWczytywane.TabIndex = 3;

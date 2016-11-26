@@ -27,7 +27,35 @@ namespace Aktywator
             this._filename = filename;
             sql = new Sql(filename);
             this.main = main;
-            main.lWczytywane.Text += this.lowBoard() + "-" + this.highBoard();
+            main.lWczytywane.Text = this.getBoardRangeText(this.getSections().Split(','));
+        }
+
+        private int sectorLetterToNumber(string sector)
+        {
+            return sector[0] - 'A' + 1;
+        }
+
+        private string sectorNumberToLetter(int sector)
+        {
+            char character = (char)('A' - 1 + sector);
+            return character.ToString();
+        }
+
+        private string getBoardRangeText(string[] sectors)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Wczytywane rozkłady:");
+            foreach (string sector in sectors)
+            {
+                sb.Append("\n      ");
+                sb.Append(this.lowBoard(sector));
+                sb.Append("-");
+                sb.Append(this.highBoard(sector));
+                sb.Append(" (sektor ");
+                sb.Append(this.sectorNumberToLetter(Int16.Parse(sector)));
+                sb.Append(")");
+            }
+            return sb.ToString();
         }
 
         public void initSettings()
@@ -453,9 +481,10 @@ namespace Aktywator
         {
             sql.query("DELETE FROM HandRecord");
             sql.query("DELETE FROM HandEvaluation");
-            for (int i = 0; i < pbn.handRecords.Length; i++)
-                if (pbn.handRecords[i] != null)
-                    for (int section = lowSection(); section <= highSection(); section++)
+            foreach (string section in this.getSections().Split(','))
+            {
+                for (int i = this.lowBoard(section.Trim()); i <= this.highBoard(section.Trim()); i++)
+                    if (pbn.handRecords[i] != null)
                     {
                         HandRecord b = pbn.handRecords[i];
                         StringBuilder str = new StringBuilder(50);
@@ -506,6 +535,7 @@ namespace Aktywator
                             sql.query(ddStr.ToString());
                         }
                     }
+            }
         }
     }
 }
