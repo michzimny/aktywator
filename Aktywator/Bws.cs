@@ -27,7 +27,16 @@ namespace Aktywator
             this._filename = filename;
             sql = new Sql(filename);
             this.main = main;
-            main.lWczytywane.Text = this.getBoardRangeText(this.getSections().Split(','));
+            string[] sections = this.getSections().Split(',');
+            main.lWczytywane.Text = this.getBoardRangeText(sections);
+            foreach (string section in sections)
+            {
+                main.cblSections.Items.Add(this.sectorNumberToLetter(Int16.Parse(section)));
+            }
+            for (int i = 0; i < main.cblSections.Items.Count; i++)
+            {
+                main.cblSections.SetItemChecked(i, true);
+            }
         }
 
         private int sectorLetterToNumber(string sector)
@@ -56,6 +65,16 @@ namespace Aktywator
                 sb.Append(")");
             }
             return sb.ToString();
+        }
+
+        public string[] getSelectedSections()
+        {
+            List<string> sections = new List<string>();
+            foreach (string section in main.cblSections.CheckedItems)
+            {
+                sections.Add(this.sectorLetterToNumber(section).ToString());
+            }
+            return sections.ToArray();
         }
 
         public void initSettings()
