@@ -100,6 +100,7 @@
             this.bTournament = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cblSections = new System.Windows.Forms.CheckedListBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lWczytywane = new System.Windows.Forms.Label();
@@ -108,6 +109,8 @@
             this.bLoadHands = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
+            this.lRecordSections = new System.Windows.Forms.Label();
+            this.bClearHands = new System.Windows.Forms.Button();
             this.groupBoxTop.SuspendLayout();
             this.menu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -851,6 +854,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.bClearHands);
+            this.tabPage3.Controls.Add(this.lRecordSections);
+            this.tabPage3.Controls.Add(this.cblSections);
             this.tabPage3.Controls.Add(this.label14);
             this.tabPage3.Controls.Add(this.label13);
             this.tabPage3.Controls.Add(this.lWczytywane);
@@ -865,10 +871,22 @@
             this.tabPage3.Text = "Rozkłady";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // cblSections
+            // 
+            this.cblSections.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cblSections.CheckOnClick = true;
+            this.cblSections.FormattingEnabled = true;
+            this.cblSections.Location = new System.Drawing.Point(26, 178);
+            this.cblSections.MultiColumn = true;
+            this.cblSections.Name = "cblSections";
+            this.cblSections.Size = new System.Drawing.Size(456, 105);
+            this.cblSections.TabIndex = 6;
+            this.cblSections.SelectedIndexChanged += new System.EventHandler(this.cblSections_SelectedIndexChanged);
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 197);
+            this.label14.Location = new System.Drawing.Point(6, 315);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(247, 13);
             this.label14.TabIndex = 5;
@@ -877,7 +895,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 175);
+            this.label13.Location = new System.Drawing.Point(6, 293);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(476, 13);
             this.label13.TabIndex = 4;
@@ -929,6 +947,25 @@
             // openPBN
             // 
             this.openPBN.Filter = "PBN|*.pbn";
+            // 
+            // lRecordSections
+            // 
+            this.lRecordSections.AutoSize = true;
+            this.lRecordSections.Location = new System.Drawing.Point(23, 150);
+            this.lRecordSections.Name = "lRecordSections";
+            this.lRecordSections.Size = new System.Drawing.Size(46, 13);
+            this.lRecordSections.TabIndex = 7;
+            this.lRecordSections.Text = "Sektory:";
+            // 
+            // bClearHands
+            // 
+            this.bClearHands.Location = new System.Drawing.Point(334, 336);
+            this.bClearHands.Name = "bClearHands";
+            this.bClearHands.Size = new System.Drawing.Size(223, 23);
+            this.bClearHands.TabIndex = 8;
+            this.bClearHands.Text = "Usuń rozkłady dla wszystkich sektorów";
+            this.bClearHands.UseVisualStyleBackColor = true;
+            this.bClearHands.Click += new System.EventHandler(this.bClearHands_Click);
             // 
             // MainForm
             // 
@@ -1047,6 +1084,9 @@
         public System.Windows.Forms.CheckBox xCollectPlay;
         public System.Windows.Forms.CheckBox xCollectBidding;
         public System.Windows.Forms.CheckBox xCheckLeadCard;
+        public System.Windows.Forms.CheckedListBox cblSections;
+        private System.Windows.Forms.Label lRecordSections;
+        private System.Windows.Forms.Button bClearHands;
     }
 }
 
