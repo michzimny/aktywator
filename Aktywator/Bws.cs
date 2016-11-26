@@ -59,12 +59,12 @@ namespace Aktywator
             settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this));
         }
 
-        public string sectionsForHandRecords()
+        private string getSectionList(string table)
         {
             try
             {
                 string s;
-                data d = sql.select("SELECT DISTINCT `Section` FROM HandRecord ORDER BY 1");
+                data d = sql.select("SELECT DISTINCT `Section` FROM " + table + " ORDER BY 1");
                 d.Read();
                 s = d[0].ToString();
                 while (d.Read())
@@ -77,6 +77,17 @@ namespace Aktywator
             {
                 return null;
             }
+        }
+
+        public string getSections()
+        {
+            return this.getSectionList("RoundData");
+        }
+
+
+        public string sectionsForHandRecords()
+        {
+            return this.getSectionList("HandRecord");
         }
 
         public void runBCS()
