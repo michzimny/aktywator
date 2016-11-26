@@ -496,12 +496,29 @@ namespace Aktywator
             else return 0;
         }
 
+        private void clearRecords(string section)
+        {
+            sql.query("DELETE FROM HandRecord WHERE `Section` = " + section);
+            sql.query("DELETE FROM HandEvaluation WHERE `Section` = " + section);
+        }
+
+        public void clearHandRecords()
+        {
+            string sections = this.sectionsForHandRecords();
+            if (sections != null)
+            {
+                foreach (string section in this.sectionsForHandRecords().Split(','))
+                {
+                    this.clearRecords(section.Trim());
+                }
+            }
+        }
+
         public void loadHandRecords(PBN pbn)
         {
-            sql.query("DELETE FROM HandRecord");
-            sql.query("DELETE FROM HandEvaluation");
             foreach (string section in this.getSections().Split(','))
             {
+                this.clearRecords(section);
                 for (int i = this.lowBoard(section.Trim()); i <= this.highBoard(section.Trim()); i++)
                     if (pbn.handRecords[i] != null)
                     {

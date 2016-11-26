@@ -287,5 +287,18 @@ namespace Aktywator
             }
         }
 
+        private void bClearHands_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bws.clearHandRecords();
+                MessageBox.Show("Wyczyszczono rozkłady", "Rozkłady wyczyszczone!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Błąd czyszczenia rozkładów", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
