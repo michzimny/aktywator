@@ -404,20 +404,33 @@ namespace Aktywator
             }
         }
 
-        public int lowBoard()
+        private int getBoard(string function, string sector)
         {
-            string s = sql.selectOne("SELECT min(lowBoard) FROM RoundData WHERE lowBoard > 0");
+            sector = sector.Trim();
+            StringBuilder query = new StringBuilder();
+            query.Append("SELECT ");
+            query.Append(function);
+            query.Append(" FROM RoundData WHERE lowBoard > 0");
+            if (sector.Length > 0)
+            {
+                query.Append(" AND `Section` IN(");
+                query.Append(sector);
+                query.Append(")");
+            }
+            string s = sql.selectOne(query.ToString());
             int i;
             if (int.TryParse(s, out i)) return i;
             else return 0;
         }
 
-        public int highBoard()
+        public int lowBoard(string sector = "")
         {
-            string s = sql.selectOne("SELECT max(highBoard) FROM RoundData WHERE highBoard > 0");
-            int i;
-            if (int.TryParse(s, out i)) return i;
-            else return 0;
+            return this.getBoard("MIN(lowBoard)", sector);
+        }
+
+        public int highBoard(string sector = "")
+        {
+            return this.getBoard("MAX(highBoard)", sector);
         }
 
         public int highSection()
