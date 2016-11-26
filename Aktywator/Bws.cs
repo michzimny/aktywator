@@ -50,7 +50,7 @@ namespace Aktywator
             return character.ToString();
         }
 
-        private string getBoardRangeText(string[] sectors)
+        public string getBoardRangeText(string[] sectors)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("Wczytywane rozkłady:");
