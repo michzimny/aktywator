@@ -2,6 +2,13 @@
 - nie działa oddzielne maksowanie każdego sektora
 
 ---------------------
+Aktywator 1.0.6
+26.11.2016 [mkl]
+ * wczytywanie rozkładów jedynie dla istniejących sektorów (i potrzebnych w nich zakresach numeracji)
+ * możliwość wyboru sektorów do wczytywania rozkładów
+TODO: nieciągłe numeracje rozdań
+
+---------------------
 Aktywator 1.0.5
 20.11.2016 [mkl]
  * opcje zbierania licytacji i rozgrywki (BM2)

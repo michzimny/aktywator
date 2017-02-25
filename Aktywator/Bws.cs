@@ -27,7 +27,54 @@ namespace Aktywator
             this._filename = filename;
             sql = new Sql(filename);
             this.main = main;
-            main.lWczytywane.Text += this.lowBoard() + "-" + this.highBoard();
+            string[] sections = this.getSections().Split(',');
+            main.lWczytywane.Text = this.getBoardRangeText(sections);
+            foreach (string section in sections)
+            {
+                main.cblSections.Items.Add(this.sectorNumberToLetter(Int16.Parse(section)));
+            }
+            for (int i = 0; i < main.cblSections.Items.Count; i++)
+            {
+                main.cblSections.SetItemChecked(i, true);
+            }
+        }
+
+        private int sectorLetterToNumber(string sector)
+        {
+            return sector[0] - 'A' + 1;
+        }
+
+        private string sectorNumberToLetter(int sector)
+        {
+            char character = (char)('A' - 1 + sector);
+            return character.ToString();
+        }
+
+        public string getBoardRangeText(string[] sectors)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Wczytywane rozkłady:");
+            foreach (string sector in sectors)
+            {
+                sb.Append("\n      ");
+                sb.Append(this.lowBoard(sector));
+                sb.Append("-");
+                sb.Append(this.highBoard(sector));
+                sb.Append(" (sektor ");
+                sb.Append(this.sectorNumberToLetter(Int16.Parse(sector)));
+                sb.Append(")");
+            }
+            return sb.ToString();
+        }
+
+        public string[] getSelectedSections()
+        {
+            List<string> sections = new List<string>();
+            foreach (string section in main.cblSections.CheckedItems)
+            {
+                sections.Add(this.sectorLetterToNumber(section).ToString());
+            }
+            return sections.ToArray();
         }
 
         public void initSettings()
@@ -59,12 +106,12 @@ namespace Aktywator
             settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this));
         }
 
-        public string sectionsForHandRecords()
+        private string getSectionList(string table)
         {
             try
             {
                 string s;
-                data d = sql.select("SELECT DISTINCT `Section` FROM HandRecord ORDER BY 1");
+                data d = sql.select("SELECT DISTINCT `Section` FROM " + table + " ORDER BY 1");
                 d.Read();
                 s = d[0].ToString();
                 while (d.Read())
@@ -77,6 +124,17 @@ namespace Aktywator
             {
                 return null;
             }
+        }
+
+        public string getSections()
+        {
+            return this.getSectionList("RoundData");
+        }
+
+
+        public string sectionsForHandRecords()
+        {
+            return this.getSectionList("HandRecord");
         }
 
         public void runBCS()
@@ -393,20 +451,33 @@ namespace Aktywator
             }
         }
 
-        public int lowBoard()
+        private int getBoard(string function, string sector)
         {
-            string s = sql.selectOne("SELECT min(lowBoard) FROM RoundData WHERE lowBoard > 0");
+            sector = sector.Trim();
+            StringBuilder query = new StringBuilder();
+            query.Append("SELECT ");
+            query.Append(function);
+            query.Append(" FROM RoundData WHERE lowBoard > 0");
+            if (sector.Length > 0)
+            {
+                query.Append(" AND `Section` IN(");
+                query.Append(sector);
+                query.Append(")");
+            }
+            string s = sql.selectOne(query.ToString());
             int i;
             if (int.TryParse(s, out i)) return i;
             else return 0;
         }
 
-        public int highBoard()
+        public int lowBoard(string sector = "")
         {
-            string s = sql.selectOne("SELECT max(highBoard) FROM RoundData WHERE highBoard > 0");
-            int i;
-            if (int.TryParse(s, out i)) return i;
-            else return 0;
+            return this.getBoard("MIN(lowBoard)", sector);
+        }
+
+        public int highBoard(string sector = "")
+        {
+            return this.getBoard("MAX(highBoard)", sector);
         }
 
         public int highSection()
@@ -417,13 +488,40 @@ namespace Aktywator
             else return 0;
         }
 
-        public void loadHandRecords(PBN pbn)
+        public int lowSection()
         {
-            sql.query("DELETE FROM HandRecord");
-            sql.query("DELETE FROM HandEvaluation");
-            for (int i = 0; i < pbn.handRecords.Length; i++)
-                if (pbn.handRecords[i] != null)
-                    for (int section = 1; section <= highSection(); section++)
+            string s = sql.selectOne("SELECT min(`Section`) FROM `Tables`");
+            int i;
+            if (int.TryParse(s, out i)) return i;
+            else return 0;
+        }
+
+        private void clearRecords(string section)
+        {
+            sql.query("DELETE FROM HandRecord WHERE `Section` = " + section);
+            sql.query("DELETE FROM HandEvaluation WHERE `Section` = " + section);
+        }
+
+        public void clearHandRecords()
+        {
+            string sections = this.sectionsForHandRecords();
+            if (sections != null)
+            {
+                foreach (string section in this.sectionsForHandRecords().Split(','))
+                {
+                    this.clearRecords(section.Trim());
+                }
+            }
+        }
+
+        public int loadHandRecords(PBN pbn)
+        {
+            int count = 0;
+            foreach (string section in this.getSelectedSections())
+            {
+                this.clearRecords(section);
+                for (int i = this.lowBoard(section.Trim()); i <= this.highBoard(section.Trim()); i++)
+                    if (pbn.handRecords[i] != null)
                     {
                         HandRecord b = pbn.handRecords[i];
                         StringBuilder str = new StringBuilder(50);
@@ -473,7 +571,10 @@ namespace Aktywator
                             ddStr.Append(")");
                             sql.query(ddStr.ToString());
                         }
+                        count++;
                     }
+            }
+            return count;
         }
     }
 }

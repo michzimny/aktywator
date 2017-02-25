@@ -11,8 +11,8 @@ namespace Aktywator
 {
     public partial class MainForm : Form
     {
-        public string version = "1.0.4";
-        public string date = "12.04.2013";
+        public string version = "1.0.6";
+        public string date = "26.11.2016";
 
         private Bws bws;
         private Tournament tournament;
@@ -277,13 +277,31 @@ namespace Aktywator
                 try
                 {
                     PBN pbn = new PBN(openPBN.FileName, bws.lowBoard(), bws.highBoard());
-                    bws.loadHandRecords(pbn);
-                    MessageBox.Show("Wczytanych rozkładów: " + pbn.count, "Rozkłady wczytane!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int count = bws.loadHandRecords(pbn);
+                    MessageBox.Show("Wczytanych rozkładów: " + count, "Rozkłady wczytane!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Błąd wczytywania rozkładów", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void cblSections_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.lWczytywane.Text = bws.getBoardRangeText(bws.getSelectedSections());
+        }
+
+        private void bClearHands_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bws.clearHandRecords();
+                MessageBox.Show("Wyczyszczono rozkłady", "Rozkłady wyczyszczone!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Błąd czyszczenia rozkładów", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

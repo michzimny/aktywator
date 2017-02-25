@@ -45,6 +45,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.xCollectPlay = new System.Windows.Forms.CheckBox();
+            this.xCollectBidding = new System.Windows.Forms.CheckBox();
             this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
             this.xViewHandrecord = new System.Windows.Forms.CheckBox();
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
@@ -98,6 +100,7 @@
             this.bTournament = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cblSections = new System.Windows.Forms.CheckedListBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lWczytywane = new System.Windows.Forms.Label();
@@ -106,8 +109,8 @@
             this.bLoadHands = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
-            this.xCollectBidding = new System.Windows.Forms.CheckBox();
-            this.xCollectPlay = new System.Windows.Forms.CheckBox();
+            this.lRecordSections = new System.Windows.Forms.Label();
+            this.bClearHands = new System.Windows.Forms.Button();
             this.groupBoxTop.SuspendLayout();
             this.menu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -282,6 +285,26 @@
             this.tabPage1.Text = "Ustawienia";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // xCollectPlay
+            // 
+            this.xCollectPlay.AutoSize = true;
+            this.xCollectPlay.Location = new System.Drawing.Point(339, 138);
+            this.xCollectPlay.Name = "xCollectPlay";
+            this.xCollectPlay.Size = new System.Drawing.Size(146, 17);
+            this.xCollectPlay.TabIndex = 31;
+            this.xCollectPlay.Text = "zbieraj przebieg rozgrywki";
+            this.xCollectPlay.UseVisualStyleBackColor = true;
+            // 
+            // xCollectBidding
+            // 
+            this.xCollectBidding.AutoSize = true;
+            this.xCollectBidding.Location = new System.Drawing.Point(339, 115);
+            this.xCollectBidding.Name = "xCollectBidding";
+            this.xCollectBidding.Size = new System.Drawing.Size(97, 17);
+            this.xCollectBidding.TabIndex = 30;
+            this.xCollectBidding.Text = "zbieraj licytację";
+            this.xCollectBidding.UseVisualStyleBackColor = true;
+            // 
             // xCheckLeadCard
             // 
             this.xCheckLeadCard.AutoSize = true;
@@ -291,7 +314,7 @@
             this.xCheckLeadCard.TabIndex = 32;
             this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
             this.xCheckLeadCard.UseVisualStyleBackColor = true;
-            //
+            // 
             // xViewHandrecord
             // 
             this.xViewHandrecord.AutoSize = true;
@@ -831,6 +854,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.bClearHands);
+            this.tabPage3.Controls.Add(this.lRecordSections);
+            this.tabPage3.Controls.Add(this.cblSections);
             this.tabPage3.Controls.Add(this.label14);
             this.tabPage3.Controls.Add(this.label13);
             this.tabPage3.Controls.Add(this.lWczytywane);
@@ -845,10 +871,22 @@
             this.tabPage3.Text = "Rozkłady";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // cblSections
+            // 
+            this.cblSections.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cblSections.CheckOnClick = true;
+            this.cblSections.FormattingEnabled = true;
+            this.cblSections.Location = new System.Drawing.Point(26, 178);
+            this.cblSections.MultiColumn = true;
+            this.cblSections.Name = "cblSections";
+            this.cblSections.Size = new System.Drawing.Size(456, 105);
+            this.cblSections.TabIndex = 6;
+            this.cblSections.SelectedIndexChanged += new System.EventHandler(this.cblSections_SelectedIndexChanged);
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 197);
+            this.label14.Location = new System.Drawing.Point(6, 315);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(247, 13);
             this.label14.TabIndex = 5;
@@ -857,7 +895,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 175);
+            this.label13.Location = new System.Drawing.Point(6, 293);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(476, 13);
             this.label13.TabIndex = 4;
@@ -868,7 +906,7 @@
             // 
             this.lWczytywane.AutoSize = true;
             this.lWczytywane.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lWczytywane.Location = new System.Drawing.Point(192, 99);
+            this.lWczytywane.Location = new System.Drawing.Point(218, 84);
             this.lWczytywane.Name = "lWczytywane";
             this.lWczytywane.Size = new System.Drawing.Size(139, 13);
             this.lWczytywane.TabIndex = 3;
@@ -910,25 +948,24 @@
             // 
             this.openPBN.Filter = "PBN|*.pbn";
             // 
-            // xCollectBidding
+            // lRecordSections
             // 
-            this.xCollectBidding.AutoSize = true;
-            this.xCollectBidding.Location = new System.Drawing.Point(339, 115);
-            this.xCollectBidding.Name = "xCollectBidding";
-            this.xCollectBidding.Size = new System.Drawing.Size(97, 17);
-            this.xCollectBidding.TabIndex = 30;
-            this.xCollectBidding.Text = "zbieraj licytację";
-            this.xCollectBidding.UseVisualStyleBackColor = true;
+            this.lRecordSections.AutoSize = true;
+            this.lRecordSections.Location = new System.Drawing.Point(23, 150);
+            this.lRecordSections.Name = "lRecordSections";
+            this.lRecordSections.Size = new System.Drawing.Size(46, 13);
+            this.lRecordSections.TabIndex = 7;
+            this.lRecordSections.Text = "Sektory:";
             // 
-            // xCollectPlay
+            // bClearHands
             // 
-            this.xCollectPlay.AutoSize = true;
-            this.xCollectPlay.Location = new System.Drawing.Point(339, 138);
-            this.xCollectPlay.Name = "xCollectPlay";
-            this.xCollectPlay.Size = new System.Drawing.Size(146, 17);
-            this.xCollectPlay.TabIndex = 31;
-            this.xCollectPlay.Text = "zbieraj przebieg rozgrywki";
-            this.xCollectPlay.UseVisualStyleBackColor = true;
+            this.bClearHands.Location = new System.Drawing.Point(334, 336);
+            this.bClearHands.Name = "bClearHands";
+            this.bClearHands.Size = new System.Drawing.Size(223, 23);
+            this.bClearHands.TabIndex = 8;
+            this.bClearHands.Text = "Usuń rozkłady dla wszystkich sektorów";
+            this.bClearHands.UseVisualStyleBackColor = true;
+            this.bClearHands.Click += new System.EventHandler(this.bClearHands_Click);
             // 
             // MainForm
             // 
@@ -1047,6 +1084,9 @@
         public System.Windows.Forms.CheckBox xCollectPlay;
         public System.Windows.Forms.CheckBox xCollectBidding;
         public System.Windows.Forms.CheckBox xCheckLeadCard;
+        public System.Windows.Forms.CheckedListBox cblSections;
+        private System.Windows.Forms.Label lRecordSections;
+        private System.Windows.Forms.Button bClearHands;
     }
 }
 
