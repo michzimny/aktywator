@@ -17,6 +17,11 @@ namespace Aktywator
         {
             get { return _count; }
         }
+        private String _title;
+        public String title
+        {
+            get { return _title; }
+        }
 
         public PBN(string filename, int lowBoard, int highBoard)
         {
@@ -37,6 +42,10 @@ namespace Aktywator
                     this.ddTables[boardNo] = new DDTable(board);
                     this._count++;
                 }
+            }
+            if (pbn.Boards.Count > 0 && pbn.Boards[0].HasField("Event"))
+            {
+                this._title = pbn.Boards[0].GetField("Event");
             }
         }
 

@@ -277,8 +277,30 @@ namespace Aktywator
                 try
                 {
                     PBN pbn = new PBN(openPBN.FileName, bws.lowBoard(), bws.highBoard());
-                    int count = bws.loadHandRecords(pbn);
-                    MessageBox.Show("Wczytanych rozkładów: " + count, "Rozkłady wczytane!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    StringBuilder confirmMsg = new StringBuilder();
+                    confirmMsg.Append("Wczytane zostaną rozkłady z następującego pliku:\n" + "");
+                    if (pbn.title != null && !pbn.title.Equals(""))
+                    {
+                        confirmMsg.Append("\nNagłówek pliku: " + pbn.title);
+                    }
+                    confirmMsg.Append("\nPierwszy rozkład: ");
+                    for (int i = 0; i < pbn.handRecords[bws.lowBoard()].north.Length; i++)
+                    {
+                        if ("".Equals(pbn.handRecords[bws.lowBoard()].north[i]))
+                        {
+                            confirmMsg.Append("renons, ");
+                        }
+                        else
+                        {
+                            confirmMsg.Append(pbn.handRecords[bws.lowBoard()].north[i]);
+                            break;
+                        }
+                    }
+                    if (MessageBox.Show(confirmMsg.ToString(), "Potwierdź rozkłady", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        int count = bws.loadHandRecords(pbn);
+                        MessageBox.Show("Wczytanych rozkładów: " + count, "Rozkłady wczytane!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 catch (Exception ex)
                 {
