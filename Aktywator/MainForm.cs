@@ -82,6 +82,24 @@ namespace Aktywator
             foreach (Setting s in this.bwsSettings)
             {
                 s.field.CheckedChanged += new EventHandler(setting_field_CheckedChanged);
+                StringBuilder tBuilder = new StringBuilder();
+                if (s.bcsV != null)
+                {
+                    tBuilder.Append("BCS >= ");
+                    tBuilder.Append(s.bcsV);
+                    tBuilder.Append(", ");
+                }
+                if (s.fwV != null)
+                {
+                    tBuilder.Append("firmware >= ");
+                    tBuilder.Append(s.fwV);
+                }
+                String title = tBuilder.ToString().Trim().Trim(',');
+                if (!("".Equals(title)))
+                {
+                    ToolTip tip = new ToolTip();
+                    tip.SetToolTip(s.field, title);
+                }
             }
         }
 
