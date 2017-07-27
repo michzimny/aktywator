@@ -16,6 +16,7 @@ namespace Aktywator
         public string date = "28.06.2017";
 
         private Bws bws;
+        private List<Setting> bwsSettings;
         private Tournament tournament;
 
         private Version BCSVersion;
@@ -65,7 +66,9 @@ namespace Aktywator
                     bws.convert();
 
             labelFilename.Text = filename;
-            bws.initSettings();
+            // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
+            this.bwsSettings = new List<Setting>(bws.initSettings());
+            this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
             bws.loadSettings();
             this.WindowState = FormWindowState.Normal;
         }
