@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using Microsoft.Win32;
 
 namespace Aktywator
 {
@@ -16,6 +17,8 @@ namespace Aktywator
 
         private Bws bws;
         private Tournament tournament;
+
+        private Version BCSVersion;
 
         public MainForm()
         {
@@ -31,6 +34,17 @@ namespace Aktywator
         {
             status2.Text = "Wersja " + this.version;
             status3.Text = "Data: " + this.date;
+
+            string detectedVersion = detectBCSVersion();
+            if (detectedVersion != null)
+            {
+                lDetectedVersion.Text = detectedVersion;
+                BCSVersion = new Version(detectedVersion);
+            }
+            else
+            {
+                lDetectedVersion.Text = "nie wykryto";
+            }
 
             string filename;
             string[] args = Environment.GetCommandLineArgs();
@@ -54,6 +68,45 @@ namespace Aktywator
             bws.initSettings();
             bws.loadSettings();
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private string detectBCSVersion()
+        {
+            RegistryKey[] keys = 
+            {
+                Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall"),
+                Registry.CurrentUser.OpenSubKey("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall"),
+                Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall"),
+                Registry.LocalMachine.OpenSubKey("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall")
+            };
+            foreach (RegistryKey key in keys)
+            {
+                if (key != null)
+                {
+                    foreach (var subKey in key.GetSubKeyNames())
+                    {
+                        RegistryKey appKey = key.OpenSubKey(subKey);
+                        if (appKey != null)
+                        {
+                            foreach (var value in appKey.GetValueNames())
+                            {
+                                string keyValue = Convert.ToString(appKey.GetValue("Publisher"));
+                                if (!keyValue.Equals("Bridge Systems BV", StringComparison.OrdinalIgnoreCase))
+                                    continue;
+
+                                string productName = Convert.ToString(appKey.GetValue("DisplayName"));
+                                if (!productName.Equals("Bridgemate Control Software", StringComparison.OrdinalIgnoreCase)
+                                    && !productName.Equals("Bridgemate Pro Control", StringComparison.OrdinalIgnoreCase))
+                                    continue;
+
+                                string version = Convert.ToString(appKey.GetValue("DisplayVersion"));
+                                return version;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         private void bLaunch_Click(object sender, EventArgs e)
