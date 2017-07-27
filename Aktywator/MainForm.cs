@@ -12,8 +12,8 @@ namespace Aktywator
 {
     public partial class MainForm : Form
     {
-        public string version = "1.0.7";
-        public string date = "28.06.2017";
+        public string version = "1.0.8";
+        public string date = "27.07.2017";
 
         private Bws bws;
         private List<Setting> bwsSettings;
