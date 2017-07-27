@@ -99,6 +99,12 @@ namespace Aktywator
                                     && !productName.Equals("Bridgemate Pro Control", StringComparison.OrdinalIgnoreCase))
                                     continue;
 
+                                string appPath = Convert.ToString(appKey.GetValue("InstallLocation"));
+                                if (appPath != null)
+                                {
+                                    Bws.setAppLocation(appPath);
+                                }
+
                                 string version = Convert.ToString(appKey.GetValue("DisplayVersion"));
                                 return version;
                             }
