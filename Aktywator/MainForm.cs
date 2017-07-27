@@ -21,6 +21,9 @@ namespace Aktywator
 
         private Version BCSVersion;
 
+        public static Version requiredBCSVersion;
+        public static Version requiredFWVersion;
+
         public MainForm()
         {
             InitializeComponent();
@@ -69,8 +72,54 @@ namespace Aktywator
             // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
             this.bwsSettings = new List<Setting>(bws.initSettings());
             this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
+            bindSettingChanges();
             bws.loadSettings();
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private void bindSettingChanges()
+        {
+            foreach (Setting s in this.bwsSettings)
+            {
+                s.field.CheckedChanged += new EventHandler(setting_field_CheckedChanged);
+            }
+        }
+
+        void setting_field_CheckedChanged(object sender, EventArgs e)
+        {
+            requiredBCSVersion = null;
+            requiredFWVersion = null;
+            foreach (Setting s in this.bwsSettings)
+            {
+                if (s.field.Checked)
+                {
+                    if (requiredBCSVersion == null || requiredBCSVersion < s.bcsV)
+                    {
+                        requiredBCSVersion = s.bcsV;
+                    }
+                    if (requiredFWVersion == null || requiredFWVersion < s.fwV)
+                    {
+                        requiredFWVersion = s.fwV;
+                    }
+                }
+            }
+            lRequiredVersion.Text = (requiredBCSVersion != null) ? requiredBCSVersion.ToString() : "--";
+            lRequiredFirmware.Text = (requiredFWVersion != null) ? requiredFWVersion.ToString() : "--";
+            if (BCSVersion != null)
+            {
+                if (requiredBCSVersion > BCSVersion)
+                {
+                    lDetectedVersion.ForeColor = Color.Red;
+                }
+                else
+                {
+                    lDetectedVersion.ForeColor = Color.Green;
+                }
+            }
+            else
+            {
+                lDetectedVersion.ForeColor = Color.Black;
+            }
         }
 
         private string detectBCSVersion()
