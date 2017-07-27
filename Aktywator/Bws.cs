@@ -21,6 +21,7 @@ namespace Aktywator
         public List<Setting> settings;
         private MainForm main;
         public bool settingsChanged = false;
+        private static string applicationPath = Common.ProgramFilesx86() + "\\Bridgemate Pro\\";
 
         public Bws(string filename, MainForm main)
         {
@@ -137,9 +138,15 @@ namespace Aktywator
             return this.getSectionList("HandRecord");
         }
 
+
+        internal static void setAppLocation(string appPath)
+        {
+            applicationPath = appPath;
+        }
+
         public void runBCS()
         {
-            string app = Common.ProgramFilesx86() + "\\Bridgemate Pro\\BMPro.exe";
+            string app = applicationPath + "BMPro.exe";
             string param = "";
             param += " /f[" + filename + " ]";
             param += " /s";
