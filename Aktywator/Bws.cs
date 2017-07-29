@@ -364,7 +364,7 @@ namespace Aktywator
             }
             else
             {
-                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Table`<=100");
+                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Table`<=" + SKOK_STOLOW);
             }
 
             while (d.Read())
