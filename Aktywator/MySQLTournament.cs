@@ -6,7 +6,7 @@ using data = MySql.Data.MySqlClient.MySqlDataReader;
 
 namespace Aktywator
 {
-    public class Tournament
+    public class MySQLTournament
     {
         public const int TYPE_PARY = 1;
         public const int TYPE_TEAMY = 2;
@@ -26,7 +26,7 @@ namespace Aktywator
 
         public MySQL mysql;
 
-        public Tournament(string name)
+        public MySQLTournament(string name)
         {
             this._name = name;
             mysql = new MySQL(name);
@@ -38,28 +38,28 @@ namespace Aktywator
             if ((mysql.selectOne("SHOW TABLES LIKE 'admin'") == "admin")
                     && (mysql.selectOne("SHOW FIELDS IN admin LIKE 'dnazwa'") == "dnazwa")
                     && (mysql.selectOne("SHOW TABLES LIKE 'zawodnicy'") == "zawodnicy"))
-                _type = Tournament.TYPE_PARY;
+                _type = MySQLTournament.TYPE_PARY;
             else if ((mysql.selectOne("SHOW TABLES LIKE 'admin'") == "admin")
                     && (mysql.selectOne("SHOW FIELDS IN admin LIKE 'teamcnt'") == "teamcnt")
                     && (mysql.selectOne("SHOW TABLES LIKE 'players'") == "players"))
-                _type = Tournament.TYPE_TEAMY;
-            else _type = Tournament.TYPE_UNKNOWN;
+                _type = MySQLTournament.TYPE_TEAMY;
+            else _type = MySQLTournament.TYPE_UNKNOWN;
         }
 
         public override string ToString()
         {
-            return this.name + " [" + (this.type == Tournament.TYPE_PARY ? 'P' : 'T') + "]";
+            return this.name + " [" + (this.type == MySQLTournament.TYPE_PARY ? 'P' : 'T') + "]";
         }
 
-        public static List<Tournament> getTournaments()
+        public static List<MySQLTournament> getTournaments()
         {
-            List<Tournament> list = new List<Tournament>();
+            List<MySQLTournament> list = new List<MySQLTournament>();
             MySQL c = new MySQL("");
             data dbs = c.select("SHOW DATABASES;");
             while (dbs.Read())
             {
-                Tournament t = new Tournament(dbs.GetString(0));
-                if (t.type > Tournament.TYPE_UNKNOWN)
+                MySQLTournament t = new MySQLTournament(dbs.GetString(0));
+                if (t.type > MySQLTournament.TYPE_UNKNOWN)
                     list.Add(t);
                 t.mysql.close();
             }
@@ -68,7 +68,7 @@ namespace Aktywator
 
         public string getSectionsNum()
         {
-            if (type == Tournament.TYPE_PARY)
+            if (type == MySQLTournament.TYPE_PARY)
                 return mysql.selectOne("SELECT COUNT(DISTINCT seknum) FROM sektory;");
             else 
                 return "1";
@@ -76,7 +76,7 @@ namespace Aktywator
 
         public string getTablesNum()
         {
-            if (type == Tournament.TYPE_PARY)
+            if (type == MySQLTournament.TYPE_PARY)
                 return mysql.selectOne("SELECT COUNT(*) FROM sektory;");
             else
                 return mysql.selectOne("SELECT teamcnt FROM admin;");
@@ -99,7 +99,7 @@ namespace Aktywator
 
         internal string getTypeLabel()
         {
-            return this._type == Tournament.TYPE_PARY ? "Pary" : "Teamy";
+            return this._type == MySQLTournament.TYPE_PARY ? "Pary" : "Teamy";
         }
     }
 }

@@ -344,7 +344,7 @@ namespace Aktywator
             else return 0;
         }
 
-        public void syncNames(Tournament tournament, bool interactive, string startRounds)
+        public void syncNames(MySQLTournament tournament, bool interactive, string startRounds)
         {
             int count = 0, countNew = 0, SKOK_STOLOW = 100;
             data d;

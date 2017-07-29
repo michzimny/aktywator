@@ -107,7 +107,7 @@
     <Compile Include="Setting.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Sql.cs" />
-    <Compile Include="Tournament.cs" />
+    <Compile Include="MySQLTournament.cs" />
     <EmbeddedResource Include="ChooseTournament.resx">
       <DependentUpon>ChooseTournament.cs</DependentUpon>
     </EmbeddedResource>

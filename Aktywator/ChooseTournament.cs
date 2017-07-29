@@ -10,8 +10,8 @@ namespace Aktywator
 {
     public partial class ChooseTournament : Form
     {
-        private Tournament[] turns;
-        public Tournament chosenTournament;
+        private MySQLTournament[] turns;
+        public MySQLTournament chosenTournament;
 
         public ChooseTournament()
         {
@@ -20,10 +20,10 @@ namespace Aktywator
 
         private void ChooseTournament_Load(object sender, EventArgs e)
         {
-            List<Tournament> list = Tournament.getTournaments();
-            turns = new Tournament[list.Count];
+            List<MySQLTournament> list = MySQLTournament.getTournaments();
+            turns = new MySQLTournament[list.Count];
             int c = 0;
-            foreach (Tournament t in list)
+            foreach (MySQLTournament t in list)
             {
                 turns[c++] = t;
                 listBox.Items.Add(t.ToString());
