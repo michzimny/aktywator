@@ -396,6 +396,8 @@ namespace Aktywator
                 }
                 mydata n = tournament.mysql.select(query.ToString());
 
+                DialogResult dr = DialogResult.None;
+
                 try
                 {
                     n.Read();
@@ -424,23 +426,27 @@ namespace Aktywator
                     {
                         if (ee.ErrorCode == -2147467259)
                         {
-                            DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + ns + " albo " + ew
+                            dr = MessageBox.Show("W bws-ie jest para/team (" + ns + " albo " + ew
                                 + "), który nie istnieje w wybranym turnieju. Może to nie ten turniej?"
                                 + "\n\n" + "Kontynuować wczytywanie?",
                                 "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                            if (dr == DialogResult.No) return;
                         }
                         else
                         {
-                            MessageBox.Show(ee.Message, "Błąd MySQL", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Warning);
+                            dr = MessageBox.Show(ee.Message + "\n\n" + "Kontynuować?",
+                                "Błąd MySQL", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         }
                     }
                 }
-                try
+                finally
                 {
-                    n.Close();
+                    try
+                    {
+                        n.Close();
+                    }
+                    catch (Exception) { }
                 }
-                catch (Exception) { }
+                if (dr == DialogResult.No) break;
             }
             if (interactive)
             {
