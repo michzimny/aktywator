@@ -163,7 +163,7 @@ namespace Aktywator
             }
         }
 
-        private void bTournament_Click(object sender, EventArgs e)
+        private void bMySQLTournament_Click(object sender, EventArgs e)
         {
             try
             {
@@ -245,7 +245,7 @@ namespace Aktywator
                 timer.Interval = interval * 1000;
                 eInterval.Enabled = false;
                 bAutoSync.Text = "pracuje się...";
-                bTournament.Enabled = false;
+                bMySQLTournament.Enabled = false;
                 bMysqlSettings.Enabled = false;
                 timer.Enabled = true;
             }
@@ -254,7 +254,7 @@ namespace Aktywator
                 timer.Enabled = false;
                 bAutoSync.Text = "Synchronizuj cyklicznie";
                 eInterval.Enabled = true;
-                bTournament.Enabled = true;
+                bMySQLTournament.Enabled = true;
                 bMysqlSettings.Enabled = true;
             }
         }

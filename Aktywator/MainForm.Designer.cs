@@ -97,9 +97,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lTournament = new System.Windows.Forms.Label();
-            this.bTournament = new System.Windows.Forms.Button();
+            this.bMySQLTournament = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.bClearHands = new System.Windows.Forms.Button();
+            this.lRecordSections = new System.Windows.Forms.Label();
             this.cblSections = new System.Windows.Forms.CheckedListBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -109,8 +111,7 @@
             this.bLoadHands = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
-            this.lRecordSections = new System.Windows.Forms.Label();
-            this.bClearHands = new System.Windows.Forms.Button();
+            this.bRRBTournament = new System.Windows.Forms.Button();
             this.groupBoxTop.SuspendLayout();
             this.menu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -614,6 +615,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.bRRBTournament);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.eOomRounds);
             this.tabPage2.Controls.Add(this.bForceSync);
@@ -634,7 +636,7 @@
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.lTournament);
-            this.tabPage2.Controls.Add(this.bTournament);
+            this.tabPage2.Controls.Add(this.bMySQLTournament);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -685,7 +687,7 @@
             // lSkok
             // 
             this.lSkok.AutoSize = true;
-            this.lSkok.Location = new System.Drawing.Point(77, 150);
+            this.lSkok.Location = new System.Drawing.Point(77, 164);
             this.lSkok.Name = "lSkok";
             this.lSkok.Size = new System.Drawing.Size(188, 13);
             this.lSkok.TabIndex = 19;
@@ -776,7 +778,7 @@
             // lTables
             // 
             this.lTables.AutoSize = true;
-            this.lTables.Location = new System.Drawing.Point(77, 127);
+            this.lTables.Location = new System.Drawing.Point(77, 138);
             this.lTables.Name = "lTables";
             this.lTables.Size = new System.Drawing.Size(0, 13);
             this.lTables.TabIndex = 8;
@@ -784,7 +786,7 @@
             // lSections
             // 
             this.lSections.AutoSize = true;
-            this.lSections.Location = new System.Drawing.Point(77, 102);
+            this.lSections.Location = new System.Drawing.Point(77, 113);
             this.lSections.Name = "lSections";
             this.lSections.Size = new System.Drawing.Size(0, 13);
             this.lSections.TabIndex = 7;
@@ -792,7 +794,7 @@
             // lType
             // 
             this.lType.AutoSize = true;
-            this.lType.Location = new System.Drawing.Point(77, 77);
+            this.lType.Location = new System.Drawing.Point(77, 88);
             this.lType.Name = "lType";
             this.lType.Size = new System.Drawing.Size(0, 13);
             this.lType.TabIndex = 6;
@@ -800,7 +802,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 127);
+            this.label6.Location = new System.Drawing.Point(9, 138);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 5;
@@ -809,7 +811,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 102);
+            this.label5.Location = new System.Drawing.Point(9, 113);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 4;
@@ -818,7 +820,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 77);
+            this.label4.Location = new System.Drawing.Point(9, 88);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
             this.label4.TabIndex = 3;
@@ -828,20 +830,20 @@
             // 
             this.lTournament.AutoSize = true;
             this.lTournament.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lTournament.Location = new System.Drawing.Point(135, 30);
+            this.lTournament.Location = new System.Drawing.Point(149, 48);
             this.lTournament.Name = "lTournament";
             this.lTournament.Size = new System.Drawing.Size(0, 16);
             this.lTournament.TabIndex = 2;
             // 
-            // bTournament
+            // bMySQLTournament
             // 
-            this.bTournament.Location = new System.Drawing.Point(54, 27);
-            this.bTournament.Name = "bTournament";
-            this.bTournament.Size = new System.Drawing.Size(75, 23);
-            this.bTournament.TabIndex = 1;
-            this.bTournament.Text = "wybierz";
-            this.bTournament.UseVisualStyleBackColor = true;
-            this.bTournament.Click += new System.EventHandler(this.bTournament_Click);
+            this.bMySQLTournament.Location = new System.Drawing.Point(54, 27);
+            this.bMySQLTournament.Name = "bMySQLTournament";
+            this.bMySQLTournament.Size = new System.Drawing.Size(89, 23);
+            this.bMySQLTournament.TabIndex = 1;
+            this.bMySQLTournament.Text = "wybierz (JFR)";
+            this.bMySQLTournament.UseVisualStyleBackColor = true;
+            this.bMySQLTournament.Click += new System.EventHandler(this.bMySQLTournament_Click);
             // 
             // label3
             // 
@@ -870,6 +872,25 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Rozkłady";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // bClearHands
+            // 
+            this.bClearHands.Location = new System.Drawing.Point(334, 336);
+            this.bClearHands.Name = "bClearHands";
+            this.bClearHands.Size = new System.Drawing.Size(223, 23);
+            this.bClearHands.TabIndex = 8;
+            this.bClearHands.Text = "Usuń rozkłady dla wszystkich sektorów";
+            this.bClearHands.UseVisualStyleBackColor = true;
+            this.bClearHands.Click += new System.EventHandler(this.bClearHands_Click);
+            // 
+            // lRecordSections
+            // 
+            this.lRecordSections.AutoSize = true;
+            this.lRecordSections.Location = new System.Drawing.Point(23, 150);
+            this.lRecordSections.Name = "lRecordSections";
+            this.lRecordSections.Size = new System.Drawing.Size(46, 13);
+            this.lRecordSections.TabIndex = 7;
+            this.lRecordSections.Text = "Sektory:";
             // 
             // cblSections
             // 
@@ -948,24 +969,14 @@
             // 
             this.openPBN.Filter = "PBN|*.pbn";
             // 
-            // lRecordSections
+            // bRRBTournament
             // 
-            this.lRecordSections.AutoSize = true;
-            this.lRecordSections.Location = new System.Drawing.Point(23, 150);
-            this.lRecordSections.Name = "lRecordSections";
-            this.lRecordSections.Size = new System.Drawing.Size(46, 13);
-            this.lRecordSections.TabIndex = 7;
-            this.lRecordSections.Text = "Sektory:";
-            // 
-            // bClearHands
-            // 
-            this.bClearHands.Location = new System.Drawing.Point(334, 336);
-            this.bClearHands.Name = "bClearHands";
-            this.bClearHands.Size = new System.Drawing.Size(223, 23);
-            this.bClearHands.TabIndex = 8;
-            this.bClearHands.Text = "Usuń rozkłady dla wszystkich sektorów";
-            this.bClearHands.UseVisualStyleBackColor = true;
-            this.bClearHands.Click += new System.EventHandler(this.bClearHands_Click);
+            this.bRRBTournament.Location = new System.Drawing.Point(54, 51);
+            this.bRRBTournament.Name = "bRRBTournament";
+            this.bRRBTournament.Size = new System.Drawing.Size(89, 23);
+            this.bRRBTournament.TabIndex = 25;
+            this.bRRBTournament.Text = "wybierz (RRB)";
+            this.bRRBTournament.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1049,7 +1060,7 @@
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Button bLoad;
         private System.Windows.Forms.Label lTournament;
-        private System.Windows.Forms.Button bTournament;
+        private System.Windows.Forms.Button bMySQLTournament;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lTables;
@@ -1087,6 +1098,7 @@
         public System.Windows.Forms.CheckedListBox cblSections;
         private System.Windows.Forms.Label lRecordSections;
         private System.Windows.Forms.Button bClearHands;
+        private System.Windows.Forms.Button bRRBTournament;
     }
 }
 
