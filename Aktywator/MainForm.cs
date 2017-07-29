@@ -171,34 +171,44 @@ namespace Aktywator
                 choose.ShowDialog();
                 if (choose.chosenTournament != null)
                 {
-                    if ((tournament != null) && (tournament.mysql != null))
-                        tournament.mysql.close();
-
                     tournament = choose.chosenTournament;
-                    tournament.mysql.connect();
-
-                    lTournament.Text = tournament.name;
-                    lType.Text = tournament.type == 1 ? "Pary" : "Teamy";
-                    lSections.Text = tournament.getSectionsNum();
-                    lTables.Text = tournament.getTablesNum();
-                    bSync.Enabled = true;
-                    bAutoSync.Enabled = true;
-                    eInterval.Enabled = true;
-                    if (tournament.type == 2)
-                    {
-                        lSkok.Visible = true;
-                        lNazwyTeamow.Visible = true;
-                    }
-                    else
-                    {
-                        lSkok.Visible = false;
-                        lNazwyTeamow.Visible = false;
-                    }
+                    updateTournamentInfo(tournament);
                 }
             }
             catch (Exception ee)
             {
                 MessageBox.Show(ee.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void updateTournamentInfo(Tournament tournament)
+        {
+            if (tournament != null)
+            {
+                tournament.setup();
+
+                lTournament.Text = tournament.getName();
+                lType.Text = tournament.getTypeLabel();
+                lSections.Text = tournament.getSectionsNum();
+                lTables.Text = tournament.getTablesNum();
+                bSync.Enabled = true;
+                bAutoSync.Enabled = true;
+                eInterval.Enabled = true;
+                if (tournament.type == Tournament.TYPE_TEAMY)
+                {
+                    lSkok.Visible = true;
+                    lNazwyTeamow.Visible = true;
+                }
+                else
+                {
+                    lSkok.Visible = false;
+                    lNazwyTeamow.Visible = false;
+                }
+            }
+            else
+            {
+                lSkok.Visible = false;
+                lNazwyTeamow.Visible = false;
             }
         }
 
