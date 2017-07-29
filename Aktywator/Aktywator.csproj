@@ -99,6 +99,7 @@
     <Compile Include="MysqlSettings.Designer.cs">
       <DependentUpon>MysqlSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="ParyTournament.cs" />
     <Compile Include="PBN.cs" />
     <Compile Include="PBNBoard.cs" />
     <Compile Include="PBNFile.cs" />
@@ -108,6 +109,8 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Sql.cs" />
     <Compile Include="MySQLTournament.cs" />
+    <Compile Include="TeamyTournament.cs" />
+    <Compile Include="Tournament.cs" />
     <EmbeddedResource Include="ChooseTournament.resx">
       <DependentUpon>ChooseTournament.cs</DependentUpon>
     </EmbeddedResource>

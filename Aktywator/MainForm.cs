@@ -15,7 +15,7 @@ namespace Aktywator
         public string date = "28.06.2017";
 
         private Bws bws;
-        private MySQLTournament tournament;
+        private Tournament tournament;
 
         public MainForm()
         {
@@ -181,7 +181,7 @@ namespace Aktywator
             }
         }
 
-        private void updateTournamentInfo(MySQLTournament tournament)
+        private void updateTournamentInfo(Tournament tournament)
         {
             if (tournament != null)
             {
@@ -194,7 +194,7 @@ namespace Aktywator
                 bSync.Enabled = true;
                 bAutoSync.Enabled = true;
                 eInterval.Enabled = true;
-                if (tournament.type == MySQLTournament.TYPE_TEAMY)
+                if (tournament.GetType().Equals(typeof(TeamyTournament)))
                 {
                     lSkok.Visible = true;
                     lNazwyTeamow.Visible = true;
@@ -209,6 +209,7 @@ namespace Aktywator
             {
                 lSkok.Visible = false;
                 lNazwyTeamow.Visible = false;
+                
             }
         }
 

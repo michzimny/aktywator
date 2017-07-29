@@ -344,7 +344,7 @@ namespace Aktywator
             else return 0;
         }
 
-        public void syncNames(MySQLTournament tournament, bool interactive, string startRounds)
+        public void syncNames(Tournament tournament, bool interactive, string startRounds)
         {
             int count = 0, countNew = 0, SKOK_STOLOW = 100;
             data d;
@@ -394,7 +394,7 @@ namespace Aktywator
                     query.Append(ew);
                     query.Append(" UNION ALL SELECT ' '; ");
                 }
-                mydata n = tournament.mysql.select(query.ToString());
+                mydata n = ((MySQLTournament)tournament).mysql.select(query.ToString());
 
                 DialogResult dr = DialogResult.None;
 

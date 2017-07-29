@@ -34,7 +34,15 @@ namespace Aktywator
         {
             if (listBox.SelectedIndex >= 0)
             {
-                chosenTournament = turns[listBox.SelectedIndex];
+                switch (turns[listBox.SelectedIndex].type)
+                {
+                    case Tournament.TYPE_PARY:
+                        chosenTournament = new ParyTournament(turns[listBox.SelectedIndex].name);
+                        break;
+                    case Tournament.TYPE_TEAMY:
+                        chosenTournament = new TeamyTournament(turns[listBox.SelectedIndex].name);
+                        break;
+                }
                 Close();
             }
         }

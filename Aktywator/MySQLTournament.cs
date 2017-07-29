@@ -6,24 +6,8 @@ using data = MySql.Data.MySqlClient.MySqlDataReader;
 
 namespace Aktywator
 {
-    public class MySQLTournament
+    public class MySQLTournament : Tournament
     {
-        public const int TYPE_PARY = 1;
-        public const int TYPE_TEAMY = 2;
-        public const int TYPE_UNKNOWN = 0;
-
-        private string _name;
-        public string name
-        {
-            get { return _name; }
-        }
-
-        private int _type; // 0-unknown, 1-Pary, 2-Teamy
-        public int type
-        {
-            get { return _type; }
-        }
-
         public MySQL mysql;
 
         public MySQLTournament(string name)
@@ -38,17 +22,17 @@ namespace Aktywator
             if ((mysql.selectOne("SHOW TABLES LIKE 'admin'") == "admin")
                     && (mysql.selectOne("SHOW FIELDS IN admin LIKE 'dnazwa'") == "dnazwa")
                     && (mysql.selectOne("SHOW TABLES LIKE 'zawodnicy'") == "zawodnicy"))
-                _type = MySQLTournament.TYPE_PARY;
+                _type = Tournament.TYPE_PARY;
             else if ((mysql.selectOne("SHOW TABLES LIKE 'admin'") == "admin")
                     && (mysql.selectOne("SHOW FIELDS IN admin LIKE 'teamcnt'") == "teamcnt")
                     && (mysql.selectOne("SHOW TABLES LIKE 'players'") == "players"))
-                _type = MySQLTournament.TYPE_TEAMY;
-            else _type = MySQLTournament.TYPE_UNKNOWN;
+                _type = Tournament.TYPE_TEAMY;
+            else _type = Tournament.TYPE_UNKNOWN;
         }
 
         public override string ToString()
         {
-            return this.name + " [" + (this.type == MySQLTournament.TYPE_PARY ? 'P' : 'T') + "]";
+            return this.name + " [" + (this.type == Tournament.TYPE_PARY ? 'P' : 'T') + "]";
         }
 
         public static List<MySQLTournament> getTournaments()
@@ -59,31 +43,14 @@ namespace Aktywator
             while (dbs.Read())
             {
                 MySQLTournament t = new MySQLTournament(dbs.GetString(0));
-                if (t.type > MySQLTournament.TYPE_UNKNOWN)
+                if (t.type > Tournament.TYPE_UNKNOWN)
                     list.Add(t);
                 t.mysql.close();
             }
             return list;
         }
 
-        public string getSectionsNum()
-        {
-            if (type == MySQLTournament.TYPE_PARY)
-                return mysql.selectOne("SELECT COUNT(DISTINCT seknum) FROM sektory;");
-            else 
-                return "1";
-        }
-
-        public string getTablesNum()
-        {
-            if (type == MySQLTournament.TYPE_PARY)
-                return mysql.selectOne("SELECT COUNT(*) FROM sektory;");
-            else
-                return mysql.selectOne("SELECT teamcnt FROM admin;");
-        }
-
-
-        internal void setup()
+        override internal void setup()
         {
             if (this.mysql != null)
             {
@@ -92,14 +59,26 @@ namespace Aktywator
             }
         }
 
-        internal string getName()
+        override internal string getName()
         {
             return this.name;
         }
 
-        internal string getTypeLabel()
+        override public string getSectionsNum()
         {
-            return this._type == MySQLTournament.TYPE_PARY ? "Pary" : "Teamy";
+            throw new NotImplementedException("Don't call this method on generic class instance");
         }
+
+        override public string getTablesNum()
+        {
+            throw new NotImplementedException("Don't call this method on generic class instance");
+        }
+
+        override internal string getTypeLabel()
+        {
+            throw new NotImplementedException("Don't call this method on generic class instance");
+        }
+
     }
 }
+
