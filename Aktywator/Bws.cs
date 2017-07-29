@@ -425,9 +425,10 @@ namespace Aktywator
                         if (ee.ErrorCode == -2147467259)
                         {
                             DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + ns + " albo " + ew
-                                + "), który nie istnieje w wybranym turnieju. Może to nie ten turniej?",
-                                "Zły turniej", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Warning);
-                            if (dr == DialogResult.Abort) return;
+                                + "), który nie istnieje w wybranym turnieju. Może to nie ten turniej?"
+                                + "\n\n" + "Kontynuować wczytywanie?",
+                                "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (dr == DialogResult.No) return;
                         }
                         else
                         {
