@@ -10,6 +10,7 @@ namespace Aktywator
         public TeamyTournament(string name)
             : base(name)
         {
+            this._type = Tournament.TYPE_TEAMY;
         }
 
         override internal string getTypeLabel()

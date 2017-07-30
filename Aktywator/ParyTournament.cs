@@ -10,6 +10,7 @@ namespace Aktywator
         public ParyTournament(string name)
             : base(name)
         {
+            this._type = Tournament.TYPE_PARY;
         }
 
         override internal string getTypeLabel()
