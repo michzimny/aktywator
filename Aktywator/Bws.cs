@@ -331,15 +331,24 @@ namespace Aktywator
             name = Common.bezOgonkow(name);
             if (name.Length > 18)
                 name = name.Substring(0, 18);
-            string actual = sql.selectOne("SELECT Name FROM PlayerNumbers WHERE `Section`=" + section + " AND `Table`=" + table
-                + " AND `Direction`='" + direction + "'");
-            if (actual != name)
+            try
             {
-                sql.query("UPDATE PlayerNumbers SET Name='" + name + "', Updated=TRUE WHERE `Section`=" + section + " AND `Table`=" + table
-                + " AND `Direction`='" + direction + "'");
+                string actual = sql.selectOne("SELECT Name FROM PlayerNumbers WHERE `Section`=" + section + " AND `Table`=" + table
+                    + " AND `Direction`='" + direction + "'", true);
+                if (actual != name)
+                {
+                    sql.query("UPDATE PlayerNumbers SET Name='" + name + "', Updated=TRUE WHERE `Section`=" + section + " AND `Table`=" + table
+                    + " AND `Direction`='" + direction + "'");
+                    return 1;
+                }
+                else return 0;
+            }
+            catch (OleDbRowMissingException)
+            {
+                sql.query("INSERT INTO PlayerNumbers(`Section`, `Table`, Direction, Name, Updated) VALUES(" 
+                    + section + ", " + table + ", '" + direction + "', '" + name + "', TRUE)");
                 return 1;
             }
-            else return 0;
         }
 
         private int getBWSNumber(OleDbDataReader reader, int index)
