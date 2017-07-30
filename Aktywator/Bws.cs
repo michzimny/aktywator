@@ -342,15 +342,27 @@ namespace Aktywator
             else return 0;
         }
 
+        private int getBWSNumber(OleDbDataReader reader, int index)
+        {
+            switch (Type.GetTypeCode(reader.GetFieldType(index)))
+            {
+                case TypeCode.Int16:
+                    return reader.GetInt16(index);
+                case TypeCode.Int32:
+                    return reader.GetInt32(index);
+            }
+            throw new InvalidCastException("Unable to read numeric value from BWS field");
+        }
+
         public void syncNames(Tournament tournament, bool interactive, string startRounds)
         {
             int count = 0, countNew = 0, SKOK_STOLOW = 100;
             OleDbDataReader d;
             startRounds = startRounds.Trim();
 
-            if (tournament.type == Tournament.TYPE_PARY)
+            if (tournament.type != Tournament.TYPE_TEAMY)
             {
-                if (startRounds.Length > 0)
+                if (tournament.type == Tournament.TYPE_PARY && startRounds.Length > 0)
                 {
                     d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE NSPair>0 AND `Round` in (" + startRounds + ")");
                 }
@@ -371,10 +383,10 @@ namespace Aktywator
 
                 while (d.Read())
                 {
-                    string section = d.GetInt32(0).ToString();
-                    string table = d.GetInt32(1).ToString();
-                    int ns = d.GetInt32(2);
-                    int ew = d.GetInt32(3);
+                    string section = this.getBWSNumber(d, 0).ToString();
+                    string table = this.getBWSNumber(d, 1).ToString();
+                    int ns = this.getBWSNumber(d, 2);
+                    int ew = this.getBWSNumber(d, 3);
 
                     try
                     {
