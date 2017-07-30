@@ -32,5 +32,9 @@ namespace Aktywator
 
         abstract internal string getTypeLabel();
 
+        virtual internal Dictionary<int, List<string>> getNameList()
+        {
+            return new Dictionary<int, List<string>>();
+        }
     }
 }

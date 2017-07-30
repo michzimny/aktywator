@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.OleDb;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using mydata = MySql.Data.MySqlClient.MySqlDataReader;
-using data = System.Data.OleDb.OleDbDataReader;
+using System.Data.OleDb;
 
 namespace Aktywator
 {
@@ -111,7 +109,7 @@ namespace Aktywator
             try
             {
                 string s;
-                data d = sql.select("SELECT DISTINCT `Section` FROM " + table + " ORDER BY 1");
+                OleDbDataReader d = sql.select("SELECT DISTINCT `Section` FROM " + table + " ORDER BY 1");
                 d.Read();
                 s = d[0].ToString();
                 while (d.Read())
@@ -347,10 +345,10 @@ namespace Aktywator
         public void syncNames(Tournament tournament, bool interactive, string startRounds)
         {
             int count = 0, countNew = 0, SKOK_STOLOW = 100;
-            data d;
+            OleDbDataReader d;
             startRounds = startRounds.Trim();
 
-            if (tournament.type == 1)
+            if (tournament.type == Tournament.TYPE_PARY)
             {
                 if (startRounds.Length > 0)
                 {
@@ -367,94 +365,87 @@ namespace Aktywator
                 d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Table`<=" + SKOK_STOLOW);
             }
 
-            while (d.Read())
+            try
             {
-                string section = d.GetInt32(0).ToString();
-                string table = d.GetInt32(1).ToString();
-                string ns = d.GetInt32(2).ToString();
-                string ew = d.GetInt32(3).ToString();
+                Dictionary<int, List<String>> names = tournament.getNameList();
 
-                StringBuilder query = new StringBuilder();
-                if (tournament.type == 1)
+                while (d.Read())
                 {
-                    query.Append("SELECT CONCAT(SUBSTR(imie,1,1),'.',nazw) name FROM zawodnicy WHERE idp=");
-                    query.Append(ns);
-                    query.Append(" OR idp="); 
-                    query.Append(ew);
-                    query.Append(" ORDER BY idp ");
-                    if (int.Parse(ew) < int.Parse(ns))
-                        query.Append("DESC");
-                }
-                else
-                {
-                    query.Append("SELECT fullname NAME FROM teams WHERE id=");
-                    query.Append(ns);
-                    query.Append(" UNION ALL SELECT ' ' UNION ALL");
-                    query.Append(" SELECT fullname NAME FROM teams WHERE id=");
-                    query.Append(ew);
-                    query.Append(" UNION ALL SELECT ' '; ");
-                }
-                mydata n = ((MySQLTournament)tournament).mysql.select(query.ToString());
+                    string section = d.GetInt32(0).ToString();
+                    string table = d.GetInt32(1).ToString();
+                    int ns = d.GetInt32(2);
+                    int ew = d.GetInt32(3);
 
-                DialogResult dr = DialogResult.None;
-
-                try
-                {
-                    n.Read();
-                    countNew += updateName(section, table, "N", n.IsDBNull(0) ? "" : n.GetString(0));
-                    if (tournament.type == 2)
-                        countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "E", n.IsDBNull(0) ? "" : n.GetString(0));
-                    n.Read();
-                    countNew += updateName(section, table, "S", n.IsDBNull(0) ? "" : n.GetString(0));
-                    if (tournament.type == 2)
-                        countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "W", n.IsDBNull(0) ? "" : n.GetString(0));
-                    n.Read();
-                    countNew += updateName(section, table, "E", n.IsDBNull(0) ? "" : n.GetString(0));
-                    if (tournament.type == 2)
-                        countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "N", n.IsDBNull(0) ? "" : n.GetString(0));
-                    n.Read();
-                    countNew += updateName(section, table, "W", n.IsDBNull(0) ? "" : n.GetString(0));
-                    if (tournament.type == 2)
-                        countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "S", n.IsDBNull(0) ? "" : n.GetString(0));
-
-                    if (tournament.type == 1) count += 4;
-                    else count += 8;
-                }
-                catch (MySqlException ee)
-                {
-                    if (interactive)
-                    {
-                        if (ee.ErrorCode == -2147467259)
-                        {
-                            dr = MessageBox.Show("W bws-ie jest para/team (" + ns + " albo " + ew
-                                + "), który nie istnieje w wybranym turnieju. Może to nie ten turniej?"
-                                + "\n\n" + "Kontynuować wczytywanie?",
-                                "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        }
-                        else
-                        {
-                            dr = MessageBox.Show(ee.Message + "\n\n" + "Kontynuować?",
-                                "Błąd MySQL", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        }
-                    }
-                }
-                finally
-                {
                     try
                     {
-                        n.Close();
+                        if (!names.ContainsKey(ns))
+                        {
+                            throw new KeyNotFoundException(ns.ToString());
+                        }
+                        countNew += updateName(section, table, "N", names[ns][0]);
+                        countNew += updateName(section, table, "S", names[ns][1]);
+                        count += 2;
+                        if (tournament.type == Tournament.TYPE_TEAMY)
+                        {
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "E", names[ns][0]);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "W", names[ns][1]);
+                            count += 2;
+                        }
                     }
-                    catch (Exception) { }
+                    catch (KeyNotFoundException keyE)
+                    {
+                        if (interactive)
+                        {
+                            DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + keyE.Message + ")"
+                            + ", który nie istnieje w wybranym turnieju."
+                            + "Może to nie ten turniej?" + "\n\n" + "Kontynuować wczytywanie?",
+                            "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (dr == DialogResult.No) break;
+                        }
+                    }
+                    try
+                    {
+                        if (!names.ContainsKey(ew))
+                        {
+                            throw new KeyNotFoundException(ew.ToString());
+                        }
+                        countNew += updateName(section, table, "E", names[ew][0]);
+                        countNew += updateName(section, table, "W", names[ew][1]);
+                        count += 2;
+                        if (tournament.type == Tournament.TYPE_TEAMY)
+                        {
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "N", names[ew][0]);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "S", names[ew][1]);
+                            count += 2;
+                        }
+                    }
+                    catch (KeyNotFoundException keyE)
+                    {
+                        if (interactive)
+                        {
+                            DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + keyE.Message + ")"
+                            + ", który nie istnieje w wybranym turnieju."
+                            + "Może to nie ten turniej?" + "\n\n" + "Kontynuować wczytywanie?",
+                            "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (dr == DialogResult.No) break;
+                        }
+                    }
                 }
-                if (dr == DialogResult.No) break;
+                if (interactive)
+                {
+                    MessageBox.Show("Synchronizacja zakończona!\nPrzejrzanych nazwisk: " + count + "\nZmienionych: " + countNew,
+                        "Synchronizacja nazwisk", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (sql.selectOne("SELECT BM2ShowPlayerNames FROM Settings") != "1")
+                        MessageBox.Show("Pamiętaj żeby włączyć opcję \"pokazuj nazwiska\"!", "Brakujące ustawienie",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            if (interactive)
+            catch (Exception ee)
             {
-                MessageBox.Show("Synchronizacja zakończona!\nPrzejrzanych nazwisk: " + count + "\nZmienionych: " + countNew,
-                    "Synchronizacja nazwisk", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (sql.selectOne("SELECT BM2ShowPlayerNames FROM Settings") != "1")
-                    MessageBox.Show("Pamiętaj żeby włączyć opcję \"pokazuj nazwiska\"!", "Brakujące ustawienie", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (interactive)
+                {
+                    MessageBox.Show(ee.Message, "Błąd wczytywania nazwisk", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
