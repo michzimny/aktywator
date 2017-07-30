@@ -17,27 +17,9 @@ namespace Aktywator
             return Environment.GetEnvironmentVariable("ProgramFiles");
         }
 
-        public static string bezOgonkow(string str)
+        public static string bezOgonkow(string text)
         {
-            str = str.Replace('ą', 'a');
-            str = str.Replace('ć', 'c');
-            str = str.Replace('ę', 'e');
-            str = str.Replace('ł', 'l');
-            str = str.Replace('ń', 'n');
-            str = str.Replace('ó', 'o');
-            str = str.Replace('ś', 's');
-            str = str.Replace('ź', 'z');
-            str = str.Replace('ż', 'z');
-            str = str.Replace('Ą', 'A');
-            str = str.Replace('Ć', 'C');
-            str = str.Replace('Ę', 'E');
-            str = str.Replace('Ł', 'L');
-            str = str.Replace('Ń', 'N');
-            str = str.Replace('Ó', 'O');
-            str = str.Replace('Ś', 'S');
-            str = str.Replace('Ź', 'Z');
-            str = str.Replace('Ż', 'Z');
-            return str;
+            return Encoding.ASCII.GetString(Encoding.GetEncoding(1251).GetBytes(text));
         }
     }
 }
