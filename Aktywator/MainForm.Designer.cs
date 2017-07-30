@@ -77,6 +77,7 @@
             this.xShowResults = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.bRRBTournament = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.eOomRounds = new System.Windows.Forms.TextBox();
             this.bForceSync = new System.Windows.Forms.Button();
@@ -111,7 +112,6 @@
             this.bLoadHands = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
-            this.bRRBTournament = new System.Windows.Forms.Button();
             this.groupBoxTop.SuspendLayout();
             this.menu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -646,6 +646,16 @@
             this.tabPage2.Text = "Nazwiska";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // bRRBTournament
+            // 
+            this.bRRBTournament.Location = new System.Drawing.Point(54, 51);
+            this.bRRBTournament.Name = "bRRBTournament";
+            this.bRRBTournament.Size = new System.Drawing.Size(89, 23);
+            this.bRRBTournament.TabIndex = 25;
+            this.bRRBTournament.Text = "wybierz (RRB)";
+            this.bRRBTournament.UseVisualStyleBackColor = true;
+            this.bRRBTournament.Click += new System.EventHandler(this.bRRBTournament_Click);
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -968,15 +978,6 @@
             // openPBN
             // 
             this.openPBN.Filter = "PBN|*.pbn";
-            // 
-            // bRRBTournament
-            // 
-            this.bRRBTournament.Location = new System.Drawing.Point(54, 51);
-            this.bRRBTournament.Name = "bRRBTournament";
-            this.bRRBTournament.Size = new System.Drawing.Size(89, 23);
-            this.bRRBTournament.TabIndex = 25;
-            this.bRRBTournament.Text = "wybierz (RRB)";
-            this.bRRBTournament.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

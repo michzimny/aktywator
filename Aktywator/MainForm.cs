@@ -181,6 +181,25 @@ namespace Aktywator
             }
         }
 
+        private void bRRBTournament_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog fDialog = new OpenFileDialog();
+                fDialog.Filter = "RRBrigde tournament files (*.rrt)|*.rrt";
+                fDialog.RestoreDirectory = true;
+                if (fDialog.ShowDialog() == DialogResult.OK)
+                {
+                    tournament = new RRBTournament(fDialog.FileName);
+                    updateTournamentInfo(tournament);
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
         private void updateTournamentInfo(Tournament tournament)
         {
             if (tournament != null)
