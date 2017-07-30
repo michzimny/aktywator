@@ -11,8 +11,8 @@ namespace Aktywator
 {
     public partial class MainForm : Form
     {
-        public string version = "1.0.7";
-        public string date = "28.06.2017";
+        public string version = "1.1.0-beta";
+        public string date = "30.07.2017";
 
         private Bws bws;
         private Tournament tournament;

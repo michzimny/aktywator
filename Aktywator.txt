@@ -2,6 +2,11 @@
 - nie działa oddzielne maksowanie każdego sektora
 
 ---------------------
+Aktywator 1.1.0 (beta)
+30.07.2017 [mkl]
+ * wczytywanie nazwisk z plików RRBridge
+
+---------------------
 Aktywator 1.0.7
 13.03.2017 [mkl]
  * identyfikacja pliku PBN (po nazwie Event oraz pikach pierwszej ręki) przy wczytywaniu rozkładów do BWSa
