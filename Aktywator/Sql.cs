@@ -7,6 +7,10 @@ using data = System.Data.OleDb.OleDbDataReader;
 
 namespace Aktywator
 {
+    class OleDbRowMissingException : Exception
+    {
+    }
+
     class Sql
     {
         private OleDbConnection connection;
@@ -34,12 +38,19 @@ namespace Aktywator
             OleDbCommand cmd = new OleDbCommand(q, connection);
             return cmd.ExecuteNonQuery();
         }
-        public string selectOne(string q)
+        public string selectOne(string q, bool checkForRow = false)
         {
             OleDbCommand cmd = new OleDbCommand(q, connection);
             object o = cmd.ExecuteScalar();
-            if (o == null) return "";
-            else return o.ToString();
+            if (o == null) // it's null if the row does not exist, it'd be DBNull.Value if NULL was the value in existing row
+            {
+                if (!checkForRow)
+                {
+                    return "";
+                }
+                throw new OleDbRowMissingException();
+            }
+            return o.ToString();
         }
         public data select(string q)
         {
