@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using Microsoft.Win32;
 
 namespace Aktywator
 {
@@ -15,7 +16,13 @@ namespace Aktywator
         public string date = "30.07.2017";
 
         private Bws bws;
+        private List<Setting> bwsSettings;
         private Tournament tournament;
+
+        private Version BCSVersion;
+
+        public static Version requiredBCSVersion;
+        public static Version requiredFWVersion;
 
         public MainForm()
         {
@@ -31,6 +38,17 @@ namespace Aktywator
         {
             status2.Text = "Wersja " + this.version;
             status3.Text = "Data: " + this.date;
+
+            string detectedVersion = detectBCSVersion();
+            if (detectedVersion != null)
+            {
+                lDetectedVersion.Text = detectedVersion;
+                BCSVersion = new Version(detectedVersion);
+            }
+            else
+            {
+                lDetectedVersion.Text = "nie wykryto";
+            }
 
             string filename;
             string[] args = Environment.GetCommandLineArgs();
@@ -51,9 +69,120 @@ namespace Aktywator
                     bws.convert();
 
             labelFilename.Text = filename;
-            bws.initSettings();
+            // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
+            this.bwsSettings = new List<Setting>(bws.initSettings());
+            this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
+            bindSettingChanges();
             bws.loadSettings();
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private void bindSettingChanges()
+        {
+            foreach (Setting s in this.bwsSettings)
+            {
+                s.field.CheckedChanged += new EventHandler(setting_field_CheckedChanged);
+                StringBuilder tBuilder = new StringBuilder();
+                if (s.bcsV != null)
+                {
+                    tBuilder.Append("BCS >= ");
+                    tBuilder.Append(s.bcsV);
+                    tBuilder.Append(", ");
+                }
+                if (s.fwV != null)
+                {
+                    tBuilder.Append("firmware >= ");
+                    tBuilder.Append(s.fwV);
+                }
+                String title = tBuilder.ToString().Trim().Trim(',');
+                if (!("".Equals(title)))
+                {
+                    ToolTip tip = new ToolTip();
+                    tip.SetToolTip(s.field, title);
+                }
+            }
+        }
+
+        void setting_field_CheckedChanged(object sender, EventArgs e)
+        {
+            requiredBCSVersion = null;
+            requiredFWVersion = null;
+            foreach (Setting s in this.bwsSettings)
+            {
+                if (s.field.Checked)
+                {
+                    if (requiredBCSVersion == null || requiredBCSVersion < s.bcsV)
+                    {
+                        requiredBCSVersion = s.bcsV;
+                    }
+                    if (requiredFWVersion == null || requiredFWVersion < s.fwV)
+                    {
+                        requiredFWVersion = s.fwV;
+                    }
+                }
+            }
+            lRequiredVersion.Text = (requiredBCSVersion != null) ? requiredBCSVersion.ToString() : "--";
+            lRequiredFirmware.Text = (requiredFWVersion != null) ? requiredFWVersion.ToString() : "--";
+            if (BCSVersion != null)
+            {
+                if (requiredBCSVersion > BCSVersion)
+                {
+                    lDetectedVersion.ForeColor = Color.Red;
+                }
+                else
+                {
+                    lDetectedVersion.ForeColor = Color.Green;
+                }
+            }
+            else
+            {
+                lDetectedVersion.ForeColor = Color.Black;
+            }
+        }
+
+        private string detectBCSVersion()
+        {
+            RegistryKey[] keys = 
+            {
+                Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall"),
+                Registry.CurrentUser.OpenSubKey("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall"),
+                Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall"),
+                Registry.LocalMachine.OpenSubKey("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall")
+            };
+            foreach (RegistryKey key in keys)
+            {
+                if (key != null)
+                {
+                    foreach (var subKey in key.GetSubKeyNames())
+                    {
+                        RegistryKey appKey = key.OpenSubKey(subKey);
+                        if (appKey != null)
+                        {
+                            foreach (var value in appKey.GetValueNames())
+                            {
+                                string keyValue = Convert.ToString(appKey.GetValue("Publisher"));
+                                if (!keyValue.Equals("Bridge Systems BV", StringComparison.OrdinalIgnoreCase))
+                                    continue;
+
+                                string productName = Convert.ToString(appKey.GetValue("DisplayName"));
+                                if (!productName.Equals("Bridgemate Control Software", StringComparison.OrdinalIgnoreCase)
+                                    && !productName.Equals("Bridgemate Pro Control", StringComparison.OrdinalIgnoreCase))
+                                    continue;
+
+                                string appPath = Convert.ToString(appKey.GetValue("InstallLocation"));
+                                if (appPath != null)
+                                {
+                                    Bws.setAppLocation(appPath);
+                                }
+
+                                string version = Convert.ToString(appKey.GetValue("DisplayVersion"));
+                                return version;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         private void bLaunch_Click(object sender, EventArgs e)

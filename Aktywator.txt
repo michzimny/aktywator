@@ -7,6 +7,11 @@ Aktywator 1.1.0 (beta)
  * wczytywanie nazwisk z plików RRBridge
 
 ---------------------
+Aktywator 1.0.8
+27.07.2017 [mkl]
+ * kontrola sugerowanych minimalnych wersji oprogramowania BCS wymaganych do działania poszczególnych opcji
+
+---------------------
 Aktywator 1.0.7
 13.03.2017 [mkl]
  * identyfikacja pliku PBN (po nazwie Event oraz pikach pierwszej ręki) przy wczytywaniu rozkładów do BWSa

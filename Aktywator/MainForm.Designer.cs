@@ -112,6 +112,12 @@
             this.bLoadHands = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.lRequiredVersion = new System.Windows.Forms.Label();
+            this.lDetectedVersion = new System.Windows.Forms.Label();
+            this.lRequiredFirmware = new System.Windows.Forms.Label();
             this.groupBoxTop.SuspendLayout();
             this.menu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -197,7 +203,7 @@
             this.status1,
             this.status2,
             this.status3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 480);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 489);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(577, 22);
             this.statusStrip1.TabIndex = 2;
@@ -229,7 +235,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 70);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(577, 410);
+            this.groupBox1.Size = new System.Drawing.Size(577, 419);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -242,11 +248,17 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 16);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(571, 391);
+            this.tabControl1.Size = new System.Drawing.Size(571, 400);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lRequiredFirmware);
+            this.tabPage1.Controls.Add(this.lDetectedVersion);
+            this.tabPage1.Controls.Add(this.lRequiredVersion);
+            this.tabPage1.Controls.Add(this.label17);
+            this.tabPage1.Controls.Add(this.label16);
+            this.tabPage1.Controls.Add(this.label15);
             this.tabPage1.Controls.Add(this.xCollectPlay);
             this.tabPage1.Controls.Add(this.xCollectBidding);
             this.tabPage1.Controls.Add(this.xCheckLeadCard);
@@ -281,7 +293,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(563, 365);
+            this.tabPage1.Size = new System.Drawing.Size(563, 374);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ustawienia";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -358,7 +370,7 @@
             // bSave
             // 
             this.bSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.bSave.Location = new System.Drawing.Point(219, 336);
+            this.bSave.Location = new System.Drawing.Point(185, 336);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(126, 23);
             this.bSave.TabIndex = 25;
@@ -641,7 +653,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(563, 365);
+            this.tabPage2.Size = new System.Drawing.Size(563, 374);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Nazwiska";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -878,7 +890,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(563, 365);
+            this.tabPage3.Size = new System.Drawing.Size(563, 374);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Rozkłady";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -979,11 +991,65 @@
             // 
             this.openPBN.Filter = "PBN|*.pbn";
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(315, 319);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(121, 13);
+            this.label15.TabIndex = 33;
+            this.label15.Text = "Wymagana wersja BCS:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(330, 336);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(106, 13);
+            this.label16.TabIndex = 34;
+            this.label16.Text = "Wykryta wersja BCS:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(330, 352);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(105, 13);
+            this.label17.TabIndex = 35;
+            this.label17.Text = "Wymagany firmware:";
+            // 
+            // lRequiredVersion
+            // 
+            this.lRequiredVersion.AutoSize = true;
+            this.lRequiredVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lRequiredVersion.Location = new System.Drawing.Point(448, 319);
+            this.lRequiredVersion.Name = "lRequiredVersion";
+            this.lRequiredVersion.Size = new System.Drawing.Size(0, 13);
+            this.lRequiredVersion.TabIndex = 36;
+            // 
+            // lDetectedVersion
+            // 
+            this.lDetectedVersion.AutoSize = true;
+            this.lDetectedVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lDetectedVersion.Location = new System.Drawing.Point(448, 336);
+            this.lDetectedVersion.Name = "lDetectedVersion";
+            this.lDetectedVersion.Size = new System.Drawing.Size(0, 13);
+            this.lDetectedVersion.TabIndex = 37;
+            // 
+            // lRequiredFirmware
+            // 
+            this.lRequiredFirmware.AutoSize = true;
+            this.lRequiredFirmware.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lRequiredFirmware.Location = new System.Drawing.Point(448, 352);
+            this.lRequiredFirmware.Name = "lRequiredFirmware";
+            this.lRequiredFirmware.Size = new System.Drawing.Size(0, 13);
+            this.lRequiredFirmware.TabIndex = 38;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 502);
+            this.ClientSize = new System.Drawing.Size(577, 511);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBoxTop);
@@ -1100,6 +1166,12 @@
         private System.Windows.Forms.Label lRecordSections;
         private System.Windows.Forms.Button bClearHands;
         private System.Windows.Forms.Button bRRBTournament;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lRequiredFirmware;
+        private System.Windows.Forms.Label lDetectedVersion;
+        private System.Windows.Forms.Label lRequiredVersion;
     }
 }
 
