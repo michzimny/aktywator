@@ -8,6 +8,7 @@ namespace Aktywator
     {
         public const int TYPE_PARY = 1;
         public const int TYPE_TEAMY = 2;
+        public const int TYPE_RRB = 3;
         public const int TYPE_UNKNOWN = 0;
 
         protected string _name;
@@ -16,7 +17,7 @@ namespace Aktywator
             get { return _name; }
         }
 
-        protected int _type; // 0-unknown, 1-Pary, 2-Teamy
+        protected int _type = Tournament.TYPE_UNKNOWN; // 0-unknown, 1-Pary, 2-Teamy, 3-RRB
         public int type
         {
             get { return _type; }
@@ -36,5 +37,6 @@ namespace Aktywator
         {
             return new Dictionary<int, List<string>>();
         }
+
     }
 }
