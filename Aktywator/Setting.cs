@@ -14,12 +14,16 @@ namespace Aktywator
         public string table;
         public CheckBox field;
         private Bws bws;
+        public Version bcsV;
+        public Version fwV;
 
-        public Setting(string name, CheckBox field, Bws bws)
+        public Setting(string name, CheckBox field, Bws bws, Version bcsVersion, Version firmwareVersion)
         {
             this.name = name;
             this.field = field;
             this.bws = bws;
+            this.bcsV = bcsVersion;
+            this.fwV = firmwareVersion;
         }
 
         public void load()
