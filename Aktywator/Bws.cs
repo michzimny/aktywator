@@ -536,22 +536,10 @@ namespace Aktywator
                         str.Append("INSERT INTO HandRecord VALUES (");
                         str.Append(section); str.Append(",");
                         str.Append(i); str.Append(",'");
-                        str.Append(b.north[0]); str.Append("','");
-                        str.Append(b.north[1]); str.Append("','");
-                        str.Append(b.north[2]); str.Append("','");
-                        str.Append(b.north[3]); str.Append("','");
-                        str.Append(b.east[0]); str.Append("','");
-                        str.Append(b.east[1]); str.Append("','");
-                        str.Append(b.east[2]); str.Append("','");
-                        str.Append(b.east[3]); str.Append("','");
-                        str.Append(b.south[0]); str.Append("','");
-                        str.Append(b.south[1]); str.Append("','");
-                        str.Append(b.south[2]); str.Append("','");
-                        str.Append(b.south[3]); str.Append("','");
-                        str.Append(b.west[0]); str.Append("','");
-                        str.Append(b.west[1]); str.Append("','");
-                        str.Append(b.west[2]); str.Append("','");
-                        str.Append(b.west[3]); str.Append("')");
+                        str.Append(String.Join("','", b.north)); str.Append("','");
+                        str.Append(String.Join("','", b.east)); str.Append("','");
+                        str.Append(String.Join("','", b.south)); str.Append("','");
+                        str.Append(String.Join("','", b.west)); str.Append("')");
                         sql.query(str.ToString());
                         int[,] ddTable = pbn.ddTables[i].GetDDTable();
                         if (ddTable != null)
