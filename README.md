@@ -1,9 +1,20 @@
 # Aktywator
 
-Więcej info: http://michzimny.pl/aktywator
+Aktywator służy do uruchamiania i sterowania [pierniczkami Bridgemate II](http://www.bridgemate.com/). Program powstał po wprowadzeniu w Polsce w 2011 r. nowych pierniczków, ponieważ programy liczące nie obsługiwały wszystkich nowych funkcji pierniczków.
 
-Nie jestem dumny z tego kodu, ale działa i dostałem prośby o udostępnienie źródeł, więc udostępniam.
+## Autorzy
 
-Program zawiera część kodu źródłowego projektu BCDD: http://github.com/emkael/bcdd
-Ta część źródeł udpostępniana jest w uproszczonej licencji BSD: https://opensource.org/licenses/BSD-2-Clause, kompatybilnej z licencją GPL reszty programu.
+* [Michał Zimniewicz](https://github.com/michzimny), 2011-2013
+* [Michał Klichowicz](https://github.com/emkael), 2016+
+
+## Wspierane programy liczące
+
+Aktywatora można używać z dowolnym programem liczącym, jednak niektóre funkcje (np. wczytywanie nazwisk) są napisane pod konkretny program. Wspierane programy liczące:
+
+* JFR Pary
+* RRBridge - w przygotowaniu
+
+## Informacja o zależnościach
+
+Program zawiera część kodu źródłowego [projektu BCDD](http://github.com/emkael/bcdd). Ta część źródeł udpostępniana jest w [uproszczonej licencji BSD](https://opensource.org/licenses/BSD-2-Clause), kompatybilnej z licencją GPL reszty programu.
 
