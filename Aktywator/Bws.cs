@@ -21,6 +21,7 @@ namespace Aktywator
         public List<Setting> settings;
         private MainForm main;
         public bool settingsChanged = false;
+        private static string applicationPath = Common.ProgramFilesx86() + "\\Bridgemate Pro\\";
 
         public Bws(string filename, MainForm main)
         {
@@ -77,33 +78,34 @@ namespace Aktywator
             return sections.ToArray();
         }
 
-        public void initSettings()
+        public List<Setting> initSettings()
         {
             settings = new List<Setting>();
-            settings.Add(new Setting("ShowResults", main.xShowResults, this));
-            settings.Add(new Setting("RepeatResults", main.xRepeatResults, this));
-            settings.Add(new Setting("ShowPercentage", main.xShowPercentage, this));
-            //settings.Add(new Setting("GroupSections", main.xGroupSections, this));
-            settings.Add(new Setting("ShowPairNumbers", main.xShowPairNumbers, this));
-            settings.Add(new Setting("IntermediateResults", main.xIntermediateResults, this));
-            settings.Add(new Setting("ShowContract", main.xShowContract, this));
-            settings.Add(new Setting("LeadCard", main.xLeadCard, this));
-            settings.Add(new Setting("MemberNumbers", main.xMemberNumbers, this));
-            settings.Add(new Setting("MemberNumbersNoBlankEntry", main.xMemberNumbersNoBlankEntry, this));
-            settings.Add(new Setting("BoardOrderVerification", main.xBoardOrderVerification, this));
-            settings.Add(new Setting("AutoShutDownBPC", main.xAutoShutDownBPC, this));
-            settings.Add(new Setting("BM2ConfirmNP", main.xConfirmNP, this));
-            settings.Add(new Setting("BM2RemainingBoards", main.xRemainingBoards, this));
-            settings.Add(new Setting("BM2NextSeatings", main.xNextSeatings, this));
-            settings.Add(new Setting("BM2ScoreRecap", main.xScoreRecap, this));
-            settings.Add(new Setting("BM2AutoShowScoreRecap", main.xAutoShowScoreRecap, this));
-            settings.Add(new Setting("BM2ScoreCorrection", main.xScoreCorrection, this));
-            settings.Add(new Setting("BM2AutoBoardNumber", main.xAutoBoardNumber, this));
-            settings.Add(new Setting("BM2ResetFunctionKey", main.xResetFunctionKey, this));
-            settings.Add(new Setting("BM2ViewHandrecord", main.xViewHandrecord, this));
-            settings.Add(new Setting("BM2RecordBidding", main.xCollectBidding, this));
-            settings.Add(new Setting("BM2RecordPlay", main.xCollectPlay, this));
-            settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this));
+            settings.Add(new Setting("ShowResults", main.xShowResults, this, new Version(2, 0, 0), new Version(1, 3, 1)));
+            settings.Add(new Setting("RepeatResults", main.xRepeatResults, this, null, null));
+            settings.Add(new Setting("ShowPercentage", main.xShowPercentage, this, null, null));
+            //settings.Add(new Setting("GroupSections", main.xGroupSections, this, null, null));
+            settings.Add(new Setting("ShowPairNumbers", main.xShowPairNumbers, this, null, null));
+            settings.Add(new Setting("IntermediateResults", main.xIntermediateResults, this, null, new Version(1, 4, 1)));
+            settings.Add(new Setting("ShowContract", main.xShowContract, this, null, null));
+            settings.Add(new Setting("LeadCard", main.xLeadCard, this, null, null));
+            settings.Add(new Setting("MemberNumbers", main.xMemberNumbers, this, null, null));
+            settings.Add(new Setting("MemberNumbersNoBlankEntry", main.xMemberNumbersNoBlankEntry, this, null, null));
+            settings.Add(new Setting("BoardOrderVerification", main.xBoardOrderVerification, this, null, null));
+            settings.Add(new Setting("AutoShutDownBPC", main.xAutoShutDownBPC, this, new Version(1, 7, 15), null));
+            settings.Add(new Setting("BM2ConfirmNP", main.xConfirmNP, this, new Version(2, 0, 0), new Version(1, 0, 1)));
+            settings.Add(new Setting("BM2RemainingBoards", main.xRemainingBoards, this, new Version(2, 0, 0), new Version(1, 0, 1)));
+            settings.Add(new Setting("BM2NextSeatings", main.xNextSeatings, this, new Version(2, 0, 0), new Version(1, 0, 1)));
+            settings.Add(new Setting("BM2ScoreRecap", main.xScoreRecap, this, new Version(2, 0, 0), new Version(1, 0, 1)));
+            settings.Add(new Setting("BM2AutoShowScoreRecap", main.xAutoShowScoreRecap, this, new Version(2, 5, 1), new Version(1, 0, 1)));
+            settings.Add(new Setting("BM2ScoreCorrection", main.xScoreCorrection, this, new Version(2, 0, 0), new Version(1, 0, 1)));
+            settings.Add(new Setting("BM2AutoBoardNumber", main.xAutoBoardNumber, this, new Version(2, 0, 0), new Version(2, 0, 1)));
+            settings.Add(new Setting("BM2ResetFunctionKey", main.xResetFunctionKey, this, new Version(2, 0, 0), new Version(1, 0, 1)));
+            settings.Add(new Setting("BM2ViewHandrecord", main.xViewHandrecord, this, new Version(2, 6, 1), new Version(1, 6, 1)));
+            settings.Add(new Setting("BM2RecordBidding", main.xCollectBidding, this, new Version(2, 0, 0), new Version(1, 3, 1)));
+            settings.Add(new Setting("BM2RecordPlay", main.xCollectPlay, this, new Version(2, 0, 0), new Version(1, 3, 1)));
+            settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this, new Version(3, 2, 1), new Version(2, 2, 1)));
+            return settings;
         }
 
         private string getSectionList(string table)
@@ -137,9 +139,15 @@ namespace Aktywator
             return this.getSectionList("HandRecord");
         }
 
+
+        internal static void setAppLocation(string appPath)
+        {
+            applicationPath = appPath;
+        }
+
         public void runBCS()
         {
-            string app = Common.ProgramFilesx86() + "\\Bridgemate Pro\\BMPro.exe";
+            string app = applicationPath + "BMPro.exe";
             string param = "";
             param += " /f[" + filename + " ]";
             param += " /s";
