@@ -29,6 +29,7 @@ namespace Aktywator
             Properties.Settings.Default.USER = eUser.Text;
             Properties.Settings.Default.PASS = ePass.Text;
             Properties.Settings.Default.PORT = ePort.Text;
+            Properties.Settings.Default.CONFIGURED = true;
             Properties.Settings.Default.Save();
 
             string msg = MySQL.test();

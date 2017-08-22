@@ -86,5 +86,6 @@ namespace Aktywator
         public static string getUser() { return Properties.Settings.Default.USER; }
         public static string getPass() { return Properties.Settings.Default.PASS; }
         public static string getPort() { return Properties.Settings.Default.PORT; }
+        public static bool getConfigured() { return Properties.Settings.Default.CONFIGURED; }
     }
 }
