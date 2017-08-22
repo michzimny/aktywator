@@ -7,13 +7,14 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using Microsoft.Win32;
+using System.Reflection;
 
 namespace Aktywator
 {
     public partial class MainForm : Form
     {
-        public string version = "1.1.0-beta";
-        public string date = "30.07.2017";
+        public string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public string date = Properties.Resources.BuildDate.Trim();
 
         private Bws bws;
         private List<Setting> bwsSettings;
@@ -480,6 +481,15 @@ namespace Aktywator
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Błąd czyszczenia rozkładów", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void updateSession_Click(object sender, EventArgs e)
+        {
+            if (trySave())
+            {
+                bws.updateSettings();
+                MessageBox.Show("Wykonano!", "Settings update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

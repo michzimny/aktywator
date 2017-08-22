@@ -6,7 +6,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9BFA941F-AAEF-4DA3-B4D8-EBC1AB4C09E6}"
 	ProjectSection(SolutionItems) = preProject
 		Aktywator.txt = Aktywator.txt
-		todo.txt = todo.txt
 	EndProjectSection
 EndProject
 Global
