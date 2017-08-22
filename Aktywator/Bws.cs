@@ -162,7 +162,6 @@ namespace Aktywator
         public void convert()
         {
             List<Setting> settings = new List<Setting>();
-            settings.Add(new Setting("BM2PINcode", "text(4)", "'5431'"));
             settings.Add(new Setting("BM2ConfirmNP", "bit", "true"));
             settings.Add(new Setting("BM2RemainingBoards", "bit", "false"));
             settings.Add(new Setting("BM2NextSeatings", "bit", "true"));
@@ -171,27 +170,34 @@ namespace Aktywator
             settings.Add(new Setting("BM2ScoreCorrection", "bit", "false"));
             settings.Add(new Setting("BM2AutoBoardNumber", "bit", "false"));
             settings.Add(new Setting("BM2ResultsOverview", "integer", "1"));
-            settings.Add(new Setting("BM2ShowPlayerNames", "integer", "0"));
-            settings.Add(new Setting("BM2Ranking", "integer", "0"));
-            settings.Add(new Setting("BM2GameSummary", "bit", "false"));
-            settings.Add(new Setting("BM2SummaryPoints", "integer", "0"));
-            settings.Add(new Setting("BM2PairNumberEntry", "integer", "0"));
             settings.Add(new Setting("BM2ResetFunctionKey", "bit", "false"));
-            settings.Add(new Setting("BM2ShowHands", "bit", "false"));
-            settings.Add(new Setting("BM2NumberValidation", "integer", "0"));
-            settings.Add(new Setting("BM2NameSource", "integer", "2"));
             settings.Add(new Setting("BM2ViewHandrecord", "bit", "false"));
-            settings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
             settings.Add(new Setting("BM2RecordBidding", "bit", "false"));
             settings.Add(new Setting("BM2RecordPlay", "bit", "false"));
             settings.Add(new Setting("BM2ValidateLeadCard", "bit", "false"));
-
-            settings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
-            settings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
+            settings.Add(new Setting("BM2ShowPlayerNames", "integer", "0"));
 
             foreach (Setting s in settings)
             {
                 s.createField(sql, false);
+            }
+
+            List<Setting> defaultSettings = new List<Setting>();
+            defaultSettings.Add(new Setting("BM2PINcode", "text(4)", "'5431'"));
+            defaultSettings.Add(new Setting("BM2Ranking", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2GameSummary", "bit", "false"));
+            defaultSettings.Add(new Setting("BM2SummaryPoints", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2PairNumberEntry", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2ShowHands", "bit", "false"));
+            defaultSettings.Add(new Setting("BM2NumberValidation", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2NameSource", "integer", "2"));
+            defaultSettings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
+            defaultSettings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
+            defaultSettings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
+
+            foreach (Setting s in defaultSettings)
+            {
+                s.createField(sql);
             }
 
             try
