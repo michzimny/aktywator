@@ -192,6 +192,8 @@ namespace Aktywator
             defaultSettings.Add(new Setting("BM2NumberValidation", "integer", "0"));
             defaultSettings.Add(new Setting("BM2NameSource", "integer", "2"));
             defaultSettings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
+            defaultSettings.Add(new Setting("BM2NumberEntryEachRound", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2NumberEntryPreloadValues", "integer", "0"));
             defaultSettings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
             defaultSettings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
 
@@ -440,6 +442,13 @@ namespace Aktywator
                             if (dr == DialogResult.No) break;
                         }
                     }
+                }
+                List<Setting> settings = new List<Setting>();
+                settings.Add(new Setting("BM2NumberEntryEachRound", "integer", (tournament.type == Tournament.TYPE_TEAMY) ? "1" : "0"));
+                settings.Add(new Setting("BM2NumberEntryPreloadValues", "integer", "1"));
+                foreach (Setting s in settings)
+                {
+                    s.createField(sql);
                 }
                 if (interactive)
                 {
