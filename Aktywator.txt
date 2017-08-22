@@ -5,6 +5,7 @@
 Aktywator 1.1.0 (beta)
 30.07.2017 [mkl]
  * wczytywanie nazwisk z plików RRBridge
+ * zapamiętywanie ustawień MySQL również dla bezhasłowych kont
 
 ---------------------
 Aktywator 1.0.8
