@@ -31,7 +31,7 @@ namespace Aktywator
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (MySQL.getPass() == "") (new MysqlSettings()).ShowDialog();
+            if (!MySQL.getConfigured()) (new MysqlSettings()).ShowDialog();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

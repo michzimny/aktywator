@@ -14,5 +14,8 @@
     <Setting Name="PORT" Type="System.String" Scope="User">
       <Value Profile="(Default)">3306</Value>
     </Setting>
+    <Setting Name="CONFIGURED" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
