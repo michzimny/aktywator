@@ -29,12 +29,18 @@ namespace Aktywator
             Properties.Settings.Default.USER = eUser.Text;
             Properties.Settings.Default.PASS = ePass.Text;
             Properties.Settings.Default.PORT = ePort.Text;
-            Properties.Settings.Default.CONFIGURED = true;
-            Properties.Settings.Default.Save();
 
             string msg = MySQL.test();
-            if (msg == "") Close();
-            else MessageBox.Show(msg, "Nieprawidłowe ustawienia", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (msg == "")
+            {
+                Properties.Settings.Default.CONFIGURED = true;
+                Properties.Settings.Default.Save();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show(msg, "Nieprawidłowe ustawienia", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
     }
 }
