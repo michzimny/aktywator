@@ -159,24 +159,6 @@ namespace Aktywator
             System.Diagnostics.Process.Start(app, param);
         }
 
-        public bool isBm2()
-        {
-            if (!sql.checkFieldExists("Settings", "BM2PINcode"))
-                return false;
-            if (!sql.checkFieldExists("PlayerNames", "Name"))
-                return false;
-            if (!sql.checkFieldExists("PlayerNumbers", "Name"))
-                return false;
-            if (!sql.checkFieldExists("Settings", "BM2ViewHandrecord"))
-                return false;
-            if (!sql.checkTableExists("HandRecord"))
-                return false;
-            if (!sql.checkTableExists("HandEvaluation"))
-                return false;
-
-            return true;
-        }
-
         public void convert()
         {
             List<Setting> settings = new List<Setting>();
@@ -209,14 +191,7 @@ namespace Aktywator
 
             foreach (Setting s in settings)
             {
-                try
-                {
-                    sql.query(s.getAddColumnSql());
-                    sql.query(s.getSetDefaultSql());
-                }
-                catch (OleDbException)
-                {
-                }
+                s.createField(sql, false);
             }
 
             try

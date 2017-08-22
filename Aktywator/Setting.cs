@@ -135,5 +135,26 @@ namespace Aktywator
             }
             return str.ToString();
         }
+
+        public void createField(Sql sql, bool setDefault = true)
+        {
+            try
+            {
+                sql.query(this.getAddColumnSql());
+            }
+            catch (OleDbException)
+            {
+            }
+            if (setDefault)
+            {
+                try
+                {
+                    sql.query(this.getSetDefaultSql());
+                }
+                catch (OleDbException)
+                {
+                }
+            }
+        }
     }
 }

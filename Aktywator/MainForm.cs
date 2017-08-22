@@ -63,10 +63,7 @@ namespace Aktywator
             }
 
             bws = new Bws(filename, this);
-            if (!bws.isBm2())
-                if (MessageBox.Show("Ten BWS nie jest przygotowany dla BM2. Przekonwertować?", "Konwersja do BM2",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    bws.convert();
+            bws.convert();
 
             labelFilename.Text = filename;
             // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
