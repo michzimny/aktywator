@@ -484,5 +484,14 @@ namespace Aktywator
             }
         }
 
+        private void updateSession_Click(object sender, EventArgs e)
+        {
+            if (trySave())
+            {
+                bws.updateSettings();
+                MessageBox.Show("Wykonano!", "Settings update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
     }
 }
