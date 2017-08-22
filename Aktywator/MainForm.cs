@@ -379,7 +379,7 @@ namespace Aktywator
         {
             try
             {
-                bws.sql.query("UPDATE PlayerNumbers SET Name='XXX' AND Updated=True WHERE 1=1");
+                bws.sql.query("UPDATE PlayerNumbers SET Name=NULL AND Updated=True WHERE 1=1");
                 MessageBox.Show("Wykonano!", "Usuń nazwiska", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ee)

@@ -752,7 +752,6 @@
             this.bTruncate.TabIndex = 15;
             this.bTruncate.Text = "Usuń nazwiska z bws";
             this.bTruncate.UseVisualStyleBackColor = true;
-            this.bTruncate.Visible = false;
             this.bTruncate.Click += new System.EventHandler(this.bTruncate_Click);
             // 
             // bMysqlSettings
