@@ -63,14 +63,14 @@ namespace Aktywator
                 {
                     if ("pauza".Equals(player.InnerText.Trim()))
                     {
-                        names[pairNo].Add("");
+                        names[pairNo].Add(" ");
                     }
                     else
                     {
                         string[] name = player.InnerText.Trim().Split(' ');
                         if (name.Length > 0)
                         {
-                            name[0] = (name[0].Length > 0) ? name[0][0].ToString() : "";
+                            name[0] = (name[0].Length > 0) ? name[0][0].ToString() : " ";
                         }
                         names[pairNo].Add(String.Join(" ", name));
                     }
@@ -81,7 +81,7 @@ namespace Aktywator
             {
                 while (pair.Value.Count < 2)
                 {
-                    pair.Value.Add("");
+                    pair.Value.Add(" ");
                 }
             }
             return names;

@@ -35,8 +35,8 @@ namespace Aktywator
             while (dbData.Read())
             {
                 List<string> names = new List<string>();
-                names.Add(dbData.IsDBNull(1) ? "" : dbData.GetString(1));
-                names.Add("");
+                names.Add(dbData.IsDBNull(1) ? " " : dbData.GetString(1));
+                names.Add(" ");
                 teams.Add(dbData.GetInt32(0), names);
             }
             dbData.Close();

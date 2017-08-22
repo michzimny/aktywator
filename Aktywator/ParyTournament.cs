@@ -39,13 +39,13 @@ namespace Aktywator
                 {
                     pairs.Add(pairNo, new List<string>());
                 }
-                pairs[pairNo].Add(dbData.IsDBNull(1) ? "" : dbData.GetString(1));
+                pairs[pairNo].Add(dbData.IsDBNull(1) ? " " : dbData.GetString(1));
             }
             foreach (KeyValuePair<int, List<string>> pair in pairs)
             {
                 while (pair.Value.Count < 2)
                 {
-                    pair.Value.Add("");
+                    pair.Value.Add(" ");
                 }
             }
             dbData.Close();
