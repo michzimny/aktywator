@@ -5,6 +5,7 @@
 Aktywator 1.1.0 (beta)
 30.07.2017 [mkl]
  * wczytywanie nazwisk z plików RRBridge
+ * poprawiono błąd pobierania numerów graczy przy wyświetlonych nazwach teamów
 
 ---------------------
 Aktywator 1.0.8
