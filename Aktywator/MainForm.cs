@@ -72,6 +72,7 @@ namespace Aktywator
             this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
             bindSettingChanges();
             bws.loadSettings();
+            syncToolStrip.Visible = false;
             this.WindowState = FormWindowState.Normal;
         }
 
@@ -337,9 +338,7 @@ namespace Aktywator
                 lType.Text = tournament.getTypeLabel();
                 lSections.Text = tournament.getSectionsNum();
                 lTables.Text = tournament.getTablesNum();
-                bSync.Enabled = true;
-                bAutoSync.Enabled = true;
-                eInterval.Enabled = true;
+                syncToolStrip.Visible = true;
                 if (tournament.GetType().Equals(typeof(TeamyTournament)))
                 {
                     lSkok.Visible = true;
@@ -355,7 +354,6 @@ namespace Aktywator
             {
                 lSkok.Visible = false;
                 lNazwyTeamow.Visible = false;
-                
             }
         }
 
@@ -402,17 +400,17 @@ namespace Aktywator
                 timer.Interval = interval * 1000;
                 eInterval.Enabled = false;
                 bAutoSync.Text = "pracuje się...";
-                bMySQLTournament.Enabled = false;
                 bMysqlSettings.Enabled = false;
+                toolStripSplitButton1.Enabled = false;
                 timer.Enabled = true;
             }
             else
             {
                 timer.Enabled = false;
-                bAutoSync.Text = "Synchronizuj cyklicznie";
+                bAutoSync.Text = "Synchronizuj co:";
                 eInterval.Enabled = true;
-                bMySQLTournament.Enabled = true;
                 bMysqlSettings.Enabled = true;
+                toolStripSplitButton1.Enabled = true;
             }
         }
 
@@ -486,6 +484,17 @@ namespace Aktywator
                 bws.updateSettings();
                 MessageBox.Show("Wykonano!", "Settings update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+            toolStripSplitButton1.ShowDropDown();
+        }
+
+        private void toolStripButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            eOomRounds.Enabled = toolStripButton2.Checked;
+            lOomLabel.Enabled = toolStripButton2.Checked;
         }
 
     }

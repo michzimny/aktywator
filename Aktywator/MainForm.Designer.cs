@@ -84,20 +84,23 @@
             this.xShowPlayerNames = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.bRRBTournament = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.eOomRounds = new System.Windows.Forms.TextBox();
-            this.bForceSync = new System.Windows.Forms.Button();
+            this.syncToolStrip = new System.Windows.Forms.ToolStrip();
+            this.bSync = new System.Windows.Forms.ToolStripButton();
+            this.bAutoSync = new System.Windows.Forms.ToolStripButton();
+            this.eInterval = new System.Windows.Forms.ToolStripTextBox();
+            this.eOomRounds = new System.Windows.Forms.ToolStripTextBox();
+            this.lOomLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.bMySQLTournament = new System.Windows.Forms.ToolStripMenuItem();
+            this.bRRBTournament = new System.Windows.Forms.ToolStripMenuItem();
+            this.bMysqlSettings = new System.Windows.Forms.ToolStripButton();
+            this.bForceSync = new System.Windows.Forms.ToolStripButton();
+            this.bTruncate = new System.Windows.Forms.ToolStripButton();
             this.lNazwyTeamow = new System.Windows.Forms.Label();
             this.lSkok = new System.Windows.Forms.Label();
-            this.eInterval = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.bTruncate = new System.Windows.Forms.Button();
-            this.bMysqlSettings = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.bAutoSync = new System.Windows.Forms.Button();
-            this.bSync = new System.Windows.Forms.Button();
             this.lTables = new System.Windows.Forms.Label();
             this.lSections = new System.Windows.Forms.Label();
             this.lType = new System.Windows.Forms.Label();
@@ -105,7 +108,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lTournament = new System.Windows.Forms.Label();
-            this.bMySQLTournament = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
@@ -133,6 +135,8 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.syncToolStrip.SuspendLayout();
+            this.toolStrip4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -700,20 +704,11 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.bRRBTournament);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.eOomRounds);
-            this.tabPage2.Controls.Add(this.bForceSync);
+            this.tabPage2.Controls.Add(this.syncToolStrip);
+            this.tabPage2.Controls.Add(this.toolStrip4);
             this.tabPage2.Controls.Add(this.lNazwyTeamow);
             this.tabPage2.Controls.Add(this.lSkok);
-            this.tabPage2.Controls.Add(this.eInterval);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.bTruncate);
-            this.tabPage2.Controls.Add(this.bMysqlSettings);
             this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.bAutoSync);
-            this.tabPage2.Controls.Add(this.bSync);
             this.tabPage2.Controls.Add(this.lTables);
             this.tabPage2.Controls.Add(this.lSections);
             this.tabPage2.Controls.Add(this.lType);
@@ -721,7 +716,6 @@
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.lTournament);
-            this.tabPage2.Controls.Add(this.bMySQLTournament);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -731,48 +725,163 @@
             this.tabPage2.Text = "Nazwiska";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // bRRBTournament
+            // syncToolStrip
             // 
-            this.bRRBTournament.Location = new System.Drawing.Point(54, 51);
-            this.bRRBTournament.Name = "bRRBTournament";
-            this.bRRBTournament.Size = new System.Drawing.Size(89, 23);
-            this.bRRBTournament.TabIndex = 25;
-            this.bRRBTournament.Text = "wybierz (RRB)";
-            this.bRRBTournament.UseVisualStyleBackColor = true;
-            this.bRRBTournament.Click += new System.EventHandler(this.bRRBTournament_Click);
+            this.syncToolStrip.BackColor = System.Drawing.Color.White;
+            this.syncToolStrip.GripMargin = new System.Windows.Forms.Padding(0);
+            this.syncToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.syncToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bSync,
+            this.bAutoSync,
+            this.eInterval,
+            this.eOomRounds,
+            this.lOomLabel,
+            this.toolStripButton2});
+            this.syncToolStrip.Location = new System.Drawing.Point(3, 28);
+            this.syncToolStrip.Name = "syncToolStrip";
+            this.syncToolStrip.Size = new System.Drawing.Size(563, 25);
+            this.syncToolStrip.TabIndex = 27;
+            this.syncToolStrip.Text = "toolStrip5";
             // 
-            // label9
+            // bSync
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(10, 278);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(230, 9);
-            this.label9.TabIndex = 24;
-            this.label9.Text = "Rundy dla OOM (jeśli nie wiesz do czego to jest, to nic nie wpisuj!)";
+            this.bSync.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.bSync.Image = ((System.Drawing.Image)(resources.GetObject("bSync.Image")));
+            this.bSync.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bSync.Name = "bSync";
+            this.bSync.Size = new System.Drawing.Size(130, 22);
+            this.bSync.Text = "Synchronizuj teraz";
+            this.bSync.Click += new System.EventHandler(this.bSync_Click);
+            // 
+            // bAutoSync
+            // 
+            this.bAutoSync.Image = ((System.Drawing.Image)(resources.GetObject("bAutoSync.Image")));
+            this.bAutoSync.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bAutoSync.Margin = new System.Windows.Forms.Padding(30, 1, 0, 2);
+            this.bAutoSync.Name = "bAutoSync";
+            this.bAutoSync.Size = new System.Drawing.Size(114, 22);
+            this.bAutoSync.Text = "Synchronizuj co:";
+            this.bAutoSync.Click += new System.EventHandler(this.bAutoSync_Click);
+            // 
+            // eInterval
+            // 
+            this.eInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.eInterval.Name = "eInterval";
+            this.eInterval.Size = new System.Drawing.Size(50, 25);
             // 
             // eOomRounds
             // 
-            this.eOomRounds.Location = new System.Drawing.Point(12, 290);
+            this.eOomRounds.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.eOomRounds.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.eOomRounds.Enabled = false;
             this.eOomRounds.Name = "eOomRounds";
-            this.eOomRounds.Size = new System.Drawing.Size(100, 20);
-            this.eOomRounds.TabIndex = 23;
+            this.eOomRounds.Size = new System.Drawing.Size(80, 25);
+            this.eOomRounds.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
+            // 
+            // lOomLabel
+            // 
+            this.lOomLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lOomLabel.Enabled = false;
+            this.lOomLabel.Name = "lOomLabel";
+            this.lOomLabel.Size = new System.Drawing.Size(92, 22);
+            this.lOomLabel.Text = "Rundy dla OOM";
+            this.lOomLabel.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton2.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripButton2.CheckOnClick = true;
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "‎✔";
+            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton2.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
+            this.toolStripButton2.CheckedChanged += new System.EventHandler(this.toolStripButton2_CheckedChanged);
+            // 
+            // toolStrip4
+            // 
+            this.toolStrip4.BackColor = System.Drawing.Color.White;
+            this.toolStrip4.GripMargin = new System.Windows.Forms.Padding(0);
+            this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSplitButton1,
+            this.bMysqlSettings,
+            this.bForceSync,
+            this.bTruncate});
+            this.toolStrip4.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip4.Name = "toolStrip4";
+            this.toolStrip4.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip4.TabIndex = 26;
+            this.toolStrip4.Text = "toolStrip4";
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bMySQLTournament,
+            this.bRRBTournament});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(76, 22);
+            this.toolStripSplitButton1.Text = "Turniej";
+            this.toolStripSplitButton1.ToolTipText = "Wybierz turniej";
+            this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
+            // 
+            // bMySQLTournament
+            // 
+            this.bMySQLTournament.Image = ((System.Drawing.Image)(resources.GetObject("bMySQLTournament.Image")));
+            this.bMySQLTournament.Name = "bMySQLTournament";
+            this.bMySQLTournament.Size = new System.Drawing.Size(95, 22);
+            this.bMySQLTournament.Text = "JFR";
+            this.bMySQLTournament.ToolTipText = "JFR Pary lub JFR Teamy";
+            this.bMySQLTournament.Click += new System.EventHandler(this.bMySQLTournament_Click);
+            // 
+            // bRRBTournament
+            // 
+            this.bRRBTournament.Image = ((System.Drawing.Image)(resources.GetObject("bRRBTournament.Image")));
+            this.bRRBTournament.Name = "bRRBTournament";
+            this.bRRBTournament.Size = new System.Drawing.Size(95, 22);
+            this.bRRBTournament.Text = "RRB";
+            this.bRRBTournament.ToolTipText = "Red Rose Bridge";
+            this.bRRBTournament.Click += new System.EventHandler(this.bRRBTournament_Click);
+            // 
+            // bMysqlSettings
+            // 
+            this.bMysqlSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.bMysqlSettings.Image = ((System.Drawing.Image)(resources.GetObject("bMysqlSettings.Image")));
+            this.bMysqlSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bMysqlSettings.Name = "bMysqlSettings";
+            this.bMysqlSettings.Size = new System.Drawing.Size(125, 22);
+            this.bMysqlSettings.Text = "Ustawienia MySQL";
+            this.bMysqlSettings.Click += new System.EventHandler(this.bMysqlSettings_Click);
             // 
             // bForceSync
             // 
-            this.bForceSync.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.bForceSync.Location = new System.Drawing.Point(336, 97);
+            this.bForceSync.Image = ((System.Drawing.Image)(resources.GetObject("bForceSync.Image")));
+            this.bForceSync.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bForceSync.Margin = new System.Windows.Forms.Padding(65, 1, 0, 2);
             this.bForceSync.Name = "bForceSync";
-            this.bForceSync.Size = new System.Drawing.Size(152, 40);
-            this.bForceSync.TabIndex = 22;
-            this.bForceSync.Text = "Wymuś przesłanie wszystkich do serwerka ponownie";
-            this.bForceSync.UseVisualStyleBackColor = true;
+            this.bForceSync.Size = new System.Drawing.Size(122, 22);
+            this.bForceSync.Text = "Wymuś przesłanie";
+            this.bForceSync.ToolTipText = "Wymuś przesłanie wszystkich do serwerka ponownie";
             this.bForceSync.Click += new System.EventHandler(this.bForceSync_Click);
+            // 
+            // bTruncate
+            // 
+            this.bTruncate.Image = ((System.Drawing.Image)(resources.GetObject("bTruncate.Image")));
+            this.bTruncate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bTruncate.Name = "bTruncate";
+            this.bTruncate.Size = new System.Drawing.Size(139, 22);
+            this.bTruncate.Text = "Usuń nazwiska z BWS";
+            this.bTruncate.Click += new System.EventHandler(this.bTruncate_Click);
             // 
             // lNazwyTeamow
             // 
             this.lNazwyTeamow.AutoSize = true;
-            this.lNazwyTeamow.Location = new System.Drawing.Point(301, 51);
+            this.lNazwyTeamow.Location = new System.Drawing.Point(25, 121);
             this.lNazwyTeamow.Name = "lNazwyTeamow";
             this.lNazwyTeamow.Size = new System.Drawing.Size(227, 13);
             this.lNazwyTeamow.TabIndex = 20;
@@ -782,97 +891,26 @@
             // lSkok
             // 
             this.lSkok.AutoSize = true;
-            this.lSkok.Location = new System.Drawing.Point(77, 164);
+            this.lSkok.Location = new System.Drawing.Point(47, 139);
             this.lSkok.Name = "lSkok";
             this.lSkok.Size = new System.Drawing.Size(188, 13);
             this.lSkok.TabIndex = 19;
             this.lSkok.Text = "mam nadzieję, że skok stołów = 100 :)";
             this.lSkok.Visible = false;
             // 
-            // eInterval
-            // 
-            this.eInterval.Enabled = false;
-            this.eInterval.Location = new System.Drawing.Point(389, 177);
-            this.eInterval.MaxLength = 4;
-            this.eInterval.Name = "eInterval";
-            this.eInterval.Size = new System.Drawing.Size(45, 20);
-            this.eInterval.TabIndex = 18;
-            this.eInterval.Text = "60";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(440, 180);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(27, 13);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "sek.";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(364, 180);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(19, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "co";
-            // 
-            // bTruncate
-            // 
-            this.bTruncate.Location = new System.Drawing.Point(434, 223);
-            this.bTruncate.Name = "bTruncate";
-            this.bTruncate.Size = new System.Drawing.Size(123, 23);
-            this.bTruncate.TabIndex = 15;
-            this.bTruncate.Text = "Usuń nazwiska z bws";
-            this.bTruncate.UseVisualStyleBackColor = true;
-            this.bTruncate.Click += new System.EventHandler(this.bTruncate_Click);
-            // 
-            // bMysqlSettings
-            // 
-            this.bMysqlSettings.Location = new System.Drawing.Point(434, 336);
-            this.bMysqlSettings.Name = "bMysqlSettings";
-            this.bMysqlSettings.Size = new System.Drawing.Size(123, 23);
-            this.bMysqlSettings.TabIndex = 14;
-            this.bMysqlSettings.Text = "Ustawienia MySQL";
-            this.bMysqlSettings.UseVisualStyleBackColor = true;
-            this.bMysqlSettings.Click += new System.EventHandler(this.bMysqlSettings_Click);
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(268, 3);
+            this.label8.Location = new System.Drawing.Point(126, 161);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(292, 13);
+            this.label8.Size = new System.Drawing.Size(291, 13);
             this.label8.TabIndex = 12;
-            this.label8.Text = "(do serwerka wysyłane są tylko nazwiska, które się zmieniły)";
-            // 
-            // bAutoSync
-            // 
-            this.bAutoSync.Enabled = false;
-            this.bAutoSync.Location = new System.Drawing.Point(336, 150);
-            this.bAutoSync.Name = "bAutoSync";
-            this.bAutoSync.Size = new System.Drawing.Size(152, 27);
-            this.bAutoSync.TabIndex = 11;
-            this.bAutoSync.Text = "Synchronizuj cyklicznie";
-            this.bAutoSync.UseVisualStyleBackColor = true;
-            this.bAutoSync.Click += new System.EventHandler(this.bAutoSync_Click);
-            // 
-            // bSync
-            // 
-            this.bSync.Enabled = false;
-            this.bSync.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.bSync.Location = new System.Drawing.Point(336, 67);
-            this.bSync.Name = "bSync";
-            this.bSync.Size = new System.Drawing.Size(152, 33);
-            this.bSync.TabIndex = 9;
-            this.bSync.Text = "Synchronizuj teraz";
-            this.bSync.UseVisualStyleBackColor = true;
-            this.bSync.Click += new System.EventHandler(this.bSync_Click);
+            this.label8.Text = "Do serwerka wysyłane są tylko nazwiska, które się zmieniły.";
             // 
             // lTables
             // 
             this.lTables.AutoSize = true;
-            this.lTables.Location = new System.Drawing.Point(77, 138);
+            this.lTables.Location = new System.Drawing.Point(423, 97);
             this.lTables.Name = "lTables";
             this.lTables.Size = new System.Drawing.Size(0, 13);
             this.lTables.TabIndex = 8;
@@ -880,7 +918,7 @@
             // lSections
             // 
             this.lSections.AutoSize = true;
-            this.lSections.Location = new System.Drawing.Point(77, 113);
+            this.lSections.Location = new System.Drawing.Point(423, 70);
             this.lSections.Name = "lSections";
             this.lSections.Size = new System.Drawing.Size(0, 13);
             this.lSections.TabIndex = 7;
@@ -888,7 +926,7 @@
             // lType
             // 
             this.lType.AutoSize = true;
-            this.lType.Location = new System.Drawing.Point(77, 88);
+            this.lType.Location = new System.Drawing.Point(59, 97);
             this.lType.Name = "lType";
             this.lType.Size = new System.Drawing.Size(0, 13);
             this.lType.TabIndex = 6;
@@ -896,7 +934,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 138);
+            this.label6.Location = new System.Drawing.Point(373, 97);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 5;
@@ -905,7 +943,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 113);
+            this.label5.Location = new System.Drawing.Point(362, 70);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 4;
@@ -914,7 +952,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 88);
+            this.label4.Location = new System.Drawing.Point(25, 97);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
             this.label4.TabIndex = 3;
@@ -924,25 +962,15 @@
             // 
             this.lTournament.AutoSize = true;
             this.lTournament.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lTournament.Location = new System.Drawing.Point(149, 48);
+            this.lTournament.Location = new System.Drawing.Point(59, 70);
             this.lTournament.Name = "lTournament";
             this.lTournament.Size = new System.Drawing.Size(0, 16);
             this.lTournament.TabIndex = 2;
             // 
-            // bMySQLTournament
-            // 
-            this.bMySQLTournament.Location = new System.Drawing.Point(54, 27);
-            this.bMySQLTournament.Name = "bMySQLTournament";
-            this.bMySQLTournament.Size = new System.Drawing.Size(89, 23);
-            this.bMySQLTournament.TabIndex = 1;
-            this.bMySQLTournament.Text = "wybierz (JFR)";
-            this.bMySQLTournament.UseVisualStyleBackColor = true;
-            this.bMySQLTournament.Click += new System.EventHandler(this.bMySQLTournament_Click);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 32);
+            this.label3.Location = new System.Drawing.Point(11, 70);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 0;
@@ -1116,6 +1144,10 @@
             this.groupBox2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.syncToolStrip.ResumeLayout(false);
+            this.syncToolStrip.PerformLayout();
+            this.toolStrip4.ResumeLayout(false);
+            this.toolStrip4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
@@ -1163,7 +1195,6 @@
         public System.Windows.Forms.CheckBox xRemainingBoards;
         public System.Windows.Forms.CheckBox xResetFunctionKey;
         private System.Windows.Forms.Label lTournament;
-        private System.Windows.Forms.Button bMySQLTournament;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lTables;
@@ -1171,31 +1202,20 @@
         private System.Windows.Forms.Label lType;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button bSync;
-        private System.Windows.Forms.Button bAutoSync;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button bMysqlSettings;
-        private System.Windows.Forms.Button bTruncate;
-        private System.Windows.Forms.TextBox eInterval;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label lSkok;
         private System.Windows.Forms.Label lNazwyTeamow;
-        private System.Windows.Forms.Button bForceSync;
         public System.Windows.Forms.ComboBox xResultsOverview;
         public System.Windows.Forms.CheckBox xViewHandrecord;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.OpenFileDialog openPBN;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox eOomRounds;
         public System.Windows.Forms.CheckBox xCollectPlay;
         public System.Windows.Forms.CheckBox xCollectBidding;
         public System.Windows.Forms.CheckBox xCheckLeadCard;
         public System.Windows.Forms.CheckedListBox cblSections;
         private System.Windows.Forms.Label lRecordSections;
-        private System.Windows.Forms.Button bRRBTournament;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox5;
@@ -1219,6 +1239,20 @@
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton bLoadHands;
         private System.Windows.Forms.ToolStripButton bClearHands;
+        private System.Windows.Forms.ToolStrip toolStrip4;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem bMySQLTournament;
+        private System.Windows.Forms.ToolStripMenuItem bRRBTournament;
+        private System.Windows.Forms.ToolStripButton bMysqlSettings;
+        private System.Windows.Forms.ToolStrip syncToolStrip;
+        private System.Windows.Forms.ToolStripButton bSync;
+        private System.Windows.Forms.ToolStripButton bForceSync;
+        private System.Windows.Forms.ToolStripButton bTruncate;
+        private System.Windows.Forms.ToolStripButton bAutoSync;
+        private System.Windows.Forms.ToolStripTextBox eInterval;
+        private System.Windows.Forms.ToolStripTextBox eOomRounds;
+        private System.Windows.Forms.ToolStripLabel lOomLabel;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
 
