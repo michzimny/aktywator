@@ -5,6 +5,7 @@
 Aktywator 1.1.0 (beta)
 30.07.2017 [mkl]
  * wczytywanie nazwisk z plików RRBridge
+ * edytor nazwisk ładowanych do BWS
  * zmiana wyglądu zakładek
  * zapamiętywanie ustawień MySQL również dla bezhasłowych kont
  * plik BWS jest automatycznie uzupełniany o wszystkie potrzebne pola
