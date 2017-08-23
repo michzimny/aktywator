@@ -86,7 +86,7 @@ namespace Aktywator
             settings.Add(new Setting("ShowResults", main.xShowResults, this, new Version(2, 0, 0), new Version(1, 3, 1)));
             settings.Add(new Setting("RepeatResults", main.xRepeatResults, this, null, null));
             settings.Add(new Setting("ShowPercentage", main.xShowPercentage, this, null, null));
-            //settings.Add(new Setting("GroupSections", main.xGroupSections, this, null, null));
+            settings.Add(new Setting("GroupSections", main.xGroupSections, this, new Version(2, 1, 10), new Version(1, 3, 1)));
             settings.Add(new Setting("ShowPairNumbers", main.xShowPairNumbers, this, null, null));
             settings.Add(new Setting("IntermediateResults", main.xIntermediateResults, this, null, new Version(1, 4, 1)));
             settings.Add(new Setting("ShowContract", main.xShowContract, this, null, null));
@@ -295,6 +295,7 @@ namespace Aktywator
             int resultsOverview = 0;
             int.TryParse(Setting.load("BM2ResultsOverview", this, errors, section), out resultsOverview);
             main.xResultsOverview.SelectedIndex = resultsOverview;
+            main.xGroupSections.Checked = this.getSectionGroupCount() <= 1;
 
             if (section == null && main.cbSettingsSection.Items.Count > 2)
             {
@@ -306,6 +307,17 @@ namespace Aktywator
                 MessageBox.Show("Nie można uzyskać dostępu do pól: \n" + errors.ToString() + ".\nPrawdopodobnie te pola nie istnieją.",
                     "Brakuje pól w tabeli Settings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private int getSectionGroupCount()
+        {
+            OleDbDataReader rows = sql.select("SELECT DISTINCT `Group` FROM Tables");
+            int count = 0;
+            while (rows.Read())
+            {
+                count++;
+            }
+            return count;
         }
 
         public void saveSettings()
@@ -329,6 +341,14 @@ namespace Aktywator
             Setting.save("BM2NameSource", "2", this, errors, section);
             Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
             Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
+            if (main.xGroupSections.Checked)
+            {
+                sql.query("UPDATE Tables SET `Group` = 1;");
+            }
+            else
+            {
+                sql.query("UPDATE Tables SET `Group` = `Section`;"); 
+            }
 
             this.loadSettings();
         }

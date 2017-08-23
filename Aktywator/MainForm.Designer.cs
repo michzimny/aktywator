@@ -552,12 +552,11 @@
             // xGroupSections
             // 
             this.xGroupSections.AutoSize = true;
-            this.xGroupSections.Enabled = false;
             this.xGroupSections.Location = new System.Drawing.Point(34, 89);
             this.xGroupSections.Name = "xGroupSections";
-            this.xGroupSections.Size = new System.Drawing.Size(215, 17);
+            this.xGroupSections.Size = new System.Drawing.Size(227, 17);
             this.xGroupSections.TabIndex = 4;
-            this.xGroupSections.Text = "oddzielne maksowanie każdego sektora";
+            this.xGroupSections.Text = "wspólne maksowanie wszystkich sektorów";
             this.xGroupSections.UseVisualStyleBackColor = true;
             // 
             // xShowResults
