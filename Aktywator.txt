@@ -2,15 +2,19 @@
 - nie działa update ustawienia maksowania każdego sektora w czasie sesji (samo maksowanie ustawione na początku sesji - działa)
 
 ---------------------
-Aktywator 1.1.0 (beta)
-30.07.2017 [mkl]
- * wczytywanie nazwisk z plików RRBridge
+Aktywator 1.1.1 (beta)
+24.08.2017 [mkl]
  * edytor nazwisk ładowanych do BWS
  * zmiana wyglądu zakładek
  * zapamiętywanie ustawień MySQL również dla bezhasłowych kont
  * oddzielne maksowanie sektorów
  * plik BWS jest automatycznie uzupełniany o wszystkie potrzebne pola
  * poprawiono błąd pobierania numerów graczy przy wyświetlonych nazwach teamów
+
+---------------------
+Aktywator 1.1.0 (beta)
+30.07.2017 [mkl]
+ * wczytywanie nazwisk z plików RRBridge
 
 ---------------------
 Aktywator 1.0.8
