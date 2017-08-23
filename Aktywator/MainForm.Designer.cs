@@ -760,7 +760,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(469, 74);
+            this.button1.Location = new System.Drawing.Point(469, 71);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 23);
             this.button1.TabIndex = 34;
@@ -771,7 +771,7 @@
             // 
             // numNamesRefreshInterval
             // 
-            this.numNamesRefreshInterval.Location = new System.Drawing.Point(408, 76);
+            this.numNamesRefreshInterval.Location = new System.Drawing.Point(408, 73);
             this.numNamesRefreshInterval.Maximum = new decimal(new int[] {
             120,
             0,
@@ -795,7 +795,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(273, 78);
+            this.label10.Location = new System.Drawing.Point(273, 75);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(135, 13);
             this.label10.TabIndex = 32;
@@ -814,15 +814,15 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 81);
+            this.label7.Location = new System.Drawing.Point(3, 67);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 13);
+            this.label7.Size = new System.Drawing.Size(226, 26);
             this.label7.TabIndex = 30;
-            this.label7.Text = "Podgląd nazwisk:";
+            this.label7.Text = "Podgląd nazwisk:\r\n(najedź, by zobaczyć skrócony tekst dla BWS)";
             // 
             // numTeamsTableOffset
             // 
-            this.numTeamsTableOffset.Location = new System.Drawing.Point(110, 61);
+            this.numTeamsTableOffset.Location = new System.Drawing.Point(505, 43);
             this.numTeamsTableOffset.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -862,6 +862,7 @@
             this.namesGridView.Name = "namesGridView";
             this.namesGridView.Size = new System.Drawing.Size(557, 318);
             this.namesGridView.TabIndex = 28;
+            this.namesGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellMouseEnter);
             this.namesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellValueChanged);
             // 
             // Number
@@ -894,7 +895,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 40);
+            this.label4.Location = new System.Drawing.Point(30, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
             this.label4.TabIndex = 3;
@@ -903,7 +904,7 @@
             // lType
             // 
             this.lType.AutoSize = true;
-            this.lType.Location = new System.Drawing.Point(64, 40);
+            this.lType.Location = new System.Drawing.Point(64, 45);
             this.lType.Name = "lType";
             this.lType.Size = new System.Drawing.Size(0, 13);
             this.lType.TabIndex = 6;
@@ -911,7 +912,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(410, 18);
+            this.label5.Location = new System.Drawing.Point(342, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 4;
@@ -920,7 +921,7 @@
             // lSkok
             // 
             this.lSkok.AutoSize = true;
-            this.lSkok.Location = new System.Drawing.Point(30, 63);
+            this.lSkok.Location = new System.Drawing.Point(430, 45);
             this.lSkok.Name = "lSkok";
             this.lSkok.Size = new System.Drawing.Size(74, 13);
             this.lSkok.TabIndex = 19;
@@ -930,7 +931,7 @@
             // lSections
             // 
             this.lSections.AutoSize = true;
-            this.lSections.Location = new System.Drawing.Point(471, 18);
+            this.lSections.Location = new System.Drawing.Point(403, 18);
             this.lSections.Name = "lSections";
             this.lSections.Size = new System.Drawing.Size(0, 13);
             this.lSections.TabIndex = 7;
@@ -947,7 +948,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(421, 40);
+            this.label6.Location = new System.Drawing.Point(353, 45);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 5;
@@ -956,7 +957,7 @@
             // lTables
             // 
             this.lTables.AutoSize = true;
-            this.lTables.Location = new System.Drawing.Point(471, 40);
+            this.lTables.Location = new System.Drawing.Point(403, 45);
             this.lTables.Name = "lTables";
             this.lTables.Size = new System.Drawing.Size(0, 13);
             this.lTables.TabIndex = 8;
