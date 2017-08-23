@@ -26,23 +26,33 @@ namespace Aktywator
             this.fwV = firmwareVersion;
         }
 
-        public void load()
+        public void load(string section = null)
         {
             StringBuilder str = new StringBuilder();
             str.Append("SELECT ");
             str.Append(this.name);
             str.Append(" FROM Settings");
+            if (section != null)
+            {
+                str.Append(" WHERE `Section` = ");
+                str.Append(section);
+            }
             field.Checked = false;
             string a = bws.sql.selectOne(str.ToString());
             field.Checked = a.ToUpper() == "TRUE" ? true : false;
         }
 
-        public static string load(string name, Bws bws, StringBuilder errors)
+        public static string load(string name, Bws bws, StringBuilder errors, string section = null)
         {
             StringBuilder str = new StringBuilder();
             str.Append("SELECT ");
             str.Append(name);
             str.Append(" FROM Settings");
+            if (section != null)
+            {
+                str.Append(" WHERE `Section` = ");
+                str.Append(section);
+            }
             try
             {
                 return bws.sql.selectOne(str.ToString());
@@ -55,23 +65,33 @@ namespace Aktywator
             }
         }
 
-        public void save()
+        public void save(string section = null)
         {
             StringBuilder str = new StringBuilder();
             str.Append("UPDATE Settings SET ");
             str.Append(this.name);
             if (field.Checked) str.Append("=true");
             else str.Append("=false");
+            if (section != null)
+            {
+                str.Append(" WHERE `Section` = ");
+                str.Append(section);
+            }
             bws.sql.query(str.ToString());
         }
 
-        public static void save(string name, string value, Bws bws, StringBuilder errors)
+        public static void save(string name, string value, Bws bws, StringBuilder errors, string section = null)
         {
             StringBuilder str = new StringBuilder();
             str.Append("UPDATE Settings SET ");
             str.Append(name);
             str.Append("=");
             str.Append(value);
+            if (section != null)
+            {
+                str.Append(" WHERE `Section` = ");
+                str.Append(section);
+            }
             try
             {
                 bws.sql.query(str.ToString());

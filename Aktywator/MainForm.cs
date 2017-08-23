@@ -67,6 +67,7 @@ namespace Aktywator
             bws.convert();
 
             labelFilename.Text = filename;
+            this.fillSectionSelector(bws.getSections());
             // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
             this.bwsSettings = new List<Setting>(bws.initSettings());
             this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
@@ -75,6 +76,14 @@ namespace Aktywator
             syncToolStrip.Visible = false;
             namesPanel.Visible = false;
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private void fillSectionSelector(string sections)
+        {
+            cbSettingsSection.SelectedIndex = 0;
+            foreach (string section in sections.Split(',')) {
+                cbSettingsSection.Items.Add(bws.sectorNumberToLetter(Int32.Parse(section.Trim())));
+            }
         }
 
         private void bindSettingChanges()
@@ -536,6 +545,11 @@ namespace Aktywator
                 DataGridViewCell cell = namesGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 cell.ToolTipText = tournament.shortenNameToBWS(cell.Value.ToString());
             }
+        }
+
+        private void cbSettingsSection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bws.loadSettings();
         }
 
     }

@@ -64,7 +64,7 @@ namespace Aktywator
             return sector.ToUpper()[0] - 'A' + 1;
         }
 
-        private string sectorNumberToLetter(int sector)
+        internal string sectorNumberToLetter(int sector)
         {
             char character = (char)('A' - 1 + sector);
             return character.ToString();
@@ -270,12 +270,18 @@ namespace Aktywator
 
         public void loadSettings()
         {
+            if (settings == null)
+            {
+                return;
+            }
+            main.lFirstSectorSettings.Visible = false;
+            string section = "*".Equals(main.cbSettingsSection.Text) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text).ToString();
             StringBuilder errors = new StringBuilder();
             foreach (Setting s in settings)
             {
                 try
                 {
-                    s.load();
+                    s.load(section);
                 }
                 catch (OleDbException)
                 {
@@ -283,12 +289,17 @@ namespace Aktywator
                     errors.Append(s.name);
                 }
             }
-            main.xShowContract.Checked = (Setting.load("ShowContract", this, errors) == "0");
-            main.xShowPlayerNames.Checked = (Setting.load("BM2ShowPlayerNames", this, errors) != "0");
-            main.xPINcode.Text = Setting.load("BM2PINcode", this, errors);
+            main.xShowContract.Checked = (Setting.load("ShowContract", this, errors, section) == "0");
+            main.xShowPlayerNames.Checked = (Setting.load("BM2ShowPlayerNames", this, errors, section) != "0");
+            main.xPINcode.Text = Setting.load("BM2PINcode", this, errors, section);
             int resultsOverview = 0;
-            int.TryParse(Setting.load("BM2ResultsOverview", this, errors), out resultsOverview);
+            int.TryParse(Setting.load("BM2ResultsOverview", this, errors, section), out resultsOverview);
             main.xResultsOverview.SelectedIndex = resultsOverview;
+
+            if (section == null && main.cbSettingsSection.Items.Count > 2)
+            {
+                main.lFirstSectorSettings.Visible = true;
+            }
 
             if (errors.Length > 0)
             {
@@ -299,12 +310,13 @@ namespace Aktywator
 
         public void saveSettings()
         {
+            string section = "*".Equals(main.cbSettingsSection.Text) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text).ToString();
             StringBuilder errors = new StringBuilder();
             foreach (Setting s in settings)
             {
                 try
                 {
-                    s.save();
+                    s.save(section);
                 }
                 catch (OleDbException)
                 {
@@ -312,11 +324,11 @@ namespace Aktywator
                     errors.Append(s.name);
                 }
             }
-            Setting.save("ShowContract", main.xShowContract.Checked ? "0" : "1", this, errors);
-            Setting.save("BM2ShowPlayerNames", main.xShowPlayerNames.Checked ? "1" : "0", this, errors);
-            Setting.save("BM2NameSource", "2", this, errors);
-            Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors);
-            Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors);
+            Setting.save("ShowContract", main.xShowContract.Checked ? "0" : "1", this, errors, section);
+            Setting.save("BM2ShowPlayerNames", main.xShowPlayerNames.Checked ? "1" : "0", this, errors, section);
+            Setting.save("BM2NameSource", "2", this, errors, section);
+            Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
+            Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
 
             this.loadSettings();
         }

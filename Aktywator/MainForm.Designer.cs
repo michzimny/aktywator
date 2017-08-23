@@ -38,6 +38,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lFirstSectorSettings = new System.Windows.Forms.Label();
+            this.cbSettingsSection = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lRequiredVersion = new System.Windows.Forms.ToolStripStatusLabel();
@@ -82,7 +85,6 @@
             this.xShowPairNumbers = new System.Windows.Forms.CheckBox();
             this.xMemberNumbersNoBlankEntry = new System.Windows.Forms.CheckBox();
             this.xShowPlayerNames = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.namesPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -217,6 +219,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lFirstSectorSettings);
+            this.tabPage1.Controls.Add(this.cbSettingsSection);
+            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.statusStrip2);
             this.tabPage1.Controls.Add(this.toolStrip2);
             this.tabPage1.Controls.Add(this.groupBox7);
@@ -225,7 +230,6 @@
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -233,6 +237,37 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ustawienia";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lFirstSectorSettings
+            // 
+            this.lFirstSectorSettings.AutoSize = true;
+            this.lFirstSectorSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lFirstSectorSettings.Location = new System.Drawing.Point(119, 39);
+            this.lFirstSectorSettings.Name = "lFirstSectorSettings";
+            this.lFirstSectorSettings.Size = new System.Drawing.Size(263, 13);
+            this.lFirstSectorSettings.TabIndex = 49;
+            this.lFirstSectorSettings.Text = "załadowano ustawienia z pierwszego sektora";
+            // 
+            // cbSettingsSection
+            // 
+            this.cbSettingsSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSettingsSection.FormattingEnabled = true;
+            this.cbSettingsSection.Items.AddRange(new object[] {
+            "*"});
+            this.cbSettingsSection.Location = new System.Drawing.Point(59, 36);
+            this.cbSettingsSection.Name = "cbSettingsSection";
+            this.cbSettingsSection.Size = new System.Drawing.Size(53, 21);
+            this.cbSettingsSection.TabIndex = 48;
+            this.cbSettingsSection.SelectedIndexChanged += new System.EventHandler(this.cbSettingsSection_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "Sektor:";
             // 
             // statusStrip2
             // 
@@ -461,7 +496,7 @@
             this.groupBox5.Controls.Add(this.xCheckLeadCard);
             this.groupBox5.Controls.Add(this.xLeadCard);
             this.groupBox5.Controls.Add(this.xViewHandrecord);
-            this.groupBox5.Location = new System.Drawing.Point(1, 355);
+            this.groupBox5.Location = new System.Drawing.Point(4, 355);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(257, 121);
             this.groupBox5.TabIndex = 42;
@@ -592,7 +627,7 @@
             this.groupBox3.Controls.Add(this.xIntermediateResults);
             this.groupBox3.Controls.Add(this.xAutoBoardNumber);
             this.groupBox3.Controls.Add(this.xCollectBidding);
-            this.groupBox3.Location = new System.Drawing.Point(1, 209);
+            this.groupBox3.Location = new System.Drawing.Point(3, 209);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(257, 140);
             this.groupBox3.TabIndex = 40;
@@ -655,9 +690,9 @@
             this.groupBox2.Controls.Add(this.xShowPairNumbers);
             this.groupBox2.Controls.Add(this.xMemberNumbersNoBlankEntry);
             this.groupBox2.Controls.Add(this.xShowPlayerNames);
-            this.groupBox2.Location = new System.Drawing.Point(1, 65);
+            this.groupBox2.Location = new System.Drawing.Point(5, 65);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(257, 138);
+            this.groupBox2.Size = new System.Drawing.Size(256, 138);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Rozstawienie";
@@ -704,18 +739,6 @@
             this.xShowPlayerNames.TabIndex = 9;
             this.xShowPlayerNames.Text = "pokazuj nazwiska";
             this.xShowPlayerNames.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label1.Location = new System.Drawing.Point(89, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(398, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Te same ustawienia są ustawiane dla wszystkich sektorów, przynajmniej na razie :-" +
-                ")";
             // 
             // tabPage2
             // 
@@ -1335,7 +1358,6 @@
         public System.Windows.Forms.CheckBox xShowResults;
         public System.Windows.Forms.TabPage tabPage2;
         public System.Windows.Forms.CheckBox xConfirmNP;
-        public System.Windows.Forms.Label label1;
         public System.Windows.Forms.CheckBox xShowPlayerNames;
         public System.Windows.Forms.CheckBox xAutoBoardNumber;
         public System.Windows.Forms.CheckBox xScoreCorrection;
@@ -1414,6 +1436,9 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NumericUpDown numNamesRefreshInterval;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label lFirstSectorSettings;
+        public System.Windows.Forms.ComboBox cbSettingsSection;
     }
 }
 
