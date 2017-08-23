@@ -786,7 +786,7 @@
             this.numNamesRefreshInterval.Size = new System.Drawing.Size(41, 20);
             this.numNamesRefreshInterval.TabIndex = 33;
             this.numNamesRefreshInterval.Value = new decimal(new int[] {
-            1,
+            3,
             0,
             0,
             0});
@@ -1246,7 +1246,7 @@
             // 
             // namesTimer
             // 
-            this.namesTimer.Interval = 500;
+            this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
             // 
             // MainForm
