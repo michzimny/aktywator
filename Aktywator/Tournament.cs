@@ -113,18 +113,23 @@ namespace Aktywator
 
         virtual internal string shortenNameToBWS(string name)
         {
+            name = Common.bezOgonkow(name);
             if ("pauza".Equals(name.Trim()))
             {
                 return " ";
             }
             else
             {
-                string[] nameParts = name.Trim().Split(' ');
-                if (nameParts.Length > 0)
+                if (this._type != Tournament.TYPE_TEAMY)
                 {
-                    nameParts[0] = (nameParts[0].Length > 0) ? nameParts[0][0].ToString() : " ";
+                    string[] nameParts = name.Trim().Split(' ');
+                    if (nameParts.Length > 0)
+                    {
+                        nameParts[0] = (nameParts[0].Length > 0) ? nameParts[0][0].ToString() : " ";
+                    }
+                    return String.Join(" ", nameParts);
                 }
-                return String.Join(" ", nameParts);
+                return name;
             }
         }
 
