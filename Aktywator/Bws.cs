@@ -21,6 +21,28 @@ namespace Aktywator
         public bool settingsChanged = false;
         private static string applicationPath = Common.ProgramFilesx86() + "\\Bridgemate Pro\\";
 
+        private class SectionCheckBox
+        {
+            private string section;
+            private string label;
+
+            public SectionCheckBox(string section, string label)
+            {
+                this.section = section;
+                this.label = label;
+            }
+
+            override public string ToString()
+            {
+                return this.label;
+            }
+
+            public string getSection()
+            {
+                return this.section;
+            }
+        }
+
         public Bws(string filename, MainForm main)
         {
             this._filename = filename;
@@ -29,8 +51,8 @@ namespace Aktywator
             string[] sections = this.getSections().Split(',');
             foreach (string section in sections)
             {
-                int sectionNumber = Int16.Parse(section);
-                main.cblSections.Items.Add("sektor " + this.sectorNumberToLetter(sectionNumber) + " (rozdania " + this.lowBoard(section) + "-" + this.highBoard(section) + ")");
+                SectionCheckBox item = new SectionCheckBox(section, "sektor " + this.sectorNumberToLetter(Int16.Parse(section)) + " (rozdania " + this.lowBoard(section) + "-" + this.highBoard(section) + ")");
+                main.cblSections.Items.Add(item);
             }
             for (int i = 0; i < main.cblSections.Items.Count; i++)
             {
@@ -49,29 +71,12 @@ namespace Aktywator
             return character.ToString();
         }
 
-        public string getBoardRangeText(string[] sectors)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Wczytywane rozkłady:");
-            foreach (string sector in sectors)
-            {
-                sb.Append("\n      ");
-                sb.Append(this.lowBoard(sector));
-                sb.Append("-");
-                sb.Append(this.highBoard(sector));
-                sb.Append(" (sektor ");
-                sb.Append(this.sectorNumberToLetter(Int16.Parse(sector)));
-                sb.Append(")");
-            }
-            return sb.ToString();
-        }
-
         public string[] getSelectedSections()
         {
             List<string> sections = new List<string>();
-            foreach (string section in main.cblSections.CheckedItems)
+            foreach (SectionCheckBox section in main.cblSections.CheckedItems)
             {
-                sections.Add(this.sectorLetterToNumber(section).ToString());
+                sections.Add(section.getSection());
             }
             return sections.ToArray();
         }
