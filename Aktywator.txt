@@ -1,5 +1,5 @@
 ﻿Known issues:
-- nie działa oddzielne maksowanie każdego sektora
+- nie działa update ustawienia maksowania każdego sektora w czasie sesji (samo maksowanie ustawione na początku sesji - działa)
 
 ---------------------
 Aktywator 1.1.0 (beta)
