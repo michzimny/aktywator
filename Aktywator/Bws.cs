@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.OleDb;
 using System.Windows.Forms;
-using System.Data.OleDb;
 
 namespace Aktywator
 {
