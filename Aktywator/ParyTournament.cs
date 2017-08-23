@@ -31,7 +31,7 @@ namespace Aktywator
         override internal Dictionary<int, List<string>> getNameList()
         {
             Dictionary<int, List<String>> pairs = new Dictionary<int, List<string>>();
-            MySqlDataReader dbData = this.mysql.select("SELECT idp, CONCAT(SUBSTR(imie,1,1),'.',nazw) name FROM zawodnicy");
+            MySqlDataReader dbData = this.mysql.select("SELECT idp, CONCAT(imie, ' ', nazw) name FROM zawodnicy");
             while (dbData.Read())
             {
                 int pairNo = dbData.GetInt32(0);
