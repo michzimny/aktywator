@@ -9,7 +9,6 @@ namespace Aktywator
     class RRBTournament : Tournament
     {
         private XmlDocument _xml;
-        private string p;
 
         public RRBTournament(string name)
         {
@@ -55,6 +54,7 @@ namespace Aktywator
 
         override internal Dictionary<int, List<string>> getNameList()
         {
+            this._xml.Load(this._name);
             Dictionary<int, List<string>> names = new Dictionary<int, List<string>>();
             foreach (XmlNode pair in this._xml.SelectNodes("//lista/para"))
             {
