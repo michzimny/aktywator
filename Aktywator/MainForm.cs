@@ -529,5 +529,14 @@ namespace Aktywator
             namesTimer.Interval = Convert.ToInt32(numNamesRefreshInterval.Value) * 1000;
         }
 
+        private void namesGridView_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex > 0)
+            {
+                DataGridViewCell cell = namesGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = tournament.shortenNameToBWS(cell.Value.ToString());
+            }
+        }
+
     }
 }

@@ -814,11 +814,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 75);
+            this.label7.Location = new System.Drawing.Point(3, 67);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 13);
+            this.label7.Size = new System.Drawing.Size(226, 26);
             this.label7.TabIndex = 30;
-            this.label7.Text = "Podgląd nazwisk:";
+            this.label7.Text = "Podgląd nazwisk:\r\n(najedź, by zobaczyć skrócony tekst dla BWS)";
             // 
             // numTeamsTableOffset
             // 
@@ -862,6 +862,7 @@
             this.namesGridView.Name = "namesGridView";
             this.namesGridView.Size = new System.Drawing.Size(557, 318);
             this.namesGridView.TabIndex = 28;
+            this.namesGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellMouseEnter);
             this.namesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellValueChanged);
             // 
             // Number
