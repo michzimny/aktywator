@@ -518,5 +518,16 @@ namespace Aktywator
             tournament.displayNameList(namesGridView);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tournament.clearCellLocks(namesGridView);
+            tournament.displayNameList(namesGridView);
+        }
+
+        private void numNamesRefreshInterval_ValueChanged(object sender, EventArgs e)
+        {
+            namesTimer.Interval = Convert.ToInt32(numNamesRefreshInterval.Value) * 1000;
+        }
+
     }
 }

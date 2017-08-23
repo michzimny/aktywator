@@ -85,6 +85,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.namesPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.numNamesRefreshInterval = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.numTeamsTableOffset = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.namesGridView = new System.Windows.Forms.DataGridView();
@@ -142,6 +147,7 @@
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.namesPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numNamesRefreshInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTeamsTableOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.namesGridView)).BeginInit();
             this.syncToolStrip.SuspendLayout();
@@ -726,6 +732,11 @@
             // 
             // namesPanel
             // 
+            this.namesPanel.Controls.Add(this.button1);
+            this.namesPanel.Controls.Add(this.numNamesRefreshInterval);
+            this.namesPanel.Controls.Add(this.label10);
+            this.namesPanel.Controls.Add(this.label9);
+            this.namesPanel.Controls.Add(this.label7);
             this.namesPanel.Controls.Add(this.numTeamsTableOffset);
             this.namesPanel.Controls.Add(this.label3);
             this.namesPanel.Controls.Add(this.namesGridView);
@@ -742,6 +753,72 @@
             this.namesPanel.Name = "namesPanel";
             this.namesPanel.Size = new System.Drawing.Size(562, 449);
             this.namesPanel.TabIndex = 29;
+            // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(469, 74);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(90, 23);
+            this.button1.TabIndex = 34;
+            this.button1.Text = "Usuń zmiany";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // numNamesRefreshInterval
+            // 
+            this.numNamesRefreshInterval.Location = new System.Drawing.Point(408, 76);
+            this.numNamesRefreshInterval.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.numNamesRefreshInterval.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numNamesRefreshInterval.Name = "numNamesRefreshInterval";
+            this.numNamesRefreshInterval.Size = new System.Drawing.Size(41, 20);
+            this.numNamesRefreshInterval.TabIndex = 33;
+            this.numNamesRefreshInterval.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numNamesRefreshInterval.ValueChanged += new System.EventHandler(this.numNamesRefreshInterval_ValueChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(273, 78);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(135, 13);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "Odśwież podgląd co (sek.):";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(1, 418);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(499, 13);
+            this.label9.TabIndex = 31;
+            this.label9.Text = "Zmiany wprowadzone powyżej nie zostaną nadpisane danymi z turnieju i nie zostaną " +
+                "zapisane w turnieju.";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 81);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(90, 13);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Podgląd nazwisk:";
             // 
             // numTeamsTableOffset
             // 
@@ -781,7 +858,7 @@
             this.Number,
             this.NorthSouth,
             this.EastWest});
-            this.namesGridView.Location = new System.Drawing.Point(2, 112);
+            this.namesGridView.Location = new System.Drawing.Point(2, 98);
             this.namesGridView.Name = "namesGridView";
             this.namesGridView.Size = new System.Drawing.Size(557, 318);
             this.namesGridView.TabIndex = 28;
@@ -861,11 +938,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(0, 433);
+            this.label8.Location = new System.Drawing.Point(1, 432);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(291, 13);
+            this.label8.Size = new System.Drawing.Size(323, 13);
             this.label8.TabIndex = 12;
-            this.label8.Text = "Do serwerka wysyłane są tylko nazwiska, które się zmieniły.";
+            this.label8.Text = "Do serwerka wysyłane są tylko nazwiska, które się zaktualizowały.";
             // 
             // label6
             // 
@@ -1213,6 +1290,7 @@
             this.tabPage2.PerformLayout();
             this.namesPanel.ResumeLayout(false);
             this.namesPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numNamesRefreshInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTeamsTableOffset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.namesGridView)).EndInit();
             this.syncToolStrip.ResumeLayout(false);
@@ -1330,6 +1408,11 @@
         private System.Windows.Forms.Panel namesPanel;
         private System.Windows.Forms.Timer namesTimer;
         public System.Windows.Forms.NumericUpDown numTeamsTableOffset;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.NumericUpDown numNamesRefreshInterval;
+        private System.Windows.Forms.Label label10;
     }
 }
 
