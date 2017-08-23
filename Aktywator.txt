@@ -127,9 +127,8 @@ Aktywator 0.1
 Procedura użycia:
 1) normalnie generujemy bws'a z Par lub Teamów (BMKopsowi mówimy "nie" - robi jakieś stare bws'y)
 2) uruchamiamy go przez Aktywatora
-3) zgadzamy się na konwersję (wykonywana jednorazowo dla każdego bws'a)
-4) wybieramy ustawienia, zwłaszcza np. PIN i zatwierdzamy je klikając "Zapisz" (ustawienia domyślne Bm I są wzięte z Par/Teamów, ustawienia domyślne Bm II są zrobione wg mojego widzimisię)
-5) klikamy "Uruchom BCS"
+3) wybieramy ustawienia, zwłaszcza np. PIN i zatwierdzamy je klikając "Zapisz" (ustawienia domyślne Bm I są wzięte z Par/Teamów, ustawienia domyślne Bm II są zrobione wg mojego widzimisię)
+4) klikamy "Uruchom BCS"
 --
 W trakcie sesji możemy np.:
 - zmienić ustawienia: zmieniamy, klikamy "Zapisz", a następnie z menu wybieramy wymuszenie na serwerku synchronizacji ustawień (to ostatnie jest konieczne w trakcie sesji, bo inaczej zmiany trafią tylko do bws'a, ale serwerek się o nich nie dowie)
