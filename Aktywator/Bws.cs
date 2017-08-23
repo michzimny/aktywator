@@ -27,10 +27,10 @@ namespace Aktywator
             sql = new Sql(filename);
             this.main = main;
             string[] sections = this.getSections().Split(',');
-            main.lWczytywane.Text = this.getBoardRangeText(sections);
             foreach (string section in sections)
             {
-                main.cblSections.Items.Add(this.sectorNumberToLetter(Int16.Parse(section)));
+                int sectionNumber = Int16.Parse(section);
+                main.cblSections.Items.Add("sektor " + this.sectorNumberToLetter(sectionNumber) + " (rozdania " + this.lowBoard(section) + "-" + this.highBoard(section) + ")");
             }
             for (int i = 0; i < main.cblSections.Items.Count; i++)
             {
@@ -40,7 +40,7 @@ namespace Aktywator
 
         private int sectorLetterToNumber(string sector)
         {
-            return sector[0] - 'A' + 1;
+            return sector.ToUpper()[0] - 'A' + 1;
         }
 
         private string sectorNumberToLetter(int sector)

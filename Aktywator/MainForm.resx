@@ -158,6 +158,68 @@
         AABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="toolStrip3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>133, 56</value>
+  </metadata>
+  <data name="bLoadHands.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJ0SURBVDhPvZJZSNRRHEb/Dz30kkVmJEKSJWLBYGBI9RBi
+        RLlSrqDkQrlSZijmuDTjrrO4TqloMy6NOlpZimGFUCgSoeVCialZUFSKqaGS22mcEcnyIQj64IPLvfcc
+        flyu8F+SUVztJC3Qci2nkiyVjkSZJmnt6O8SFKvCM0IRsLq+lFBhlqqXxaWrvQNjixEaa/J89eX3ttZl
+        KQz0JokQl7h5RSnwiMg3CBjq0zA/1WDoj0kti+NqdJUKmmrSUteYDfGMVOIRXoBrWBFCQ5WSucnaDfDy
+        5xIWB2KovZVDdWkm6uJUyvJTuCkXU5Qdz5rHmDqNjLmvmnV4RQ8zJIaBsE37h+B2eTbfP5Wtw22NMkMf
+        6nJp1mZzrzoTnToNbZmUStV1KgqSKFWKUckSjLLqskxm3hcaxh7tkNBUq2R5VApj6Rv7Tr83kgiDsfA6
+        it56H6KD3asEtSqN6eEc+CDnfp2Crkdy46VfR38VCN1eLHW6MP/YkbdVIkLPO05fueB2SCgvkPDtjZSx
+        zmSatHJWRiTQH24Ee0P0oB9LXe7Mt59ipvU4E42HkUZY4+dkmm94gxJlMhN9CdypkdHzTD/JYIxecBF6
+        Alh5fpaFp2eYbTvBZJM9X+ps6c7Ygb+LFfY222wMAlWumP72FO7W5MJwCrzUj/vCm4UOV2afODLV7MC4
+        TsRHzQEG5KZIwvZjd9C8xQCvpjArnobKHAYeRNKdJ6y3S76F9uyttKRupz7JDHW8BTeuWuLvvG/Fwc7S
+        eQ0XhLz0OPIkoWQlBJF42ZfoEHeCfU5y7vRRnI6JOCKyxtbKgr3mu9i904Q9piYb/8G/RRB+Attu5QF5
+        RgSyAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="bClearHands.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Rozkłady muszą zostać wczytane przed "Uruchom BCS".
+
+W przeciwnym razie trzeba w BCS wybrać: Session-&gt;Upload hand records-&gt;Upload...
+
+Jeżeli Server-&gt;Show hand records w BCS nie pokazuje rozkładów (i/lub nie pokazują ich pierniczki),
+to także należy ręcznie zrobić Upload.</value>
+  </data>
   <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>527, 17</value>
   </metadata>
@@ -183,13 +245,13 @@
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIISURBVDhPYxj8YPrOP/9BuH/Tt//Ny9/+L5v1+H9W/63/
         UGlUULvid3D5/I+r/eqvS0GFwAZ0bPj/v2zRr/+Jfc/+u5WdnQqVQgWVi37qtKz6cyq1/8l/s6RNd6DC
         DD3rv/wvmPftf0zfx/9uFbf/2+YeP2KefEATKo0AFUu+TahY/O2/c/7p/6pBc99BhRlqF774H9Z6779z
-        zs1PFtkX/hsn7fuvG72pByqNAFVLP17Imf7+v2ny/v+6kevnQoUZcifd+W+fdzrHqfTSNNu8c//1Yrb9
-        1w1beh4qjQCN8z99Tp/69r9xwt7/BjE7rEBiaWlnWJM6roADLKz1jnVw0z2wAYpesz+DxFBAGdCAtKnv
+        9s1PFtkX/hsn7fuvG72pByqNAFVLP17Imf7+v2ny/v+6kevnQoUZcifd+W+fdzrHqfTSNNu8c//1Yrb9
+        1w1beh4qjQCN8z99Tp/69r9xwt7/BjE7rEBiaWlnWJM6roADLKz1jnVw0z2wAfJesz+DxFBACdCAtKnv
         /pul7ocbgAyyZr6zSZvy5r9h3C7sBlQs+Hghdcrb//a5p/9bpR+ZCRWGg5plv+dlTPvwXz9mx3+dkCUX
         oMIIkD31ZV9879P/XlU3/vtW3HybOvHFnDygreULv9k0rP47v3z59/fBzff/64av+q8VtmIiVBsCRDTd
         1g6svXrUo+zKf9/aO//jep//z5z27n/ezI//c2Z9+g/SrBe9+b9m6JLTGmFrdaDaUIFr8QVfu+xjR43j
         d//XjdkKxqBA04vZAgz55UDNi07rhS0NhirHDgxjd2nqhK3p0wyYe1HJb8oXENYKnH1JN3TJJPWQlbpQ
-        ZYMGMDAAAFzIDh1JAY8rAAAAAElFTkSuQmCC
+        ZYMGMDAAAE5bDhZeNnGYAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

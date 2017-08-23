@@ -108,15 +108,12 @@
             this.bMySQLTournament = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.bClearHands = new System.Windows.Forms.Button();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.bLoadHands = new System.Windows.Forms.ToolStripButton();
+            this.bClearHands = new System.Windows.Forms.ToolStripButton();
             this.lRecordSections = new System.Windows.Forms.Label();
             this.cblSections = new System.Windows.Forms.CheckedListBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.lWczytywane = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.bLoadHands = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -137,6 +134,7 @@
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.toolStrip3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -952,15 +950,10 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.bClearHands);
+            this.tabPage3.Controls.Add(this.toolStrip3);
             this.tabPage3.Controls.Add(this.lRecordSections);
             this.tabPage3.Controls.Add(this.cblSections);
-            this.tabPage3.Controls.Add(this.label14);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.lWczytywane);
-            this.tabPage3.Controls.Add(this.label12);
             this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.bLoadHands);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -969,22 +962,47 @@
             this.tabPage3.Text = "Rozkłady";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // toolStrip3
+            // 
+            this.toolStrip3.BackColor = System.Drawing.Color.White;
+            this.toolStrip3.GripMargin = new System.Windows.Forms.Padding(0);
+            this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bLoadHands,
+            this.bClearHands});
+            this.toolStrip3.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip3.Name = "toolStrip3";
+            this.toolStrip3.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip3.TabIndex = 9;
+            this.toolStrip3.Text = "toolStrip3";
+            // 
+            // bLoadHands
+            // 
+            this.bLoadHands.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.bLoadHands.Image = ((System.Drawing.Image)(resources.GetObject("bLoadHands.Image")));
+            this.bLoadHands.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bLoadHands.Name = "bLoadHands";
+            this.bLoadHands.Size = new System.Drawing.Size(122, 22);
+            this.bLoadHands.Text = "Wczytaj rozkłady";
+            this.bLoadHands.Click += new System.EventHandler(this.bLoadHands_Click);
+            // 
             // bClearHands
             // 
-            this.bClearHands.Location = new System.Drawing.Point(334, 336);
+            this.bClearHands.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.bClearHands.Image = ((System.Drawing.Image)(resources.GetObject("bClearHands.Image")));
+            this.bClearHands.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bClearHands.Name = "bClearHands";
-            this.bClearHands.Size = new System.Drawing.Size(223, 23);
-            this.bClearHands.TabIndex = 8;
+            this.bClearHands.Size = new System.Drawing.Size(230, 22);
             this.bClearHands.Text = "Usuń rozkłady dla wszystkich sektorów";
-            this.bClearHands.UseVisualStyleBackColor = true;
             this.bClearHands.Click += new System.EventHandler(this.bClearHands_Click);
             // 
             // lRecordSections
             // 
             this.lRecordSections.AutoSize = true;
-            this.lRecordSections.Location = new System.Drawing.Point(23, 150);
+            this.lRecordSections.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lRecordSections.Location = new System.Drawing.Point(6, 138);
             this.lRecordSections.Name = "lRecordSections";
-            this.lRecordSections.Size = new System.Drawing.Size(46, 13);
+            this.lRecordSections.Size = new System.Drawing.Size(54, 13);
             this.lRecordSections.TabIndex = 7;
             this.lRecordSections.Text = "Sektory:";
             // 
@@ -993,69 +1011,19 @@
             this.cblSections.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.cblSections.CheckOnClick = true;
             this.cblSections.FormattingEnabled = true;
-            this.cblSections.Location = new System.Drawing.Point(26, 178);
-            this.cblSections.MultiColumn = true;
+            this.cblSections.Location = new System.Drawing.Point(9, 162);
             this.cblSections.Name = "cblSections";
-            this.cblSections.Size = new System.Drawing.Size(456, 105);
+            this.cblSections.Size = new System.Drawing.Size(546, 285);
             this.cblSections.TabIndex = 6;
-            this.cblSections.SelectedIndexChanged += new System.EventHandler(this.cblSections_SelectedIndexChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 315);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(247, 13);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "to także należy ręcznie zrobić Upload (patrz wyżej).";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 293);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(476, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "Jeżeli Server->Show hand records w BCS nie pokazuje rozkładów (i/lub nie pokazują" +
-                " ich pierniczki)";
-            // 
-            // lWczytywane
-            // 
-            this.lWczytywane.AutoSize = true;
-            this.lWczytywane.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lWczytywane.Location = new System.Drawing.Point(218, 84);
-            this.lWczytywane.Name = "lWczytywane";
-            this.lWczytywane.Size = new System.Drawing.Size(139, 13);
-            this.lWczytywane.TabIndex = 3;
-            this.lWczytywane.Text = "Wczytywane rozkłady: ";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 36);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(408, 13);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "W przeciwnym razie trzeba w BCS wybrać: Session->Upload hand records->Upload...";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 14);
+            this.label11.Location = new System.Drawing.Point(6, 49);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(280, 13);
+            this.label11.Size = new System.Drawing.Size(479, 78);
             this.label11.TabIndex = 1;
-            this.label11.Text = "Rozkłady muszą zostać wczytane przed \"Uruchom BCS\".";
-            // 
-            // bLoadHands
-            // 
-            this.bLoadHands.Location = new System.Drawing.Point(26, 84);
-            this.bLoadHands.Name = "bLoadHands";
-            this.bLoadHands.Size = new System.Drawing.Size(149, 42);
-            this.bLoadHands.TabIndex = 0;
-            this.bLoadHands.Text = "Wczytaj rozkłady";
-            this.bLoadHands.UseVisualStyleBackColor = true;
-            this.bLoadHands.Click += new System.EventHandler(this.bLoadHands_Click);
+            this.label11.Text = resources.GetString("label11.Text");
             // 
             // timer
             // 
@@ -1150,6 +1118,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.toolStrip3.ResumeLayout(false);
+            this.toolStrip3.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1216,13 +1186,8 @@
         public System.Windows.Forms.ComboBox xResultsOverview;
         public System.Windows.Forms.CheckBox xViewHandrecord;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button bLoadHands;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        public System.Windows.Forms.Label lWczytywane;
         private System.Windows.Forms.OpenFileDialog openPBN;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox eOomRounds;
         public System.Windows.Forms.CheckBox xCollectPlay;
@@ -1230,7 +1195,6 @@
         public System.Windows.Forms.CheckBox xCheckLeadCard;
         public System.Windows.Forms.CheckedListBox cblSections;
         private System.Windows.Forms.Label lRecordSections;
-        private System.Windows.Forms.Button bClearHands;
         private System.Windows.Forms.Button bRRBTournament;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
@@ -1252,6 +1216,9 @@
         private System.Windows.Forms.ToolStripStatusLabel lRequiredFirmware;
         private System.Windows.Forms.ToolStripButton bLoad;
         private System.Windows.Forms.ToolStripButton bSave;
+        private System.Windows.Forms.ToolStrip toolStrip3;
+        private System.Windows.Forms.ToolStripButton bLoadHands;
+        private System.Windows.Forms.ToolStripButton bClearHands;
     }
 }
 

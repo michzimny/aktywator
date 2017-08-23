@@ -466,11 +466,6 @@ namespace Aktywator
             }
         }
 
-        private void cblSections_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.lWczytywane.Text = bws.getBoardRangeText(bws.getSelectedSections());
-        }
-
         private void bClearHands_Click(object sender, EventArgs e)
         {
             try
