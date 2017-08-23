@@ -358,7 +358,7 @@ namespace Aktywator
             throw new InvalidCastException("Unable to read numeric value from BWS field");
         }
 
-        public void syncNames(Tournament tournament, bool interactive, string startRounds)
+        public void syncNames(Tournament tournament, bool interactive, string startRounds, DataGridView grid)
         {
             int count = 0, countNew = 0, SKOK_STOLOW = 100;
             OleDbDataReader d;
@@ -382,7 +382,7 @@ namespace Aktywator
 
             try
             {
-                Dictionary<int, List<String>> names = tournament.getNameList();
+                Dictionary<int, List<String>> names = tournament.getBWSNames(grid);
 
                 while (d.Read())
                 {

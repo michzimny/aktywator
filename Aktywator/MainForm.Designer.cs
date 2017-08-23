@@ -84,6 +84,22 @@
             this.xShowPlayerNames = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.namesPanel = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.namesGridView = new System.Windows.Forms.DataGridView();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NorthSouth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EastWest = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lTournament = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lType = new System.Windows.Forms.Label();
+            this.lNazwyTeamow = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lSkok = new System.Windows.Forms.Label();
+            this.lSections = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lTables = new System.Windows.Forms.Label();
             this.syncToolStrip = new System.Windows.Forms.ToolStrip();
             this.bSync = new System.Windows.Forms.ToolStripButton();
             this.bAutoSync = new System.Windows.Forms.ToolStripButton();
@@ -98,17 +114,6 @@
             this.bMysqlSettings = new System.Windows.Forms.ToolStripButton();
             this.bForceSync = new System.Windows.Forms.ToolStripButton();
             this.bTruncate = new System.Windows.Forms.ToolStripButton();
-            this.lNazwyTeamow = new System.Windows.Forms.Label();
-            this.lSkok = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lTables = new System.Windows.Forms.Label();
-            this.lSections = new System.Windows.Forms.Label();
-            this.lType = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lTournament = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bLoadHands = new System.Windows.Forms.ToolStripButton();
@@ -122,6 +127,7 @@
             this.labelFilename = new System.Windows.Forms.ToolStripLabel();
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
+            this.namesTimer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -135,6 +141,8 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.namesPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.namesGridView)).BeginInit();
             this.syncToolStrip.SuspendLayout();
             this.toolStrip4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -704,19 +712,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.namesPanel);
             this.tabPage2.Controls.Add(this.syncToolStrip);
             this.tabPage2.Controls.Add(this.toolStrip4);
-            this.tabPage2.Controls.Add(this.lNazwyTeamow);
-            this.tabPage2.Controls.Add(this.lSkok);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.lTables);
-            this.tabPage2.Controls.Add(this.lSections);
-            this.tabPage2.Controls.Add(this.lType);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.lTournament);
-            this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -725,9 +723,163 @@
             this.tabPage2.Text = "Nazwiska";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // namesPanel
+            // 
+            this.namesPanel.Controls.Add(this.label3);
+            this.namesPanel.Controls.Add(this.namesGridView);
+            this.namesPanel.Controls.Add(this.lTournament);
+            this.namesPanel.Controls.Add(this.label4);
+            this.namesPanel.Controls.Add(this.lType);
+            this.namesPanel.Controls.Add(this.lNazwyTeamow);
+            this.namesPanel.Controls.Add(this.label5);
+            this.namesPanel.Controls.Add(this.lSkok);
+            this.namesPanel.Controls.Add(this.lSections);
+            this.namesPanel.Controls.Add(this.label8);
+            this.namesPanel.Controls.Add(this.label6);
+            this.namesPanel.Controls.Add(this.lTables);
+            this.namesPanel.Location = new System.Drawing.Point(3, 31);
+            this.namesPanel.Name = "namesPanel";
+            this.namesPanel.Size = new System.Drawing.Size(562, 449);
+            this.namesPanel.TabIndex = 29;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Turniej:";
+            // 
+            // namesGridView
+            // 
+            this.namesGridView.AllowUserToAddRows = false;
+            this.namesGridView.AllowUserToDeleteRows = false;
+            this.namesGridView.AllowUserToResizeColumns = false;
+            this.namesGridView.AllowUserToResizeRows = false;
+            this.namesGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.namesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.namesGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Number,
+            this.NorthSouth,
+            this.EastWest});
+            this.namesGridView.Location = new System.Drawing.Point(2, 112);
+            this.namesGridView.Name = "namesGridView";
+            this.namesGridView.Size = new System.Drawing.Size(557, 318);
+            this.namesGridView.TabIndex = 28;
+            this.namesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellValueChanged);
+            // 
+            // Number
+            // 
+            this.Number.HeaderText = "Nr";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // NorthSouth
+            // 
+            this.NorthSouth.FillWeight = 300F;
+            this.NorthSouth.HeaderText = "NS";
+            this.NorthSouth.Name = "NorthSouth";
+            // 
+            // EastWest
+            // 
+            this.EastWest.FillWeight = 300F;
+            this.EastWest.HeaderText = "EW";
+            this.EastWest.Name = "EastWest";
+            // 
+            // lTournament
+            // 
+            this.lTournament.AutoSize = true;
+            this.lTournament.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lTournament.Location = new System.Drawing.Point(64, 18);
+            this.lTournament.Name = "lTournament";
+            this.lTournament.Size = new System.Drawing.Size(0, 16);
+            this.lTournament.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(30, 40);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Typ:";
+            // 
+            // lType
+            // 
+            this.lType.AutoSize = true;
+            this.lType.Location = new System.Drawing.Point(64, 40);
+            this.lType.Name = "lType";
+            this.lType.Size = new System.Drawing.Size(0, 13);
+            this.lType.TabIndex = 6;
+            // 
+            // lNazwyTeamow
+            // 
+            this.lNazwyTeamow.AutoSize = true;
+            this.lNazwyTeamow.Location = new System.Drawing.Point(30, 66);
+            this.lNazwyTeamow.Name = "lNazwyTeamow";
+            this.lNazwyTeamow.Size = new System.Drawing.Size(227, 13);
+            this.lNazwyTeamow.TabIndex = 20;
+            this.lNazwyTeamow.Text = "w piernikach będą wyświetlane nazwy teamów";
+            this.lNazwyTeamow.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(410, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Sektorów:";
+            // 
+            // lSkok
+            // 
+            this.lSkok.AutoSize = true;
+            this.lSkok.Location = new System.Drawing.Point(52, 84);
+            this.lSkok.Name = "lSkok";
+            this.lSkok.Size = new System.Drawing.Size(188, 13);
+            this.lSkok.TabIndex = 19;
+            this.lSkok.Text = "mam nadzieję, że skok stołów = 100 :)";
+            this.lSkok.Visible = false;
+            // 
+            // lSections
+            // 
+            this.lSections.AutoSize = true;
+            this.lSections.Location = new System.Drawing.Point(471, 18);
+            this.lSections.Name = "lSections";
+            this.lSections.Size = new System.Drawing.Size(0, 13);
+            this.lSections.TabIndex = 7;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(0, 433);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(291, 13);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Do serwerka wysyłane są tylko nazwiska, które się zmieniły.";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(421, 40);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Stołów:";
+            // 
+            // lTables
+            // 
+            this.lTables.AutoSize = true;
+            this.lTables.Location = new System.Drawing.Point(471, 40);
+            this.lTables.Name = "lTables";
+            this.lTables.Size = new System.Drawing.Size(0, 13);
+            this.lTables.TabIndex = 8;
+            // 
             // syncToolStrip
             // 
             this.syncToolStrip.BackColor = System.Drawing.Color.White;
+            this.syncToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.syncToolStrip.GripMargin = new System.Windows.Forms.Padding(0);
             this.syncToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.syncToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -737,7 +889,7 @@
             this.eOomRounds,
             this.lOomLabel,
             this.toolStripButton2});
-            this.syncToolStrip.Location = new System.Drawing.Point(3, 28);
+            this.syncToolStrip.Location = new System.Drawing.Point(3, 483);
             this.syncToolStrip.Name = "syncToolStrip";
             this.syncToolStrip.Size = new System.Drawing.Size(563, 25);
             this.syncToolStrip.TabIndex = 27;
@@ -878,104 +1030,6 @@
             this.bTruncate.Text = "Usuń nazwiska z BWS";
             this.bTruncate.Click += new System.EventHandler(this.bTruncate_Click);
             // 
-            // lNazwyTeamow
-            // 
-            this.lNazwyTeamow.AutoSize = true;
-            this.lNazwyTeamow.Location = new System.Drawing.Point(25, 121);
-            this.lNazwyTeamow.Name = "lNazwyTeamow";
-            this.lNazwyTeamow.Size = new System.Drawing.Size(227, 13);
-            this.lNazwyTeamow.TabIndex = 20;
-            this.lNazwyTeamow.Text = "w piernikach będą wyświetlane nazwy teamów";
-            this.lNazwyTeamow.Visible = false;
-            // 
-            // lSkok
-            // 
-            this.lSkok.AutoSize = true;
-            this.lSkok.Location = new System.Drawing.Point(47, 139);
-            this.lSkok.Name = "lSkok";
-            this.lSkok.Size = new System.Drawing.Size(188, 13);
-            this.lSkok.TabIndex = 19;
-            this.lSkok.Text = "mam nadzieję, że skok stołów = 100 :)";
-            this.lSkok.Visible = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(126, 161);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(291, 13);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "Do serwerka wysyłane są tylko nazwiska, które się zmieniły.";
-            // 
-            // lTables
-            // 
-            this.lTables.AutoSize = true;
-            this.lTables.Location = new System.Drawing.Point(423, 97);
-            this.lTables.Name = "lTables";
-            this.lTables.Size = new System.Drawing.Size(0, 13);
-            this.lTables.TabIndex = 8;
-            // 
-            // lSections
-            // 
-            this.lSections.AutoSize = true;
-            this.lSections.Location = new System.Drawing.Point(423, 70);
-            this.lSections.Name = "lSections";
-            this.lSections.Size = new System.Drawing.Size(0, 13);
-            this.lSections.TabIndex = 7;
-            // 
-            // lType
-            // 
-            this.lType.AutoSize = true;
-            this.lType.Location = new System.Drawing.Point(59, 97);
-            this.lType.Name = "lType";
-            this.lType.Size = new System.Drawing.Size(0, 13);
-            this.lType.TabIndex = 6;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(373, 97);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Stołów:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(362, 70);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Sektorów:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(25, 97);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Typ:";
-            // 
-            // lTournament
-            // 
-            this.lTournament.AutoSize = true;
-            this.lTournament.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lTournament.Location = new System.Drawing.Point(59, 70);
-            this.lTournament.Name = "lTournament";
-            this.lTournament.Size = new System.Drawing.Size(0, 16);
-            this.lTournament.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 70);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Turniej:";
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.toolStrip3);
@@ -1104,6 +1158,11 @@
             this.bUpdateSession.ToolTipText = "Update ustawień w trakcie sesji";
             this.bUpdateSession.Click += new System.EventHandler(this.updateSession_Click);
             // 
+            // namesTimer
+            // 
+            this.namesTimer.Interval = 500;
+            this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1144,6 +1203,9 @@
             this.groupBox2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.namesPanel.ResumeLayout(false);
+            this.namesPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.namesGridView)).EndInit();
             this.syncToolStrip.ResumeLayout(false);
             this.syncToolStrip.PerformLayout();
             this.toolStrip4.ResumeLayout(false);
@@ -1253,6 +1315,12 @@
         private System.Windows.Forms.ToolStripTextBox eOomRounds;
         private System.Windows.Forms.ToolStripLabel lOomLabel;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.DataGridView namesGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NorthSouth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EastWest;
+        private System.Windows.Forms.Panel namesPanel;
+        private System.Windows.Forms.Timer namesTimer;
     }
 }
 

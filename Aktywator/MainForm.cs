@@ -73,6 +73,7 @@ namespace Aktywator
             bindSettingChanges();
             bws.loadSettings();
             syncToolStrip.Visible = false;
+            namesPanel.Visible = false;
             this.WindowState = FormWindowState.Normal;
         }
 
@@ -339,6 +340,11 @@ namespace Aktywator
                 lSections.Text = tournament.getSectionsNum();
                 lTables.Text = tournament.getTablesNum();
                 syncToolStrip.Visible = true;
+                namesPanel.Visible = true;
+                tournament.clearCellLocks(namesGridView);
+                tournament.displayNameList(namesGridView);
+                tournament.clearCellLocks(namesGridView);
+                namesTimer.Enabled = true;
                 if (tournament.GetType().Equals(typeof(TeamyTournament)))
                 {
                     lSkok.Visible = true;
@@ -361,7 +367,7 @@ namespace Aktywator
         {
             try
             {
-                bws.syncNames(tournament, true, eOomRounds.Text);
+                bws.syncNames(tournament, true, eOomRounds.Text, namesGridView);
             }
             catch (Exception ee)
             {
@@ -416,7 +422,7 @@ namespace Aktywator
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            bws.syncNames(tournament, false, eOomRounds.Text);
+            bws.syncNames(tournament, false, eOomRounds.Text, namesGridView);
         }
 
         private void bForceSync_Click(object sender, EventArgs e)
@@ -495,6 +501,21 @@ namespace Aktywator
         {
             eOomRounds.Enabled = toolStripButton2.Checked;
             lOomLabel.Enabled = toolStripButton2.Checked;
+        }
+
+        private void namesGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex > 0)
+            {
+                DataGridViewCell cell = namesGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.Tag = true;
+                cell.Style.BackColor = Color.Yellow;
+            }
+        }
+
+        private void namesTimer_Tick(object sender, EventArgs e)
+        {
+            tournament.displayNameList(namesGridView);
         }
 
     }
