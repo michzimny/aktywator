@@ -363,7 +363,7 @@ namespace Aktywator
             int count = 0, countNew = 0, SKOK_STOLOW = 100;
             OleDbDataReader d;
             startRounds = startRounds.Trim();
-
+            string fromRound = sql.selectOne("SELECT min(`Round`) FROM RoundData WHERE NSPair>0");
             if (tournament.type != Tournament.TYPE_TEAMY)
             {
                 if (tournament.type == Tournament.TYPE_PARY && startRounds.Length > 0)
@@ -372,13 +372,12 @@ namespace Aktywator
                 }
                 else
                 {
-                    string fromRound = sql.selectOne("SELECT min(`Round`) FROM RoundData WHERE NSPair>0");
                     d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound);
                 }
             }
             else
             {
-                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Table`<=" + SKOK_STOLOW);
+                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound + " AND `Table`<=" + SKOK_STOLOW);
             }
 
             try
