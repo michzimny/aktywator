@@ -25,7 +25,8 @@ namespace Aktywator
 
         override internal string getName()
         {
-            return this._xml.SelectSingleNode("//ustawienia/nazwa").InnerText;
+            string tName = this._xml.SelectSingleNode("//ustawienia/nazwa").InnerText.Trim();
+            return tName.Length > 0 ? tName : Path.GetFileName(this._name);
         }
 
         override public string getSectionsNum()
