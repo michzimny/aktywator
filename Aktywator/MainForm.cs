@@ -348,18 +348,18 @@ namespace Aktywator
                 if (tournament.GetType().Equals(typeof(TeamyTournament)))
                 {
                     lSkok.Visible = true;
-                    lNazwyTeamow.Visible = true;
+                    numTeamsTableOffset.Visible = true;
                 }
                 else
                 {
                     lSkok.Visible = false;
-                    lNazwyTeamow.Visible = false;
+                    numTeamsTableOffset.Visible = false;
                 }
             }
             else
             {
                 lSkok.Visible = false;
-                lNazwyTeamow.Visible = false;
+                numTeamsTableOffset.Visible = false;
             }
         }
 

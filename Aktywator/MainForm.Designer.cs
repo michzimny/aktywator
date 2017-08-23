@@ -85,6 +85,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.namesPanel = new System.Windows.Forms.Panel();
+            this.numTeamsTableOffset = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.namesGridView = new System.Windows.Forms.DataGridView();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,7 +94,6 @@
             this.lTournament = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lType = new System.Windows.Forms.Label();
-            this.lNazwyTeamow = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lSkok = new System.Windows.Forms.Label();
             this.lSections = new System.Windows.Forms.Label();
@@ -142,6 +142,7 @@
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.namesPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTeamsTableOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.namesGridView)).BeginInit();
             this.syncToolStrip.SuspendLayout();
             this.toolStrip4.SuspendLayout();
@@ -725,12 +726,12 @@
             // 
             // namesPanel
             // 
+            this.namesPanel.Controls.Add(this.numTeamsTableOffset);
             this.namesPanel.Controls.Add(this.label3);
             this.namesPanel.Controls.Add(this.namesGridView);
             this.namesPanel.Controls.Add(this.lTournament);
             this.namesPanel.Controls.Add(this.label4);
             this.namesPanel.Controls.Add(this.lType);
-            this.namesPanel.Controls.Add(this.lNazwyTeamow);
             this.namesPanel.Controls.Add(this.label5);
             this.namesPanel.Controls.Add(this.lSkok);
             this.namesPanel.Controls.Add(this.lSections);
@@ -741,6 +742,23 @@
             this.namesPanel.Name = "namesPanel";
             this.namesPanel.Size = new System.Drawing.Size(562, 449);
             this.namesPanel.TabIndex = 29;
+            // 
+            // numTeamsTableOffset
+            // 
+            this.numTeamsTableOffset.Location = new System.Drawing.Point(110, 61);
+            this.numTeamsTableOffset.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numTeamsTableOffset.Name = "numTeamsTableOffset";
+            this.numTeamsTableOffset.Size = new System.Drawing.Size(53, 20);
+            this.numTeamsTableOffset.TabIndex = 29;
+            this.numTeamsTableOffset.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
@@ -813,16 +831,6 @@
             this.lType.Size = new System.Drawing.Size(0, 13);
             this.lType.TabIndex = 6;
             // 
-            // lNazwyTeamow
-            // 
-            this.lNazwyTeamow.AutoSize = true;
-            this.lNazwyTeamow.Location = new System.Drawing.Point(30, 66);
-            this.lNazwyTeamow.Name = "lNazwyTeamow";
-            this.lNazwyTeamow.Size = new System.Drawing.Size(227, 13);
-            this.lNazwyTeamow.TabIndex = 20;
-            this.lNazwyTeamow.Text = "w piernikach będą wyświetlane nazwy teamów";
-            this.lNazwyTeamow.Visible = false;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -835,11 +843,11 @@
             // lSkok
             // 
             this.lSkok.AutoSize = true;
-            this.lSkok.Location = new System.Drawing.Point(52, 84);
+            this.lSkok.Location = new System.Drawing.Point(30, 63);
             this.lSkok.Name = "lSkok";
-            this.lSkok.Size = new System.Drawing.Size(188, 13);
+            this.lSkok.Size = new System.Drawing.Size(74, 13);
             this.lSkok.TabIndex = 19;
-            this.lSkok.Text = "mam nadzieję, że skok stołów = 100 :)";
+            this.lSkok.Text = "skok stołów =";
             this.lSkok.Visible = false;
             // 
             // lSections
@@ -1205,6 +1213,7 @@
             this.tabPage2.PerformLayout();
             this.namesPanel.ResumeLayout(false);
             this.namesPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTeamsTableOffset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.namesGridView)).EndInit();
             this.syncToolStrip.ResumeLayout(false);
             this.syncToolStrip.PerformLayout();
@@ -1267,7 +1276,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label lSkok;
-        private System.Windows.Forms.Label lNazwyTeamow;
         public System.Windows.Forms.ComboBox xResultsOverview;
         public System.Windows.Forms.CheckBox xViewHandrecord;
         private System.Windows.Forms.TabPage tabPage3;
@@ -1321,6 +1329,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EastWest;
         private System.Windows.Forms.Panel namesPanel;
         private System.Windows.Forms.Timer namesTimer;
+        public System.Windows.Forms.NumericUpDown numTeamsTableOffset;
     }
 }
 

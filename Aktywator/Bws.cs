@@ -360,7 +360,7 @@ namespace Aktywator
 
         public void syncNames(Tournament tournament, bool interactive, string startRounds, DataGridView grid)
         {
-            int count = 0, countNew = 0, SKOK_STOLOW = 100;
+            int count = 0, countNew = 0, SKOK_STOLOW = Convert.ToInt32(main.numTeamsTableOffset.Value);
             OleDbDataReader d;
             startRounds = startRounds.Trim();
             string fromRound = sql.selectOne("SELECT min(`Round`) FROM RoundData WHERE NSPair>0");
