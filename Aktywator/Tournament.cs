@@ -114,6 +114,10 @@ namespace Aktywator
         virtual internal string shortenNameToBWS(string name)
         {
             name = Common.bezOgonkow(name);
+            if (name.Length > 18)
+            {
+                name = name.Substring(0, 18);
+            }
             if ("pauza".Equals(name.Trim()))
             {
                 return " ";
