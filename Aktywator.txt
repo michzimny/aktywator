@@ -8,6 +8,7 @@ Aktywator 1.1.0 (beta)
  * edytor nazwisk ładowanych do BWS
  * zmiana wyglądu zakładek
  * zapamiętywanie ustawień MySQL również dla bezhasłowych kont
+ * oddzielne maksowanie sektorów
  * plik BWS jest automatycznie uzupełniany o wszystkie potrzebne pola
  * poprawiono błąd pobierania numerów graczy przy wyświetlonych nazwach teamów
 
