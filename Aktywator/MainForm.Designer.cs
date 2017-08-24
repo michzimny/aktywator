@@ -95,9 +95,6 @@
             this.numTeamsTableOffset = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.namesGridView = new System.Windows.Forms.DataGridView();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NorthSouth = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EastWest = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lTournament = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lType = new System.Windows.Forms.Label();
@@ -135,6 +132,9 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NorthSouth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EastWest = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -887,24 +887,6 @@
             this.namesGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellMouseEnter);
             this.namesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellValueChanged);
             // 
-            // Number
-            // 
-            this.Number.HeaderText = "Nr";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
-            // 
-            // NorthSouth
-            // 
-            this.NorthSouth.FillWeight = 300F;
-            this.NorthSouth.HeaderText = "NS";
-            this.NorthSouth.Name = "NorthSouth";
-            // 
-            // EastWest
-            // 
-            this.EastWest.FillWeight = 300F;
-            this.EastWest.HeaderText = "EW";
-            this.EastWest.Name = "EastWest";
-            // 
             // lTournament
             // 
             this.lTournament.AutoSize = true;
@@ -1271,6 +1253,24 @@
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
             // 
+            // Number
+            // 
+            this.Number.HeaderText = "Nr";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // NorthSouth
+            // 
+            this.NorthSouth.FillWeight = 300F;
+            this.NorthSouth.HeaderText = "N lub E";
+            this.NorthSouth.Name = "NorthSouth";
+            // 
+            // EastWest
+            // 
+            this.EastWest.FillWeight = 300F;
+            this.EastWest.HeaderText = "S lub W";
+            this.EastWest.Name = "EastWest";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1424,9 +1424,6 @@
         private System.Windows.Forms.ToolStripLabel lOomLabel;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.DataGridView namesGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NorthSouth;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EastWest;
         private System.Windows.Forms.Panel namesPanel;
         private System.Windows.Forms.Timer namesTimer;
         public System.Windows.Forms.NumericUpDown numTeamsTableOffset;
@@ -1438,6 +1435,9 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label lFirstSectorSettings;
         public System.Windows.Forms.ComboBox cbSettingsSection;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NorthSouth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EastWest;
     }
 }
 
