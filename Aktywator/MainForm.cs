@@ -552,5 +552,10 @@ namespace Aktywator
             bws.loadSettings();
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            namesTimer.Enabled = checkBox1.Checked;
+        }
+
     }
 }

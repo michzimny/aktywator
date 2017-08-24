@@ -89,7 +89,6 @@
             this.namesPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.numNamesRefreshInterval = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.numTeamsTableOffset = new System.Windows.Forms.NumericUpDown();
@@ -135,6 +134,7 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -754,9 +754,9 @@
             // 
             // namesPanel
             // 
+            this.namesPanel.Controls.Add(this.checkBox1);
             this.namesPanel.Controls.Add(this.button1);
             this.namesPanel.Controls.Add(this.numNamesRefreshInterval);
-            this.namesPanel.Controls.Add(this.label10);
             this.namesPanel.Controls.Add(this.label9);
             this.namesPanel.Controls.Add(this.label7);
             this.namesPanel.Controls.Add(this.numTeamsTableOffset);
@@ -813,15 +813,6 @@
             0,
             0});
             this.numNamesRefreshInterval.ValueChanged += new System.EventHandler(this.numNamesRefreshInterval_ValueChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(273, 75);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(135, 13);
-            this.label10.TabIndex = 32;
-            this.label10.Text = "Odśwież podgląd co (sek.):";
             // 
             // label9
             // 
@@ -1271,6 +1262,19 @@
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(252, 74);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(154, 17);
+            this.checkBox1.TabIndex = 35;
+            this.checkBox1.Text = "Odśwież podgląd co (sek.):";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1431,13 +1435,13 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NumericUpDown numNamesRefreshInterval;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label lFirstSectorSettings;
         public System.Windows.Forms.ComboBox cbSettingsSection;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn NorthSouth;
         private System.Windows.Forms.DataGridViewTextBoxColumn EastWest;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
