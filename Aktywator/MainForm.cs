@@ -82,7 +82,7 @@ namespace Aktywator
         {
             cbSettingsSection.SelectedIndex = 0;
             foreach (string section in sections.Split(',')) {
-                cbSettingsSection.Items.Add(bws.sectorNumberToLetter(Int32.Parse(section.Trim())));
+                cbSettingsSection.Items.Add("   " + bws.sectorNumberToLetter(Int32.Parse(section.Trim())) + "   ");
             }
         }
 

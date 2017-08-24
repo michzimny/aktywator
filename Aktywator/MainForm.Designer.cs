@@ -95,6 +95,9 @@
             this.numTeamsTableOffset = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.namesGridView = new System.Windows.Forms.DataGridView();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NorthSouth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EastWest = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lTournament = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lType = new System.Windows.Forms.Label();
@@ -132,9 +135,6 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NorthSouth = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EastWest = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -242,7 +242,7 @@
             // 
             this.lFirstSectorSettings.AutoSize = true;
             this.lFirstSectorSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lFirstSectorSettings.Location = new System.Drawing.Point(119, 39);
+            this.lFirstSectorSettings.Location = new System.Drawing.Point(107, 39);
             this.lFirstSectorSettings.Name = "lFirstSectorSettings";
             this.lFirstSectorSettings.Size = new System.Drawing.Size(263, 13);
             this.lFirstSectorSettings.TabIndex = 49;
@@ -253,10 +253,10 @@
             this.cbSettingsSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSettingsSection.FormattingEnabled = true;
             this.cbSettingsSection.Items.AddRange(new object[] {
-            "*"});
+            "   *   "});
             this.cbSettingsSection.Location = new System.Drawing.Point(59, 36);
             this.cbSettingsSection.Name = "cbSettingsSection";
-            this.cbSettingsSection.Size = new System.Drawing.Size(53, 21);
+            this.cbSettingsSection.Size = new System.Drawing.Size(42, 21);
             this.cbSettingsSection.TabIndex = 48;
             this.cbSettingsSection.SelectedIndexChanged += new System.EventHandler(this.cbSettingsSection_SelectedIndexChanged);
             // 
@@ -887,6 +887,24 @@
             this.namesGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellMouseEnter);
             this.namesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellValueChanged);
             // 
+            // Number
+            // 
+            this.Number.HeaderText = "Nr";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // NorthSouth
+            // 
+            this.NorthSouth.FillWeight = 300F;
+            this.NorthSouth.HeaderText = "N lub E";
+            this.NorthSouth.Name = "NorthSouth";
+            // 
+            // EastWest
+            // 
+            this.EastWest.FillWeight = 300F;
+            this.EastWest.HeaderText = "S lub W";
+            this.EastWest.Name = "EastWest";
+            // 
             // lTournament
             // 
             this.lTournament.AutoSize = true;
@@ -1252,24 +1270,6 @@
             // 
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
-            // 
-            // Number
-            // 
-            this.Number.HeaderText = "Nr";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
-            // 
-            // NorthSouth
-            // 
-            this.NorthSouth.FillWeight = 300F;
-            this.NorthSouth.HeaderText = "N lub E";
-            this.NorthSouth.Name = "NorthSouth";
-            // 
-            // EastWest
-            // 
-            this.EastWest.FillWeight = 300F;
-            this.EastWest.HeaderText = "S lub W";
-            this.EastWest.Name = "EastWest";
             // 
             // MainForm
             // 

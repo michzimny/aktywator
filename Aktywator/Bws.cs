@@ -275,7 +275,7 @@ namespace Aktywator
                 return;
             }
             main.lFirstSectorSettings.Visible = false;
-            string section = "*".Equals(main.cbSettingsSection.Text) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text).ToString();
+            string section = "*".Equals(main.cbSettingsSection.Text.Trim()) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text.Trim()).ToString();
             StringBuilder errors = new StringBuilder();
             foreach (Setting s in settings)
             {
@@ -322,7 +322,7 @@ namespace Aktywator
 
         public void saveSettings()
         {
-            string section = "*".Equals(main.cbSettingsSection.Text) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text).ToString();
+            string section = "*".Equals(main.cbSettingsSection.Text.Trim()) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text.Trim()).ToString();
             StringBuilder errors = new StringBuilder();
             foreach (Setting s in settings)
             {
