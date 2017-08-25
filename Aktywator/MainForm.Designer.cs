@@ -172,6 +172,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 586);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(583, 22);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusBar";
             // 
@@ -1290,6 +1291,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Aktywator";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
