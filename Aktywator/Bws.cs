@@ -208,6 +208,14 @@ namespace Aktywator
 
             try
             {
+                sql.query("ALTER TABLE Tables ADD COLUMN `Group` integer;");
+            }
+            catch (OleDbException)
+            {
+            } 
+            
+            try
+            {
                 sql.query("CREATE TABLE PlayerNames (ID integer, Name text(18));");
             }
             catch (OleDbException)
