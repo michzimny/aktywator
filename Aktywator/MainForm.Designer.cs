@@ -169,7 +169,7 @@
             this.status1,
             this.status2,
             this.status3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 568);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 586);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(583, 22);
             this.statusStrip1.TabIndex = 2;
@@ -201,17 +201,17 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(583, 568);
+            this.groupBox1.Size = new System.Drawing.Size(583, 586);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabControl1.Location = new System.Drawing.Point(3, 28);
+            this.tabControl1.Location = new System.Drawing.Point(0, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(577, 537);
@@ -1238,24 +1238,26 @@
             this.bUpdateSession});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(583, 25);
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 10, 1, 5);
+            this.toolStrip1.Size = new System.Drawing.Size(583, 42);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // labelFilename
             // 
-            this.labelFilename.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelFilename.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelFilename.Name = "labelFilename";
-            this.labelFilename.Size = new System.Drawing.Size(0, 22);
+            this.labelFilename.Size = new System.Drawing.Size(0, 24);
             // 
             // bLaunch
             // 
             this.bLaunch.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.bLaunch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.bLaunch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.bLaunch.Image = ((System.Drawing.Image)(resources.GetObject("bLaunch.Image")));
             this.bLaunch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bLaunch.Margin = new System.Windows.Forms.Padding(0, 1, 10, 2);
             this.bLaunch.Name = "bLaunch";
-            this.bLaunch.Size = new System.Drawing.Size(54, 22);
+            this.bLaunch.Size = new System.Drawing.Size(65, 24);
             this.bLaunch.Text = "BCS";
             this.bLaunch.ToolTipText = "Uruchom BCS";
             this.bLaunch.Click += new System.EventHandler(this.bLaunch_Click);
@@ -1266,7 +1268,7 @@
             this.bUpdateSession.Image = ((System.Drawing.Image)(resources.GetObject("bUpdateSession.Image")));
             this.bUpdateSession.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bUpdateSession.Name = "bUpdateSession";
-            this.bUpdateSession.Size = new System.Drawing.Size(65, 22);
+            this.bUpdateSession.Size = new System.Drawing.Size(65, 24);
             this.bUpdateSession.Text = "Update";
             this.bUpdateSession.ToolTipText = "Update ustawień w trakcie sesji";
             this.bUpdateSession.Click += new System.EventHandler(this.updateSession_Click);
@@ -1280,7 +1282,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 590);
+            this.ClientSize = new System.Drawing.Size(583, 608);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
