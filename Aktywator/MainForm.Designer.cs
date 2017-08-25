@@ -38,9 +38,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.lFirstSectorSettings = new System.Windows.Forms.Label();
-            this.cbSettingsSection = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lRequiredVersion = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,21 +46,32 @@
             this.lDetectedVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lRequiredFirmware = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.bLoad = new System.Windows.Forms.ToolStripButton();
-            this.bSave = new System.Windows.Forms.ToolStripButton();
+            this.lFirstSectorSettings = new System.Windows.Forms.Label();
+            this.cbSettingsSection = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.xResetFunctionKey = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.xPINcode = new System.Windows.Forms.TextBox();
             this.xConfirmNP = new System.Windows.Forms.CheckBox();
             this.xScoreCorrection = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.xMemberNumbers = new System.Windows.Forms.CheckBox();
+            this.xShowPairNumbers = new System.Windows.Forms.CheckBox();
+            this.xMemberNumbersNoBlankEntry = new System.Windows.Forms.CheckBox();
+            this.xShowPlayerNames = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.xAutoShutDownBPC = new System.Windows.Forms.CheckBox();
             this.xRemainingBoards = new System.Windows.Forms.CheckBox();
             this.xNextSeatings = new System.Windows.Forms.CheckBox();
             this.xScoreRecap = new System.Windows.Forms.CheckBox();
             this.xAutoShowScoreRecap = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.xCollectPlay = new System.Windows.Forms.CheckBox();
+            this.xBoardOrderVerification = new System.Windows.Forms.CheckBox();
+            this.xIntermediateResults = new System.Windows.Forms.CheckBox();
+            this.xAutoBoardNumber = new System.Windows.Forms.CheckBox();
+            this.xCollectBidding = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
             this.xLeadCard = new System.Windows.Forms.CheckBox();
@@ -74,17 +83,6 @@
             this.xShowPercentage = new System.Windows.Forms.CheckBox();
             this.xShowContract = new System.Windows.Forms.CheckBox();
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.xCollectPlay = new System.Windows.Forms.CheckBox();
-            this.xBoardOrderVerification = new System.Windows.Forms.CheckBox();
-            this.xIntermediateResults = new System.Windows.Forms.CheckBox();
-            this.xAutoBoardNumber = new System.Windows.Forms.CheckBox();
-            this.xCollectBidding = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.xMemberNumbers = new System.Windows.Forms.CheckBox();
-            this.xShowPairNumbers = new System.Windows.Forms.CheckBox();
-            this.xMemberNumbersNoBlankEntry = new System.Windows.Forms.CheckBox();
-            this.xShowPlayerNames = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.namesPanel = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -135,18 +133,21 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.bLoad = new System.Windows.Forms.ToolStripButton();
+            this.bSave = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.statusStrip2.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.namesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNamesRefreshInterval)).BeginInit();
@@ -157,6 +158,7 @@
             this.tabPage3.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // open
@@ -220,17 +222,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.lFirstSectorSettings);
-            this.tabPage1.Controls.Add(this.cbSettingsSection);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.statusStrip2);
-            this.tabPage1.Controls.Add(this.toolStrip2);
-            this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Controls.Add(this.groupBox6);
-            this.tabPage1.Controls.Add(this.groupBox5);
-            this.tabPage1.Controls.Add(this.groupBox4);
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -239,36 +231,24 @@
             this.tabPage1.Text = "Ustawienia";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // lFirstSectorSettings
+            // panel1
             // 
-            this.lFirstSectorSettings.AutoSize = true;
-            this.lFirstSectorSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lFirstSectorSettings.Location = new System.Drawing.Point(107, 39);
-            this.lFirstSectorSettings.Name = "lFirstSectorSettings";
-            this.lFirstSectorSettings.Size = new System.Drawing.Size(263, 13);
-            this.lFirstSectorSettings.TabIndex = 49;
-            this.lFirstSectorSettings.Text = "załadowano ustawienia z pierwszego sektora";
-            // 
-            // cbSettingsSection
-            // 
-            this.cbSettingsSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSettingsSection.FormattingEnabled = true;
-            this.cbSettingsSection.Items.AddRange(new object[] {
-            "   *   "});
-            this.cbSettingsSection.Location = new System.Drawing.Point(59, 36);
-            this.cbSettingsSection.Name = "cbSettingsSection";
-            this.cbSettingsSection.Size = new System.Drawing.Size(42, 21);
-            this.cbSettingsSection.TabIndex = 48;
-            this.cbSettingsSection.SelectedIndexChanged += new System.EventHandler(this.cbSettingsSection_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
-            this.label1.TabIndex = 47;
-            this.label1.Text = "Sektor:";
+            this.panel1.Controls.Add(this.toolStrip2);
+            this.panel1.Controls.Add(this.statusStrip2);
+            this.panel1.Controls.Add(this.lFirstSectorSettings);
+            this.panel1.Controls.Add(this.cbSettingsSection);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.groupBox7);
+            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Controls.Add(this.groupBox6);
+            this.panel1.Controls.Add(this.groupBox3);
+            this.panel1.Controls.Add(this.groupBox5);
+            this.panel1.Controls.Add(this.groupBox4);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(3, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(563, 502);
+            this.panel1.TabIndex = 29;
             // 
             // statusStrip2
             // 
@@ -280,11 +260,11 @@
             this.lDetectedVersion,
             this.toolStripStatusLabel3,
             this.lRequiredFirmware});
-            this.statusStrip2.Location = new System.Drawing.Point(3, 486);
+            this.statusStrip2.Location = new System.Drawing.Point(0, 480);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.Size = new System.Drawing.Size(563, 22);
             this.statusStrip2.SizingGrip = false;
-            this.statusStrip2.TabIndex = 46;
+            this.statusStrip2.TabIndex = 50;
             this.statusStrip2.Text = "statusStrip2";
             // 
             // toolStripStatusLabel1
@@ -331,40 +311,36 @@
             this.lRequiredFirmware.Size = new System.Drawing.Size(44, 17);
             this.lRequiredFirmware.Text = "0.0.0";
             // 
-            // toolStrip2
+            // lFirstSectorSettings
             // 
-            this.toolStrip2.BackColor = System.Drawing.Color.White;
-            this.toolStrip2.GripMargin = new System.Windows.Forms.Padding(0);
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bLoad,
-            this.bSave});
-            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip2.Location = new System.Drawing.Point(3, 3);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(563, 25);
-            this.toolStrip2.TabIndex = 45;
-            this.toolStrip2.Text = "toolStrip2";
+            this.lFirstSectorSettings.AutoSize = true;
+            this.lFirstSectorSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lFirstSectorSettings.Location = new System.Drawing.Point(98, 10);
+            this.lFirstSectorSettings.Name = "lFirstSectorSettings";
+            this.lFirstSectorSettings.Size = new System.Drawing.Size(263, 13);
+            this.lFirstSectorSettings.TabIndex = 49;
+            this.lFirstSectorSettings.Text = "załadowano ustawienia z pierwszego sektora";
             // 
-            // bLoad
+            // cbSettingsSection
             // 
-            this.bLoad.Image = ((System.Drawing.Image)(resources.GetObject("bLoad.Image")));
-            this.bLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bLoad.Name = "bLoad";
-            this.bLoad.Size = new System.Drawing.Size(216, 22);
-            this.bLoad.Text = "Ponownie wczytaj ustawienia z BWS";
-            this.bLoad.Click += new System.EventHandler(this.bLoad_Click);
+            this.cbSettingsSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSettingsSection.FormattingEnabled = true;
+            this.cbSettingsSection.Items.AddRange(new object[] {
+            "   *   "});
+            this.cbSettingsSection.Location = new System.Drawing.Point(50, 7);
+            this.cbSettingsSection.Name = "cbSettingsSection";
+            this.cbSettingsSection.Size = new System.Drawing.Size(42, 21);
+            this.cbSettingsSection.TabIndex = 48;
+            this.cbSettingsSection.SelectedIndexChanged += new System.EventHandler(this.cbSettingsSection_SelectedIndexChanged);
             // 
-            // bSave
+            // label1
             // 
-            this.bSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.bSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.bSave.Image = ((System.Drawing.Image)(resources.GetObject("bSave.Image")));
-            this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(108, 22);
-            this.bSave.Text = "Zapisz do BWS";
-            this.bSave.Click += new System.EventHandler(this.bSave_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "Sektor:";
             // 
             // groupBox7
             // 
@@ -373,7 +349,7 @@
             this.groupBox7.Controls.Add(this.xPINcode);
             this.groupBox7.Controls.Add(this.xConfirmNP);
             this.groupBox7.Controls.Add(this.xScoreCorrection);
-            this.groupBox7.Location = new System.Drawing.Point(267, 355);
+            this.groupBox7.Location = new System.Drawing.Point(268, 324);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(294, 121);
             this.groupBox7.TabIndex = 44;
@@ -428,6 +404,62 @@
             this.xScoreCorrection.Text = "zawodnicy sami poprawiają zapisy";
             this.xScoreCorrection.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.xMemberNumbers);
+            this.groupBox2.Controls.Add(this.xShowPairNumbers);
+            this.groupBox2.Controls.Add(this.xMemberNumbersNoBlankEntry);
+            this.groupBox2.Controls.Add(this.xShowPlayerNames);
+            this.groupBox2.Location = new System.Drawing.Point(6, 34);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(256, 138);
+            this.groupBox2.TabIndex = 39;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Rozstawienie";
+            // 
+            // xMemberNumbers
+            // 
+            this.xMemberNumbers.AutoSize = true;
+            this.xMemberNumbers.Location = new System.Drawing.Point(12, 67);
+            this.xMemberNumbers.Name = "xMemberNumbers";
+            this.xMemberNumbers.Size = new System.Drawing.Size(133, 17);
+            this.xMemberNumbers.TabIndex = 6;
+            this.xMemberNumbers.Text = "pytaj o ID zawodników";
+            this.xMemberNumbers.UseVisualStyleBackColor = true;
+            this.xMemberNumbers.CheckedChanged += new System.EventHandler(this.xMemberNumbers_CheckedChanged);
+            // 
+            // xShowPairNumbers
+            // 
+            this.xShowPairNumbers.AutoSize = true;
+            this.xShowPairNumbers.Location = new System.Drawing.Point(12, 44);
+            this.xShowPairNumbers.Name = "xShowPairNumbers";
+            this.xShowPairNumbers.Size = new System.Drawing.Size(118, 17);
+            this.xShowPairNumbers.TabIndex = 5;
+            this.xShowPairNumbers.Text = "pokazuj numery par";
+            this.xShowPairNumbers.UseVisualStyleBackColor = true;
+            // 
+            // xMemberNumbersNoBlankEntry
+            // 
+            this.xMemberNumbersNoBlankEntry.AutoSize = true;
+            this.xMemberNumbersNoBlankEntry.Enabled = false;
+            this.xMemberNumbersNoBlankEntry.Location = new System.Drawing.Point(33, 90);
+            this.xMemberNumbersNoBlankEntry.Name = "xMemberNumbersNoBlankEntry";
+            this.xMemberNumbersNoBlankEntry.Size = new System.Drawing.Size(131, 17);
+            this.xMemberNumbersNoBlankEntry.TabIndex = 7;
+            this.xMemberNumbersNoBlankEntry.Text = "ID nie może być puste";
+            this.xMemberNumbersNoBlankEntry.UseVisualStyleBackColor = true;
+            // 
+            // xShowPlayerNames
+            // 
+            this.xShowPlayerNames.AutoSize = true;
+            this.xShowPlayerNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.xShowPlayerNames.Location = new System.Drawing.Point(12, 21);
+            this.xShowPlayerNames.Name = "xShowPlayerNames";
+            this.xShowPlayerNames.Size = new System.Drawing.Size(126, 17);
+            this.xShowPlayerNames.TabIndex = 9;
+            this.xShowPlayerNames.Text = "pokazuj nazwiska";
+            this.xShowPlayerNames.UseVisualStyleBackColor = true;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.xAutoShutDownBPC);
@@ -435,7 +467,7 @@
             this.groupBox6.Controls.Add(this.xNextSeatings);
             this.groupBox6.Controls.Add(this.xScoreRecap);
             this.groupBox6.Controls.Add(this.xAutoShowScoreRecap);
-            this.groupBox6.Location = new System.Drawing.Point(267, 209);
+            this.groupBox6.Location = new System.Drawing.Point(268, 178);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(294, 140);
             this.groupBox6.TabIndex = 43;
@@ -492,12 +524,76 @@
             this.xAutoShowScoreRecap.Text = "podgląd zapisów na koniec rundy automat.";
             this.xAutoShowScoreRecap.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.xCollectPlay);
+            this.groupBox3.Controls.Add(this.xBoardOrderVerification);
+            this.groupBox3.Controls.Add(this.xIntermediateResults);
+            this.groupBox3.Controls.Add(this.xAutoBoardNumber);
+            this.groupBox3.Controls.Add(this.xCollectBidding);
+            this.groupBox3.Location = new System.Drawing.Point(4, 178);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(257, 140);
+            this.groupBox3.TabIndex = 40;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Zapis rozdania";
+            // 
+            // xCollectPlay
+            // 
+            this.xCollectPlay.AutoSize = true;
+            this.xCollectPlay.Location = new System.Drawing.Point(12, 114);
+            this.xCollectPlay.Name = "xCollectPlay";
+            this.xCollectPlay.Size = new System.Drawing.Size(146, 17);
+            this.xCollectPlay.TabIndex = 31;
+            this.xCollectPlay.Text = "zbieraj przebieg rozgrywki";
+            this.xCollectPlay.UseVisualStyleBackColor = true;
+            // 
+            // xBoardOrderVerification
+            // 
+            this.xBoardOrderVerification.AutoSize = true;
+            this.xBoardOrderVerification.Location = new System.Drawing.Point(12, 45);
+            this.xBoardOrderVerification.Name = "xBoardOrderVerification";
+            this.xBoardOrderVerification.Size = new System.Drawing.Size(156, 17);
+            this.xBoardOrderVerification.TabIndex = 15;
+            this.xBoardOrderVerification.Text = "sprawdzaj kolejność rozdań";
+            this.xBoardOrderVerification.UseVisualStyleBackColor = true;
+            // 
+            // xIntermediateResults
+            // 
+            this.xIntermediateResults.AutoSize = true;
+            this.xIntermediateResults.Location = new System.Drawing.Point(12, 68);
+            this.xIntermediateResults.Name = "xIntermediateResults";
+            this.xIntermediateResults.Size = new System.Drawing.Size(161, 17);
+            this.xIntermediateResults.TabIndex = 16;
+            this.xIntermediateResults.Text = "zbieranie danych pośrednich";
+            this.xIntermediateResults.UseVisualStyleBackColor = true;
+            // 
+            // xAutoBoardNumber
+            // 
+            this.xAutoBoardNumber.AutoSize = true;
+            this.xAutoBoardNumber.Location = new System.Drawing.Point(12, 22);
+            this.xAutoBoardNumber.Name = "xAutoBoardNumber";
+            this.xAutoBoardNumber.Size = new System.Drawing.Size(174, 17);
+            this.xAutoBoardNumber.TabIndex = 10;
+            this.xAutoBoardNumber.Text = "automat. wpisuj numer rozdania";
+            this.xAutoBoardNumber.UseVisualStyleBackColor = true;
+            // 
+            // xCollectBidding
+            // 
+            this.xCollectBidding.AutoSize = true;
+            this.xCollectBidding.Location = new System.Drawing.Point(12, 91);
+            this.xCollectBidding.Name = "xCollectBidding";
+            this.xCollectBidding.Size = new System.Drawing.Size(97, 17);
+            this.xCollectBidding.TabIndex = 30;
+            this.xCollectBidding.Text = "zbieraj licytację";
+            this.xCollectBidding.UseVisualStyleBackColor = true;
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.xCheckLeadCard);
             this.groupBox5.Controls.Add(this.xLeadCard);
             this.groupBox5.Controls.Add(this.xViewHandrecord);
-            this.groupBox5.Location = new System.Drawing.Point(4, 355);
+            this.groupBox5.Location = new System.Drawing.Point(5, 324);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(257, 121);
             this.groupBox5.TabIndex = 42;
@@ -543,7 +639,7 @@
             this.groupBox4.Controls.Add(this.xShowPercentage);
             this.groupBox4.Controls.Add(this.xShowContract);
             this.groupBox4.Controls.Add(this.xResultsOverview);
-            this.groupBox4.Location = new System.Drawing.Point(267, 65);
+            this.groupBox4.Location = new System.Drawing.Point(268, 34);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(294, 138);
             this.groupBox4.TabIndex = 41;
@@ -619,126 +715,6 @@
             this.xResultsOverview.Name = "xResultsOverview";
             this.xResultsOverview.Size = new System.Drawing.Size(103, 21);
             this.xResultsOverview.TabIndex = 28;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.xCollectPlay);
-            this.groupBox3.Controls.Add(this.xBoardOrderVerification);
-            this.groupBox3.Controls.Add(this.xIntermediateResults);
-            this.groupBox3.Controls.Add(this.xAutoBoardNumber);
-            this.groupBox3.Controls.Add(this.xCollectBidding);
-            this.groupBox3.Location = new System.Drawing.Point(3, 209);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(257, 140);
-            this.groupBox3.TabIndex = 40;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Zapis rozdania";
-            // 
-            // xCollectPlay
-            // 
-            this.xCollectPlay.AutoSize = true;
-            this.xCollectPlay.Location = new System.Drawing.Point(12, 114);
-            this.xCollectPlay.Name = "xCollectPlay";
-            this.xCollectPlay.Size = new System.Drawing.Size(146, 17);
-            this.xCollectPlay.TabIndex = 31;
-            this.xCollectPlay.Text = "zbieraj przebieg rozgrywki";
-            this.xCollectPlay.UseVisualStyleBackColor = true;
-            // 
-            // xBoardOrderVerification
-            // 
-            this.xBoardOrderVerification.AutoSize = true;
-            this.xBoardOrderVerification.Location = new System.Drawing.Point(12, 45);
-            this.xBoardOrderVerification.Name = "xBoardOrderVerification";
-            this.xBoardOrderVerification.Size = new System.Drawing.Size(156, 17);
-            this.xBoardOrderVerification.TabIndex = 15;
-            this.xBoardOrderVerification.Text = "sprawdzaj kolejność rozdań";
-            this.xBoardOrderVerification.UseVisualStyleBackColor = true;
-            // 
-            // xIntermediateResults
-            // 
-            this.xIntermediateResults.AutoSize = true;
-            this.xIntermediateResults.Location = new System.Drawing.Point(12, 68);
-            this.xIntermediateResults.Name = "xIntermediateResults";
-            this.xIntermediateResults.Size = new System.Drawing.Size(161, 17);
-            this.xIntermediateResults.TabIndex = 16;
-            this.xIntermediateResults.Text = "zbieranie danych pośrednich";
-            this.xIntermediateResults.UseVisualStyleBackColor = true;
-            // 
-            // xAutoBoardNumber
-            // 
-            this.xAutoBoardNumber.AutoSize = true;
-            this.xAutoBoardNumber.Location = new System.Drawing.Point(12, 22);
-            this.xAutoBoardNumber.Name = "xAutoBoardNumber";
-            this.xAutoBoardNumber.Size = new System.Drawing.Size(174, 17);
-            this.xAutoBoardNumber.TabIndex = 10;
-            this.xAutoBoardNumber.Text = "automat. wpisuj numer rozdania";
-            this.xAutoBoardNumber.UseVisualStyleBackColor = true;
-            // 
-            // xCollectBidding
-            // 
-            this.xCollectBidding.AutoSize = true;
-            this.xCollectBidding.Location = new System.Drawing.Point(12, 91);
-            this.xCollectBidding.Name = "xCollectBidding";
-            this.xCollectBidding.Size = new System.Drawing.Size(97, 17);
-            this.xCollectBidding.TabIndex = 30;
-            this.xCollectBidding.Text = "zbieraj licytację";
-            this.xCollectBidding.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.xMemberNumbers);
-            this.groupBox2.Controls.Add(this.xShowPairNumbers);
-            this.groupBox2.Controls.Add(this.xMemberNumbersNoBlankEntry);
-            this.groupBox2.Controls.Add(this.xShowPlayerNames);
-            this.groupBox2.Location = new System.Drawing.Point(5, 65);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(256, 138);
-            this.groupBox2.TabIndex = 39;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Rozstawienie";
-            // 
-            // xMemberNumbers
-            // 
-            this.xMemberNumbers.AutoSize = true;
-            this.xMemberNumbers.Location = new System.Drawing.Point(12, 67);
-            this.xMemberNumbers.Name = "xMemberNumbers";
-            this.xMemberNumbers.Size = new System.Drawing.Size(133, 17);
-            this.xMemberNumbers.TabIndex = 6;
-            this.xMemberNumbers.Text = "pytaj o ID zawodników";
-            this.xMemberNumbers.UseVisualStyleBackColor = true;
-            this.xMemberNumbers.CheckedChanged += new System.EventHandler(this.xMemberNumbers_CheckedChanged);
-            // 
-            // xShowPairNumbers
-            // 
-            this.xShowPairNumbers.AutoSize = true;
-            this.xShowPairNumbers.Location = new System.Drawing.Point(12, 44);
-            this.xShowPairNumbers.Name = "xShowPairNumbers";
-            this.xShowPairNumbers.Size = new System.Drawing.Size(118, 17);
-            this.xShowPairNumbers.TabIndex = 5;
-            this.xShowPairNumbers.Text = "pokazuj numery par";
-            this.xShowPairNumbers.UseVisualStyleBackColor = true;
-            // 
-            // xMemberNumbersNoBlankEntry
-            // 
-            this.xMemberNumbersNoBlankEntry.AutoSize = true;
-            this.xMemberNumbersNoBlankEntry.Enabled = false;
-            this.xMemberNumbersNoBlankEntry.Location = new System.Drawing.Point(33, 90);
-            this.xMemberNumbersNoBlankEntry.Name = "xMemberNumbersNoBlankEntry";
-            this.xMemberNumbersNoBlankEntry.Size = new System.Drawing.Size(131, 17);
-            this.xMemberNumbersNoBlankEntry.TabIndex = 7;
-            this.xMemberNumbersNoBlankEntry.Text = "ID nie może być puste";
-            this.xMemberNumbersNoBlankEntry.UseVisualStyleBackColor = true;
-            // 
-            // xShowPlayerNames
-            // 
-            this.xShowPlayerNames.AutoSize = true;
-            this.xShowPlayerNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.xShowPlayerNames.Location = new System.Drawing.Point(12, 21);
-            this.xShowPlayerNames.Name = "xShowPlayerNames";
-            this.xShowPlayerNames.Size = new System.Drawing.Size(126, 17);
-            this.xShowPlayerNames.TabIndex = 9;
-            this.xShowPlayerNames.Text = "pokazuj nazwiska";
-            this.xShowPlayerNames.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -1279,6 +1255,40 @@
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
             // 
+            // toolStrip2
+            // 
+            this.toolStrip2.BackColor = System.Drawing.Color.White;
+            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip2.GripMargin = new System.Windows.Forms.Padding(0);
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bLoad,
+            this.bSave});
+            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.toolStrip2.Location = new System.Drawing.Point(0, 455);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip2.TabIndex = 51;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // bLoad
+            // 
+            this.bLoad.Image = ((System.Drawing.Image)(resources.GetObject("bLoad.Image")));
+            this.bLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bLoad.Name = "bLoad";
+            this.bLoad.Size = new System.Drawing.Size(216, 22);
+            this.bLoad.Text = "Ponownie wczytaj ustawienia z BWS";
+            // 
+            // bSave
+            // 
+            this.bSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.bSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.bSave.Image = ((System.Drawing.Image)(resources.GetObject("bSave.Image")));
+            this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bSave.Name = "bSave";
+            this.bSave.Size = new System.Drawing.Size(108, 22);
+            this.bSave.Text = "Zapisz do BWS";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1301,23 +1311,22 @@
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.namesPanel.ResumeLayout(false);
@@ -1335,6 +1344,8 @@
             this.toolStrip3.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1405,16 +1416,6 @@
         private System.Windows.Forms.ToolStripLabel labelFilename;
         private System.Windows.Forms.ToolStripButton bLaunch;
         private System.Windows.Forms.ToolStripButton bUpdateSession;
-        private System.Windows.Forms.StatusStrip statusStrip2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripStatusLabel lRequiredVersion;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel lDetectedVersion;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel lRequiredFirmware;
-        private System.Windows.Forms.ToolStripButton bLoad;
-        private System.Windows.Forms.ToolStripButton bSave;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton bLoadHands;
         private System.Windows.Forms.ToolStripButton bClearHands;
@@ -1447,6 +1448,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NorthSouth;
         private System.Windows.Forms.DataGridViewTextBoxColumn EastWest;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel lRequiredVersion;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel lDetectedVersion;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel lRequiredFirmware;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripButton bLoad;
+        private System.Windows.Forms.ToolStripButton bSave;
     }
 }
 
