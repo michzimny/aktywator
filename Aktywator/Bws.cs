@@ -298,7 +298,8 @@ namespace Aktywator
                 }
             }
             main.xShowContract.Checked = (Setting.load("ShowContract", this, errors, section) == "0");
-            main.xShowPlayerNames.Checked = (Setting.load("BM2ShowPlayerNames", this, errors, section) != "0");
+            string playerNames = Setting.load("BM2ShowPlayerNames", this, errors, section);
+            main.xShowPlayerNames.Checked = !("".Equals(playerNames) || "0".Equals(playerNames));
             main.xPINcode.Text = Setting.load("BM2PINcode", this, errors, section);
             int resultsOverview = 0;
             int.TryParse(Setting.load("BM2ResultsOverview", this, errors, section), out resultsOverview);
