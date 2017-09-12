@@ -39,6 +39,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.bLoad = new System.Windows.Forms.ToolStripButton();
+            this.bSave = new System.Windows.Forms.ToolStripButton();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lRequiredVersion = new System.Windows.Forms.ToolStripStatusLabel();
@@ -77,6 +80,7 @@
             this.xLeadCard = new System.Windows.Forms.CheckBox();
             this.xViewHandrecord = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lGroupSectionsWarning = new System.Windows.Forms.Label();
             this.xGroupSections = new System.Windows.Forms.CheckBox();
             this.xShowResults = new System.Windows.Forms.CheckBox();
             this.xRepeatResults = new System.Windows.Forms.CheckBox();
@@ -133,14 +137,12 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.bLoad = new System.Windows.Forms.ToolStripButton();
-            this.bSave = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             this.statusStrip2.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -158,7 +160,6 @@
             this.tabPage3.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // open
@@ -249,6 +250,40 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(563, 502);
             this.panel1.TabIndex = 29;
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.BackColor = System.Drawing.Color.White;
+            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip2.GripMargin = new System.Windows.Forms.Padding(0);
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bLoad,
+            this.bSave});
+            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.toolStrip2.Location = new System.Drawing.Point(0, 455);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip2.TabIndex = 51;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // bLoad
+            // 
+            this.bLoad.Image = ((System.Drawing.Image)(resources.GetObject("bLoad.Image")));
+            this.bLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bLoad.Name = "bLoad";
+            this.bLoad.Size = new System.Drawing.Size(216, 22);
+            this.bLoad.Text = "Ponownie wczytaj ustawienia z BWS";
+            // 
+            // bSave
+            // 
+            this.bSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.bSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.bSave.Image = ((System.Drawing.Image)(resources.GetObject("bSave.Image")));
+            this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bSave.Name = "bSave";
+            this.bSave.Size = new System.Drawing.Size(108, 22);
+            this.bSave.Text = "Zapisz do BWS";
             // 
             // statusStrip2
             // 
@@ -633,6 +668,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lGroupSectionsWarning);
             this.groupBox4.Controls.Add(this.xGroupSections);
             this.groupBox4.Controls.Add(this.xShowResults);
             this.groupBox4.Controls.Add(this.xRepeatResults);
@@ -645,6 +681,17 @@
             this.groupBox4.TabIndex = 41;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Protokół";
+            // 
+            // lGroupSectionsWarning
+            // 
+            this.lGroupSectionsWarning.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lGroupSectionsWarning.Image = ((System.Drawing.Image)(resources.GetObject("lGroupSectionsWarning.Image")));
+            this.lGroupSectionsWarning.Location = new System.Drawing.Point(9, 87);
+            this.lGroupSectionsWarning.Name = "lGroupSectionsWarning";
+            this.lGroupSectionsWarning.Size = new System.Drawing.Size(22, 18);
+            this.lGroupSectionsWarning.TabIndex = 29;
+            this.lGroupSectionsWarning.Visible = false;
+            this.lGroupSectionsWarning.Click += new System.EventHandler(this.lGroupSectionsWarning_Click);
             // 
             // xGroupSections
             // 
@@ -1255,40 +1302,6 @@
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
             // 
-            // toolStrip2
-            // 
-            this.toolStrip2.BackColor = System.Drawing.Color.White;
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip2.GripMargin = new System.Windows.Forms.Padding(0);
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bLoad,
-            this.bSave});
-            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 455);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(563, 25);
-            this.toolStrip2.TabIndex = 51;
-            this.toolStrip2.Text = "toolStrip2";
-            // 
-            // bLoad
-            // 
-            this.bLoad.Image = ((System.Drawing.Image)(resources.GetObject("bLoad.Image")));
-            this.bLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bLoad.Name = "bLoad";
-            this.bLoad.Size = new System.Drawing.Size(216, 22);
-            this.bLoad.Text = "Ponownie wczytaj ustawienia z BWS";
-            // 
-            // bSave
-            // 
-            this.bSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.bSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.bSave.Image = ((System.Drawing.Image)(resources.GetObject("bSave.Image")));
-            this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(108, 22);
-            this.bSave.Text = "Zapisz do BWS";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1313,6 +1326,8 @@
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -1344,8 +1359,6 @@
             this.toolStrip3.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1459,6 +1472,7 @@
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton bLoad;
         private System.Windows.Forms.ToolStripButton bSave;
+        public System.Windows.Forms.Label lGroupSectionsWarning;
     }
 }
 
