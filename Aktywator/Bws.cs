@@ -309,12 +309,22 @@ namespace Aktywator
             if (section == null && main.cbSettingsSection.Items.Count > 2)
             {
                 main.lFirstSectorSettings.Visible = true;
+                this.sectionGroupWarning();
             }
 
             if (errors.Length > 0)
             {
                 MessageBox.Show("Nie można uzyskać dostępu do pól: \n" + errors.ToString() + ".\nPrawdopodobnie te pola nie istnieją.",
                     "Brakuje pól w tabeli Settings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        public void sectionGroupWarning()
+        {
+            main.lGroupSectionsWarning.Visible = false;
+            if (main.xShowResults.Checked)
+            {
+                main.lGroupSectionsWarning.Visible = true;
             }
         }
 

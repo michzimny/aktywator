@@ -280,12 +280,18 @@ namespace Aktywator
                 xRepeatResults.Enabled = true;
                 xShowPercentage.Enabled = true;
                 xResultsOverview.Enabled = true;
+                xGroupSections.Enabled = true;
             }
             else
             {
                 xRepeatResults.Enabled = false;
                 xShowPercentage.Enabled = false;
                 xResultsOverview.Enabled = false;
+                xGroupSections.Enabled = false;
+            }
+            if (cbSettingsSection.Items.Count > 2)
+            {
+                bws.sectionGroupWarning();
             }
         }
 
@@ -555,6 +561,11 @@ namespace Aktywator
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             namesTimer.Enabled = checkBox1.Checked;
+        }
+
+        private void lGroupSectionsWarning_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!", "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
     }
