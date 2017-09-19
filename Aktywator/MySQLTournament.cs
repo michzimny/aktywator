@@ -47,6 +47,7 @@ namespace Aktywator
                     list.Add(t);
                 t.mysql.close();
             }
+            dbs.Close();
             return list;
         }
 
