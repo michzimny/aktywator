@@ -31,12 +31,12 @@ namespace Aktywator
         override internal Dictionary<int, List<string>> getNameList()
         {
             Dictionary<int, List<String>> teams = new Dictionary<int, List<string>>();
-            MySqlDataReader dbData = this.mysql.select("SELECT id, fullname NAME FROM teams");
+            MySqlDataReader dbData = this.mysql.select(MainForm.teamNames.getQuery());
             while (dbData.Read())
             {
                 List<string> names = new List<string>();
                 names.Add(dbData.IsDBNull(1) ? " " : dbData.GetString(1));
-                names.Add(" ");
+                names.Add(dbData.IsDBNull(2) ? " " : dbData.GetString(2));
                 teams.Add(dbData.GetInt32(0), names);
             }
             dbData.Close();

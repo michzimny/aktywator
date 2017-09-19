@@ -453,8 +453,10 @@ namespace Aktywator
                         count += 2;
                         if (tournament.type == Tournament.TYPE_TEAMY)
                         {
-                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "E", names[ns][0]);
-                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "W", names[ns][1]);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "E",
+                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ns + TeamNamesSettings.OpenClosedDiff][0] : names[ns][0]);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "W",
+                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ns + TeamNamesSettings.OpenClosedDiff][1] : names[ns][1]);
                             count += 2;
                         }
                     }
@@ -480,8 +482,10 @@ namespace Aktywator
                         count += 2;
                         if (tournament.type == Tournament.TYPE_TEAMY)
                         {
-                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "N", names[ew][0]);
-                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "S", names[ew][1]);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "N",
+                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ew + TeamNamesSettings.OpenClosedDiff][0] : names[ew][0]);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "S",
+                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ew + TeamNamesSettings.OpenClosedDiff][1] : names[ew][1]);
                             count += 2;
                         }
                     }

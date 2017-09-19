@@ -120,7 +120,7 @@ namespace Aktywator
             }
             else
             {
-                if (this._type != Tournament.TYPE_TEAMY)
+                if (this._type != Tournament.TYPE_TEAMY || MainForm.teamNames.arePlayerNamesDisplayed())
                 {
                     string[] nameParts = name.Trim().Split(' ');
                     if (nameParts.Length > 0)
@@ -151,6 +151,7 @@ namespace Aktywator
             }
             return dict;
         }
+
 
     }
 }
