@@ -310,6 +310,7 @@ namespace Aktywator
 
         private void bMySQLTournament_Click(object sender, EventArgs e)
         {
+            startLoading();
             try
             {
                 ChooseTournament choose = new ChooseTournament();
@@ -324,10 +325,12 @@ namespace Aktywator
             {
                 MessageBox.Show(ee.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            stopLoading();
         }
 
         private void bRRBTournament_Click(object sender, EventArgs e)
         {
+            startLoading();
             try
             {
                 OpenFileDialog fDialog = new OpenFileDialog();
@@ -344,6 +347,7 @@ namespace Aktywator
             {
                 MessageBox.Show(ee.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            stopLoading();
         }
 
         private void updateTournamentInfo(Tournament tournament)
@@ -578,6 +582,18 @@ namespace Aktywator
         private void bTeamsNamesSettings_Click(object sender, EventArgs e)
         {
             teamNames.ShowDialog();
+        }
+
+        internal void startLoading()
+        {
+            tabControl1.Enabled = false;
+            this.Cursor = Cursors.WaitCursor;
+        }
+
+        internal void stopLoading()
+        {
+            tabControl1.Enabled = true;
+            this.Cursor = Cursors.Default;
         }
     }
 }

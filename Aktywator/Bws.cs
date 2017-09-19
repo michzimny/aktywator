@@ -278,6 +278,7 @@ namespace Aktywator
 
         public void loadSettings()
         {
+            main.startLoading();
             if (settings == null)
             {
                 return;
@@ -317,6 +318,7 @@ namespace Aktywator
                 MessageBox.Show("Nie można uzyskać dostępu do pól: \n" + errors.ToString() + ".\nPrawdopodobnie te pola nie istnieją.",
                     "Brakuje pól w tabeli Settings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            main.stopLoading();
         }
 
         public void sectionGroupWarning()
