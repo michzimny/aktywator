@@ -110,6 +110,12 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Sql.cs" />
     <Compile Include="MySQLTournament.cs" />
+    <Compile Include="TeamNamesSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamNamesSettings.Designer.cs">
+      <DependentUpon>TeamNamesSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="TeamyTournament.cs" />
     <Compile Include="Tournament.cs" />
     <EmbeddedResource Include="ChooseTournament.resx">
@@ -131,6 +137,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TeamNamesSettings.resx">
+      <DependentUpon>TeamNamesSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
