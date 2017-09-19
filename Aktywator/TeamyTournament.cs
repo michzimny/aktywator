@@ -43,5 +43,44 @@ namespace Aktywator
             return teams;
         }
 
+        private int rounds = 0;
+        internal int getRoundsNum()
+        {
+            if (this.rounds == 0)
+            {
+                this.rounds = Int32.Parse(this.mysql.selectOne("SELECT roundcnt FROM admin"));
+            }
+            return this.rounds;
+        }
+
+        private int segments = 0;
+        internal int getSegmentsNum()
+        {
+            if (this.segments == 0)
+            {
+                this.segments = Int32.Parse(this.mysql.selectOne("SELECT segmentsperround FROM admin"));
+            }
+            return this.segments;
+        }
+
+        internal List<int> getCurrentSegment()
+        {
+            MySqlDataReader finished = this.mysql.select("SELECT rnd, segm FROM admin");
+            List<int> segment = new List<int>();
+            finished.Read();
+            segment.Add(finished.GetInt32(0));
+            segment.Add(finished.GetInt32(1));
+            segment[1]++;
+            if (segment[1] > this.getSegmentsNum()) {
+                segment[0]++;
+                if (segment[0] > this.getRoundsNum())
+                {
+                    segment[0] = this.getRoundsNum();
+                    segment[1] = this.getSegmentsNum();
+                }
+            }
+            finished.Close();
+            return segment;
+        }
     }
 }
