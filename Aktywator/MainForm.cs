@@ -19,6 +19,7 @@ namespace Aktywator
         private Bws bws;
         private List<Setting> bwsSettings;
         private Tournament tournament;
+        internal static TeamNamesSettings teamNames;
 
         private Version BCSVersion;
 
@@ -337,6 +338,7 @@ namespace Aktywator
                     tournament = new RRBTournament(fDialog.FileName);
                     updateTournamentInfo(tournament);
                 }
+                bTeamsNamesSettings.Visible = false;
             }
             catch (Exception ee)
             {
@@ -354,22 +356,27 @@ namespace Aktywator
                 lType.Text = tournament.getTypeLabel();
                 lSections.Text = tournament.getSectionsNum();
                 lTables.Text = tournament.getTablesNum();
+                if (tournament.GetType().Equals(typeof(TeamyTournament)))
+                {
+                    lSkok.Visible = true;
+                    numTeamsTableOffset.Visible = true;
+                    bTeamsNamesSettings.Visible = true;
+                    teamNames = new TeamNamesSettings();
+                    teamNames.initTournament((TeamyTournament)tournament, this);
+                    bTeamsNamesSettings.Text = teamNames.getLabel();
+                }
+                else
+                {
+                    lSkok.Visible = false;
+                    numTeamsTableOffset.Visible = false;
+                    bTeamsNamesSettings.Visible = false;
+                }
                 syncToolStrip.Visible = true;
                 namesPanel.Visible = true;
                 tournament.clearCellLocks(namesGridView);
                 tournament.displayNameList(namesGridView);
                 tournament.clearCellLocks(namesGridView);
                 namesTimer.Enabled = true;
-                if (tournament.GetType().Equals(typeof(TeamyTournament)))
-                {
-                    lSkok.Visible = true;
-                    numTeamsTableOffset.Visible = true;
-                }
-                else
-                {
-                    lSkok.Visible = false;
-                    numTeamsTableOffset.Visible = false;
-                }
             }
             else
             {
@@ -528,7 +535,7 @@ namespace Aktywator
             }
         }
 
-        private void namesTimer_Tick(object sender, EventArgs e)
+        public void namesTimer_Tick(object sender, EventArgs e)
         {
             tournament.displayNameList(namesGridView);
         }
@@ -568,5 +575,9 @@ namespace Aktywator
             MessageBox.Show("Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!", "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
+        private void bTeamsNamesSettings_Click(object sender, EventArgs e)
+        {
+            teamNames.ShowDialog();
+        }
     }
 }

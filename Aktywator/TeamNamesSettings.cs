@@ -145,10 +145,14 @@ namespace Aktywator
 
         private void TeamNamesSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
+            this.form.bTeamsNamesSettings.Text = this.getLabel();
+            this.form.namesTimer_Tick(null, null);
+            this.form.namesTimer.Enabled = true;
         }
 
         private void TeamNamesSettings_Shown(object sender, EventArgs e)
         {
+            this.form.namesTimer.Enabled = false;
         }
     }
 }

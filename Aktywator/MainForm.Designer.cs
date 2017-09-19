@@ -89,6 +89,7 @@
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.namesPanel = new System.Windows.Forms.Panel();
+            this.bTeamsNamesSettings = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.numNamesRefreshInterval = new System.Windows.Forms.NumericUpDown();
@@ -778,6 +779,7 @@
             // 
             // namesPanel
             // 
+            this.namesPanel.Controls.Add(this.bTeamsNamesSettings);
             this.namesPanel.Controls.Add(this.checkBox1);
             this.namesPanel.Controls.Add(this.button1);
             this.namesPanel.Controls.Add(this.numNamesRefreshInterval);
@@ -799,6 +801,20 @@
             this.namesPanel.Name = "namesPanel";
             this.namesPanel.Size = new System.Drawing.Size(562, 449);
             this.namesPanel.TabIndex = 29;
+            // 
+            // bTeamsNamesSettings
+            // 
+            this.bTeamsNamesSettings.FlatAppearance.BorderSize = 0;
+            this.bTeamsNamesSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bTeamsNamesSettings.Image = ((System.Drawing.Image)(resources.GetObject("bTeamsNamesSettings.Image")));
+            this.bTeamsNamesSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bTeamsNamesSettings.Location = new System.Drawing.Point(188, 40);
+            this.bTeamsNamesSettings.Name = "bTeamsNamesSettings";
+            this.bTeamsNamesSettings.Size = new System.Drawing.Size(136, 23);
+            this.bTeamsNamesSettings.TabIndex = 36;
+            this.bTeamsNamesSettings.UseVisualStyleBackColor = true;
+            this.bTeamsNamesSettings.Visible = false;
+            this.bTeamsNamesSettings.Click += new System.EventHandler(this.bTeamsNamesSettings_Click);
             // 
             // checkBox1
             // 
@@ -1448,7 +1464,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.DataGridView namesGridView;
         private System.Windows.Forms.Panel namesPanel;
-        private System.Windows.Forms.Timer namesTimer;
         public System.Windows.Forms.NumericUpDown numTeamsTableOffset;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
@@ -1473,6 +1488,8 @@
         private System.Windows.Forms.ToolStripButton bLoad;
         private System.Windows.Forms.ToolStripButton bSave;
         public System.Windows.Forms.Label lGroupSectionsWarning;
+        internal System.Windows.Forms.Button bTeamsNamesSettings;
+        public System.Windows.Forms.Timer namesTimer;
     }
 }
 
