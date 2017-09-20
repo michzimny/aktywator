@@ -285,6 +285,7 @@
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(108, 22);
             this.bSave.Text = "Zapisz do BWS";
+            this.bSave.Click += new System.EventHandler(this.bSave_Click);
             // 
             // statusStrip2
             // 
