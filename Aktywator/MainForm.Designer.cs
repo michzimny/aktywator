@@ -697,6 +697,7 @@
             // xGroupSections
             // 
             this.xGroupSections.AutoSize = true;
+            this.xGroupSections.Enabled = false;
             this.xGroupSections.Location = new System.Drawing.Point(34, 89);
             this.xGroupSections.Name = "xGroupSections";
             this.xGroupSections.Size = new System.Drawing.Size(227, 17);
