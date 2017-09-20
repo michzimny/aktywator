@@ -200,6 +200,7 @@ namespace Aktywator
             defaultSettings.Add(new Setting("BM2NumberEntryPreloadValues", "integer", "0"));
             defaultSettings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
             defaultSettings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
+            defaultSettings.Add(new Setting("`Section`", "integer", "1"));
 
             foreach (Setting s in defaultSettings)
             {
