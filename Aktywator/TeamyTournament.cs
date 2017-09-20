@@ -79,6 +79,14 @@ namespace Aktywator
                     segment[1] = this.getSegmentsNum();
                 }
             }
+            if (segment[0] < 1)
+            {
+                segment[0] = 1;
+            }
+            if (segment[1] < 1)
+            {
+                segment[1] = 1;
+            }
             finished.Close();
             return segment;
         }
