@@ -161,19 +161,13 @@ namespace Aktywator
             try
             {
                 sql.query(this.getAddColumnSql());
-            }
-            catch (OleDbException)
-            {
-            }
-            if (setDefault)
-            {
-                try
+                if (setDefault)
                 {
                     sql.query(this.getSetDefaultSql());
                 }
-                catch (OleDbException)
-                {
-                }
+            }
+            catch (OleDbException)
+            {
             }
         }
     }
