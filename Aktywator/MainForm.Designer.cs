@@ -275,6 +275,7 @@
             this.bLoad.Name = "bLoad";
             this.bLoad.Size = new System.Drawing.Size(216, 22);
             this.bLoad.Text = "Ponownie wczytaj ustawienia z BWS";
+            this.bLoad.Click += new System.EventHandler(this.bLoad_Click);
             // 
             // bSave
             // 
