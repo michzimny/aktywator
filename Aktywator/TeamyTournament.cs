@@ -73,6 +73,7 @@ namespace Aktywator
             segment[1]++;
             if (segment[1] > this.getSegmentsNum()) {
                 segment[0]++;
+                segment[1] = 1;
                 if (segment[0] > this.getRoundsNum())
                 {
                     segment[0] = this.getRoundsNum();
