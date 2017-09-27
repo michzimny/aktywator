@@ -595,5 +595,24 @@ namespace Aktywator
             tabControl1.Enabled = true;
             this.Cursor = Cursors.Default;
         }
+
+        private void gwSections_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex > 0 && gwSections.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag != null)
+            {
+                HandRecordPreview preview = new HandRecordPreview((HandRecord)gwSections.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag, gwSections.Rows[e.RowIndex].HeaderCell.Value + "-" + gwSections.Columns[e.ColumnIndex].HeaderCell.Value);
+                preview.ShowDialog();
+            }
+        }
+
+        private void gwSections_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            DataGridView grid = (DataGridView)sender;
+            if (grid.IsCurrentCellDirty)
+            {
+                grid.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
     }
 }

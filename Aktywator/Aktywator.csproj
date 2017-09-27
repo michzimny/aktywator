@@ -86,6 +86,12 @@
     <Compile Include="Common.cs" />
     <Compile Include="DDTable.cs" />
     <Compile Include="HandRecord.cs" />
+    <Compile Include="HandRecordPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HandRecordPreview.Designer.cs">
+      <DependentUpon>HandRecordPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     <Compile Include="Tournament.cs" />
     <EmbeddedResource Include="ChooseTournament.resx">
       <DependentUpon>ChooseTournament.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HandRecordPreview.resx">
+      <DependentUpon>HandRecordPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

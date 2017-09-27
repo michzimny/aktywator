@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.OleDb;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Aktywator
 {
@@ -20,26 +21,10 @@ namespace Aktywator
         public bool settingsChanged = false;
         private static string applicationPath = Common.ProgramFilesx86() + "\\Bridgemate Pro\\";
 
-        private class SectionCheckBox
+        class HandInfo
         {
-            private string section;
-            private string label;
-
-            public SectionCheckBox(string section, string label)
-            {
-                this.section = section;
-                this.label = label;
-            }
-
-            override public string ToString()
-            {
-                return this.label;
-            }
-
-            public string getSection()
-            {
-                return this.section;
-            }
+            public List<string> record;
+            public bool analysis = false;
         }
 
         public Bws(string filename, MainForm main)
@@ -48,15 +33,171 @@ namespace Aktywator
             sql = new Sql(filename);
             this.main = main;
             string[] sections = this.getSections().Split(',');
+            this.displaySectionBoardsInfo(sections);
+        }
+
+        private void displaySectionBoardsInfo(string[] sections)
+        {
+            main.gwSections.Columns.Add(new DataGridViewCheckBoxColumn { Frozen = true, Width = 20, DefaultCellStyle = { ForeColor = Color.White, Alignment = DataGridViewContentAlignment.MiddleCenter } });
             foreach (string section in sections)
             {
-                SectionCheckBox item = new SectionCheckBox(section, "sektor " + this.sectorNumberToLetter(Int16.Parse(section)) + " (rozdania " + this.lowBoard(section) + "-" + this.highBoard(section) + ")");
-                main.cblSections.Items.Add(item);
+                DataGridViewRow row = new DataGridViewRow();
+                row.Height = 20;
+                row.HeaderCell.Value = this.sectorNumberToLetter(Int16.Parse(section));
+                main.gwSections.Rows.Add(row);
             }
-            for (int i = 0; i < main.cblSections.Items.Count; i++)
+            Dictionary<int, List<string>> boards = this.loadSectionBoards(sections);
+            foreach (KeyValuePair<int, List<string>> boardList in boards) 
             {
-                main.cblSections.SetItemChecked(i, true);
+                main.gwSections.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = boardList.Key.ToString(), Width = 22, DefaultCellStyle = { ForeColor = Color.White, Alignment = DataGridViewContentAlignment.MiddleCenter } });
+                foreach (DataGridViewRow row in main.gwSections.Rows) 
+                {
+                    if (boardList.Value.Contains(row.HeaderCell.Value.ToString()))
+                    {
+                        row.Cells[row.Cells.Count - 1].Style.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        row.Cells[row.Cells.Count - 1].Style.BackColor = Color.Gray;
+                    }
+                    row.Cells[row.Cells.Count - 1].ReadOnly = true;
+                }
             }
+            foreach (DataGridViewRow row in main.gwSections.Rows)
+            {
+                row.Cells[0].Value = true;
+                ((DataGridViewCheckBoxCell)row.Cells[0]).TrueValue = true;
+                ((DataGridViewCheckBoxCell)row.Cells[0]).FalseValue = false;
+            }
+            this.displayHandRecordInfo(boards);
+        }
+
+        private Dictionary<int, List<string>> loadSectionBoards(string[] sections) {
+            Dictionary<int, List<string>> boards = new Dictionary<int, List<string>>();
+            foreach (string section in sections)
+            {
+                string sectionLetter = this.sectorNumberToLetter(Int16.Parse(section));                
+                int lowBoard = this.lowBoard(section);
+                int highBoard = this.highBoard(section);
+                for (int board = lowBoard; board <= highBoard; board++)
+                {
+                    if (!boards.ContainsKey(board))
+                    {
+                        boards.Add(board, new List<string>());
+                    }
+                    boards[board].Add(sectionLetter);
+                }
+            }
+            return boards;            
+        }
+
+        private void displayHandRecordInfo(Dictionary<int, List<string>> boards) 
+        {
+            Dictionary<int, Dictionary<string, HandInfo>> handInfo = this.loadHandRecordInfo();
+            foreach (KeyValuePair<int, List<string>> board in boards)
+            {
+                if (handInfo.ContainsKey(board.Key))
+                {
+                    foreach (string section in board.Value)
+                    {
+                        this.setHandRecordInfo(board.Key, section, (board.Value.Contains(section) && handInfo[board.Key].ContainsKey(section)) ? handInfo[board.Key][section].record : null, handInfo[board.Key].ContainsKey(section) && handInfo[board.Key][section].analysis);
+                    }
+                }
+                else
+                {
+                    this.setHandRecordInfo(board.Key);
+                }
+            }
+        }
+
+        private void setHandRecordInfo(int board, string section = null, List<string> layout = null, bool analysis = false)
+        {
+            foreach (DataGridViewColumn column in main.gwSections.Columns)
+            {
+                if (column.HeaderText.Equals(board.ToString()))
+                {
+                    foreach (DataGridViewRow row in main.gwSections.Rows)
+                    {
+                        if (row.HeaderCell.Value.Equals(section) || section == null)
+                        {
+                            if (row.Cells[column.Index].Style.BackColor != Color.Gray)
+                            {
+                                if (layout != null)
+                                {
+                                    row.Cells[column.Index].Style.BackColor = Color.LimeGreen;
+                                    row.Cells[column.Index].Tag = new HandRecord(String.Join(" ", layout.ToArray()));
+                                    row.Cells[column.Index].Value = analysis ? "A" : "";
+                                    row.Cells[column.Index].ToolTipText = "Dwukliknij, by podejrzeć rozkład";
+                                }
+                                else
+                                {
+                                    row.Cells[column.Index].Style.BackColor = Color.Crimson;
+                                    row.Cells[column.Index].Tag = null;
+                                    row.Cells[column.Index].Value = "";
+                                    row.Cells[column.Index].ToolTipText = "";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private Dictionary<int, Dictionary<string, HandInfo>> loadHandRecordInfo()
+        {
+            Dictionary<int, Dictionary<string, HandInfo>> info = new Dictionary<int, Dictionary<string, HandInfo>>();
+            try
+            {
+                OleDbDataReader handData = sql.select("SELECT `Section`, Board, NorthSpades, NorthHearts, NorthDiamonds, NorthClubs, EastSpades, EastHearts, EastDiamonds, EastClubs, SouthSpades, SouthHearts, SouthDiamonds, SouthClubs, WestSpades, WestHearts, WestDiamonds, WestClubs FROM HandRecord");
+                while (handData.Read())
+                {
+                    int boardNumber = Int16.Parse(handData[1].ToString());
+                    if (!info.ContainsKey(boardNumber))
+                    {
+                        info.Add(boardNumber, new Dictionary<string, HandInfo>());
+                    }
+                    string section = this.sectorNumberToLetter(Int16.Parse(handData[0].ToString()));
+                    info[boardNumber].Add(section, new HandInfo { record = new List<string>(), analysis = false });
+                    for (int i = 0; i < 4; i++)
+                    {
+                        StringBuilder singleHand = new StringBuilder();
+                        for (int j = 0; j < 4; j++)
+                        {
+                            singleHand.Append(handData[2 + i * 4 + j].ToString());
+                            if (j != 3)
+                            {
+                                singleHand.Append('.');
+                            }
+                        }
+                        info[boardNumber][section].record.Add(singleHand.ToString().Trim());
+                    }
+                }
+                handData.Close();
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                OleDbDataReader handData = sql.select("SELECT `Section`, Board FROM HandEvaluation");
+                while (handData.Read())
+                {
+                    int boardNumber = Int16.Parse(handData[1].ToString());
+                    string section = this.sectorNumberToLetter(Int16.Parse(handData[0].ToString()));
+                    try
+                    {
+                        info[boardNumber][section].analysis = true;
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                    }
+                }
+                handData.Close();
+            }
+            catch (OleDbException)
+            {
+            }
+            return info;
         }
 
         private int sectorLetterToNumber(string sector)
@@ -73,9 +214,12 @@ namespace Aktywator
         public string[] getSelectedSections()
         {
             List<string> sections = new List<string>();
-            foreach (SectionCheckBox section in main.cblSections.CheckedItems)
+            foreach (DataGridViewRow row in main.gwSections.Rows)
             {
-                sections.Add(section.getSection());
+                if (Convert.ToBoolean(row.Cells[0].Value))
+                {
+                    sections.Add(this.sectorLetterToNumber(row.HeaderCell.Value.ToString()).ToString());
+                }
             }
             return sections.ToArray();
         }
@@ -585,20 +729,29 @@ namespace Aktywator
             string sections = this.sectionsForHandRecords();
             if (sections != null)
             {
-                foreach (string section in this.sectionsForHandRecords().Split(','))
+                string[] sectionLetters = sections.Split(',');
+                for (int i = 0; i < sectionLetters.Length; i++)
                 {
-                    this.clearRecords(section.Trim());
+                    sectionLetters[i] = sectionLetters[i].Trim();
                 }
+                foreach (string section in sectionLetters)
+                {
+                    this.clearRecords(section);
+                }
+                this.displayHandRecordInfo(this.loadSectionBoards(sectionLetters));
             }
         }
 
         public int loadHandRecords(PBN pbn)
         {
             int count = 0;
-            foreach (string section in this.getSelectedSections())
+            string[] sections = this.getSelectedSections();
+            Dictionary<int, List<string>> boards = new Dictionary<int, List<string>>();
+            foreach (string section in sections)
             {
                 this.clearRecords(section);
                 for (int i = this.lowBoard(section.Trim()); i <= this.highBoard(section.Trim()); i++)
+                {
                     if (pbn.handRecords[i] != null)
                     {
                         HandRecord b = pbn.handRecords[i];
@@ -611,6 +764,11 @@ namespace Aktywator
                         str.Append(String.Join("','", b.south)); str.Append("','");
                         str.Append(String.Join("','", b.west)); str.Append("')");
                         sql.query(str.ToString());
+                        if (!boards.ContainsKey(i))
+                        {
+                            boards.Add(i, new List<string>());
+                        }
+                        boards[i].Add(this.sectorNumberToLetter(Int16.Parse(section)));
                         int[,] ddTable = pbn.ddTables[i].GetDDTable();
                         if (ddTable != null)
                         {
@@ -639,7 +797,9 @@ namespace Aktywator
                         }
                         count++;
                     }
+                }
             }
+            this.displayHandRecordInfo(this.loadSectionBoards(sections));
             return count;
         }
     }

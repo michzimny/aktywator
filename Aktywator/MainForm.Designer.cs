@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.open = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -125,11 +126,19 @@
             this.bForceSync = new System.Windows.Forms.ToolStripButton();
             this.bTruncate = new System.Windows.Forms.ToolStripButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.gwSections = new System.Windows.Forms.DataGridView();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bLoadHands = new System.Windows.Forms.ToolStripButton();
             this.bClearHands = new System.Windows.Forms.ToolStripButton();
             this.lRecordSections = new System.Windows.Forms.Label();
-            this.cblSections = new System.Windows.Forms.CheckedListBox();
             this.label11 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
@@ -159,6 +168,7 @@
             this.syncToolStrip.SuspendLayout();
             this.toolStrip4.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gwSections)).BeginInit();
             this.toolStrip3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -1188,9 +1198,17 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label17);
+            this.tabPage3.Controls.Add(this.label18);
+            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.label16);
+            this.tabPage3.Controls.Add(this.label13);
+            this.tabPage3.Controls.Add(this.label14);
+            this.tabPage3.Controls.Add(this.label12);
+            this.tabPage3.Controls.Add(this.label10);
+            this.tabPage3.Controls.Add(this.gwSections);
             this.tabPage3.Controls.Add(this.toolStrip3);
             this.tabPage3.Controls.Add(this.lRecordSections);
-            this.tabPage3.Controls.Add(this.cblSections);
             this.tabPage3.Controls.Add(this.label11);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -1200,15 +1218,129 @@
             this.tabPage3.Text = "Rozkłady";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(458, 460);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(71, 13);
+            this.label17.TabIndex = 18;
+            this.label17.Text = "brak rozdania";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.label18.Location = new System.Drawing.Point(432, 456);
+            this.label18.MinimumSize = new System.Drawing.Size(20, 20);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(20, 20);
+            this.label18.TabIndex = 17;
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(322, 460);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(104, 13);
+            this.label15.TabIndex = 16;
+            this.label15.Text = "rozkład niewczytany";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Crimson;
+            this.label16.Location = new System.Drawing.Point(296, 456);
+            this.label16.MinimumSize = new System.Drawing.Size(20, 20);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(20, 20);
+            this.label16.TabIndex = 15;
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(156, 460);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(134, 13);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "rozkład wczytany z analizą";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.LimeGreen;
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(130, 456);
+            this.label14.MinimumSize = new System.Drawing.Size(20, 20);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(20, 20);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "A";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(34, 460);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(90, 13);
+            this.label12.TabIndex = 12;
+            this.label12.Text = "rozkład wczytany";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.LimeGreen;
+            this.label10.Location = new System.Drawing.Point(8, 456);
+            this.label10.MinimumSize = new System.Drawing.Size(20, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(20, 20);
+            this.label10.TabIndex = 11;
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // gwSections
+            // 
+            this.gwSections.AllowUserToAddRows = false;
+            this.gwSections.AllowUserToDeleteRows = false;
+            this.gwSections.AllowUserToResizeColumns = false;
+            this.gwSections.AllowUserToResizeRows = false;
+            this.gwSections.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.gwSections.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.gwSections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gwSections.Location = new System.Drawing.Point(9, 118);
+            this.gwSections.MultiSelect = false;
+            this.gwSections.Name = "gwSections";
+            this.gwSections.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.gwSections.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.gwSections.ShowCellErrors = false;
+            this.gwSections.ShowEditingIcon = false;
+            this.gwSections.ShowRowErrors = false;
+            this.gwSections.Size = new System.Drawing.Size(554, 335);
+            this.gwSections.TabIndex = 10;
+            this.gwSections.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gwSections_CellDoubleClick);
+            this.gwSections.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gwSections_CellDoubleClick);
+            this.gwSections.CurrentCellDirtyStateChanged += new System.EventHandler(this.gwSections_CurrentCellDirtyStateChanged);
+            // 
             // toolStrip3
             // 
             this.toolStrip3.BackColor = System.Drawing.Color.White;
+            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip3.GripMargin = new System.Windows.Forms.Padding(0);
             this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bLoadHands,
             this.bClearHands});
-            this.toolStrip3.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip3.Location = new System.Drawing.Point(3, 483);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(563, 25);
             this.toolStrip3.TabIndex = 9;
@@ -1220,8 +1352,8 @@
             this.bLoadHands.Image = ((System.Drawing.Image)(resources.GetObject("bLoadHands.Image")));
             this.bLoadHands.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bLoadHands.Name = "bLoadHands";
-            this.bLoadHands.Size = new System.Drawing.Size(122, 22);
-            this.bLoadHands.Text = "Wczytaj rozkłady";
+            this.bLoadHands.Size = new System.Drawing.Size(274, 22);
+            this.bLoadHands.Text = "Wczytaj rozkłady do zaznaczonych sektorów";
             this.bLoadHands.Click += new System.EventHandler(this.bLoadHands_Click);
             // 
             // bClearHands
@@ -1238,26 +1370,16 @@
             // 
             this.lRecordSections.AutoSize = true;
             this.lRecordSections.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lRecordSections.Location = new System.Drawing.Point(6, 138);
+            this.lRecordSections.Location = new System.Drawing.Point(6, 102);
             this.lRecordSections.Name = "lRecordSections";
             this.lRecordSections.Size = new System.Drawing.Size(54, 13);
             this.lRecordSections.TabIndex = 7;
             this.lRecordSections.Text = "Sektory:";
             // 
-            // cblSections
-            // 
-            this.cblSections.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cblSections.CheckOnClick = true;
-            this.cblSections.FormattingEnabled = true;
-            this.cblSections.Location = new System.Drawing.Point(9, 162);
-            this.cblSections.Name = "cblSections";
-            this.cblSections.Size = new System.Drawing.Size(546, 285);
-            this.cblSections.TabIndex = 6;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 49);
+            this.label11.Location = new System.Drawing.Point(6, 12);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(479, 78);
             this.label11.TabIndex = 1;
@@ -1374,6 +1496,7 @@
             this.toolStrip4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gwSections)).EndInit();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -1436,7 +1559,6 @@
         public System.Windows.Forms.CheckBox xCollectPlay;
         public System.Windows.Forms.CheckBox xCollectBidding;
         public System.Windows.Forms.CheckBox xCheckLeadCard;
-        public System.Windows.Forms.CheckedListBox cblSections;
         private System.Windows.Forms.Label lRecordSections;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
@@ -1493,6 +1615,15 @@
         public System.Windows.Forms.Label lGroupSectionsWarning;
         internal System.Windows.Forms.Button bTeamsNamesSettings;
         public System.Windows.Forms.Timer namesTimer;
+        public System.Windows.Forms.DataGridView gwSections;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label12;
     }
 }
 
