@@ -83,5 +83,31 @@ namespace Aktywator
             }
             return true;
         }
+
+        internal void insert(string table, Dictionary<string, object> columns)
+        {
+            StringBuilder query = new StringBuilder();
+            query.Append("INSERT INTO ");
+            query.Append(table);
+            query.Append(" (");
+            List<string> keys = new List<string>();
+            List<string> parameters = new List<string>();
+            foreach (string key in columns.Keys)
+            {
+                keys.Add("`" + key + "`");
+                parameters.Add("@" + key);
+            }
+            string[] fields = keys.ToArray();
+            query.Append(String.Join(", ", fields));
+            query.Append(") VALUES(");
+            query.Append(String.Join(", ", parameters.ToArray()));
+            query.Append(")");
+            OleDbCommand command = new OleDbCommand(query.ToString(), connection);
+            foreach (KeyValuePair<string, object> column in columns)
+            {
+                command.Parameters.AddWithValue("@" + column.Key, column.Value);
+            }
+            command.ExecuteScalar();
+        }
     }
 }
