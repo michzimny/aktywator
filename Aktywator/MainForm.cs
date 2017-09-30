@@ -91,11 +91,15 @@ namespace Aktywator
 
         private Tournament detectTeamyTournament()
         {
-            string name = bws.getMySQLDatabaseForSection();
-            if (name != null)
+            try
             {
-                return new TeamyTournament(name);
+                string name = bws.getMySQLDatabaseForSection();
+                if (name != null)
+                {
+                    return new TeamyTournament(name);
+                }
             }
+            catch (Exception e) { }
             return null;
         }
 
