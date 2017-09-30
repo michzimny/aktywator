@@ -351,6 +351,8 @@ namespace Aktywator
                 s.createField(sql);
             }
 
+            this.convertSettingsPerSection();
+
             try
             {
                 sql.query("ALTER TABLE Tables ADD COLUMN `Group` integer;");
@@ -416,6 +418,37 @@ namespace Aktywator
             }
         }
 
+        private void convertSettingsPerSection()
+        {
+            string sectionString = this.getSections();
+            string[] sections = sectionString.Split(',');
+            OleDbDataReader defaultSettings = sql.select("SELECT * FROM `Settings`");
+            if (defaultSettings.Read())
+            {
+                object[] values = new object[100];
+                int columns = defaultSettings.GetValues(values);
+                Dictionary<string, object> objects = new Dictionary<string, object>();
+                for (int i = 0; i < columns; i++)
+                {
+                    objects.Add(defaultSettings.GetName(i), values[i]);
+                }
+                defaultSettings.Close();
+                foreach (string section in sections)
+                {
+                    try
+                    {
+                        string sectionData = sql.selectOne("SELECT `Section` FROM `Settings` WHERE `Section` = " + section, true);
+                    }
+                    catch (OleDbRowMissingException e)
+                    {
+                        objects["Section"] = section;
+                        sql.insert("Settings", objects);
+                    }
+                }
+                sql.query("DELETE FROM `Settings` WHERE `Section` NOT IN (" + sectionString + ")");
+            }
+        }
+
         public void updateSettings()
         {
             sql.query("UPDATE Tables SET UpdateFromRound=997;");
@@ -426,6 +459,7 @@ namespace Aktywator
             main.startLoading();
             if (settings == null)
             {
+                main.stopLoading();
                 return;
             }
             main.lFirstSectorSettings.Visible = false;
