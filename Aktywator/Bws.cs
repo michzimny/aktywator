@@ -691,15 +691,21 @@ namespace Aktywator
                         }
                     }
                 }
+                StringBuilder errors = new StringBuilder();
                 List<Setting> settings = new List<Setting>();
                 settings.Add(new Setting("BM2NumberEntryEachRound", "integer", (tournament.type == Tournament.TYPE_TEAMY) ? "1" : "0"));
                 settings.Add(new Setting("BM2NumberEntryPreloadValues", "integer", "1"));
                 foreach (Setting s in settings)
                 {
                     s.createField(sql);
+                    Setting.save(s.name, s.defaultStr, this, errors);
                 }
                 if (interactive)
                 {
+                    if (errors.Length > 0)
+                    {
+                        MessageBox.Show(errors.ToString(), "Błąd ustawiania opcji BWS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                     MessageBox.Show("Synchronizacja zakończona!\nPrzejrzanych nazwisk: " + count + "\nZmienionych: " + countNew,
                         "Synchronizacja nazwisk", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (sql.selectOne("SELECT BM2ShowPlayerNames FROM Settings") != "1")
