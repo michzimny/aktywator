@@ -3,8 +3,11 @@
 
 ---------------------
 Aktywator 1.1.2 (beta)
-19.09.2017 [mkl]
+30.09.2017 [mkl]
  * pobieranie i wyświetlanie jako nazwiska dodatkowych informacji z turniejów JFR Teamy (lineup, wynik meczu, wynik turnieju)
+ * podgląd rozkładów z BWSa
+ * możliwość wgrania nazwisk do wybranego sektora
+ * automatyczne wykrywanie bazy danych dla BWSów z Teamów
  * poprawki interfejsu edytora nazwisk
  * poprawki interfejsu górnego menu
  * ostrzeżenie o niemożności zmiany maksowania sektorów w czasie sesji
