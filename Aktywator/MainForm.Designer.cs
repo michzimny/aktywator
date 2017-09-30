@@ -89,6 +89,12 @@
             this.xShowContract = new System.Windows.Forms.CheckBox();
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.sectionToolStrip = new System.Windows.Forms.ToolStrip();
+            this.eOomRounds = new System.Windows.Forms.ToolStripTextBox();
+            this.lOomLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.cbNamesSection = new System.Windows.Forms.ToolStripComboBox();
             this.namesPanel = new System.Windows.Forms.Panel();
             this.bTeamsNamesSettings = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -113,11 +119,8 @@
             this.lTables = new System.Windows.Forms.Label();
             this.syncToolStrip = new System.Windows.Forms.ToolStrip();
             this.bSync = new System.Windows.Forms.ToolStripButton();
-            this.bAutoSync = new System.Windows.Forms.ToolStripButton();
             this.eInterval = new System.Windows.Forms.ToolStripTextBox();
-            this.eOomRounds = new System.Windows.Forms.ToolStripTextBox();
-            this.lOomLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.bAutoSync = new System.Windows.Forms.ToolStripButton();
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.bMySQLTournament = new System.Windows.Forms.ToolStripMenuItem();
@@ -161,6 +164,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.sectionToolStrip.SuspendLayout();
             this.namesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNamesRefreshInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTeamsTableOffset)).BeginInit();
@@ -374,7 +378,7 @@
             this.cbSettingsSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSettingsSection.FormattingEnabled = true;
             this.cbSettingsSection.Items.AddRange(new object[] {
-            "   *   "});
+            "*"});
             this.cbSettingsSection.Location = new System.Drawing.Point(50, 7);
             this.cbSettingsSection.Name = "cbSettingsSection";
             this.cbSettingsSection.Size = new System.Drawing.Size(42, 21);
@@ -779,6 +783,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.sectionToolStrip);
             this.tabPage2.Controls.Add(this.namesPanel);
             this.tabPage2.Controls.Add(this.syncToolStrip);
             this.tabPage2.Controls.Add(this.toolStrip4);
@@ -789,6 +794,70 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Nazwiska";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // sectionToolStrip
+            // 
+            this.sectionToolStrip.BackColor = System.Drawing.Color.White;
+            this.sectionToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.sectionToolStrip.GripMargin = new System.Windows.Forms.Padding(0);
+            this.sectionToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.sectionToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.eOomRounds,
+            this.lOomLabel,
+            this.toolStripButton2,
+            this.toolStripLabel1,
+            this.cbNamesSection});
+            this.sectionToolStrip.Location = new System.Drawing.Point(3, 458);
+            this.sectionToolStrip.Name = "sectionToolStrip";
+            this.sectionToolStrip.Size = new System.Drawing.Size(563, 25);
+            this.sectionToolStrip.TabIndex = 30;
+            this.sectionToolStrip.Text = "toolStrip5";
+            // 
+            // eOomRounds
+            // 
+            this.eOomRounds.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.eOomRounds.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.eOomRounds.Enabled = false;
+            this.eOomRounds.Name = "eOomRounds";
+            this.eOomRounds.Size = new System.Drawing.Size(80, 25);
+            this.eOomRounds.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
+            // 
+            // lOomLabel
+            // 
+            this.lOomLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lOomLabel.Enabled = false;
+            this.lOomLabel.Name = "lOomLabel";
+            this.lOomLabel.Size = new System.Drawing.Size(92, 22);
+            this.lOomLabel.Text = "Rundy dla OOM";
+            this.lOomLabel.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton2.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripButton2.CheckOnClick = true;
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "‎✔";
+            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton2.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
+            this.toolStripButton2.CheckedChanged += new System.EventHandler(this.toolStripButton2_CheckedChanged);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(43, 22);
+            this.toolStripLabel1.Text = "Sektor:";
+            // 
+            // cbNamesSection
+            // 
+            this.cbNamesSection.BackColor = System.Drawing.Color.White;
+            this.cbNamesSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNamesSection.DropDownWidth = 75;
+            this.cbNamesSection.Name = "cbNamesSection";
+            this.cbNamesSection.Size = new System.Drawing.Size(75, 25);
             // 
             // namesPanel
             // 
@@ -812,7 +881,7 @@
             this.namesPanel.Controls.Add(this.lTables);
             this.namesPanel.Location = new System.Drawing.Point(3, 31);
             this.namesPanel.Name = "namesPanel";
-            this.namesPanel.Size = new System.Drawing.Size(562, 449);
+            this.namesPanel.Size = new System.Drawing.Size(562, 425);
             this.namesPanel.TabIndex = 29;
             // 
             // bTeamsNamesSettings
@@ -884,7 +953,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(1, 418);
+            this.label9.Location = new System.Drawing.Point(3, 389);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(499, 13);
             this.label9.TabIndex = 31;
@@ -940,7 +1009,7 @@
             this.EastWest});
             this.namesGridView.Location = new System.Drawing.Point(2, 98);
             this.namesGridView.Name = "namesGridView";
-            this.namesGridView.Size = new System.Drawing.Size(557, 318);
+            this.namesGridView.Size = new System.Drawing.Size(557, 287);
             this.namesGridView.TabIndex = 28;
             this.namesGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellMouseEnter);
             this.namesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellValueChanged);
@@ -1019,7 +1088,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1, 432);
+            this.label8.Location = new System.Drawing.Point(5, 406);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(323, 13);
             this.label8.TabIndex = 12;
@@ -1050,11 +1119,8 @@
             this.syncToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.syncToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bSync,
-            this.bAutoSync,
             this.eInterval,
-            this.eOomRounds,
-            this.lOomLabel,
-            this.toolStripButton2});
+            this.bAutoSync});
             this.syncToolStrip.Location = new System.Drawing.Point(3, 483);
             this.syncToolStrip.Name = "syncToolStrip";
             this.syncToolStrip.Size = new System.Drawing.Size(563, 25);
@@ -1071,8 +1137,16 @@
             this.bSync.Text = "Synchronizuj teraz";
             this.bSync.Click += new System.EventHandler(this.bSync_Click);
             // 
+            // eInterval
+            // 
+            this.eInterval.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.eInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.eInterval.Name = "eInterval";
+            this.eInterval.Size = new System.Drawing.Size(50, 25);
+            // 
             // bAutoSync
             // 
+            this.bAutoSync.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.bAutoSync.Image = ((System.Drawing.Image)(resources.GetObject("bAutoSync.Image")));
             this.bAutoSync.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bAutoSync.Margin = new System.Windows.Forms.Padding(30, 1, 0, 2);
@@ -1080,44 +1154,6 @@
             this.bAutoSync.Size = new System.Drawing.Size(114, 22);
             this.bAutoSync.Text = "Synchronizuj co:";
             this.bAutoSync.Click += new System.EventHandler(this.bAutoSync_Click);
-            // 
-            // eInterval
-            // 
-            this.eInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.eInterval.Name = "eInterval";
-            this.eInterval.Size = new System.Drawing.Size(50, 25);
-            // 
-            // eOomRounds
-            // 
-            this.eOomRounds.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.eOomRounds.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.eOomRounds.Enabled = false;
-            this.eOomRounds.Name = "eOomRounds";
-            this.eOomRounds.Size = new System.Drawing.Size(80, 25);
-            this.eOomRounds.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
-            // 
-            // lOomLabel
-            // 
-            this.lOomLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.lOomLabel.Enabled = false;
-            this.lOomLabel.Name = "lOomLabel";
-            this.lOomLabel.Size = new System.Drawing.Size(92, 22);
-            this.lOomLabel.Text = "Rundy dla OOM";
-            this.lOomLabel.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton2.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripButton2.CheckOnClick = true;
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "‎✔";
-            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolStripButton2.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
-            this.toolStripButton2.CheckedChanged += new System.EventHandler(this.toolStripButton2_CheckedChanged);
             // 
             // toolStrip4
             // 
@@ -1485,6 +1521,8 @@
             this.groupBox4.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.sectionToolStrip.ResumeLayout(false);
+            this.sectionToolStrip.PerformLayout();
             this.namesPanel.ResumeLayout(false);
             this.namesPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNamesRefreshInterval)).EndInit();
@@ -1624,6 +1662,9 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ToolStrip sectionToolStrip;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripComboBox cbNamesSection;
     }
 }
 

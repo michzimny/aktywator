@@ -69,6 +69,12 @@ namespace Aktywator
 
             labelFilename.Text = filename;
             this.fillSectionSelector(bws.getSections());
+            cbNamesSection.Items.Clear();
+            foreach (object i in cbSettingsSection.Items)
+            {
+                cbNamesSection.Items.Add(i);
+            }
+            
             // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
             this.bwsSettings = new List<Setting>(bws.initSettings());
             this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
@@ -107,7 +113,7 @@ namespace Aktywator
         {
             cbSettingsSection.SelectedIndex = 0;
             foreach (string section in sections.Split(',')) {
-                cbSettingsSection.Items.Add("   " + bws.sectorNumberToLetter(Int32.Parse(section.Trim())) + "   ");
+                cbSettingsSection.Items.Add(bws.sectorNumberToLetter(Int32.Parse(section.Trim())));
             }
         }
 
@@ -392,12 +398,23 @@ namespace Aktywator
                     teamNames = new TeamNamesSettings();
                     teamNames.initTournament((TeamyTournament)tournament, this);
                     bTeamsNamesSettings.Text = teamNames.getLabel();
+                    cbNamesSection.Items.Remove("*");
+                    string sectionForTournament = bws.detectTeamySection(tournament.getName());
+                    if (sectionForTournament != null)
+                    {
+                        cbNamesSection.SelectedItem = sectionForTournament;
+                    }
+                    else
+                    {
+                        cbNamesSection.SelectedItem = cbNamesSection.Items[0];
+                    }
                 }
                 else
                 {
                     lSkok.Visible = false;
                     numTeamsTableOffset.Visible = false;
                     bTeamsNamesSettings.Visible = false;
+                    cbNamesSection.SelectedIndex = 0;
                 }
                 syncToolStrip.Visible = true;
                 namesPanel.Visible = true;
@@ -417,7 +434,7 @@ namespace Aktywator
         {
             try
             {
-                bws.syncNames(tournament, true, eOomRounds.Text, namesGridView);
+                bws.syncNames(tournament, true, eOomRounds.Text, cbNamesSection.SelectedItem.ToString(), namesGridView);
             }
             catch (Exception ee)
             {
@@ -472,7 +489,7 @@ namespace Aktywator
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            bws.syncNames(tournament, false, eOomRounds.Text, namesGridView);
+            bws.syncNames(tournament, false, eOomRounds.Text, cbNamesSection.SelectedItem.ToString(), namesGridView);
         }
 
         private void bForceSync_Click(object sender, EventArgs e)

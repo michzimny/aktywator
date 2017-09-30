@@ -200,7 +200,7 @@ namespace Aktywator
             return info;
         }
 
-        private int sectorLetterToNumber(string sector)
+        internal int sectorLetterToNumber(string sector)
         {
             return sector.ToUpper()[0] - 'A' + 1;
         }
@@ -556,26 +556,32 @@ namespace Aktywator
             throw new InvalidCastException("Unable to read numeric value from BWS field");
         }
 
-        public void syncNames(Tournament tournament, bool interactive, string startRounds, DataGridView grid)
+        public void syncNames(Tournament tournament, bool interactive, string startRounds, string section, DataGridView grid)
         {
             int count = 0, countNew = 0, SKOK_STOLOW = Convert.ToInt32(main.numTeamsTableOffset.Value);
             OleDbDataReader d;
             startRounds = startRounds.Trim();
             string fromRound = sql.selectOne("SELECT min(`Round`) FROM RoundData WHERE NSPair>0");
+            string sectionCondition = "";
+            if (!("*".Equals(section)))
+            {
+                section = this.sectorLetterToNumber(section).ToString();
+                sectionCondition = " AND `Section` = " + section;
+            }
             if (tournament.type != Tournament.TYPE_TEAMY)
             {
                 if (tournament.type == Tournament.TYPE_PARY && startRounds.Length > 0)
                 {
-                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE NSPair>0 AND `Round` in (" + startRounds + ")");
+                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE NSPair>0 AND `Round` in (" + startRounds + ")" + sectionCondition);
                 }
                 else
                 {
-                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound);
+                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound + sectionCondition);
                 }
             }
             else
             {
-                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound + " AND `Table`<=" + SKOK_STOLOW);
+                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound + " AND `Table`<=" + SKOK_STOLOW + sectionCondition);
             }
 
             try
@@ -584,7 +590,10 @@ namespace Aktywator
 
                 while (d.Read())
                 {
-                    string section = this.getBWSNumber(d, 0).ToString();
+                    if ("*".Equals(section))
+                    {
+                        section = this.getBWSNumber(d, 0).ToString();
+                    }
                     string table = this.getBWSNumber(d, 1).ToString();
                     int ns = this.getBWSNumber(d, 2);
                     int ew = this.getBWSNumber(d, 3);
@@ -814,6 +823,22 @@ namespace Aktywator
             {
                 return null;
             }
+        }
+
+        internal string detectTeamySection(string databaseName)
+        {
+            OleDbDataReader sections = this.sql.select("SELECT ID, custom_MySQL FROM `Section` WHERE custom_MySQL LIKE '%," + databaseName + ",%'");
+            string section = null;
+            while (sections.Read()) {
+                string[] dbString = sections.GetString(1).Split(',');
+                if (dbString[3].Trim().Equals(databaseName))
+                {
+                    section = this.sectorNumberToLetter(this.getBWSNumber(sections, 0));
+                    break;
+                }
+            }
+            sections.Close();
+            return section;
         }
     }
 }
