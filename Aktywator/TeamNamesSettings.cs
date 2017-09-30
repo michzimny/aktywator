@@ -82,7 +82,7 @@ namespace Aktywator
                 ret.Append("fullname, ");
                 switch (cbSecondRow.SelectedIndex) {
                     case 0:
-                        ret.Append("'' FROM teams ORDER BY teams.id");
+                        ret.Append("' ' FROM teams ORDER BY teams.id");
                         break;
                     case 1:
                         ret.Append("CONCAT(SUM(IF(segments.homet = teams.id, impH+corrH, impV+corrV)), ' IMP') FROM teams LEFT JOIN segments ON (teams.id = segments.homet OR teams.id = segments.visit) AND segments.rnd = ");
@@ -129,7 +129,6 @@ namespace Aktywator
                 ret.Append(" AND teams.id = segments.visit LEFT JOIN players p1 ON p1.id = segments.closeN LEFT JOIN players p2 ON p2.id = segments.closeS");
                 ret.Append(" ORDER BY id");
             }
-            Console.WriteLine(ret.ToString());
             return ret.ToString();
         }
 
