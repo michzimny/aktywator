@@ -802,5 +802,18 @@ namespace Aktywator
             this.displayHandRecordInfo(this.loadSectionBoards(sections));
             return count;
         }
+
+        internal string getMySQLDatabaseForSection()
+        {
+            try
+            {
+                string dbString = this.sql.selectOne("SELECT custom_MySQL FROM `Section` WHERE ID = 1");
+                return dbString.Split(',')[3];
+            }
+            catch (Exception ee)
+            {
+                return null;
+            }
+        }
     }
 }

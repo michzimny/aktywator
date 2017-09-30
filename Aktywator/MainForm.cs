@@ -74,9 +74,29 @@ namespace Aktywator
             this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
             bindSettingChanges();
             bws.loadSettings();
-            syncToolStrip.Visible = false;
-            namesPanel.Visible = false;
+
+            tournament = this.detectTeamyTournament();
+            if (tournament != null)
+            {
+                updateTournamentInfo(tournament);
+            }
+            else
+            {
+                syncToolStrip.Visible = false;
+                namesPanel.Visible = false;
+            }
+
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private Tournament detectTeamyTournament()
+        {
+            string name = bws.getMySQLDatabaseForSection();
+            if (name != null)
+            {
+                return new TeamyTournament(name);
+            }
+            return null;
         }
 
         private void fillSectionSelector(string sections)
