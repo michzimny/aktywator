@@ -85,10 +85,17 @@ namespace Aktywator
                         ret.Append("' ' FROM teams ORDER BY teams.id");
                         break;
                     case 1:
-                        ret.Append("CONCAT(SUM(IF(segments.homet = teams.id, impH+corrH, impV+corrV)), ' IMP') FROM teams LEFT JOIN segments ON (teams.id = segments.homet OR teams.id = segments.visit) AND segments.rnd = ");
+                        ret.Append("CONCAT(");
+                        ret.Append("SUM(IF(segments.homet = teams.id, segments.impH+segments.corrH, segments.impV+segments.corrV))");
+                        ret.Append(" + IF(matches.homet = teams.id AND matches.carry > 0, matches.carry, 0)");
+                        ret.Append("+ IF(matches.visit = teams.id AND matches.carry < 0, -matches.carry, 0),");
+                        ret.Append("' IMP')");
+                        ret.Append("FROM teams LEFT JOIN segments ON (teams.id = segments.homet OR teams.id = segments.visit) AND segments.rnd = ");
                         ret.Append(cbRounds.SelectedItem);
                         ret.Append(" AND segments.segment < ");
                         ret.Append(cbSegments.SelectedItem);
+                        ret.Append(" LEFT JOIN matches ON (teams.id = matches.homet OR teams.id = matches.visit) AND matches.rnd = ");
+                        ret.Append(cbRounds.SelectedItem);
                         ret.Append(" GROUP BY teams.id ORDER BY teams.id");
                         break;
                     case 2:
