@@ -46,7 +46,7 @@ namespace Aktywator
                 row.HeaderCell.Value = this.sectorNumberToLetter(Int16.Parse(section));
                 main.gwSections.Rows.Add(row);
             }
-            Dictionary<int, List<string>> boards = this.loadSectionBoards(sections);
+            SortedDictionary<int, List<string>> boards = this.loadSectionBoards(sections);
             foreach (KeyValuePair<int, List<string>> boardList in boards) 
             {
                 main.gwSections.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = boardList.Key.ToString(), Width = 22, DefaultCellStyle = { ForeColor = Color.White, Alignment = DataGridViewContentAlignment.MiddleCenter } });
@@ -72,8 +72,8 @@ namespace Aktywator
             this.displayHandRecordInfo(boards);
         }
 
-        private Dictionary<int, List<string>> loadSectionBoards(string[] sections) {
-            Dictionary<int, List<string>> boards = new Dictionary<int, List<string>>();
+        private SortedDictionary<int, List<string>> loadSectionBoards(string[] sections) {
+            SortedDictionary<int, List<string>> boards = new SortedDictionary<int, List<string>>();
             foreach (string section in sections)
             {
                 string sectionLetter = this.sectorNumberToLetter(Int16.Parse(section));                
@@ -91,7 +91,7 @@ namespace Aktywator
             return boards;            
         }
 
-        private void displayHandRecordInfo(Dictionary<int, List<string>> boards) 
+        private void displayHandRecordInfo(SortedDictionary<int, List<string>> boards) 
         {
             Dictionary<int, Dictionary<string, HandInfo>> handInfo = this.loadHandRecordInfo();
             foreach (KeyValuePair<int, List<string>> board in boards)
