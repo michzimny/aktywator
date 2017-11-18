@@ -68,6 +68,8 @@ namespace Aktywator
             bws.convert();
 
             labelFilename.Text = filename;
+            this.shortenFilenameLabel();
+
             this.fillSectionSelector(bws.getSections());
             cbNamesSection.Items.Clear();
             foreach (object i in cbSettingsSection.Items)
@@ -93,6 +95,19 @@ namespace Aktywator
             }
 
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private void shortenFilenameLabel()
+        {
+            String originalLabel = (String)labelFilename.Text.Clone();
+            int firstBackslash = originalLabel.IndexOf('\\') + 1;
+            int lettersToCut = 5;
+            while (Graphics.FromHwnd(IntPtr.Zero).MeasureString(labelFilename.Text, labelFilename.Font).Width > 400)
+            {
+                lettersToCut++;
+                labelFilename.Text = originalLabel.Substring(0, firstBackslash) + "[...]"
+                    + originalLabel.Substring(firstBackslash + lettersToCut);
+            }
         }
 
         private Tournament detectTeamyTournament()
