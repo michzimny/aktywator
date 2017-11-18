@@ -10,24 +10,15 @@ namespace Aktywator
     {
         public MySQL mysql;
 
-        public MySQLTournament(string name)
+        public MySQLTournament(string name, int type)
         {
             this._name = name;
+            this._type = type;
+            if (this._type < Tournament.TYPE_UNKNOWN || this._type > Tournament.TYPE_RRB)
+            {
+                this._type = Tournament.TYPE_UNKNOWN;
+            }
             mysql = new MySQL(name);
-            recognizeType();
-        }
-
-        private void recognizeType()
-        {
-            if ((mysql.selectOne("SHOW TABLES LIKE 'admin'") == "admin")
-                    && (mysql.selectOne("SHOW FIELDS IN admin LIKE 'dnazwa'") == "dnazwa")
-                    && (mysql.selectOne("SHOW TABLES LIKE 'zawodnicy'") == "zawodnicy"))
-                _type = Tournament.TYPE_PARY;
-            else if ((mysql.selectOne("SHOW TABLES LIKE 'admin'") == "admin")
-                    && (mysql.selectOne("SHOW FIELDS IN admin LIKE 'teamcnt'") == "teamcnt")
-                    && (mysql.selectOne("SHOW TABLES LIKE 'players'") == "players"))
-                _type = Tournament.TYPE_TEAMY;
-            else _type = Tournament.TYPE_UNKNOWN;
         }
 
         public override string ToString()
@@ -39,13 +30,10 @@ namespace Aktywator
         {
             List<MySQLTournament> list = new List<MySQLTournament>();
             MySQL c = new MySQL("");
-            data dbs = c.select("SHOW DATABASES;");
+            data dbs = c.select("SELECT TABLE_SCHEMA, COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'admin' AND COLUMN_NAME IN ('dnazwa', 'teamcnt') ORDER BY TABLE_SCHEMA;");
             while (dbs.Read())
             {
-                MySQLTournament t = new MySQLTournament(dbs.GetString(0));
-                if (t.type > Tournament.TYPE_UNKNOWN)
-                    list.Add(t);
-                t.mysql.close();
+                list.Add(new MySQLTournament(dbs.GetString(0), "dnazwa".Equals(dbs.GetString(1)) ? Tournament.TYPE_PARY : Tournament.TYPE_TEAMY));
             }
             dbs.Close();
             return list;

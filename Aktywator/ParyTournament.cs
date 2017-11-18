@@ -7,8 +7,8 @@ namespace Aktywator
 {
     class ParyTournament: MySQLTournament
     {
-        public ParyTournament(string name)
-            : base(name)
+        public ParyTournament(string name, int type = Tournament.TYPE_PARY)
+            : base(name, type)
         {
             this._type = Tournament.TYPE_PARY;
         }
