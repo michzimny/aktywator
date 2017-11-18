@@ -317,6 +317,7 @@ namespace Aktywator
             {
                 xRepeatResults.Enabled = false;
                 xShowPercentage.Enabled = false;
+                xShowPercentage.Checked = false;
                 xResultsOverview.Enabled = false;
                 xGroupSections.Enabled = false;
             }
