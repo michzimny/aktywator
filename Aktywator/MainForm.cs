@@ -68,6 +68,7 @@ namespace Aktywator
             bws.convert();
 
             labelFilename.Text = filename;
+            labelFilename.ToolTipText = filename;
             this.shortenFilenameLabel();
 
             this.fillSectionSelector(bws.getSections());
