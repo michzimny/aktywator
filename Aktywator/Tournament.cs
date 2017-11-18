@@ -61,6 +61,8 @@ namespace Aktywator
             {
                 grid.Rows.Remove(r);
             }
+            grid.Update();
+            grid.Refresh();
         }
 
         virtual internal bool updateNameListRow(DataGridView grid, int pairNumber, List<string> names)
@@ -97,6 +99,7 @@ namespace Aktywator
                 row.Cells.Add(cell);
             }
             grid.Rows.Add(row);
+            grid.FirstDisplayedScrollingRowIndex = grid.RowCount - 1;
         }
 
         virtual internal void clearCellLocks(DataGridView grid)
