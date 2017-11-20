@@ -21,19 +21,28 @@ namespace Aktywator
             mysql = new MySQL(name);
         }
 
-        public override string ToString()
+        public static string getLabel(string name, int type)
         {
-            return this.name + " [" + (this.type == Tournament.TYPE_PARY ? 'P' : 'T') + "]";
+            return name + " [" + (type == Tournament.TYPE_PARY ? 'P' : 'T') + "]";
         }
 
-        public static List<MySQLTournament> getTournaments()
+        public override string ToString()
         {
-            List<MySQLTournament> list = new List<MySQLTournament>();
+            return MySQLTournament.getLabel(this.name, this.type);
+        }
+
+        public static List<TournamentListItem> getTournaments()
+        {
+            List<TournamentListItem> list = new List<TournamentListItem>();
             MySQL c = new MySQL("");
             data dbs = c.select("SELECT TABLE_SCHEMA, COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'admin' AND COLUMN_NAME IN ('dnazwa', 'teamcnt') ORDER BY TABLE_SCHEMA;");
             while (dbs.Read())
             {
-                list.Add(new MySQLTournament(dbs.GetString(0), "dnazwa".Equals(dbs.GetString(1)) ? Tournament.TYPE_PARY : Tournament.TYPE_TEAMY));
+                TournamentListItem item = new TournamentListItem();
+                item.Name = dbs.GetString(0);
+                item.Type = "dnazwa".Equals(dbs.GetString(1)) ? Tournament.TYPE_PARY : Tournament.TYPE_TEAMY;
+                item.Label = MySQLTournament.getLabel(item.Name, item.Type);
+                list.Add(item);
             }
             dbs.Close();
             return list;
