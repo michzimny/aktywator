@@ -1,0 +1,5 @@
+language: csharp
+solution: Aktywator.sln
+install:
+  - nuget restore Aktywator.sln
+  - nuget install MySql.Data.MySqlClient -Version 6.9.7.0
