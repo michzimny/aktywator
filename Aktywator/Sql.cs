@@ -7,6 +7,10 @@ using data = System.Data.OleDb.OleDbDataReader;
 
 namespace Aktywator
 {
+    class OleDbRowMissingException : Exception
+    {
+    }
+
     class Sql
     {
         private OleDbConnection connection;
@@ -34,12 +38,19 @@ namespace Aktywator
             OleDbCommand cmd = new OleDbCommand(q, connection);
             return cmd.ExecuteNonQuery();
         }
-        public string selectOne(string q)
+        public string selectOne(string q, bool checkForRow = false)
         {
             OleDbCommand cmd = new OleDbCommand(q, connection);
             object o = cmd.ExecuteScalar();
-            if (o == null) return "";
-            else return o.ToString();
+            if (o == null) // it's null if the row does not exist, it'd be DBNull.Value if NULL was the value in existing row
+            {
+                if (!checkForRow)
+                {
+                    return "";
+                }
+                throw new OleDbRowMissingException();
+            }
+            return o.ToString();
         }
         public data select(string q)
         {
@@ -71,6 +82,32 @@ namespace Aktywator
                 return false;
             }
             return true;
+        }
+
+        internal void insert(string table, Dictionary<string, object> columns)
+        {
+            StringBuilder query = new StringBuilder();
+            query.Append("INSERT INTO ");
+            query.Append(table);
+            query.Append(" (");
+            List<string> keys = new List<string>();
+            List<string> parameters = new List<string>();
+            foreach (string key in columns.Keys)
+            {
+                keys.Add("`" + key + "`");
+                parameters.Add("@" + key);
+            }
+            string[] fields = keys.ToArray();
+            query.Append(String.Join(", ", fields));
+            query.Append(") VALUES(");
+            query.Append(String.Join(", ", parameters.ToArray()));
+            query.Append(")");
+            OleDbCommand command = new OleDbCommand(query.ToString(), connection);
+            foreach (KeyValuePair<string, object> column in columns)
+            {
+                command.Parameters.AddWithValue("@" + column.Key, column.Value);
+            }
+            command.ExecuteScalar();
         }
     }
 }

@@ -8,10 +8,17 @@ using System.Windows.Forms;
 
 namespace Aktywator
 {
+    public struct TournamentListItem
+    {
+        public int Type;
+        public string Name;
+        public string Label;
+    }
+
     public partial class ChooseTournament : Form
     {
-        private Tournament[] turns;
-        public Tournament chosenTournament;
+        private TournamentListItem[] turns;
+        public MySQLTournament chosenTournament;
 
         public ChooseTournament()
         {
@@ -20,13 +27,13 @@ namespace Aktywator
 
         private void ChooseTournament_Load(object sender, EventArgs e)
         {
-            List<Tournament> list = Tournament.getTournaments();
-            turns = new Tournament[list.Count];
+            List<TournamentListItem> list = MySQLTournament.getTournaments();
+            turns = new TournamentListItem[list.Count];
             int c = 0;
-            foreach (Tournament t in list)
+            foreach (TournamentListItem t in list)
             {
                 turns[c++] = t;
-                listBox.Items.Add(t.ToString());
+                listBox.Items.Add(t.Label);
             }
         }
 
@@ -34,7 +41,15 @@ namespace Aktywator
         {
             if (listBox.SelectedIndex >= 0)
             {
-                chosenTournament = turns[listBox.SelectedIndex];
+                switch (turns[listBox.SelectedIndex].Type)
+                {
+                    case Tournament.TYPE_PARY:
+                        chosenTournament = new ParyTournament(turns[listBox.SelectedIndex].Name);
+                        break;
+                    case Tournament.TYPE_TEAMY:
+                        chosenTournament = new TeamyTournament(turns[listBox.SelectedIndex].Name);
+                        break;
+                }
                 Close();
             }
         }

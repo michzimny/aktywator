@@ -86,6 +86,12 @@
     <Compile Include="Common.cs" />
     <Compile Include="DDTable.cs" />
     <Compile Include="HandRecord.cs" />
+    <Compile Include="HandRecordPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HandRecordPreview.Designer.cs">
+      <DependentUpon>HandRecordPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,17 +105,30 @@
     <Compile Include="MysqlSettings.Designer.cs">
       <DependentUpon>MysqlSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="ParyTournament.cs" />
     <Compile Include="PBN.cs" />
     <Compile Include="PBNBoard.cs" />
     <Compile Include="PBNFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RRBTournament.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Sql.cs" />
+    <Compile Include="MySQLTournament.cs" />
+    <Compile Include="TeamNamesSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamNamesSettings.Designer.cs">
+      <DependentUpon>TeamNamesSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeamyTournament.cs" />
     <Compile Include="Tournament.cs" />
     <EmbeddedResource Include="ChooseTournament.resx">
       <DependentUpon>ChooseTournament.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HandRecordPreview.resx">
+      <DependentUpon>HandRecordPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -118,14 +137,18 @@
       <DependentUpon>MysqlSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TeamNamesSettings.resx">
+      <DependentUpon>TeamNamesSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -139,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="aktywator.ico" />
+    <None Include="Resources\BuildDate.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -158,6 +182,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>echo %25date%25 &gt; "$(ProjectDir)\Resources\BuildDate.txt"
+</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

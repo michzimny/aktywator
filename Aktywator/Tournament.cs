@@ -1,82 +1,160 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MySql.Data.MySqlClient;
-using data = MySql.Data.MySqlClient.MySqlDataReader;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace Aktywator
 {
-    public class Tournament
+    abstract public class Tournament
     {
-        private string _name;
+        public const int TYPE_PARY = 1;
+        public const int TYPE_TEAMY = 2;
+        public const int TYPE_RRB = 3;
+        public const int TYPE_UNKNOWN = 0;
+
+        protected string _name;
         public string name
         {
             get { return _name; }
         }
 
-        private int _type; // 0-unknown, 1-Pary, 2-Teamy
+        protected int _type = Tournament.TYPE_UNKNOWN; // 0-unknown, 1-Pary, 2-Teamy, 3-RRB
         public int type
         {
             get { return _type; }
         }
 
-        public MySQL mysql;
+        abstract internal void setup();
 
-        public Tournament(string name)
+        abstract internal string getName();
+
+        abstract public string getSectionsNum();
+
+        abstract public string getTablesNum();
+
+        abstract internal string getTypeLabel();
+
+        virtual internal Dictionary<int, List<string>> getNameList()
         {
-            this._name = name;
-            mysql = new MySQL(name);
-            recognizeType();
+            return new Dictionary<int, List<string>>();
         }
 
-        private void recognizeType()
+        virtual public void displayNameList(DataGridView grid)
         {
-            if ((mysql.selectOne("SHOW TABLES LIKE 'admin'") == "admin")
-                    && (mysql.selectOne("SHOW FIELDS IN admin LIKE 'dnazwa'") == "dnazwa")
-                    && (mysql.selectOne("SHOW TABLES LIKE 'zawodnicy'") == "zawodnicy"))
-                _type = 1;
-            else if ((mysql.selectOne("SHOW TABLES LIKE 'admin'") == "admin")
-                    && (mysql.selectOne("SHOW FIELDS IN admin LIKE 'teamcnt'") == "teamcnt")
-                    && (mysql.selectOne("SHOW TABLES LIKE 'players'") == "players"))
-                _type = 2;
-            else _type = 0;
-        }
-
-        public override string ToString()
-        {
-            return this.name + " [" + (this.type == 1 ? 'P' : 'T') + "]";
-        }
-
-        public static List<Tournament> getTournaments()
-        {
-            List<Tournament> list = new List<Tournament>();
-            MySQL c = new MySQL("");
-            data dbs = c.select("SHOW DATABASES;");
-            while (dbs.Read())
-            {
-                Tournament t = new Tournament(dbs.GetString(0));
-                if (t.type > 0)
-                    list.Add(t);
-                t.mysql.close();
+            Dictionary<int, List<string>> names = this.getNameList();
+            foreach (KeyValuePair<int, List<string>> item in names) {
+                if (!this.updateNameListRow(grid, item.Key, item.Value))
+                {
+                    this.addNameListRow(grid, item.Key, item.Value);
+                }
             }
-            return list;
+            List<DataGridViewRow> toDelete = new List<DataGridViewRow>();
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                if (!names.ContainsKey(Int32.Parse(row.Cells[0].Value.ToString())))
+                {
+                    toDelete.Add(row);
+                }
+            }
+            foreach (DataGridViewRow r in toDelete)
+            {
+                grid.Rows.Remove(r);
+            }
+            grid.Update();
+            grid.Refresh();
         }
 
-        public string getSectionsNum()
+        virtual internal bool updateNameListRow(DataGridView grid, int pairNumber, List<string> names)
         {
-            if (type == 1)
-                return mysql.selectOne("SELECT COUNT(DISTINCT seknum) FROM sektory;");
-            else 
-                return "1";
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                if (Int32.Parse(row.Cells[0].Value.ToString()) == pairNumber)
+                {
+                    for (int i = 1; i < 3; i++)
+                    {
+                        if (!(bool)row.Cells[i].Tag)
+                        {
+                            row.Cells[i].Value = names[i - 1];
+                            row.Cells[i].Tag = false;
+                            row.Cells[i].Style.BackColor = Color.White;
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public string getTablesNum()
+        virtual internal void addNameListRow(DataGridView grid, int pairNumber, List<string> names)
         {
-            if (type == 1)
-                return mysql.selectOne("SELECT COUNT(*) FROM sektory;");
+            DataGridViewRow row = new DataGridViewRow();
+            row.Cells.Add(new DataGridViewTextBoxCell());
+            row.Cells[0].Value = pairNumber.ToString();
+            foreach (string name in names)
+            {
+                DataGridViewTextBoxCell cell = new DataGridViewTextBoxCell();
+                cell.Value = name;
+                cell.Tag = false;
+                row.Cells.Add(cell);
+            }
+            grid.Rows.Add(row);
+            grid.FirstDisplayedScrollingRowIndex = grid.RowCount - 1;
+        }
+
+        virtual internal void clearCellLocks(DataGridView grid)
+        {
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                for (int i = 1; i < 3; i++)
+                {
+                    row.Cells[i].Tag = false;
+                    row.Cells[i].Style.BackColor = Color.White;
+                }
+            }
+        }
+
+        virtual internal string shortenNameToBWS(string name)
+        {
+            name = Common.bezOgonkow(name);
+            if ("pauza".Equals(name.Trim()))
+            {
+                return " ";
+            }
             else
-                return mysql.selectOne("SELECT teamcnt FROM admin;");
+            {
+                if (this._type != Tournament.TYPE_TEAMY || MainForm.teamNames.arePlayerNamesDisplayed())
+                {
+                    string[] nameParts = name.Trim().Split(' ');
+                    if (nameParts.Length > 0)
+                    {
+                        nameParts[0] = (nameParts[0].Length > 0) ? nameParts[0][0].ToString() : " ";
+                    }
+                    name = String.Join(" ", nameParts);
+                }
+                if (name.Length > 18)
+                {
+                    name = name.Substring(0, 18);
+                }
+                return name;
+            }
         }
+
+        virtual public Dictionary<int, List<string>> getBWSNames(DataGridView grid)
+        {
+            Dictionary<int, List<string>> dict = new Dictionary<int, List<string>>();
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                List<string> names = new List<string>();
+                for (int i = 1; i < 3; i++)
+                {
+                    names.Add(this.shortenNameToBWS(row.Cells[i].Value.ToString()));
+                }
+                dict.Add(Int32.Parse(row.Cells[0].Value.ToString()), names);
+            }
+            return dict;
+        }
+
 
     }
 }

@@ -12,7 +12,7 @@ Aktywator służy do uruchamiania i sterowania [pierniczkami Bridgemate II](http
 Aktywatora można używać z dowolnym programem liczącym, jednak niektóre funkcje (np. wczytywanie nazwisk) są napisane pod konkretny program. Wspierane programy liczące:
 
 * JFR Pary
-* RRBridge - w przygotowaniu
+* RRBridge
 
 ## Informacja o zależnościach
 

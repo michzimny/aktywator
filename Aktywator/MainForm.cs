@@ -7,17 +7,19 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using Microsoft.Win32;
+using System.Reflection;
 
 namespace Aktywator
 {
     public partial class MainForm : Form
     {
-        public string version = "1.0.8";
-        public string date = "27.07.2017";
+        public string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public string date = Properties.Resources.BuildDate.Trim();
 
         private Bws bws;
         private List<Setting> bwsSettings;
         private Tournament tournament;
+        internal static TeamNamesSettings teamNames;
 
         private Version BCSVersion;
 
@@ -31,7 +33,7 @@ namespace Aktywator
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (MySQL.getPass() == "") (new MysqlSettings()).ShowDialog();
+            if (!MySQL.getConfigured()) (new MysqlSettings()).ShowDialog();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -63,18 +65,72 @@ namespace Aktywator
             }
 
             bws = new Bws(filename, this);
-            if (!bws.isBm2())
-                if (MessageBox.Show("Ten BWS nie jest przygotowany dla BM2. Przekonwertować?", "Konwersja do BM2",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    bws.convert();
+            bws.convert();
 
             labelFilename.Text = filename;
+            labelFilename.ToolTipText = filename;
+            this.shortenFilenameLabel();
+
+            this.fillSectionSelector(bws.getSections());
+            cbNamesSection.Items.Clear();
+            foreach (object i in cbSettingsSection.Items)
+            {
+                cbNamesSection.Items.Add(i);
+            }
+            
             // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
             this.bwsSettings = new List<Setting>(bws.initSettings());
             this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
             bindSettingChanges();
             bws.loadSettings();
+
+            tournament = this.detectTeamyTournament();
+            if (tournament != null)
+            {
+                updateTournamentInfo(tournament);
+            }
+            else
+            {
+                syncToolStrip.Visible = false;
+                namesPanel.Visible = false;
+            }
+
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private void shortenFilenameLabel()
+        {
+            String originalLabel = (String)labelFilename.Text.Clone();
+            int firstBackslash = originalLabel.IndexOf('\\') + 1;
+            int lettersToCut = 5;
+            while (Graphics.FromHwnd(IntPtr.Zero).MeasureString(labelFilename.Text, labelFilename.Font).Width > 400)
+            {
+                lettersToCut++;
+                labelFilename.Text = originalLabel.Substring(0, firstBackslash) + "[...]"
+                    + originalLabel.Substring(firstBackslash + lettersToCut);
+            }
+        }
+
+        private Tournament detectTeamyTournament()
+        {
+            try
+            {
+                string name = bws.getMySQLDatabaseForSection();
+                if (name != null)
+                {
+                    return new TeamyTournament(name);
+                }
+            }
+            catch (Exception e) { }
+            return null;
+        }
+
+        private void fillSectionSelector(string sections)
+        {
+            cbSettingsSection.SelectedIndex = 0;
+            foreach (string section in sections.Split(',')) {
+                cbSettingsSection.Items.Add(bws.sectorNumberToLetter(Int32.Parse(section.Trim())));
+            }
         }
 
         private void bindSettingChanges()
@@ -271,12 +327,19 @@ namespace Aktywator
                 xRepeatResults.Enabled = true;
                 xShowPercentage.Enabled = true;
                 xResultsOverview.Enabled = true;
+                xGroupSections.Enabled = true;
             }
             else
             {
                 xRepeatResults.Enabled = false;
                 xShowPercentage.Enabled = false;
+                xShowPercentage.Checked = false;
                 xResultsOverview.Enabled = false;
+                xGroupSections.Enabled = false;
+            }
+            if (cbSettingsSection.Items.Count > 2)
+            {
+                bws.sectionGroupWarning();
             }
         }
 
@@ -292,42 +355,95 @@ namespace Aktywator
             }
         }
 
-        private void bTournament_Click(object sender, EventArgs e)
+        private void bMySQLTournament_Click(object sender, EventArgs e)
         {
+            startLoading();
             try
             {
                 ChooseTournament choose = new ChooseTournament();
                 choose.ShowDialog();
                 if (choose.chosenTournament != null)
                 {
-                    if ((tournament != null) && (tournament.mysql != null))
-                        tournament.mysql.close();
-
                     tournament = choose.chosenTournament;
-                    tournament.mysql.connect();
-
-                    lTournament.Text = tournament.name;
-                    lType.Text = tournament.type == 1 ? "Pary" : "Teamy";
-                    lSections.Text = tournament.getSectionsNum();
-                    lTables.Text = tournament.getTablesNum();
-                    bSync.Enabled = true;
-                    bAutoSync.Enabled = true;
-                    eInterval.Enabled = true;
-                    if (tournament.type == 2)
-                    {
-                        lSkok.Visible = true;
-                        lNazwyTeamow.Visible = true;
-                    }
-                    else
-                    {
-                        lSkok.Visible = false;
-                        lNazwyTeamow.Visible = false;
-                    }
+                    updateTournamentInfo(tournament);
                 }
             }
             catch (Exception ee)
             {
                 MessageBox.Show(ee.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            stopLoading();
+        }
+
+        private void bRRBTournament_Click(object sender, EventArgs e)
+        {
+            startLoading();
+            try
+            {
+                OpenFileDialog fDialog = new OpenFileDialog();
+                fDialog.Filter = "RRBrigde tournament files (*.rrt)|*.rrt";
+                fDialog.RestoreDirectory = true;
+                if (fDialog.ShowDialog() == DialogResult.OK)
+                {
+                    tournament = new RRBTournament(fDialog.FileName);
+                    updateTournamentInfo(tournament);
+                }
+                bTeamsNamesSettings.Visible = false;
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            stopLoading();
+        }
+
+        private void updateTournamentInfo(Tournament tournament)
+        {
+            if (tournament != null)
+            {
+                tournament.setup();
+
+                lTournament.Text = tournament.getName();
+                lType.Text = tournament.getTypeLabel();
+                lSections.Text = tournament.getSectionsNum();
+                lTables.Text = tournament.getTablesNum();
+                if (tournament.GetType().Equals(typeof(TeamyTournament)))
+                {
+                    lSkok.Visible = true;
+                    numTeamsTableOffset.Visible = true;
+                    bTeamsNamesSettings.Visible = true;
+                    teamNames = new TeamNamesSettings();
+                    teamNames.initTournament((TeamyTournament)tournament, this);
+                    bTeamsNamesSettings.Text = teamNames.getLabel();
+                    cbNamesSection.Items.Remove("*");
+                    string sectionForTournament = bws.detectTeamySection(tournament.getName());
+                    if (sectionForTournament != null)
+                    {
+                        cbNamesSection.SelectedItem = sectionForTournament;
+                    }
+                    else
+                    {
+                        cbNamesSection.SelectedItem = cbNamesSection.Items[0];
+                    }
+                }
+                else
+                {
+                    lSkok.Visible = false;
+                    numTeamsTableOffset.Visible = false;
+                    bTeamsNamesSettings.Visible = false;
+                    cbNamesSection.SelectedIndex = 0;
+                }
+                syncToolStrip.Visible = true;
+                namesPanel.Visible = true;
+                tournament.clearCellLocks(namesGridView);
+                tournament.displayNameList(namesGridView);
+                tournament.clearCellLocks(namesGridView);
+                namesTimer.Enabled = true;
+            }
+            else
+            {
+                lSkok.Visible = false;
+                numTeamsTableOffset.Visible = false;
             }
         }
 
@@ -335,7 +451,7 @@ namespace Aktywator
         {
             try
             {
-                bws.syncNames(tournament, true, eOomRounds.Text);
+                bws.syncNames(tournament, true, eOomRounds.Text, cbNamesSection.SelectedItem.ToString(), namesGridView);
             }
             catch (Exception ee)
             {
@@ -352,7 +468,7 @@ namespace Aktywator
         {
             try
             {
-                bws.sql.query("UPDATE PlayerNumbers SET Name='XXX' AND Updated=True WHERE 1=1");
+                bws.sql.query("UPDATE PlayerNumbers SET Name=NULL AND Updated=True WHERE 1=1");
                 MessageBox.Show("Wykonano!", "Usuń nazwiska", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ee)
@@ -374,23 +490,23 @@ namespace Aktywator
                 timer.Interval = interval * 1000;
                 eInterval.Enabled = false;
                 bAutoSync.Text = "pracuje się...";
-                bTournament.Enabled = false;
                 bMysqlSettings.Enabled = false;
+                toolStripSplitButton1.Enabled = false;
                 timer.Enabled = true;
             }
             else
             {
                 timer.Enabled = false;
-                bAutoSync.Text = "Synchronizuj cyklicznie";
+                bAutoSync.Text = "Synchronizuj co:";
                 eInterval.Enabled = true;
-                bTournament.Enabled = true;
                 bMysqlSettings.Enabled = true;
+                toolStripSplitButton1.Enabled = true;
             }
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            bws.syncNames(tournament, false, eOomRounds.Text);
+            bws.syncNames(tournament, false, eOomRounds.Text, cbNamesSection.SelectedItem.ToString(), namesGridView);
         }
 
         private void bForceSync_Click(object sender, EventArgs e)
@@ -438,11 +554,6 @@ namespace Aktywator
             }
         }
 
-        private void cblSections_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.lWczytywane.Text = bws.getBoardRangeText(bws.getSelectedSections());
-        }
-
         private void bClearHands_Click(object sender, EventArgs e)
         {
             try
@@ -453,6 +564,111 @@ namespace Aktywator
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Błąd czyszczenia rozkładów", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void updateSession_Click(object sender, EventArgs e)
+        {
+            if (trySave())
+            {
+                bws.updateSettings();
+                MessageBox.Show("Wykonano!", "Settings update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+            toolStripSplitButton1.ShowDropDown();
+        }
+
+        private void toolStripButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            eOomRounds.Enabled = toolStripButton2.Checked;
+            lOomLabel.Enabled = toolStripButton2.Checked;
+        }
+
+        private void namesGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex > 0)
+            {
+                DataGridViewCell cell = namesGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.Tag = true;
+                cell.Style.BackColor = Color.Yellow;
+            }
+        }
+
+        public void namesTimer_Tick(object sender, EventArgs e)
+        {
+            tournament.displayNameList(namesGridView);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tournament.clearCellLocks(namesGridView);
+            tournament.displayNameList(namesGridView);
+        }
+
+        private void numNamesRefreshInterval_ValueChanged(object sender, EventArgs e)
+        {
+            namesTimer.Interval = Convert.ToInt32(numNamesRefreshInterval.Value) * 1000;
+        }
+
+        private void namesGridView_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex > 0)
+            {
+                DataGridViewCell cell = namesGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = tournament.shortenNameToBWS(cell.Value.ToString());
+            }
+        }
+
+        private void cbSettingsSection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bws.loadSettings();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            namesTimer.Enabled = checkBox1.Checked;
+        }
+
+        private void lGroupSectionsWarning_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!", "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
+        }
+
+        private void bTeamsNamesSettings_Click(object sender, EventArgs e)
+        {
+            teamNames.ShowDialog();
+        }
+
+        internal void startLoading()
+        {
+            tabControl1.Enabled = false;
+            this.Cursor = Cursors.WaitCursor;
+        }
+
+        internal void stopLoading()
+        {
+            tabControl1.Enabled = true;
+            this.Cursor = Cursors.Default;
+        }
+
+        private void gwSections_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex > 0 && gwSections.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag != null)
+            {
+                HandRecordPreview preview = new HandRecordPreview((HandRecord)gwSections.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag, gwSections.Rows[e.RowIndex].HeaderCell.Value + "-" + gwSections.Columns[e.ColumnIndex].HeaderCell.Value);
+                preview.ShowDialog();
+            }
+        }
+
+        private void gwSections_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            DataGridView grid = (DataGridView)sender;
+            if (grid.IsCurrentCellDirty)
+            {
+                grid.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
         }
 

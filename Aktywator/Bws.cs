@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.OleDb;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using mydata = MySql.Data.MySqlClient.MySqlDataReader;
-using data = System.Data.OleDb.OleDbDataReader;
+using System.Drawing;
 
 namespace Aktywator
 {
@@ -23,57 +21,205 @@ namespace Aktywator
         public bool settingsChanged = false;
         private static string applicationPath = Common.ProgramFilesx86() + "\\Bridgemate Pro\\";
 
+        class HandInfo
+        {
+            public List<string> record;
+            public bool analysis = false;
+        }
+
         public Bws(string filename, MainForm main)
         {
             this._filename = filename;
             sql = new Sql(filename);
             this.main = main;
             string[] sections = this.getSections().Split(',');
-            main.lWczytywane.Text = this.getBoardRangeText(sections);
+            this.displaySectionBoardsInfo(sections);
+        }
+
+        private void displaySectionBoardsInfo(string[] sections)
+        {
+            main.gwSections.Columns.Add(new DataGridViewCheckBoxColumn { Frozen = true, Width = 20, DefaultCellStyle = { ForeColor = Color.White, Alignment = DataGridViewContentAlignment.MiddleCenter } });
             foreach (string section in sections)
             {
-                main.cblSections.Items.Add(this.sectorNumberToLetter(Int16.Parse(section)));
+                DataGridViewRow row = new DataGridViewRow();
+                row.Height = 20;
+                row.HeaderCell.Value = this.sectorNumberToLetter(Int16.Parse(section));
+                main.gwSections.Rows.Add(row);
             }
-            for (int i = 0; i < main.cblSections.Items.Count; i++)
+            SortedDictionary<int, List<string>> boards = this.loadSectionBoards(sections);
+            foreach (KeyValuePair<int, List<string>> boardList in boards) 
             {
-                main.cblSections.SetItemChecked(i, true);
+                main.gwSections.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = boardList.Key.ToString(), Width = 22, DefaultCellStyle = { ForeColor = Color.White, Alignment = DataGridViewContentAlignment.MiddleCenter } });
+                foreach (DataGridViewRow row in main.gwSections.Rows) 
+                {
+                    if (boardList.Value.Contains(row.HeaderCell.Value.ToString()))
+                    {
+                        row.Cells[row.Cells.Count - 1].Style.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        row.Cells[row.Cells.Count - 1].Style.BackColor = Color.Gray;
+                    }
+                    row.Cells[row.Cells.Count - 1].ReadOnly = true;
+                }
+            }
+            foreach (DataGridViewRow row in main.gwSections.Rows)
+            {
+                row.Cells[0].Value = true;
+                ((DataGridViewCheckBoxCell)row.Cells[0]).TrueValue = true;
+                ((DataGridViewCheckBoxCell)row.Cells[0]).FalseValue = false;
+            }
+            this.displayHandRecordInfo(boards);
+        }
+
+        private SortedDictionary<int, List<string>> loadSectionBoards(string[] sections) {
+            SortedDictionary<int, List<string>> boards = new SortedDictionary<int, List<string>>();
+            foreach (string section in sections)
+            {
+                string sectionLetter = this.sectorNumberToLetter(Int16.Parse(section));                
+                int lowBoard = this.lowBoard(section);
+                int highBoard = this.highBoard(section);
+                for (int board = lowBoard; board <= highBoard; board++)
+                {
+                    if (!boards.ContainsKey(board))
+                    {
+                        boards.Add(board, new List<string>());
+                    }
+                    boards[board].Add(sectionLetter);
+                }
+            }
+            return boards;            
+        }
+
+        private void displayHandRecordInfo(SortedDictionary<int, List<string>> boards) 
+        {
+            Dictionary<int, Dictionary<string, HandInfo>> handInfo = this.loadHandRecordInfo();
+            foreach (KeyValuePair<int, List<string>> board in boards)
+            {
+                if (handInfo.ContainsKey(board.Key))
+                {
+                    foreach (string section in board.Value)
+                    {
+                        this.setHandRecordInfo(board.Key, section, (board.Value.Contains(section) && handInfo[board.Key].ContainsKey(section)) ? handInfo[board.Key][section].record : null, handInfo[board.Key].ContainsKey(section) && handInfo[board.Key][section].analysis);
+                    }
+                }
+                else
+                {
+                    this.setHandRecordInfo(board.Key);
+                }
             }
         }
 
-        private int sectorLetterToNumber(string sector)
+        private void setHandRecordInfo(int board, string section = null, List<string> layout = null, bool analysis = false)
         {
-            return sector[0] - 'A' + 1;
+            foreach (DataGridViewColumn column in main.gwSections.Columns)
+            {
+                if (column.HeaderText.Equals(board.ToString()))
+                {
+                    foreach (DataGridViewRow row in main.gwSections.Rows)
+                    {
+                        if (row.HeaderCell.Value.Equals(section) || section == null)
+                        {
+                            if (row.Cells[column.Index].Style.BackColor != Color.Gray)
+                            {
+                                if (layout != null)
+                                {
+                                    row.Cells[column.Index].Style.BackColor = Color.LimeGreen;
+                                    row.Cells[column.Index].Tag = new HandRecord(String.Join(" ", layout.ToArray()));
+                                    row.Cells[column.Index].Value = analysis ? "A" : "";
+                                    row.Cells[column.Index].ToolTipText = "Dwukliknij, by podejrzeć rozkład";
+                                }
+                                else
+                                {
+                                    row.Cells[column.Index].Style.BackColor = Color.Crimson;
+                                    row.Cells[column.Index].Tag = null;
+                                    row.Cells[column.Index].Value = "";
+                                    row.Cells[column.Index].ToolTipText = "";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        private string sectorNumberToLetter(int sector)
+        private Dictionary<int, Dictionary<string, HandInfo>> loadHandRecordInfo()
+        {
+            Dictionary<int, Dictionary<string, HandInfo>> info = new Dictionary<int, Dictionary<string, HandInfo>>();
+            try
+            {
+                OleDbDataReader handData = sql.select("SELECT `Section`, Board, NorthSpades, NorthHearts, NorthDiamonds, NorthClubs, EastSpades, EastHearts, EastDiamonds, EastClubs, SouthSpades, SouthHearts, SouthDiamonds, SouthClubs, WestSpades, WestHearts, WestDiamonds, WestClubs FROM HandRecord");
+                while (handData.Read())
+                {
+                    int boardNumber = Int16.Parse(handData[1].ToString());
+                    if (!info.ContainsKey(boardNumber))
+                    {
+                        info.Add(boardNumber, new Dictionary<string, HandInfo>());
+                    }
+                    string section = this.sectorNumberToLetter(Int16.Parse(handData[0].ToString()));
+                    info[boardNumber].Add(section, new HandInfo { record = new List<string>(), analysis = false });
+                    for (int i = 0; i < 4; i++)
+                    {
+                        StringBuilder singleHand = new StringBuilder();
+                        for (int j = 0; j < 4; j++)
+                        {
+                            singleHand.Append(handData[2 + i * 4 + j].ToString());
+                            if (j != 3)
+                            {
+                                singleHand.Append('.');
+                            }
+                        }
+                        info[boardNumber][section].record.Add(singleHand.ToString().Trim());
+                    }
+                }
+                handData.Close();
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                OleDbDataReader handData = sql.select("SELECT `Section`, Board FROM HandEvaluation");
+                while (handData.Read())
+                {
+                    int boardNumber = Int16.Parse(handData[1].ToString());
+                    string section = this.sectorNumberToLetter(Int16.Parse(handData[0].ToString()));
+                    try
+                    {
+                        info[boardNumber][section].analysis = true;
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                    }
+                }
+                handData.Close();
+            }
+            catch (OleDbException)
+            {
+            }
+            return info;
+        }
+
+        internal int sectorLetterToNumber(string sector)
+        {
+            return sector.ToUpper()[0] - 'A' + 1;
+        }
+
+        internal string sectorNumberToLetter(int sector)
         {
             char character = (char)('A' - 1 + sector);
             return character.ToString();
         }
 
-        public string getBoardRangeText(string[] sectors)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Wczytywane rozkłady:");
-            foreach (string sector in sectors)
-            {
-                sb.Append("\n      ");
-                sb.Append(this.lowBoard(sector));
-                sb.Append("-");
-                sb.Append(this.highBoard(sector));
-                sb.Append(" (sektor ");
-                sb.Append(this.sectorNumberToLetter(Int16.Parse(sector)));
-                sb.Append(")");
-            }
-            return sb.ToString();
-        }
-
         public string[] getSelectedSections()
         {
             List<string> sections = new List<string>();
-            foreach (string section in main.cblSections.CheckedItems)
+            foreach (DataGridViewRow row in main.gwSections.Rows)
             {
-                sections.Add(this.sectorLetterToNumber(section).ToString());
+                if (Convert.ToBoolean(row.Cells[0].Value))
+                {
+                    sections.Add(this.sectorLetterToNumber(row.HeaderCell.Value.ToString()).ToString());
+                }
             }
             return sections.ToArray();
         }
@@ -84,7 +230,7 @@ namespace Aktywator
             settings.Add(new Setting("ShowResults", main.xShowResults, this, new Version(2, 0, 0), new Version(1, 3, 1)));
             settings.Add(new Setting("RepeatResults", main.xRepeatResults, this, null, null));
             settings.Add(new Setting("ShowPercentage", main.xShowPercentage, this, null, null));
-            //settings.Add(new Setting("GroupSections", main.xGroupSections, this, null, null));
+            settings.Add(new Setting("GroupSections", main.xGroupSections, this, new Version(2, 1, 10), new Version(1, 3, 1)));
             settings.Add(new Setting("ShowPairNumbers", main.xShowPairNumbers, this, null, null));
             settings.Add(new Setting("IntermediateResults", main.xIntermediateResults, this, null, new Version(1, 4, 1)));
             settings.Add(new Setting("ShowContract", main.xShowContract, this, null, null));
@@ -113,7 +259,7 @@ namespace Aktywator
             try
             {
                 string s;
-                data d = sql.select("SELECT DISTINCT `Section` FROM " + table + " ORDER BY 1");
+                OleDbDataReader d = sql.select("SELECT DISTINCT `Section` FROM " + table + " ORDER BY 1");
                 d.Read();
                 s = d[0].ToString();
                 while (d.Read())
@@ -161,28 +307,9 @@ namespace Aktywator
             System.Diagnostics.Process.Start(app, param);
         }
 
-        public bool isBm2()
-        {
-            if (!sql.checkFieldExists("Settings", "BM2PINcode"))
-                return false;
-            if (!sql.checkFieldExists("PlayerNames", "Name"))
-                return false;
-            if (!sql.checkFieldExists("PlayerNumbers", "Name"))
-                return false;
-            if (!sql.checkFieldExists("Settings", "BM2ViewHandrecord"))
-                return false;
-            if (!sql.checkTableExists("HandRecord"))
-                return false;
-            if (!sql.checkTableExists("HandEvaluation"))
-                return false;
-
-            return true;
-        }
-
         public void convert()
         {
             List<Setting> settings = new List<Setting>();
-            settings.Add(new Setting("BM2PINcode", "text(4)", "'5431'"));
             settings.Add(new Setting("BM2ConfirmNP", "bit", "true"));
             settings.Add(new Setting("BM2RemainingBoards", "bit", "false"));
             settings.Add(new Setting("BM2NextSeatings", "bit", "true"));
@@ -191,36 +318,49 @@ namespace Aktywator
             settings.Add(new Setting("BM2ScoreCorrection", "bit", "false"));
             settings.Add(new Setting("BM2AutoBoardNumber", "bit", "false"));
             settings.Add(new Setting("BM2ResultsOverview", "integer", "1"));
-            settings.Add(new Setting("BM2ShowPlayerNames", "integer", "0"));
-            settings.Add(new Setting("BM2Ranking", "integer", "0"));
-            settings.Add(new Setting("BM2GameSummary", "bit", "false"));
-            settings.Add(new Setting("BM2SummaryPoints", "integer", "0"));
-            settings.Add(new Setting("BM2PairNumberEntry", "integer", "0"));
             settings.Add(new Setting("BM2ResetFunctionKey", "bit", "false"));
-            settings.Add(new Setting("BM2ShowHands", "bit", "false"));
-            settings.Add(new Setting("BM2NumberValidation", "integer", "0"));
-            settings.Add(new Setting("BM2NameSource", "integer", "2"));
             settings.Add(new Setting("BM2ViewHandrecord", "bit", "false"));
-            settings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
             settings.Add(new Setting("BM2RecordBidding", "bit", "false"));
             settings.Add(new Setting("BM2RecordPlay", "bit", "false"));
             settings.Add(new Setting("BM2ValidateLeadCard", "bit", "false"));
-
-            settings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
-            settings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
+            settings.Add(new Setting("BM2ShowPlayerNames", "integer", "0"));
 
             foreach (Setting s in settings)
             {
-                try
-                {
-                    sql.query(s.getAddColumnSql());
-                    sql.query(s.getSetDefaultSql());
-                }
-                catch (OleDbException)
-                {
-                }
+                s.createField(sql, false);
             }
 
+            List<Setting> defaultSettings = new List<Setting>();
+            defaultSettings.Add(new Setting("BM2PINcode", "text(4)", "'5431'"));
+            defaultSettings.Add(new Setting("BM2Ranking", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2GameSummary", "bit", "false"));
+            defaultSettings.Add(new Setting("BM2SummaryPoints", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2PairNumberEntry", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2ShowHands", "bit", "false"));
+            defaultSettings.Add(new Setting("BM2NumberValidation", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2NameSource", "integer", "2"));
+            defaultSettings.Add(new Setting("BM2EnterHandrecord", "bit", "false"));
+            defaultSettings.Add(new Setting("BM2NumberEntryEachRound", "integer", "0"));
+            defaultSettings.Add(new Setting("BM2NumberEntryPreloadValues", "integer", "0"));
+            defaultSettings.Add(new Setting("Name", "text(18)", "''", "PlayerNumbers"));
+            defaultSettings.Add(new Setting("Updated", "bit", "false", "PlayerNumbers"));
+            defaultSettings.Add(new Setting("`Section`", "integer", "1"));
+
+            foreach (Setting s in defaultSettings)
+            {
+                s.createField(sql);
+            }
+
+            this.convertSettingsPerSection();
+
+            try
+            {
+                sql.query("ALTER TABLE Tables ADD COLUMN `Group` integer;");
+            }
+            catch (OleDbException)
+            {
+            } 
+            
             try
             {
                 sql.query("CREATE TABLE PlayerNames (ID integer, Name text(18));");
@@ -278,6 +418,37 @@ namespace Aktywator
             }
         }
 
+        private void convertSettingsPerSection()
+        {
+            string sectionString = this.getSections();
+            string[] sections = sectionString.Split(',');
+            OleDbDataReader defaultSettings = sql.select("SELECT * FROM `Settings`");
+            if (defaultSettings.Read())
+            {
+                object[] values = new object[100];
+                int columns = defaultSettings.GetValues(values);
+                Dictionary<string, object> objects = new Dictionary<string, object>();
+                for (int i = 0; i < columns; i++)
+                {
+                    objects.Add(defaultSettings.GetName(i), values[i]);
+                }
+                defaultSettings.Close();
+                foreach (string section in sections)
+                {
+                    try
+                    {
+                        string sectionData = sql.selectOne("SELECT `Section` FROM `Settings` WHERE `Section` = " + section, true);
+                    }
+                    catch (OleDbRowMissingException e)
+                    {
+                        objects["Section"] = section;
+                        sql.insert("Settings", objects);
+                    }
+                }
+                sql.query("DELETE FROM `Settings` WHERE `Section` NOT IN (" + sectionString + ")");
+            }
+        }
+
         public void updateSettings()
         {
             sql.query("UPDATE Tables SET UpdateFromRound=997;");
@@ -285,12 +456,20 @@ namespace Aktywator
 
         public void loadSettings()
         {
+            main.startLoading();
+            if (settings == null)
+            {
+                main.stopLoading();
+                return;
+            }
+            main.lFirstSectorSettings.Visible = false;
+            string section = "*".Equals(main.cbSettingsSection.Text.Trim()) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text.Trim()).ToString();
             StringBuilder errors = new StringBuilder();
             foreach (Setting s in settings)
             {
                 try
                 {
-                    s.load();
+                    s.load(section);
                 }
                 catch (OleDbException)
                 {
@@ -298,28 +477,58 @@ namespace Aktywator
                     errors.Append(s.name);
                 }
             }
-            main.xShowContract.Checked = (Setting.load("ShowContract", this, errors) == "0");
-            main.xShowPlayerNames.Checked = (Setting.load("BM2ShowPlayerNames", this, errors) != "0");
-            main.xPINcode.Text = Setting.load("BM2PINcode", this, errors);
+            main.xShowContract.Checked = (Setting.load("ShowContract", this, errors, section) == "0");
+            string playerNames = Setting.load("BM2ShowPlayerNames", this, errors, section);
+            main.xShowPlayerNames.Checked = !("".Equals(playerNames) || "0".Equals(playerNames));
+            main.xPINcode.Text = Setting.load("BM2PINcode", this, errors, section);
             int resultsOverview = 0;
-            int.TryParse(Setting.load("BM2ResultsOverview", this, errors), out resultsOverview);
+            int.TryParse(Setting.load("BM2ResultsOverview", this, errors, section), out resultsOverview);
             main.xResultsOverview.SelectedIndex = resultsOverview;
+            main.xGroupSections.Checked = this.getSectionGroupCount() <= 1;
+
+            if (section == null && main.cbSettingsSection.Items.Count > 2)
+            {
+                main.lFirstSectorSettings.Visible = true;
+                this.sectionGroupWarning();
+            }
 
             if (errors.Length > 0)
             {
                 MessageBox.Show("Nie można uzyskać dostępu do pól: \n" + errors.ToString() + ".\nPrawdopodobnie te pola nie istnieją.",
                     "Brakuje pól w tabeli Settings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            main.stopLoading();
+        }
+
+        public void sectionGroupWarning()
+        {
+            main.lGroupSectionsWarning.Visible = false;
+            if (main.xShowResults.Checked)
+            {
+                main.lGroupSectionsWarning.Visible = true;
+            }
+        }
+
+        private int getSectionGroupCount()
+        {
+            OleDbDataReader rows = sql.select("SELECT DISTINCT `Group` FROM Tables");
+            int count = 0;
+            while (rows.Read())
+            {
+                count++;
+            }
+            return count;
         }
 
         public void saveSettings()
         {
+            string section = "*".Equals(main.cbSettingsSection.Text.Trim()) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text.Trim()).ToString();
             StringBuilder errors = new StringBuilder();
             foreach (Setting s in settings)
             {
                 try
                 {
-                    s.save();
+                    s.save(section);
                 }
                 catch (OleDbException)
                 {
@@ -327,11 +536,19 @@ namespace Aktywator
                     errors.Append(s.name);
                 }
             }
-            Setting.save("ShowContract", main.xShowContract.Checked ? "0" : "1", this, errors);
-            Setting.save("BM2ShowPlayerNames", main.xShowPlayerNames.Checked ? "1" : "0", this, errors);
-            Setting.save("BM2NameSource", "2", this, errors);
-            Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors);
-            Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors);
+            Setting.save("ShowContract", main.xShowContract.Checked ? "0" : "1", this, errors, section);
+            Setting.save("BM2ShowPlayerNames", main.xShowPlayerNames.Checked ? "1" : "0", this, errors, section);
+            Setting.save("BM2NameSource", "2", this, errors, section);
+            Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
+            Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
+            if (main.xGroupSections.Checked)
+            {
+                sql.query("UPDATE Tables SET `Group` = 1;");
+            }
+            else
+            {
+                sql.query("UPDATE Tables SET `Group` = `Section`;"); 
+            }
 
             this.loadSettings();
         }
@@ -341,121 +558,167 @@ namespace Aktywator
             name = Common.bezOgonkow(name);
             if (name.Length > 18)
                 name = name.Substring(0, 18);
-            string actual = sql.selectOne("SELECT Name FROM PlayerNumbers WHERE `Section`=" + section + " AND `Table`=" + table
-                + " AND `Direction`='" + direction + "'");
-            if (actual != name)
+            try
             {
-                sql.query("UPDATE PlayerNumbers SET Name='" + name + "', Updated=TRUE WHERE `Section`=" + section + " AND `Table`=" + table
-                + " AND `Direction`='" + direction + "'");
+                string actual = sql.selectOne("SELECT Name FROM PlayerNumbers WHERE `Section`=" + section + " AND `Table`=" + table
+                    + " AND `Direction`='" + direction + "'", true);
+                if (actual != name)
+                {
+                    sql.query("UPDATE PlayerNumbers SET Name='" + name + "', Updated=TRUE WHERE `Section`=" + section + " AND `Table`=" + table
+                    + " AND `Direction`='" + direction + "'");
+                    return 1;
+                }
+                else return 0;
+            }
+            catch (OleDbRowMissingException)
+            {
+                sql.query("INSERT INTO PlayerNumbers(`Section`, `Table`, Direction, Name, Updated) VALUES(" 
+                    + section + ", " + table + ", '" + direction + "', '" + name + "', TRUE)");
                 return 1;
             }
-            else return 0;
         }
 
-        public void syncNames(Tournament tournament, bool interactive, string startRounds)
+        private int getBWSNumber(OleDbDataReader reader, int index)
         {
-            int count = 0, countNew = 0, SKOK_STOLOW = 100;
-            data d;
-            startRounds = startRounds.Trim();
-
-            if (tournament.type == 1)
+            switch (Type.GetTypeCode(reader.GetFieldType(index)))
             {
-                if (startRounds.Length > 0)
+                case TypeCode.Int16:
+                    return reader.GetInt16(index);
+                case TypeCode.Int32:
+                    return reader.GetInt32(index);
+            }
+            throw new InvalidCastException("Unable to read numeric value from BWS field");
+        }
+
+        public void syncNames(Tournament tournament, bool interactive, string startRounds, string section, DataGridView grid)
+        {
+            int count = 0, countNew = 0, SKOK_STOLOW = Convert.ToInt32(main.numTeamsTableOffset.Value);
+            OleDbDataReader d;
+            startRounds = startRounds.Trim();
+            string fromRound = sql.selectOne("SELECT min(`Round`) FROM RoundData WHERE NSPair>0");
+            string sectionCondition = "";
+            if (!("*".Equals(section)))
+            {
+                section = this.sectorLetterToNumber(section).ToString();
+                sectionCondition = " AND `Section` = " + section;
+            }
+            if (tournament.type != Tournament.TYPE_TEAMY)
+            {
+                if (tournament.type == Tournament.TYPE_PARY && startRounds.Length > 0)
                 {
-                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE NSPair>0 AND `Round` in (" + startRounds + ")");
+                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE NSPair>0 AND `Round` in (" + startRounds + ")" + sectionCondition);
                 }
                 else
                 {
-                    string fromRound = sql.selectOne("SELECT min(`Round`) FROM RoundData WHERE NSPair>0");
-                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound);
+                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound + sectionCondition);
                 }
             }
             else
             {
-                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Table`<=100");
+                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound + " AND `Table`<=" + SKOK_STOLOW + sectionCondition);
             }
 
-            while (d.Read())
+            try
             {
-                string section = d.GetInt32(0).ToString();
-                string table = d.GetInt32(1).ToString();
-                string ns = d.GetInt32(2).ToString();
-                string ew = d.GetInt32(3).ToString();
+                Dictionary<int, List<String>> names = tournament.getBWSNames(grid);
 
-                StringBuilder query = new StringBuilder();
-                if (tournament.type == 1)
+                while (d.Read())
                 {
-                    query.Append("SELECT CONCAT(SUBSTR(imie,1,1),'.',nazw) name FROM zawodnicy WHERE idp=");
-                    query.Append(ns);
-                    query.Append(" OR idp="); 
-                    query.Append(ew);
-                    query.Append(" ORDER BY idp ");
-                    if (int.Parse(ew) < int.Parse(ns))
-                        query.Append("DESC");
-                }
-                else
-                {
-                    query.Append("SELECT fullname NAME FROM teams WHERE id=");
-                    query.Append(ns);
-                    query.Append(" UNION ALL SELECT ' ' UNION ALL");
-                    query.Append(" SELECT fullname NAME FROM teams WHERE id=");
-                    query.Append(ew);
-                    query.Append(" UNION ALL SELECT ' '; ");
-                }
-                mydata n = tournament.mysql.select(query.ToString());
-
-                try
-                {
-                    n.Read();
-                    countNew += updateName(section, table, "N", n.IsDBNull(0) ? "" : n.GetString(0));
-                    if (tournament.type == 2)
-                        countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "E", n.IsDBNull(0) ? "" : n.GetString(0));
-                    n.Read();
-                    countNew += updateName(section, table, "S", n.IsDBNull(0) ? "" : n.GetString(0));
-                    if (tournament.type == 2)
-                        countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "W", n.IsDBNull(0) ? "" : n.GetString(0));
-                    n.Read();
-                    countNew += updateName(section, table, "E", n.IsDBNull(0) ? "" : n.GetString(0));
-                    if (tournament.type == 2)
-                        countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "N", n.IsDBNull(0) ? "" : n.GetString(0));
-                    n.Read();
-                    countNew += updateName(section, table, "W", n.IsDBNull(0) ? "" : n.GetString(0));
-                    if (tournament.type == 2)
-                        countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "S", n.IsDBNull(0) ? "" : n.GetString(0));
-
-                    if (tournament.type == 1) count += 4;
-                    else count += 8;
-                }
-                catch (MySqlException ee)
-                {
-                    if (interactive)
+                    if ("*".Equals(section))
                     {
-                        if (ee.ErrorCode == -2147467259)
+                        section = this.getBWSNumber(d, 0).ToString();
+                    }
+                    string table = this.getBWSNumber(d, 1).ToString();
+                    int ns = this.getBWSNumber(d, 2);
+                    int ew = this.getBWSNumber(d, 3);
+
+                    try
+                    {
+                        if (!names.ContainsKey(ns))
                         {
-                            DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + ns + " albo " + ew
-                                + "), który nie istnieje w wybranym turnieju. Może to nie ten turniej?",
-                                "Zły turniej", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Warning);
-                            if (dr == DialogResult.Abort) return;
+                            throw new KeyNotFoundException(ns.ToString());
                         }
-                        else
+                        countNew += updateName(section, table, "N", names[ns][0]);
+                        countNew += updateName(section, table, "S", names[ns][1]);
+                        count += 2;
+                        if (tournament.type == Tournament.TYPE_TEAMY)
                         {
-                            MessageBox.Show(ee.Message, "Błąd MySQL", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Warning);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "E",
+                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ns + TeamNamesSettings.OpenClosedDiff][0] : names[ns][0]);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "W",
+                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ns + TeamNamesSettings.OpenClosedDiff][1] : names[ns][1]);
+                            count += 2;
+                        }
+                    }
+                    catch (KeyNotFoundException keyE)
+                    {
+                        if (interactive)
+                        {
+                            DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + keyE.Message + ")"
+                            + ", który nie istnieje w wybranym turnieju."
+                            + "Może to nie ten turniej?" + "\n\n" + "Kontynuować wczytywanie?",
+                            "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (dr == DialogResult.No) break;
+                        }
+                    }
+                    try
+                    {
+                        if (!names.ContainsKey(ew))
+                        {
+                            throw new KeyNotFoundException(ew.ToString());
+                        }
+                        countNew += updateName(section, table, "E", names[ew][0]);
+                        countNew += updateName(section, table, "W", names[ew][1]);
+                        count += 2;
+                        if (tournament.type == Tournament.TYPE_TEAMY)
+                        {
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "N",
+                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ew + TeamNamesSettings.OpenClosedDiff][0] : names[ew][0]);
+                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "S",
+                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ew + TeamNamesSettings.OpenClosedDiff][1] : names[ew][1]);
+                            count += 2;
+                        }
+                    }
+                    catch (KeyNotFoundException keyE)
+                    {
+                        if (interactive)
+                        {
+                            DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + keyE.Message + ")"
+                            + ", który nie istnieje w wybranym turnieju."
+                            + "Może to nie ten turniej?" + "\n\n" + "Kontynuować wczytywanie?",
+                            "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (dr == DialogResult.No) break;
                         }
                     }
                 }
-                try
+                StringBuilder errors = new StringBuilder();
+                List<Setting> settings = new List<Setting>();
+                settings.Add(new Setting("BM2NumberEntryEachRound", "integer", (tournament.type == Tournament.TYPE_TEAMY) ? "1" : "0"));
+                settings.Add(new Setting("BM2NumberEntryPreloadValues", "integer", "1"));
+                foreach (Setting s in settings)
                 {
-                    n.Close();
+                    s.createField(sql);
+                    Setting.save(s.name, s.defaultStr, this, errors);
                 }
-                catch (Exception) { }
+                if (interactive)
+                {
+                    if (errors.Length > 0)
+                    {
+                        MessageBox.Show(errors.ToString(), "Błąd ustawiania opcji BWS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    MessageBox.Show("Synchronizacja zakończona!\nPrzejrzanych nazwisk: " + count + "\nZmienionych: " + countNew,
+                        "Synchronizacja nazwisk", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (sql.selectOne("SELECT BM2ShowPlayerNames FROM Settings") != "1")
+                        MessageBox.Show("Pamiętaj żeby włączyć opcję \"pokazuj nazwiska\"!", "Brakujące ustawienie",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            if (interactive)
+            catch (Exception ee)
             {
-                MessageBox.Show("Synchronizacja zakończona!\nPrzejrzanych nazwisk: " + count + "\nZmienionych: " + countNew,
-                    "Synchronizacja nazwisk", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (sql.selectOne("SELECT BM2ShowPlayerNames FROM Settings") != "1")
-                    MessageBox.Show("Pamiętaj żeby włączyć opcję \"pokazuj nazwiska\"!", "Brakujące ustawienie", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (interactive)
+                {
+                    MessageBox.Show(ee.Message, "Błąd wczytywania nazwisk", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -515,20 +778,29 @@ namespace Aktywator
             string sections = this.sectionsForHandRecords();
             if (sections != null)
             {
-                foreach (string section in this.sectionsForHandRecords().Split(','))
+                string[] sectionLetters = sections.Split(',');
+                for (int i = 0; i < sectionLetters.Length; i++)
                 {
-                    this.clearRecords(section.Trim());
+                    sectionLetters[i] = sectionLetters[i].Trim();
                 }
+                foreach (string section in sectionLetters)
+                {
+                    this.clearRecords(section);
+                }
+                this.displayHandRecordInfo(this.loadSectionBoards(sectionLetters));
             }
         }
 
         public int loadHandRecords(PBN pbn)
         {
             int count = 0;
-            foreach (string section in this.getSelectedSections())
+            string[] sections = this.getSelectedSections();
+            Dictionary<int, List<string>> boards = new Dictionary<int, List<string>>();
+            foreach (string section in sections)
             {
                 this.clearRecords(section);
                 for (int i = this.lowBoard(section.Trim()); i <= this.highBoard(section.Trim()); i++)
+                {
                     if (pbn.handRecords[i] != null)
                     {
                         HandRecord b = pbn.handRecords[i];
@@ -541,6 +813,11 @@ namespace Aktywator
                         str.Append(String.Join("','", b.south)); str.Append("','");
                         str.Append(String.Join("','", b.west)); str.Append("')");
                         sql.query(str.ToString());
+                        if (!boards.ContainsKey(i))
+                        {
+                            boards.Add(i, new List<string>());
+                        }
+                        boards[i].Add(this.sectorNumberToLetter(Int16.Parse(section)));
                         int[,] ddTable = pbn.ddTables[i].GetDDTable();
                         if (ddTable != null)
                         {
@@ -569,8 +846,39 @@ namespace Aktywator
                         }
                         count++;
                     }
+                }
             }
+            this.displayHandRecordInfo(this.loadSectionBoards(sections));
             return count;
+        }
+
+        internal string getMySQLDatabaseForSection()
+        {
+            try
+            {
+                string dbString = this.sql.selectOne("SELECT custom_MySQL FROM `Section` WHERE ID = 1");
+                return dbString.Split(',')[3];
+            }
+            catch (Exception ee)
+            {
+                return null;
+            }
+        }
+
+        internal string detectTeamySection(string databaseName)
+        {
+            OleDbDataReader sections = this.sql.select("SELECT ID, custom_MySQL FROM `Section` WHERE custom_MySQL LIKE '%," + databaseName + ",%'");
+            string section = null;
+            while (sections.Read()) {
+                string[] dbString = sections.GetString(1).Split(',');
+                if (dbString[3].Trim().Equals(databaseName))
+                {
+                    section = this.sectorNumberToLetter(this.getBWSNumber(sections, 0));
+                    break;
+                }
+            }
+            sections.Close();
+            return section;
         }
     }
 }
