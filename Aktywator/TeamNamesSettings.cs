@@ -79,7 +79,7 @@ namespace Aktywator
             ret.Append("SELECT teams.id, ");
             if (rbShowTeamNames.Checked)
             {
-                ret.Append("fullname, ");
+                ret.Append("shortname, ");
                 switch (cbSecondRow.SelectedIndex) {
                     case 0:
                         ret.Append("' ' FROM teams ORDER BY teams.id");
