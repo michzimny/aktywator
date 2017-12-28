@@ -438,7 +438,6 @@ namespace Aktywator
                 tournament.clearCellLocks(namesGridView);
                 tournament.displayNameList(namesGridView);
                 tournament.clearCellLocks(namesGridView);
-                namesTimer.Enabled = true;
             }
             else
             {
@@ -630,6 +629,10 @@ namespace Aktywator
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             namesTimer.Enabled = checkBox1.Checked;
+            if (namesTimer.Enabled)
+            {
+                namesTimer_Tick(null, null);
+            }
         }
 
         private void lGroupSectionsWarning_Click(object sender, EventArgs e)

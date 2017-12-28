@@ -79,7 +79,7 @@ namespace Aktywator
             ret.Append("SELECT teams.id, ");
             if (rbShowTeamNames.Checked)
             {
-                ret.Append("fullname, ");
+                ret.Append("shortname, ");
                 switch (cbSecondRow.SelectedIndex) {
                     case 0:
                         ret.Append("' ' FROM teams ORDER BY teams.id");
@@ -99,7 +99,7 @@ namespace Aktywator
                         ret.Append(" GROUP BY teams.id ORDER BY teams.id");
                         break;
                     case 2:
-                        ret.Append("CONCAT(SUM(IF(matches.homet = teams.id, vph+corrh, vpv+corrv)) + teams.score, ' VP') FROM teams LEFT JOIN matches ON (teams.id = matches.homet OR teams.id = matches.visit) AND matches.rnd <= ");
+                        ret.Append("CONCAT(SUM(IF(matches.homet = teams.id, vph+corrh, vpv+corrv)) + teams.score, ' VP') FROM teams LEFT JOIN matches ON (teams.id = matches.homet OR teams.id = matches.visit) AND matches.rnd < ");
                         ret.Append(cbRounds.SelectedItem);
                         ret.Append(" GROUP BY teams.id ORDER BY teams.id");
                         break;
