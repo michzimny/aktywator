@@ -43,6 +43,12 @@ namespace Aktywator
         virtual public void displayNameList(DataGridView grid)
         {
             Dictionary<int, List<string>> names = this.getNameList();
+            if (names.Count == 0)
+            {
+                MessageBox.Show(
+                    "Lista pobranych nazwisk jest pusta - być może coś poszło nie tak przy ich pobieraniu.",
+                    "Pusta lista nazwisk", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             foreach (KeyValuePair<int, List<string>> item in names) {
                 if (!this.updateNameListRow(grid, item.Key, item.Value))
                 {
