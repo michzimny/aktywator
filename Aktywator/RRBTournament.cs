@@ -54,25 +54,29 @@ namespace Aktywator
 
         override internal Dictionary<int, List<string>> getNameList()
         {
-            this._xml.Load(this._name);
             Dictionary<int, List<string>> names = new Dictionary<int, List<string>>();
-            foreach (XmlNode pair in this._xml.SelectNodes("//lista/para"))
+            try
             {
-                int pairNo = Int32.Parse(pair.SelectSingleNode("numer").InnerText);
-                names.Add(pairNo, new List<string>());
-                foreach (XmlNode player in pair.SelectNodes("gracz/nazwisko"))
+                this._xml.Load(this._name);
+                foreach (XmlNode pair in this._xml.SelectNodes("//lista/para"))
                 {
-                    names[pairNo].Add(player.InnerText);
+                    int pairNo = Int32.Parse(pair.SelectSingleNode("numer").InnerText);
+                    names.Add(pairNo, new List<string>());
+                    foreach (XmlNode player in pair.SelectNodes("gracz/nazwisko"))
+                    {
+                        names[pairNo].Add(player.InnerText);
+                    }
                 }
-            }
 
-            foreach (KeyValuePair<int, List<string>> pair in names)
-            {
-                while (pair.Value.Count < 2)
+                foreach (KeyValuePair<int, List<string>> pair in names)
                 {
-                    pair.Value.Add(" ");
+                    while (pair.Value.Count < 2)
+                    {
+                        pair.Value.Add(" ");
+                    }
                 }
             }
+            catch (Exception) { }
             return names;
         }
     }

@@ -624,10 +624,7 @@ namespace Aktywator
 
                 while (d.Read())
                 {
-                    if ("*".Equals(section))
-                    {
-                        section = this.getBWSNumber(d, 0).ToString();
-                    }
+                    string pairSection = "*".Equals(section) ? this.getBWSNumber(d, 0).ToString() : section;
                     string table = this.getBWSNumber(d, 1).ToString();
                     int ns = this.getBWSNumber(d, 2);
                     int ew = this.getBWSNumber(d, 3);
@@ -638,14 +635,14 @@ namespace Aktywator
                         {
                             throw new KeyNotFoundException(ns.ToString());
                         }
-                        countNew += updateName(section, table, "N", names[ns][0]);
-                        countNew += updateName(section, table, "S", names[ns][1]);
+                        countNew += updateName(pairSection, table, "N", names[ns][0]);
+                        countNew += updateName(pairSection, table, "S", names[ns][1]);
                         count += 2;
                         if (tournament.type == Tournament.TYPE_TEAMY)
                         {
-                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "E",
+                            countNew += updateName(pairSection, (int.Parse(table) + SKOK_STOLOW).ToString(), "E",
                                 names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ns + TeamNamesSettings.OpenClosedDiff][0] : names[ns][0]);
-                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "W",
+                            countNew += updateName(pairSection, (int.Parse(table) + SKOK_STOLOW).ToString(), "W",
                                 names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ns + TeamNamesSettings.OpenClosedDiff][1] : names[ns][1]);
                             count += 2;
                         }
@@ -667,14 +664,14 @@ namespace Aktywator
                         {
                             throw new KeyNotFoundException(ew.ToString());
                         }
-                        countNew += updateName(section, table, "E", names[ew][0]);
-                        countNew += updateName(section, table, "W", names[ew][1]);
+                        countNew += updateName(pairSection, table, "E", names[ew][0]);
+                        countNew += updateName(pairSection, table, "W", names[ew][1]);
                         count += 2;
                         if (tournament.type == Tournament.TYPE_TEAMY)
                         {
-                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "N",
+                            countNew += updateName(pairSection, (int.Parse(table) + SKOK_STOLOW).ToString(), "N",
                                 names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ew + TeamNamesSettings.OpenClosedDiff][0] : names[ew][0]);
-                            countNew += updateName(section, (int.Parse(table) + SKOK_STOLOW).ToString(), "S",
+                            countNew += updateName(pairSection, (int.Parse(table) + SKOK_STOLOW).ToString(), "S",
                                 names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ew + TeamNamesSettings.OpenClosedDiff][1] : names[ew][1]);
                             count += 2;
                         }

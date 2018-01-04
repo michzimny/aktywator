@@ -29,9 +29,9 @@ namespace Aktywator
             lSouthHearts.Text = record.south[1];
             lSouthDiamonds.Text = record.south[2];
             lSouthClubs.Text = record.south[3];
-            lWestSpades.Text = record.north[0];
-            lWestHearts.Text = record.north[1];
-            lWestDiamonds.Text = record.north[2];
+            lWestSpades.Text = record.west[0];
+            lWestHearts.Text = record.west[1];
+            lWestDiamonds.Text = record.west[2];
             lWestClubs.Text = record.west[3];
             this.Text = "ROZDANIE " + boardNo;
         }
