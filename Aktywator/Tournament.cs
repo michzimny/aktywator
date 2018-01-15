@@ -96,7 +96,7 @@ namespace Aktywator
         {
             DataGridViewRow row = new DataGridViewRow();
             row.Cells.Add(new DataGridViewTextBoxCell());
-            row.Cells[0].Value = pairNumber.ToString();
+            row.Cells[0].Value = pairNumber;
             foreach (string name in names)
             {
                 DataGridViewTextBoxCell cell = new DataGridViewTextBoxCell();
