@@ -88,7 +88,20 @@ namespace Aktywator
         public String GetLayout()
         {
             string[] dealParts = this.GetField("Deal").Split(':');
-            return dealParts[dealParts.Length - 1];
+            string layout = dealParts[dealParts.Length - 1];
+            if (dealParts.Length > 1)
+            {
+                string[] layoutParts = layout.Split(' ');
+                string[] rotatedLayout = { "", "", "", "" };
+                char dealer = dealParts[0][0];
+                int rotation = Array.IndexOf(DDTable.PLAYERS, dealer);
+                for (int i = 0; i < rotatedLayout.Length; i++)
+                {
+                    rotatedLayout[(i + rotation) % rotatedLayout.Length] = layoutParts[i];
+                }
+                layout = String.Join(" ", rotatedLayout);
+            }
+            return layout;
         }
 
         public String GetNumber()
