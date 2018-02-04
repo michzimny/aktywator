@@ -890,9 +890,9 @@
             this.bTeamsNamesSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bTeamsNamesSettings.Image = ((System.Drawing.Image)(resources.GetObject("bTeamsNamesSettings.Image")));
             this.bTeamsNamesSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bTeamsNamesSettings.Location = new System.Drawing.Point(188, 40);
+            this.bTeamsNamesSettings.Location = new System.Drawing.Point(169, 40);
             this.bTeamsNamesSettings.Name = "bTeamsNamesSettings";
-            this.bTeamsNamesSettings.Size = new System.Drawing.Size(136, 23);
+            this.bTeamsNamesSettings.Size = new System.Drawing.Size(155, 23);
             this.bTeamsNamesSettings.TabIndex = 36;
             this.bTeamsNamesSettings.UseVisualStyleBackColor = true;
             this.bTeamsNamesSettings.Visible = false;
@@ -956,7 +956,7 @@
             this.label9.Size = new System.Drawing.Size(499, 13);
             this.label9.TabIndex = 31;
             this.label9.Text = "Zmiany wprowadzone powyżej nie zostaną nadpisane danymi z turnieju i nie zostaną " +
-                "zapisane w turnieju.";
+    "zapisane w turnieju.";
             // 
             // label7
             // 

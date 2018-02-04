@@ -91,5 +91,14 @@ namespace Aktywator
             finished.Close();
             return segment;
         }
+
+        internal String getPointsUnit()
+        {
+            MySqlDataReader points = this.mysql.select("SELECT imponly FROM admin");
+            points.Read();
+            int unit = points.GetInt32(0);
+            points.Close();
+            return (unit < 0) ? "IMP" : "VP";
+        }
     }
 }

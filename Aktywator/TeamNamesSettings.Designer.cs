@@ -134,10 +134,10 @@
             this.cbSecondRow.Items.AddRange(new object[] {
             "nic",
             "wynik meczu w IMP",
-            "wynik drużyny w VP"});
+            "wynik turnieju w VP/IMP"});
             this.cbSecondRow.Location = new System.Drawing.Point(103, 112);
             this.cbSecondRow.Name = "cbSecondRow";
-            this.cbSecondRow.Size = new System.Drawing.Size(115, 21);
+            this.cbSecondRow.Size = new System.Drawing.Size(128, 21);
             this.cbSecondRow.TabIndex = 9;
             // 
             // rbShowPlayerNames
@@ -155,7 +155,7 @@
             // 
             this.bClose.Location = new System.Drawing.Point(16, 164);
             this.bClose.Name = "bClose";
-            this.bClose.Size = new System.Drawing.Size(202, 23);
+            this.bClose.Size = new System.Drawing.Size(215, 23);
             this.bClose.TabIndex = 11;
             this.bClose.Text = "Zamknij";
             this.bClose.UseVisualStyleBackColor = true;
@@ -165,7 +165,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(230, 199);
+            this.ClientSize = new System.Drawing.Size(243, 199);
             this.Controls.Add(this.bClose);
             this.Controls.Add(this.rbShowPlayerNames);
             this.Controls.Add(this.cbSecondRow);
