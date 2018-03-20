@@ -1,5 +1,5 @@
 ﻿Known issues:
-- nie działa zbieranie danych pośrednich (dane są zbierane w BWS, ale Kolektor Teamów ich nie czyta)
+- nie działa zbieranie danych pośrednich, gdy wczytane są rozkłady (dane są zbierane w BWS, ale Kolektor Teamów ich nie czyta - potencjalny bug w Kolektorze)
 - nie działa update ustawienia maksowania każdego sektora w czasie sesji (samo maksowanie ustawione na początku sesji - działa)
 
 Aktywator 1.1.3 (beta)
