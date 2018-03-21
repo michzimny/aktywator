@@ -450,7 +450,7 @@ namespace Aktywator
         {
             try
             {
-                bws.syncNames(tournament, true, eOomRounds.Text, cbNamesSection.SelectedItem.ToString(), namesGridView);
+                bws.syncNames(tournament, true, cbNamesSection.SelectedItem.ToString(), namesGridView);
             }
             catch (Exception ee)
             {
@@ -505,7 +505,7 @@ namespace Aktywator
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            bws.syncNames(tournament, false, eOomRounds.Text, cbNamesSection.SelectedItem.ToString(), namesGridView);
+            bws.syncNames(tournament, false, cbNamesSection.SelectedItem.ToString(), namesGridView);
         }
 
         private void bForceSync_Click(object sender, EventArgs e)
