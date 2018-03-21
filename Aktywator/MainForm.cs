@@ -580,12 +580,6 @@ namespace Aktywator
             toolStripSplitButton1.ShowDropDown();
         }
 
-        private void toolStripButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            eOomRounds.Enabled = toolStripButton2.Checked;
-            lOomLabel.Enabled = toolStripButton2.Checked;
-        }
-
         private void namesGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1 && e.ColumnIndex > 0)
