@@ -2,6 +2,15 @@
 - nie działa zbieranie danych pośrednich, gdy wczytane są rozkłady (dane są zbierane w BWS, ale Kolektor Teamów ich nie czyta - potencjalny bug w Kolektorze)
 - nie działa update ustawienia maksowania każdego sektora w czasie sesji (samo maksowanie ustawione na początku sesji - działa)
 
+Aktywator 1.1.4 (beta)
+??.??.???? [mkl]
+ * wczytywanie nazwisk do indywiduela granego parami
+ * usprawnienie mechanizmu wczytywania nazwisk do różnych sektorów
+ * usprawnienie mechanizmu ostrzegania o problemach przy wczytywaniu nazwisk
+ * poprawki sortowania listy nazwisk
+ * poprawki wczytywania rozkładów
+
+---------------------
 Aktywator 1.1.3 (beta)
 04.01.2018 [mkl]
  * niewymuszanie odświeżania listy nazwisk po wczytaniu turnieju
