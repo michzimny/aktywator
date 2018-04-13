@@ -119,6 +119,16 @@ namespace Aktywator
                     this.setHandRecordInfo(board.Key);
                 }
             }
+            main.xShowResults_CheckedChanged(null, EventArgs.Empty);
+            if (this.detectDifferentRecordsInSections())
+            {
+                if (main.xGroupSections.Checked)
+                {
+                    MessageBox.Show(MainForm.differentRecordsInSections, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    main.xGroupSections.Checked = false;
+                }
+                Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
+            }
         }
 
         private void setHandRecordInfo(int board, string section = null, List<string> layout = null, bool analysis = false)
@@ -514,7 +524,7 @@ namespace Aktywator
         public void sectionGroupWarning()
         {
             main.lGroupSectionsWarning.Visible = false;
-            if (main.xShowResults.Checked)
+            if (main.xShowResults.Checked || this.detectDifferentRecordsInSections())
             {
                 main.lGroupSectionsWarning.Visible = true;
             }
