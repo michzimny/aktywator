@@ -321,6 +321,9 @@ namespace Aktywator
             bws.loadSettings();
         }
 
+        static public string sectionGroupWarningLabel = "Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!";
+        static public string differentRecordsInSections = "BWS zawiera różne rozkłady w różnych sektorach, opcja grupowania sektorów musi być wyłączona.";
+
         private void xShowResults_CheckedChanged(object sender, EventArgs e)
         {
             if (xShowResults.Checked)
@@ -632,7 +635,8 @@ namespace Aktywator
 
         private void lGroupSectionsWarning_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!", "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            string message = bws.detectDifferentRecordsInSections() ? MainForm.differentRecordsInSections : MainForm.sectionGroupWarningLabel;
+            MessageBox.Show(message, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
         private void bTeamsNamesSettings_Click(object sender, EventArgs e)
