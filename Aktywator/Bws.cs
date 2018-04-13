@@ -841,6 +841,7 @@ namespace Aktywator
         {
             sql.query("DELETE FROM HandRecord WHERE `Section` = " + section);
             sql.query("DELETE FROM HandEvaluation WHERE `Section` = " + section);
+            this._differentRecordsDetected = false;
         }
 
         public void clearHandRecords()
@@ -920,6 +921,30 @@ namespace Aktywator
             }
             this.displayHandRecordInfo(this.loadSectionBoards(sections));
             return count;
+        }
+
+        private bool _differentRecordsDetected = false;
+        private bool _differentRecordsInSections = false;
+
+        public bool detectDifferentRecordsInSections()
+        {
+            if (!this._differentRecordsDetected)
+            {
+                this._differentRecordsInSections = false;
+                OleDbDataReader sections = sql.select("SELECT DISTINCT COUNT(`Section`) FROM HandRecord GROUP BY Board, NorthSpades, NorthHearts, NorthDiamonds, NorthClubs, EastSpades, EastHearts, EastDiamonds, EastClubs, SouthSpades, SouthHearts, SouthDiamonds, SouthClubs");
+                while (sections.Read())
+                {
+                    int boardSections = this.getBWSNumber(sections, 0);
+                    int bwsSections = main.gwSections.Rows.Count;
+                    if (boardSections != bwsSections)
+                    {
+                        this._differentRecordsInSections = true;
+                        break;
+                    }
+                }
+                this._differentRecordsDetected = true;
+            }
+            return this._differentRecordsInSections;
         }
 
         internal string getMySQLDatabaseForSection()
