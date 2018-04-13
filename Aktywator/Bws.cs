@@ -39,6 +39,10 @@ namespace Aktywator
             this._filename = filename;
             sql = new Sql(filename);
             this.main = main;
+        }
+
+        public void init()
+        {
             string[] sections = this.getSections().Split(',');
             this.displaySectionBoardsInfo(sections);
         }

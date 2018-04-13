@@ -65,6 +65,7 @@ namespace Aktywator
             }
 
             bws = new Bws(filename, this);
+            bws.init();
             bws.convert();
 
             labelFilename.Text = filename;
