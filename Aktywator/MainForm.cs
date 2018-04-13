@@ -345,6 +345,10 @@ namespace Aktywator
             {
                 bws.sectionGroupWarning();
             }
+            if (cbSettingsSection.Items.Count <= 2)
+            {
+                xGroupSections.Enabled = false;
+            }
         }
 
         private void xMemberNumbers_CheckedChanged(object sender, EventArgs e)
