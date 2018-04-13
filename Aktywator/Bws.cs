@@ -552,15 +552,7 @@ namespace Aktywator
             Setting.save("BM2NameSource", "2", this, errors, section);
             Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
             Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
-            if (main.xGroupSections.Checked)
-            {
-                sql.query("UPDATE Tables SET `Group` = 1;");
-            }
-            else
-            {
-                sql.query("UPDATE Tables SET `Group` = `Section`;"); 
-            }
-
+            Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
             this.loadSettings();
         }
 

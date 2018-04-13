@@ -170,5 +170,13 @@ namespace Aktywator
             {
             }
         }
+
+        public static void saveSectionGroups(Sql sql, bool value)
+        {
+            StringBuilder sb = new StringBuilder("UPDATE Tables SET `Group` = ");
+            sb.Append(value ? "1" : "`Section`");
+            sb.Append(";");
+            sql.query(sb.ToString());
+        }
     }
 }
