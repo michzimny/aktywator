@@ -390,6 +390,34 @@ namespace Aktywator
             {
             }
 
+            this._ensureHandRecordStructure();
+
+            try
+            {
+                sql.query("CREATE TABLE PlayData ("
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`Counter` integer, `Direction` text(2), `Card` text(10), `DateLog` datetime,"
+                    + "`TimeLog` datetime, `Erased` bit"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                sql.query("CREATE TABLE BiddingData ("
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`Counter` integer, `Direction` text(2), `Bid` text(10), `DateLog` datetime,"
+                    + "`TimeLog` datetime, `Erased` bit"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+        }
+
+        private void _ensureHandRecordStructure()
+        {
             try
             {
                 sql.query("CREATE TABLE HandRecord (`Section` integer, `Board` integer, "
@@ -410,28 +438,6 @@ namespace Aktywator
                     + "SouthSpades integer,SouthHearts integer,SouthDiamonds integer,SouthClubs integer,SouthNotrump integer,"
                     + "WestSpades integer,WestHearts integer,WestDiamonds integer,WestClubs integer,WestNotrump integer,"
                     + "NorthHcp integer,EastHcp integer,SouthHcp integer,WestHcp integer"
-                    + ");");
-            }
-            catch (OleDbException)
-            {
-            }
-            try
-            {
-                sql.query("CREATE TABLE PlayData ("
-                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
-                    + "`Counter` integer, `Direction` text(2), `Card` text(10), `DateLog` datetime,"
-                    + "`TimeLog` datetime, `Erased` bit"
-                    + ");");
-            }
-            catch (OleDbException)
-            {
-            }
-            try
-            {
-                sql.query("CREATE TABLE BiddingData ("
-                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
-                    + "`Counter` integer, `Direction` text(2), `Bid` text(10), `DateLog` datetime,"
-                    + "`TimeLog` datetime, `Erased` bit"
                     + ");");
             }
             catch (OleDbException)
@@ -938,6 +944,7 @@ namespace Aktywator
 
         public bool detectDifferentRecordsInSections()
         {
+            this._ensureHandRecordStructure();
             if (!this._differentRecordsDetected)
             {
                 this._differentRecordsInSections = false;
