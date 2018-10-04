@@ -14,7 +14,12 @@ Aktywatora można używać z dowolnym programem liczącym, jednak niektóre funk
 * JFR Pary
 * RRBridge
 
-## Informacja o zależnościach
+## Licencja
 
-Program zawiera część kodu źródłowego [projektu BCDD](http://github.com/emkael/bcdd). Ta część źródeł udpostępniana jest w [uproszczonej licencji BSD](https://opensource.org/licenses/BSD-2-Clause), kompatybilnej z licencją GPL reszty programu.
+Program udostępniany jest na licencji GPLv2. Jej treść dostępna jest w pliku [LICENSE](LICENSE).
 
+Kod źródłowy programu dostępny jest w repozytorium: [https://github.com/michzimny/aktywator](https://github.com/michzimny/aktywator).
+
+Program zawiera część kodu źródłowego [projektu BCDD](http://github.com/emkael/bcdd). Ta część źródeł udostępniana jest w [uproszczonej licencji BSD](https://opensource.org/licenses/BSD-2-Clause), kompatybilnej z licencją GPL reszty programu.
+
+Wraz z programem dystrybuowana jest biblioteka będąca częścią [pakietu MySQL Connector/NET](https://dev.mysql.com/downloads/connector/net/), opublikowanego na licencji GPL.
