@@ -65,6 +65,7 @@ namespace Aktywator
             }
 
             bws = new Bws(filename, this);
+            bws.init();
             bws.convert();
 
             labelFilename.Text = filename;
@@ -320,14 +321,17 @@ namespace Aktywator
             bws.loadSettings();
         }
 
-        private void xShowResults_CheckedChanged(object sender, EventArgs e)
+        static public string sectionGroupWarningLabel = "Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!";
+        static public string differentRecordsInSections = "BWS zawiera różne rozkłady w różnych sektorach, opcja grupowania sektorów musi być wyłączona.";
+
+        public void xShowResults_CheckedChanged(object sender, EventArgs e)
         {
             if (xShowResults.Checked)
             {
                 xRepeatResults.Enabled = true;
                 xShowPercentage.Enabled = true;
                 xResultsOverview.Enabled = true;
-                xGroupSections.Enabled = true;
+                xGroupSections.Enabled = !bws.detectDifferentRecordsInSections();
             }
             else
             {
@@ -337,9 +341,13 @@ namespace Aktywator
                 xResultsOverview.Enabled = false;
                 xGroupSections.Enabled = false;
             }
-            if (cbSettingsSection.Items.Count > 2)
+            if (cbSettingsSection.Items.Count > 2 || bws.detectDifferentRecordsInSections())
             {
                 bws.sectionGroupWarning();
+            }
+            if (cbSettingsSection.Items.Count <= 2)
+            {
+                xGroupSections.Enabled = false;
             }
         }
 
@@ -450,7 +458,7 @@ namespace Aktywator
         {
             try
             {
-                bws.syncNames(tournament, true, eOomRounds.Text, cbNamesSection.SelectedItem.ToString(), namesGridView);
+                bws.syncNames(tournament, true, cbNamesSection.SelectedItem.ToString(), namesGridView);
             }
             catch (Exception ee)
             {
@@ -505,7 +513,7 @@ namespace Aktywator
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            bws.syncNames(tournament, false, eOomRounds.Text, cbNamesSection.SelectedItem.ToString(), namesGridView);
+            bws.syncNames(tournament, false, cbNamesSection.SelectedItem.ToString(), namesGridView);
         }
 
         private void bForceSync_Click(object sender, EventArgs e)
@@ -580,12 +588,6 @@ namespace Aktywator
             toolStripSplitButton1.ShowDropDown();
         }
 
-        private void toolStripButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            eOomRounds.Enabled = toolStripButton2.Checked;
-            lOomLabel.Enabled = toolStripButton2.Checked;
-        }
-
         private void namesGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1 && e.ColumnIndex > 0)
@@ -637,7 +639,8 @@ namespace Aktywator
 
         private void lGroupSectionsWarning_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!", "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            string message = bws.detectDifferentRecordsInSections() ? MainForm.differentRecordsInSections : MainForm.sectionGroupWarningLabel;
+            MessageBox.Show(message, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
         private void bTeamsNamesSettings_Click(object sender, EventArgs e)

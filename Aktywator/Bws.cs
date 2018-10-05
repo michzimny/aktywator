@@ -27,11 +27,22 @@ namespace Aktywator
             public bool analysis = false;
         }
 
+        class PairPosition
+        {
+            public int pairNo;
+            public int table;
+            public string position;
+        }
+
         public Bws(string filename, MainForm main)
         {
             this._filename = filename;
             sql = new Sql(filename);
             this.main = main;
+        }
+
+        public void init()
+        {
             string[] sections = this.getSections().Split(',');
             this.displaySectionBoardsInfo(sections);
         }
@@ -107,6 +118,16 @@ namespace Aktywator
                 {
                     this.setHandRecordInfo(board.Key);
                 }
+            }
+            main.xShowResults_CheckedChanged(null, EventArgs.Empty);
+            if (this.detectDifferentRecordsInSections())
+            {
+                if (main.xGroupSections.Checked)
+                {
+                    MessageBox.Show(MainForm.differentRecordsInSections, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    main.xGroupSections.Checked = false;
+                }
+                Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
             }
         }
 
@@ -369,6 +390,34 @@ namespace Aktywator
             {
             }
 
+            this._ensureHandRecordStructure();
+
+            try
+            {
+                sql.query("CREATE TABLE PlayData ("
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`Counter` integer, `Direction` text(2), `Card` text(10), `DateLog` datetime,"
+                    + "`TimeLog` datetime, `Erased` bit"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+            try
+            {
+                sql.query("CREATE TABLE BiddingData ("
+                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
+                    + "`Counter` integer, `Direction` text(2), `Bid` text(10), `DateLog` datetime,"
+                    + "`TimeLog` datetime, `Erased` bit"
+                    + ");");
+            }
+            catch (OleDbException)
+            {
+            }
+        }
+
+        private void _ensureHandRecordStructure()
+        {
             try
             {
                 sql.query("CREATE TABLE HandRecord (`Section` integer, `Board` integer, "
@@ -389,28 +438,6 @@ namespace Aktywator
                     + "SouthSpades integer,SouthHearts integer,SouthDiamonds integer,SouthClubs integer,SouthNotrump integer,"
                     + "WestSpades integer,WestHearts integer,WestDiamonds integer,WestClubs integer,WestNotrump integer,"
                     + "NorthHcp integer,EastHcp integer,SouthHcp integer,WestHcp integer"
-                    + ");");
-            }
-            catch (OleDbException)
-            {
-            }
-            try
-            {
-                sql.query("CREATE TABLE PlayData ("
-                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
-                    + "`Counter` integer, `Direction` text(2), `Card` text(10), `DateLog` datetime,"
-                    + "`TimeLog` datetime, `Erased` bit"
-                    + ");");
-            }
-            catch (OleDbException)
-            {
-            }
-            try
-            {
-                sql.query("CREATE TABLE BiddingData ("
-                    + "`ID` autoincrement, `Section` integer, `Table` integer, `Round` integer, `Board` integer,"
-                    + "`Counter` integer, `Direction` text(2), `Bid` text(10), `DateLog` datetime,"
-                    + "`TimeLog` datetime, `Erased` bit"
                     + ");");
             }
             catch (OleDbException)
@@ -503,7 +530,7 @@ namespace Aktywator
         public void sectionGroupWarning()
         {
             main.lGroupSectionsWarning.Visible = false;
-            if (main.xShowResults.Checked)
+            if (main.xShowResults.Checked || this.detectDifferentRecordsInSections())
             {
                 main.lGroupSectionsWarning.Visible = true;
             }
@@ -541,15 +568,7 @@ namespace Aktywator
             Setting.save("BM2NameSource", "2", this, errors, section);
             Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
             Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
-            if (main.xGroupSections.Checked)
-            {
-                sql.query("UPDATE Tables SET `Group` = 1;");
-            }
-            else
-            {
-                sql.query("UPDATE Tables SET `Group` = `Section`;"); 
-            }
-
+            Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
             this.loadSettings();
         }
 
@@ -590,101 +609,171 @@ namespace Aktywator
             throw new InvalidCastException("Unable to read numeric value from BWS field");
         }
 
-        public void syncNames(Tournament tournament, bool interactive, string startRounds, string section, DataGridView grid)
+        public void syncNames(Tournament tournament, bool interactive, string section, DataGridView grid)
         {
             int count = 0, countNew = 0, SKOK_STOLOW = Convert.ToInt32(main.numTeamsTableOffset.Value);
+            OleDbDataReader roundsReader = sql.select("SELECT `Section`, MIN(`Round`) FROM RoundData WHERE LowBoard > 0 GROUP BY `Section`;");
+            Dictionary<int, int> firstRounds = new Dictionary<int, int>();
+            while (roundsReader.Read())
+            {
+                firstRounds.Add(this.getBWSNumber(roundsReader, 0), this.getBWSNumber(roundsReader, 1));
+            }
+            roundsReader.Close();
+            if (firstRounds.Count == 0)
+            {
+                MessageBox.Show("W BWSie nie ma danych rund!", "Brak danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            StringBuilder pairsQuery = new StringBuilder("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE (");
+            List<string> roundQueries = new List<string>();
+            foreach (KeyValuePair<int, int> firstRound in firstRounds)
+            {
+                StringBuilder roundQuery = new StringBuilder("(`Round` = ");
+                roundQuery.Append(firstRound.Value);
+                roundQuery.Append(" AND `Section` = ");
+                roundQuery.Append(firstRound.Key);
+                roundQuery.Append(")");
+                roundQueries.Add(roundQuery.ToString());
+            }
+            pairsQuery.Append(String.Join(" OR ", roundQueries.ToArray()));
+            pairsQuery.Append(")");
+            if (tournament.type == Tournament.TYPE_TEAMY)
+            {
+                pairsQuery.Append(" AND `Table` <= ");
+                pairsQuery.Append(SKOK_STOLOW);
+            }
+            pairsQuery.Append(";");
+
             OleDbDataReader d;
-            startRounds = startRounds.Trim();
-            string fromRound = sql.selectOne("SELECT min(`Round`) FROM RoundData WHERE NSPair>0");
-            string sectionCondition = "";
-            if (!("*".Equals(section)))
+            d = sql.select(pairsQuery.ToString());
+
+            Dictionary<int, List<int>> sectionPairs = new Dictionary<int, List<int>>();
+            Dictionary<int, List<PairPosition>> pairs = new Dictionary<int, List<PairPosition>>();
+            while (d.Read())
             {
-                section = this.sectorLetterToNumber(section).ToString();
-                sectionCondition = " AND `Section` = " + section;
-            }
-            if (tournament.type != Tournament.TYPE_TEAMY)
-            {
-                if (tournament.type == Tournament.TYPE_PARY && startRounds.Length > 0)
+                int sectionNumber = this.getBWSNumber(d, 0);
+                int tableNumber = this.getBWSNumber(d, 1);
+                int nsPairNumber = this.getBWSNumber(d, 2);
+                int ewPairNumber = this.getBWSNumber(d, 3);
+                if (!sectionPairs.ContainsKey(sectionNumber))
                 {
-                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE NSPair>0 AND `Round` in (" + startRounds + ")" + sectionCondition);
+                    sectionPairs.Add(sectionNumber, new List<int>());
                 }
-                else
+                sectionPairs[sectionNumber].Add(nsPairNumber);
+                sectionPairs[sectionNumber].Add(ewPairNumber);
+                if (!pairs.ContainsKey(sectionNumber))
                 {
-                    d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound + sectionCondition);
+                    pairs.Add(sectionNumber, new List<PairPosition>());
+                }
+                pairs[sectionNumber].Add(new PairPosition { pairNo = nsPairNumber, position = "NS", table = tableNumber });
+                pairs[sectionNumber].Add(new PairPosition { pairNo = ewPairNumber, position = "EW", table = tableNumber });
+            }
+            d.Close();
+
+            Dictionary<int, List<String>> names = tournament.getBWSNames(grid);
+
+            Dictionary<int, List<int>> usedSections = new Dictionary<int, List<int>>();
+            List<int> extraPairs = new List<int>();
+            foreach (KeyValuePair<int, List<String>> pair in names)
+            {
+                bool foundInBWS = false;
+                foreach (KeyValuePair<int, List<int>> pairsInSection in sectionPairs)
+                {
+                    if (pairsInSection.Value.Contains(pair.Key))
+                    {
+                        if (!usedSections.ContainsKey(pairsInSection.Key))
+                        {
+                            usedSections.Add(pairsInSection.Key, new List<int>());
+                        }
+                        usedSections[pairsInSection.Key].Add(pair.Key);
+                        foundInBWS = true;
+                    }
+                }
+                if (!foundInBWS) {
+                    extraPairs.Add(pair.Key);
                 }
             }
-            else
-            {
-                d = sql.select("SELECT `Section`, `Table`, NSPair, EWPair FROM RoundData WHERE `Round`=" + fromRound + " AND `Table`<=" + SKOK_STOLOW + sectionCondition);
+
+            if (interactive) {
+                List<string> warnings = new List<string>();
+                foreach (KeyValuePair<int, List<int>> sectionData in sectionPairs)
+                {
+                    if (this.sectorNumberToLetter(sectionData.Key).Equals(section) || "*".Equals(section))
+                    {
+                        if (!usedSections.ContainsKey(sectionData.Key))
+                        {
+                            warnings.Add(" - w turnieju nie ma par dla sektora " + this.sectorNumberToLetter(sectionData.Key));
+                        }
+                        else
+                        {
+                            List<int> missingPairs = new List<int>();
+                            foreach (int pair in sectionData.Value)
+                            {
+                                if (!usedSections[sectionData.Key].Contains(pair))
+                                {
+                                    missingPairs.Add(pair);
+                                }
+                            }
+                            if (missingPairs.Count > 0)
+                            {
+                                StringBuilder warning = new StringBuilder(" - w sektorze ");
+                                warning.Append(this.sectorNumberToLetter(sectionData.Key));
+                                warning.Append(" brakuje ");
+                                warning.Append(missingPairs.Count);
+                                warning.Append(" par:");
+                                foreach (int pair in missingPairs)
+                                {
+                                    warning.Append(' ');
+                                    warning.Append(pair);
+                                }
+                                warnings.Add(warning.ToString());
+                            }
+                        }
+                    }
+                }
+                if (extraPairs.Count > 0)
+                {
+                    StringBuilder warning = new StringBuilder(" - w BWS nie ma w ogóle ");
+                    warning.Append(extraPairs.Count);
+                    warning.Append(" par:");
+                    foreach (int pair in extraPairs)
+                    {
+                        warning.Append(' ');
+                        warning.Append(pair);
+                    }
+                    warnings.Add(warning.ToString());
+                }
+
+                if (warnings.Count > 0)
+                {
+                    DialogResult warningDialog = MessageBox.Show("Wykryto potencjalne problemy z wczytaniem nazwisk: \n\n" + String.Join("\n", warnings.ToArray()) + "\n\nCzy chcesz wczytać nazwiska mimo wszystko?", "Problemy z nazwiskami", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (warningDialog == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
             }
 
             try
             {
-                Dictionary<int, List<String>> names = tournament.getBWSNames(grid);
-
-                while (d.Read())
-                {
-                    string pairSection = "*".Equals(section) ? this.getBWSNumber(d, 0).ToString() : section;
-                    string table = this.getBWSNumber(d, 1).ToString();
-                    int ns = this.getBWSNumber(d, 2);
-                    int ew = this.getBWSNumber(d, 3);
-
-                    try
-                    {
-                        if (!names.ContainsKey(ns))
-                        {
-                            throw new KeyNotFoundException(ns.ToString());
-                        }
-                        countNew += updateName(pairSection, table, "N", names[ns][0]);
-                        countNew += updateName(pairSection, table, "S", names[ns][1]);
-                        count += 2;
-                        if (tournament.type == Tournament.TYPE_TEAMY)
-                        {
-                            countNew += updateName(pairSection, (int.Parse(table) + SKOK_STOLOW).ToString(), "E",
-                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ns + TeamNamesSettings.OpenClosedDiff][0] : names[ns][0]);
-                            countNew += updateName(pairSection, (int.Parse(table) + SKOK_STOLOW).ToString(), "W",
-                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ns + TeamNamesSettings.OpenClosedDiff][1] : names[ns][1]);
-                            count += 2;
-                        }
-                    }
-                    catch (KeyNotFoundException keyE)
-                    {
-                        if (interactive)
-                        {
-                            DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + keyE.Message + ")"
-                            + ", który nie istnieje w wybranym turnieju."
-                            + "Może to nie ten turniej?" + "\n\n" + "Kontynuować wczytywanie?",
-                            "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                            if (dr == DialogResult.No) break;
-                        }
-                    }
-                    try
-                    {
-                        if (!names.ContainsKey(ew))
-                        {
-                            throw new KeyNotFoundException(ew.ToString());
-                        }
-                        countNew += updateName(pairSection, table, "E", names[ew][0]);
-                        countNew += updateName(pairSection, table, "W", names[ew][1]);
-                        count += 2;
-                        if (tournament.type == Tournament.TYPE_TEAMY)
-                        {
-                            countNew += updateName(pairSection, (int.Parse(table) + SKOK_STOLOW).ToString(), "N",
-                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ew + TeamNamesSettings.OpenClosedDiff][0] : names[ew][0]);
-                            countNew += updateName(pairSection, (int.Parse(table) + SKOK_STOLOW).ToString(), "S",
-                                names.ContainsKey(ns + TeamNamesSettings.OpenClosedDiff) ? names[ew + TeamNamesSettings.OpenClosedDiff][1] : names[ew][1]);
-                            count += 2;
-                        }
-                    }
-                    catch (KeyNotFoundException keyE)
-                    {
-                        if (interactive)
-                        {
-                            DialogResult dr = MessageBox.Show("W bws-ie jest para/team (" + keyE.Message + ")"
-                            + ", który nie istnieje w wybranym turnieju."
-                            + "Może to nie ten turniej?" + "\n\n" + "Kontynuować wczytywanie?",
-                            "Zły turniej", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                            if (dr == DialogResult.No) break;
+                int sectionNumber = 0;
+                if (!"*".Equals(section)) {
+                    sectionNumber = this.sectorLetterToNumber(section);
+                }
+                char[] seatMapping = { 'N', 'S', 'E', 'W' };
+                foreach (KeyValuePair<int, List<int>> sections in usedSections) {
+                    if ("*".Equals(section) || sectionNumber == sections.Key) {
+                        foreach (int pairNumber in sections.Value) {
+                            PairPosition pair = pairs[sections.Key].Find(delegate(PairPosition p) { return p.pairNo == pairNumber; });
+                            for (int i = 0; i < names[pair.pairNo].Count; i++) {
+                                countNew += this.updateName(sections.Key.ToString(), pair.table.ToString(), pair.position[i].ToString(), names[pair.pairNo][i]);
+                                if (tournament.type == Tournament.TYPE_TEAMY)
+                                {
+                                    char otherTableSeat = seatMapping[(Array.IndexOf(seatMapping, pair.position[i]) + 2) % 4];
+                                    countNew += this.updateName(sections.Key.ToString(), (pair.table + SKOK_STOLOW).ToString(), otherTableSeat.ToString(), names[pair.pairNo][i]);
+                                }
+                            }
+                            count += names[pair.pairNo].Count * ((tournament.type == Tournament.TYPE_TEAMY) ? 2 : 1);
                         }
                     }
                 }
@@ -768,6 +857,7 @@ namespace Aktywator
         {
             sql.query("DELETE FROM HandRecord WHERE `Section` = " + section);
             sql.query("DELETE FROM HandEvaluation WHERE `Section` = " + section);
+            this._differentRecordsDetected = false;
         }
 
         public void clearHandRecords()
@@ -847,6 +937,31 @@ namespace Aktywator
             }
             this.displayHandRecordInfo(this.loadSectionBoards(sections));
             return count;
+        }
+
+        private bool _differentRecordsDetected = false;
+        private bool _differentRecordsInSections = false;
+
+        public bool detectDifferentRecordsInSections()
+        {
+            this._ensureHandRecordStructure();
+            if (!this._differentRecordsDetected)
+            {
+                this._differentRecordsInSections = false;
+                OleDbDataReader sections = sql.select("SELECT DISTINCT COUNT(`Section`) FROM HandRecord GROUP BY Board, NorthSpades, NorthHearts, NorthDiamonds, NorthClubs, EastSpades, EastHearts, EastDiamonds, EastClubs, SouthSpades, SouthHearts, SouthDiamonds, SouthClubs");
+                while (sections.Read())
+                {
+                    int boardSections = this.getBWSNumber(sections, 0);
+                    int bwsSections = main.gwSections.Rows.Count;
+                    if (boardSections != bwsSections)
+                    {
+                        this._differentRecordsInSections = true;
+                        break;
+                    }
+                }
+                this._differentRecordsDetected = true;
+            }
+            return this._differentRecordsInSections;
         }
 
         internal string getMySQLDatabaseForSection()

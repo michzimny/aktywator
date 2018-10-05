@@ -90,9 +90,6 @@
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.sectionToolStrip = new System.Windows.Forms.ToolStrip();
-            this.eOomRounds = new System.Windows.Forms.ToolStripTextBox();
-            this.lOomLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.cbNamesSection = new System.Windows.Forms.ToolStripComboBox();
             this.namesPanel = new System.Windows.Forms.Panel();
@@ -802,9 +799,6 @@
             this.sectionToolStrip.GripMargin = new System.Windows.Forms.Padding(0);
             this.sectionToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.sectionToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.eOomRounds,
-            this.lOomLabel,
-            this.toolStripButton2,
             this.toolStripLabel1,
             this.cbNamesSection});
             this.sectionToolStrip.Location = new System.Drawing.Point(3, 458);
@@ -812,38 +806,6 @@
             this.sectionToolStrip.Size = new System.Drawing.Size(563, 25);
             this.sectionToolStrip.TabIndex = 30;
             this.sectionToolStrip.Text = "toolStrip5";
-            // 
-            // eOomRounds
-            // 
-            this.eOomRounds.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.eOomRounds.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.eOomRounds.Enabled = false;
-            this.eOomRounds.Name = "eOomRounds";
-            this.eOomRounds.Size = new System.Drawing.Size(80, 25);
-            this.eOomRounds.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
-            // 
-            // lOomLabel
-            // 
-            this.lOomLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.lOomLabel.Enabled = false;
-            this.lOomLabel.Name = "lOomLabel";
-            this.lOomLabel.Size = new System.Drawing.Size(92, 22);
-            this.lOomLabel.Text = "Rundy dla OOM";
-            this.lOomLabel.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton2.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripButton2.CheckOnClick = true;
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "‎✔";
-            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolStripButton2.ToolTipText = "Jeśli nie wiesz do czego to jest, to nic nie wpisuj!";
-            this.toolStripButton2.CheckedChanged += new System.EventHandler(this.toolStripButton2_CheckedChanged);
             // 
             // toolStripLabel1
             // 
@@ -1620,9 +1582,6 @@
         private System.Windows.Forms.ToolStripButton bTruncate;
         private System.Windows.Forms.ToolStripButton bAutoSync;
         private System.Windows.Forms.ToolStripTextBox eInterval;
-        private System.Windows.Forms.ToolStripTextBox eOomRounds;
-        private System.Windows.Forms.ToolStripLabel lOomLabel;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.DataGridView namesGridView;
         private System.Windows.Forms.Panel namesPanel;
         public System.Windows.Forms.NumericUpDown numTeamsTableOffset;
