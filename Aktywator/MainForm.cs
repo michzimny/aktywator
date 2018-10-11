@@ -688,12 +688,15 @@ namespace Aktywator
                     this.lPINWarning.Visible = true;
                     if (explicitWarning)
                     {
-                        MessageBox.Show("Próbujesz ustawić PIN, który jest łatwy do przewidzenia przez zawodników.\n\nMam nadzieję, że wiesz, co robisz!", "Przewidywalny PIN!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Próbujesz ustawić PIN, który jest łatwy do przewidzenia przez zawodników.\n\nMam nadzieję, że wiesz, co robisz!\n\nNiestety, nie możemy pozwolić Ci na wgranie do BWSa rozkładów.", "Przewidywalny PIN!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        this.bws.clearHandRecords();
+                        this.tabControl1.TabPages[2].Enabled = false;
                     }
                 }
                 else
                 {
                     this.lPINWarning.Visible = false;
+                    this.tabControl1.TabPages[2].Enabled = true;
                 }
             }
             catch (FormatException e)
