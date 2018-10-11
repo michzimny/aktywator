@@ -352,7 +352,7 @@ namespace Aktywator
             }
 
             List<Setting> defaultSettings = new List<Setting>();
-            defaultSettings.Add(new Setting("BM2PINcode", "text(4)", "'5431'"));
+            defaultSettings.Add(new Setting("BM2PINcode", "text(4)", "'" + this._getRandomPIN() + "'"));
             defaultSettings.Add(new Setting("BM2Ranking", "integer", "0"));
             defaultSettings.Add(new Setting("BM2GameSummary", "bit", "false"));
             defaultSettings.Add(new Setting("BM2SummaryPoints", "integer", "0"));
@@ -414,6 +414,16 @@ namespace Aktywator
             catch (OleDbException)
             {
             }
+        }
+
+        internal int[] _unsafePINs = { 0, 0x0457, 0x08AE, 0x0D05, 0x115C, 0x15B3, 0x1A0A, 0x1E61, 0x22B8, 0x270F, 0x04D2, 0x1537, 0x582, 0x1159 };
+        internal string _getRandomPIN(int oldPIN = 0)
+        {
+            while (Array.IndexOf(this._unsafePINs, oldPIN) > -1)
+            {
+                oldPIN = (new Random()).Next(10000);
+            }
+            return String.Format("{0,4:D4}", oldPIN);
         }
 
         private void _ensureHandRecordStructure()
@@ -508,6 +518,7 @@ namespace Aktywator
             string playerNames = Setting.load("BM2ShowPlayerNames", this, errors, section);
             main.xShowPlayerNames.Checked = !("".Equals(playerNames) || "0".Equals(playerNames));
             main.xPINcode.Text = Setting.load("BM2PINcode", this, errors, section);
+            main.checkPINsafety(main.xPINcode.Text, this._unsafePINs);
             int resultsOverview = 0;
             int.TryParse(Setting.load("BM2ResultsOverview", this, errors, section), out resultsOverview);
             main.xResultsOverview.SelectedIndex = resultsOverview;
@@ -550,6 +561,7 @@ namespace Aktywator
         public void saveSettings()
         {
             string section = "*".Equals(main.cbSettingsSection.Text.Trim()) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text.Trim()).ToString();
+            main.checkPINsafety(main.xPINcode.Text, this._unsafePINs, true);
             StringBuilder errors = new StringBuilder();
             foreach (Setting s in settings)
             {

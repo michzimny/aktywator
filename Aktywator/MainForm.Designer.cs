@@ -54,6 +54,7 @@
             this.cbSettingsSection = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.lPINWarning = new System.Windows.Forms.Label();
             this.xResetFunctionKey = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.xPINcode = new System.Windows.Forms.TextBox();
@@ -147,6 +148,7 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
+            this.bRandomPIN = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -393,6 +395,8 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.bRandomPIN);
+            this.groupBox7.Controls.Add(this.lPINWarning);
             this.groupBox7.Controls.Add(this.xResetFunctionKey);
             this.groupBox7.Controls.Add(this.label2);
             this.groupBox7.Controls.Add(this.xPINcode);
@@ -404,6 +408,17 @@
             this.groupBox7.TabIndex = 44;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Opcje sędziowskie";
+            // 
+            // lPINWarning
+            // 
+            this.lPINWarning.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lPINWarning.Image = ((System.Drawing.Image)(resources.GetObject("lPINWarning.Image")));
+            this.lPINWarning.Location = new System.Drawing.Point(41, 22);
+            this.lPINWarning.Name = "lPINWarning";
+            this.lPINWarning.Size = new System.Drawing.Size(22, 18);
+            this.lPINWarning.TabIndex = 30;
+            this.lPINWarning.Visible = false;
+            this.lPINWarning.Click += new System.EventHandler(this.lPINWarning_Click);
             // 
             // xResetFunctionKey
             // 
@@ -426,12 +441,13 @@
             // 
             // xPINcode
             // 
-            this.xPINcode.Location = new System.Drawing.Point(41, 21);
+            this.xPINcode.Location = new System.Drawing.Point(69, 22);
             this.xPINcode.MaxLength = 4;
             this.xPINcode.Name = "xPINcode";
             this.xPINcode.Size = new System.Drawing.Size(37, 20);
             this.xPINcode.TabIndex = 14;
             this.xPINcode.Text = "0000";
+            this.xPINcode.TextChanged += new System.EventHandler(this.xPINcode_TextChanged);
             // 
             // xConfirmNP
             // 
@@ -1439,6 +1455,16 @@
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
             // 
+            // bRandomPIN
+            // 
+            this.bRandomPIN.Image = ((System.Drawing.Image)(resources.GetObject("bRandomPIN.Image")));
+            this.bRandomPIN.Location = new System.Drawing.Point(112, 19);
+            this.bRandomPIN.Name = "bRandomPIN";
+            this.bRandomPIN.Size = new System.Drawing.Size(24, 23);
+            this.bRandomPIN.TabIndex = 31;
+            this.bRandomPIN.UseVisualStyleBackColor = true;
+            this.bRandomPIN.Click += new System.EventHandler(this.bRandomPIN_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1622,6 +1648,8 @@
         private System.Windows.Forms.ToolStrip sectionToolStrip;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox cbNamesSection;
+        public System.Windows.Forms.Label lPINWarning;
+        private System.Windows.Forms.Button bRandomPIN;
     }
 }
 

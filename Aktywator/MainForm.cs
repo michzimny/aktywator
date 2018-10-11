@@ -678,5 +678,42 @@ namespace Aktywator
             }
         }
 
+
+        internal void checkPINsafety(string pin, int[] unsafePINs, bool explicitWarning = false)
+        {
+            try
+            {
+                if (Array.IndexOf(unsafePINs, Int32.Parse(pin)) > -1)
+                {
+                    this.lPINWarning.Visible = true;
+                    if (explicitWarning)
+                    {
+                        MessageBox.Show("Próbujesz ustawić PIN, który jest łatwy do przewidzenia przez zawodników.\n\nMam nadzieję, że wiesz, co robisz!", "Przewidywalny PIN!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    this.lPINWarning.Visible = false;
+                }
+            }
+            catch (FormatException e)
+            {
+            }
+        }
+
+        private void xPINcode_TextChanged(object sender, EventArgs e)
+        {
+            this.checkPINsafety(this.xPINcode.Text, this.bws._unsafePINs);
+        }
+
+        private void lPINWarning_Click(object sender, EventArgs e)
+        {
+            this.checkPINsafety(this.xPINcode.Text, this.bws._unsafePINs, true);
+        }
+
+        private void bRandomPIN_Click(object sender, EventArgs e)
+        {
+            this.xPINcode.Text = this.bws._getRandomPIN();
+        }
     }
 }
