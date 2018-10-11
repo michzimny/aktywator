@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.open = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -54,6 +54,7 @@
             this.cbSettingsSection = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.bRandomPIN = new System.Windows.Forms.Button();
             this.lPINWarning = new System.Windows.Forms.Label();
             this.xResetFunctionKey = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -148,7 +149,6 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
-            this.bRandomPIN = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -409,11 +409,21 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Opcje sędziowskie";
             // 
+            // bRandomPIN
+            // 
+            this.bRandomPIN.Image = ((System.Drawing.Image)(resources.GetObject("bRandomPIN.Image")));
+            this.bRandomPIN.Location = new System.Drawing.Point(94, 21);
+            this.bRandomPIN.Name = "bRandomPIN";
+            this.bRandomPIN.Size = new System.Drawing.Size(22, 22);
+            this.bRandomPIN.TabIndex = 31;
+            this.bRandomPIN.UseVisualStyleBackColor = true;
+            this.bRandomPIN.Click += new System.EventHandler(this.bRandomPIN_Click);
+            // 
             // lPINWarning
             // 
             this.lPINWarning.Cursor = System.Windows.Forms.Cursors.Help;
             this.lPINWarning.Image = ((System.Drawing.Image)(resources.GetObject("lPINWarning.Image")));
-            this.lPINWarning.Location = new System.Drawing.Point(41, 22);
+            this.lPINWarning.Location = new System.Drawing.Point(10, 22);
             this.lPINWarning.Name = "lPINWarning";
             this.lPINWarning.Size = new System.Drawing.Size(22, 18);
             this.lPINWarning.TabIndex = 30;
@@ -433,7 +443,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 25);
+            this.label2.Location = new System.Drawing.Point(30, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(25, 13);
             this.label2.TabIndex = 27;
@@ -441,12 +451,13 @@
             // 
             // xPINcode
             // 
-            this.xPINcode.Location = new System.Drawing.Point(69, 22);
+            this.xPINcode.Location = new System.Drawing.Point(56, 22);
             this.xPINcode.MaxLength = 4;
             this.xPINcode.Name = "xPINcode";
             this.xPINcode.Size = new System.Drawing.Size(37, 20);
             this.xPINcode.TabIndex = 14;
             this.xPINcode.Text = "0000";
+            this.xPINcode.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.xPINcode.TextChanged += new System.EventHandler(this.xPINcode_TextChanged);
             // 
             // xConfirmNP
@@ -1320,14 +1331,14 @@
             this.gwSections.AllowUserToResizeRows = false;
             this.gwSections.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.gwSections.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.gwSections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwSections.Location = new System.Drawing.Point(9, 118);
             this.gwSections.MultiSelect = false;
@@ -1454,16 +1465,6 @@
             // 
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
-            // 
-            // bRandomPIN
-            // 
-            this.bRandomPIN.Image = ((System.Drawing.Image)(resources.GetObject("bRandomPIN.Image")));
-            this.bRandomPIN.Location = new System.Drawing.Point(112, 19);
-            this.bRandomPIN.Name = "bRandomPIN";
-            this.bRandomPIN.Size = new System.Drawing.Size(24, 23);
-            this.bRandomPIN.TabIndex = 31;
-            this.bRandomPIN.UseVisualStyleBackColor = true;
-            this.bRandomPIN.Click += new System.EventHandler(this.bRandomPIN_Click);
             // 
             // MainForm
             // 
