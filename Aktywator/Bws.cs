@@ -272,6 +272,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2RecordBidding", main.xCollectBidding, this, new Version(2, 0, 0), new Version(1, 3, 1)));
             settings.Add(new Setting("BM2RecordPlay", main.xCollectPlay, this, new Version(2, 0, 0), new Version(1, 3, 1)));
             settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this, new Version(3, 2, 1), new Version(2, 2, 1)));
+            settings.Add(new Setting("BM2TDCall", main.xCallTD, this, new Version(3, 3, 1), new Version(2, 3, 1)));
             return settings;
         }
 
@@ -344,6 +345,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2RecordBidding", "bit", "false"));
             settings.Add(new Setting("BM2RecordPlay", "bit", "false"));
             settings.Add(new Setting("BM2ValidateLeadCard", "bit", "false"));
+            settings.Add(new Setting("BM2TDCall", "bit", "false"));
             settings.Add(new Setting("BM2ShowPlayerNames", "integer", "0"));
 
             foreach (Setting s in settings)

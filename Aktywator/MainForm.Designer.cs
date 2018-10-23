@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.open = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -54,6 +54,7 @@
             this.cbSettingsSection = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.xCallTD = new System.Windows.Forms.CheckBox();
             this.bRandomPIN = new System.Windows.Forms.Button();
             this.lPINWarning = new System.Windows.Forms.Label();
             this.xResetFunctionKey = new System.Windows.Forms.CheckBox();
@@ -187,7 +188,7 @@
             this.status1,
             this.status2,
             this.status3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 586);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 598);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(583, 22);
             this.statusStrip1.SizingGrip = false;
@@ -220,7 +221,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(583, 586);
+            this.groupBox1.Size = new System.Drawing.Size(583, 598);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -235,7 +236,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.ShowToolTips = true;
-            this.tabControl1.Size = new System.Drawing.Size(577, 537);
+            this.tabControl1.Size = new System.Drawing.Size(577, 551);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -246,7 +247,7 @@
             this.tpSettings.Location = new System.Drawing.Point(4, 23);
             this.tpSettings.Name = "tpSettings";
             this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSettings.Size = new System.Drawing.Size(569, 510);
+            this.tpSettings.Size = new System.Drawing.Size(569, 524);
             this.tpSettings.TabIndex = 0;
             this.tpSettings.Text = "Ustawienia";
             this.tpSettings.UseVisualStyleBackColor = true;
@@ -265,9 +266,9 @@
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 5);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(563, 502);
+            this.panel1.Size = new System.Drawing.Size(563, 518);
             this.panel1.TabIndex = 29;
             // 
             // toolStrip2
@@ -280,7 +281,7 @@
             this.bLoad,
             this.bSave});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 455);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 471);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(563, 25);
             this.toolStrip2.TabIndex = 51;
@@ -316,7 +317,7 @@
             this.lDetectedVersion,
             this.toolStripStatusLabel3,
             this.lRequiredFirmware});
-            this.statusStrip2.Location = new System.Drawing.Point(0, 480);
+            this.statusStrip2.Location = new System.Drawing.Point(0, 496);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.Size = new System.Drawing.Size(563, 22);
             this.statusStrip2.SizingGrip = false;
@@ -400,6 +401,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.xCallTD);
             this.groupBox7.Controls.Add(this.bRandomPIN);
             this.groupBox7.Controls.Add(this.lPINWarning);
             this.groupBox7.Controls.Add(this.xResetFunctionKey);
@@ -409,10 +411,20 @@
             this.groupBox7.Controls.Add(this.xScoreCorrection);
             this.groupBox7.Location = new System.Drawing.Point(268, 324);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(294, 121);
+            this.groupBox7.Size = new System.Drawing.Size(294, 143);
             this.groupBox7.TabIndex = 44;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Opcje sędziowskie";
+            // 
+            // xCallTD
+            // 
+            this.xCallTD.AutoSize = true;
+            this.xCallTD.Location = new System.Drawing.Point(13, 115);
+            this.xCallTD.Name = "xCallTD";
+            this.xCallTD.Size = new System.Drawing.Size(186, 17);
+            this.xCallTD.TabIndex = 32;
+            this.xCallTD.Text = "zawodnik może wezwać sędziego";
+            this.xCallTD.UseVisualStyleBackColor = true;
             // 
             // bRandomPIN
             // 
@@ -676,7 +688,7 @@
             this.groupBox5.Controls.Add(this.xViewHandrecord);
             this.groupBox5.Location = new System.Drawing.Point(5, 324);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(257, 121);
+            this.groupBox5.Size = new System.Drawing.Size(257, 143);
             this.groupBox5.TabIndex = 42;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Rozkłady";
@@ -820,7 +832,7 @@
             this.tpNames.Location = new System.Drawing.Point(4, 23);
             this.tpNames.Name = "tpNames";
             this.tpNames.Padding = new System.Windows.Forms.Padding(3);
-            this.tpNames.Size = new System.Drawing.Size(569, 510);
+            this.tpNames.Size = new System.Drawing.Size(569, 524);
             this.tpNames.TabIndex = 1;
             this.tpNames.Text = "Nazwiska";
             this.tpNames.UseVisualStyleBackColor = true;
@@ -834,7 +846,7 @@
             this.sectionToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.cbNamesSection});
-            this.sectionToolStrip.Location = new System.Drawing.Point(3, 457);
+            this.sectionToolStrip.Location = new System.Drawing.Point(3, 471);
             this.sectionToolStrip.Name = "sectionToolStrip";
             this.sectionToolStrip.Size = new System.Drawing.Size(563, 25);
             this.sectionToolStrip.TabIndex = 30;
@@ -1114,7 +1126,7 @@
             this.bSync,
             this.eInterval,
             this.bAutoSync});
-            this.syncToolStrip.Location = new System.Drawing.Point(3, 482);
+            this.syncToolStrip.Location = new System.Drawing.Point(3, 496);
             this.syncToolStrip.Name = "syncToolStrip";
             this.syncToolStrip.Size = new System.Drawing.Size(563, 25);
             this.syncToolStrip.TabIndex = 27;
@@ -1243,7 +1255,7 @@
             this.tpRecords.Location = new System.Drawing.Point(4, 23);
             this.tpRecords.Name = "tpRecords";
             this.tpRecords.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRecords.Size = new System.Drawing.Size(569, 510);
+            this.tpRecords.Size = new System.Drawing.Size(569, 524);
             this.tpRecords.TabIndex = 2;
             this.tpRecords.Text = "Rozkłady";
             this.tpRecords.UseVisualStyleBackColor = true;
@@ -1338,14 +1350,14 @@
             this.gwSections.AllowUserToResizeRows = false;
             this.gwSections.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.gwSections.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.gwSections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwSections.Location = new System.Drawing.Point(9, 118);
             this.gwSections.MultiSelect = false;
@@ -1370,7 +1382,7 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bLoadHands,
             this.bClearHands});
-            this.toolStrip3.Location = new System.Drawing.Point(3, 482);
+            this.toolStrip3.Location = new System.Drawing.Point(3, 496);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(563, 25);
             this.toolStrip3.TabIndex = 9;
@@ -1486,7 +1498,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 608);
+            this.ClientSize = new System.Drawing.Size(583, 620);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
@@ -1668,6 +1680,7 @@
         public System.Windows.Forms.Label lPINWarning;
         private System.Windows.Forms.Button bRandomPIN;
         private System.Windows.Forms.ImageList ilTabIcons;
+        public System.Windows.Forms.CheckBox xCallTD;
     }
 }
 
