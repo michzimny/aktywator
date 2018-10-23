@@ -8,6 +8,7 @@ Aktywator 1.1.5 (dev)
    - losowanie PINu przy inicjalizacji
    - możliwość ręcznego wylosowania PINu
    - wyłączanie rozkładów przy wykryciu "łatwego" PINu
+ * opcja wezwania sędziego z pierniczka
 
 Aktywator 1.1.4
 05.10.2018 [mkl]
