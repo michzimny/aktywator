@@ -686,17 +686,21 @@ namespace Aktywator
                 if (Array.IndexOf(unsafePINs, Int32.Parse(pin)) > -1)
                 {
                     this.lPINWarning.Visible = true;
+                    this.tpRecords.Enabled = false;
+                    this.tpRecords.ImageIndex = 3;
+                    this.tpRecords.ToolTipText = "Wczytanie rozkładów przy przewidywalnym PINie jest niedozwolone.";
                     if (explicitWarning)
                     {
                         MessageBox.Show("Próbujesz ustawić PIN, który jest łatwy do przewidzenia przez zawodników.\n\nMam nadzieję, że wiesz, co robisz!\n\nNiestety, nie możemy pozwolić Ci na wgranie do BWSa rozkładów.", "Przewidywalny PIN!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         this.bws.clearHandRecords();
-                        this.tabControl1.TabPages[2].Enabled = false;
                     }
                 }
                 else
                 {
                     this.lPINWarning.Visible = false;
-                    this.tabControl1.TabPages[2].Enabled = true;
+                    this.tpRecords.Enabled = true;
+                    this.tpRecords.ImageIndex = 2;
+                    this.tpRecords.ToolTipText = "";
                 }
             }
             catch (FormatException e)
@@ -717,6 +721,14 @@ namespace Aktywator
         private void bRandomPIN_Click(object sender, EventArgs e)
         {
             this.xPINcode.Text = this.bws._getRandomPIN();
+        }
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (!e.TabPage.Enabled)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.open = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -38,7 +38,7 @@
             this.status3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tpSettings = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.bLoad = new System.Windows.Forms.ToolStripButton();
@@ -90,7 +90,7 @@
             this.xShowPercentage = new System.Windows.Forms.CheckBox();
             this.xShowContract = new System.Windows.Forms.CheckBox();
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tpNames = new System.Windows.Forms.TabPage();
             this.sectionToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.cbNamesSection = new System.Windows.Forms.ToolStripComboBox();
@@ -127,7 +127,7 @@
             this.bMysqlSettings = new System.Windows.Forms.ToolStripButton();
             this.bForceSync = new System.Windows.Forms.ToolStripButton();
             this.bTruncate = new System.Windows.Forms.ToolStripButton();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tpRecords = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -142,6 +142,7 @@
             this.bClearHands = new System.Windows.Forms.ToolStripButton();
             this.lRecordSections = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.ilTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -152,7 +153,7 @@
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tpSettings.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.statusStrip2.SuspendLayout();
@@ -162,7 +163,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tpNames.SuspendLayout();
             this.sectionToolStrip.SuspendLayout();
             this.namesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNamesRefreshInterval)).BeginInit();
@@ -170,7 +171,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.namesGridView)).BeginInit();
             this.syncToolStrip.SuspendLayout();
             this.toolStrip4.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tpRecords.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gwSections)).BeginInit();
             this.toolStrip3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -226,25 +227,29 @@
             // tabControl1
             // 
             this.tabControl1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tpSettings);
+            this.tabControl1.Controls.Add(this.tpNames);
+            this.tabControl1.Controls.Add(this.tpRecords);
+            this.tabControl1.ImageList = this.ilTabIcons;
             this.tabControl1.Location = new System.Drawing.Point(0, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.ShowToolTips = true;
             this.tabControl1.Size = new System.Drawing.Size(577, 537);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
-            // tabPage1
+            // tpSettings
             // 
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(569, 511);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Ustawienia";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpSettings.Controls.Add(this.panel1);
+            this.tpSettings.ImageIndex = 0;
+            this.tpSettings.Location = new System.Drawing.Point(4, 23);
+            this.tpSettings.Name = "tpSettings";
+            this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSettings.Size = new System.Drawing.Size(569, 510);
+            this.tpSettings.TabIndex = 0;
+            this.tpSettings.Text = "Ustawienia";
+            this.tpSettings.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -260,7 +265,7 @@
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 6);
+            this.panel1.Location = new System.Drawing.Point(3, 5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(563, 502);
             this.panel1.TabIndex = 29;
@@ -805,19 +810,20 @@
             this.xResultsOverview.Size = new System.Drawing.Size(103, 21);
             this.xResultsOverview.TabIndex = 28;
             // 
-            // tabPage2
+            // tpNames
             // 
-            this.tabPage2.Controls.Add(this.sectionToolStrip);
-            this.tabPage2.Controls.Add(this.namesPanel);
-            this.tabPage2.Controls.Add(this.syncToolStrip);
-            this.tabPage2.Controls.Add(this.toolStrip4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(569, 511);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Nazwiska";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpNames.Controls.Add(this.sectionToolStrip);
+            this.tpNames.Controls.Add(this.namesPanel);
+            this.tpNames.Controls.Add(this.syncToolStrip);
+            this.tpNames.Controls.Add(this.toolStrip4);
+            this.tpNames.ImageIndex = 1;
+            this.tpNames.Location = new System.Drawing.Point(4, 23);
+            this.tpNames.Name = "tpNames";
+            this.tpNames.Padding = new System.Windows.Forms.Padding(3);
+            this.tpNames.Size = new System.Drawing.Size(569, 510);
+            this.tpNames.TabIndex = 1;
+            this.tpNames.Text = "Nazwiska";
+            this.tpNames.UseVisualStyleBackColor = true;
             // 
             // sectionToolStrip
             // 
@@ -828,7 +834,7 @@
             this.sectionToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.cbNamesSection});
-            this.sectionToolStrip.Location = new System.Drawing.Point(3, 458);
+            this.sectionToolStrip.Location = new System.Drawing.Point(3, 457);
             this.sectionToolStrip.Name = "sectionToolStrip";
             this.sectionToolStrip.Size = new System.Drawing.Size(563, 25);
             this.sectionToolStrip.TabIndex = 30;
@@ -1108,7 +1114,7 @@
             this.bSync,
             this.eInterval,
             this.bAutoSync});
-            this.syncToolStrip.Location = new System.Drawing.Point(3, 483);
+            this.syncToolStrip.Location = new System.Drawing.Point(3, 482);
             this.syncToolStrip.Name = "syncToolStrip";
             this.syncToolStrip.Size = new System.Drawing.Size(563, 25);
             this.syncToolStrip.TabIndex = 27;
@@ -1219,27 +1225,28 @@
             this.bTruncate.Text = "Usuń nazwiska z BWS";
             this.bTruncate.Click += new System.EventHandler(this.bTruncate_Click);
             // 
-            // tabPage3
+            // tpRecords
             // 
-            this.tabPage3.Controls.Add(this.label17);
-            this.tabPage3.Controls.Add(this.label18);
-            this.tabPage3.Controls.Add(this.label15);
-            this.tabPage3.Controls.Add(this.label16);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.label14);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Controls.Add(this.gwSections);
-            this.tabPage3.Controls.Add(this.toolStrip3);
-            this.tabPage3.Controls.Add(this.lRecordSections);
-            this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(569, 511);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Rozkłady";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpRecords.Controls.Add(this.label17);
+            this.tpRecords.Controls.Add(this.label18);
+            this.tpRecords.Controls.Add(this.label15);
+            this.tpRecords.Controls.Add(this.label16);
+            this.tpRecords.Controls.Add(this.label13);
+            this.tpRecords.Controls.Add(this.label14);
+            this.tpRecords.Controls.Add(this.label12);
+            this.tpRecords.Controls.Add(this.label10);
+            this.tpRecords.Controls.Add(this.gwSections);
+            this.tpRecords.Controls.Add(this.toolStrip3);
+            this.tpRecords.Controls.Add(this.lRecordSections);
+            this.tpRecords.Controls.Add(this.label11);
+            this.tpRecords.ImageIndex = 2;
+            this.tpRecords.Location = new System.Drawing.Point(4, 23);
+            this.tpRecords.Name = "tpRecords";
+            this.tpRecords.Padding = new System.Windows.Forms.Padding(3);
+            this.tpRecords.Size = new System.Drawing.Size(569, 510);
+            this.tpRecords.TabIndex = 2;
+            this.tpRecords.Text = "Rozkłady";
+            this.tpRecords.UseVisualStyleBackColor = true;
             // 
             // label17
             // 
@@ -1331,14 +1338,14 @@
             this.gwSections.AllowUserToResizeRows = false;
             this.gwSections.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.gwSections.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gwSections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwSections.Location = new System.Drawing.Point(9, 118);
             this.gwSections.MultiSelect = false;
@@ -1363,7 +1370,7 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bLoadHands,
             this.bClearHands});
-            this.toolStrip3.Location = new System.Drawing.Point(3, 483);
+            this.toolStrip3.Location = new System.Drawing.Point(3, 482);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(563, 25);
             this.toolStrip3.TabIndex = 9;
@@ -1407,6 +1414,15 @@
             this.label11.Size = new System.Drawing.Size(479, 78);
             this.label11.TabIndex = 1;
             this.label11.Text = resources.GetString("label11.Text");
+            // 
+            // ilTabIcons
+            // 
+            this.ilTabIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilTabIcons.ImageStream")));
+            this.ilTabIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilTabIcons.Images.SetKeyName(0, "CheckBoxHS.png");
+            this.ilTabIcons.Images.SetKeyName(1, "EnvelopeHS.png");
+            this.ilTabIcons.Images.SetKeyName(2, "ShowAllCommentsHS.png");
+            this.ilTabIcons.Images.SetKeyName(3, "WarningHS.png");
             // 
             // timer
             // 
@@ -1487,7 +1503,7 @@
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tpSettings.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
@@ -1506,8 +1522,8 @@
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tpNames.ResumeLayout(false);
+            this.tpNames.PerformLayout();
             this.sectionToolStrip.ResumeLayout(false);
             this.sectionToolStrip.PerformLayout();
             this.namesPanel.ResumeLayout(false);
@@ -1519,8 +1535,8 @@
             this.syncToolStrip.PerformLayout();
             this.toolStrip4.ResumeLayout(false);
             this.toolStrip4.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tpRecords.ResumeLayout(false);
+            this.tpRecords.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gwSections)).EndInit();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
@@ -1540,7 +1556,7 @@
         private System.Windows.Forms.ToolStripStatusLabel status3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tpSettings;
         public System.Windows.Forms.TextBox xPINcode;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.CheckBox xAutoShutDownBPC;
@@ -1555,7 +1571,7 @@
         public System.Windows.Forms.CheckBox xShowPercentage;
         public System.Windows.Forms.CheckBox xRepeatResults;
         public System.Windows.Forms.CheckBox xShowResults;
-        public System.Windows.Forms.TabPage tabPage2;
+        public System.Windows.Forms.TabPage tpNames;
         public System.Windows.Forms.CheckBox xConfirmNP;
         public System.Windows.Forms.CheckBox xShowPlayerNames;
         public System.Windows.Forms.CheckBox xAutoBoardNumber;
@@ -1578,7 +1594,7 @@
         private System.Windows.Forms.Label lSkok;
         public System.Windows.Forms.ComboBox xResultsOverview;
         public System.Windows.Forms.CheckBox xViewHandrecord;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpRecords;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.OpenFileDialog openPBN;
         public System.Windows.Forms.CheckBox xCollectPlay;
@@ -1651,6 +1667,7 @@
         private System.Windows.Forms.ToolStripComboBox cbNamesSection;
         public System.Windows.Forms.Label lPINWarning;
         private System.Windows.Forms.Button bRandomPIN;
+        private System.Windows.Forms.ImageList ilTabIcons;
     }
 }
 
