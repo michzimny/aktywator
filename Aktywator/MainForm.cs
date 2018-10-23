@@ -536,15 +536,19 @@ namespace Aktywator
                         confirmMsg.Append("\nNagłówek pliku: " + pbn.title);
                     }
                     confirmMsg.Append("\nPierwszy rozkład: ");
-                    for (int i = 0; i < pbn.handRecords[bws.lowBoard()].north.Length; i++)
+                    int lowBoard = bws.lowBoard();
+                    while (lowBoard < pbn.handRecords.Length && pbn.handRecords[lowBoard] == null) {
+                        lowBoard++;
+                    }
+                    for (int i = 0; i < pbn.handRecords[lowBoard].north.Length; i++)
                     {
-                        if ("".Equals(pbn.handRecords[bws.lowBoard()].north[i]))
+                        if ("".Equals(pbn.handRecords[lowBoard].north[i]))
                         {
                             confirmMsg.Append("renons, ");
                         }
                         else
                         {
-                            confirmMsg.Append(pbn.handRecords[bws.lowBoard()].north[i]);
+                            confirmMsg.Append(pbn.handRecords[lowBoard].north[i]);
                             break;
                         }
                     }

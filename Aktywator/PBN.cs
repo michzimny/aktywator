@@ -43,6 +43,10 @@ namespace Aktywator
                     this._count++;
                 }
             }
+            if (this._count == 0)
+            {
+                throw new Exception("PBN nie zawiera rozdań z zadanego przedziału");
+            }
             if (pbn.Boards.Count > 0 && pbn.Boards[0].HasField("Event"))
             {
                 this._title = pbn.Boards[0].GetField("Event");
