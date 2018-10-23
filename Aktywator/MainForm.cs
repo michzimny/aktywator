@@ -85,18 +85,46 @@ namespace Aktywator
             bindSettingChanges();
             bws.loadSettings();
 
+            this.checkRecordsForSectionGroups();
+
             tournament = this.detectTeamyTournament();
             if (tournament != null)
             {
                 updateTournamentInfo(tournament);
+                this.rbIMPTeams.Checked = true;
             }
             else
             {
                 syncToolStrip.Visible = false;
                 namesPanel.Visible = false;
+                this.rbMatchpoints.Checked = true;
             }
 
             this.WindowState = FormWindowState.Normal;
+        }
+
+        internal void checkRecordsForSectionGroups()
+        {
+            xGroupSections.Enabled = false;
+            if (this.detectTeamyTournament() == null)
+            {
+                if (cbSettingsSection.Items.Count > 2)
+                {
+                    if (bws.detectDifferentRecordsInSections())
+                    {
+                        bws.sectionGroupWarning();
+                        xGroupSections.Checked = false;
+                    }
+                    else
+                    {
+                        xGroupSections.Enabled = true;
+                    }
+                }
+            }
+            else
+            {
+                xGroupSections.Checked = false;
+            }
         }
 
         private void shortenFilenameLabel()
@@ -326,41 +354,13 @@ namespace Aktywator
 
         public void xShowResults_CheckedChanged(object sender, EventArgs e)
         {
-            if (xShowResults.Checked)
-            {
-                xRepeatResults.Enabled = true;
-                xShowPercentage.Enabled = true;
-                xResultsOverview.Enabled = true;
-                xGroupSections.Enabled = !bws.detectDifferentRecordsInSections();
-            }
-            else
-            {
-                xRepeatResults.Enabled = false;
-                xShowPercentage.Enabled = false;
-                xShowPercentage.Checked = false;
-                xResultsOverview.Enabled = false;
-                xGroupSections.Enabled = false;
-            }
-            if (cbSettingsSection.Items.Count > 2 || bws.detectDifferentRecordsInSections())
-            {
-                bws.sectionGroupWarning();
-            }
-            if (cbSettingsSection.Items.Count <= 2)
-            {
-                xGroupSections.Enabled = false;
-            }
+            xRepeatResults.Enabled = xShowResults.Checked;
+            xResultsOverview.Enabled = xShowResults.Checked;
         }
 
         private void xMemberNumbers_CheckedChanged(object sender, EventArgs e)
         {
-            if (xMemberNumbers.Checked)
-            {
-                xMemberNumbersNoBlankEntry.Enabled = true;
-            }
-            else
-            {
-                xMemberNumbersNoBlankEntry.Enabled = false;
-            }
+            xMemberNumbersNoBlankEntry.Enabled = xMemberNumbers.Checked;
         }
 
         private void bMySQLTournament_Click(object sender, EventArgs e)
@@ -734,5 +734,15 @@ namespace Aktywator
                 e.Cancel = true;
             }
         }
+
+        private void xShowPercentage_CheckedChanged(object sender, EventArgs e)
+        {
+            bool teamsTournament = (this.detectTeamyTournament() != null);
+            this.rbMatchpoints.Enabled = xShowPercentage.Checked && !teamsTournament;
+            this.rbIMPButler.Enabled = xShowPercentage.Checked && !teamsTournament;
+            this.rbIMPCavendish.Enabled = xShowPercentage.Checked && !teamsTournament;
+            this.rbIMPTeams.Enabled = xShowPercentage.Checked && teamsTournament;
+        }
+
     }
 }

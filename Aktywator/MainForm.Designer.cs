@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.open = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -53,7 +53,12 @@
             this.lFirstSectorSettings = new System.Windows.Forms.Label();
             this.cbSettingsSection = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
+            this.xLeadCard = new System.Windows.Forms.CheckBox();
+            this.xViewHandrecord = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.xAutoShutDownBPC = new System.Windows.Forms.CheckBox();
             this.xCallTD = new System.Windows.Forms.CheckBox();
             this.bRandomPIN = new System.Windows.Forms.Button();
             this.lPINWarning = new System.Windows.Forms.Label();
@@ -68,7 +73,6 @@
             this.xMemberNumbersNoBlankEntry = new System.Windows.Forms.CheckBox();
             this.xShowPlayerNames = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.xAutoShutDownBPC = new System.Windows.Forms.CheckBox();
             this.xRemainingBoards = new System.Windows.Forms.CheckBox();
             this.xNextSeatings = new System.Windows.Forms.CheckBox();
             this.xScoreRecap = new System.Windows.Forms.CheckBox();
@@ -79,16 +83,16 @@
             this.xIntermediateResults = new System.Windows.Forms.CheckBox();
             this.xAutoBoardNumber = new System.Windows.Forms.CheckBox();
             this.xCollectBidding = new System.Windows.Forms.CheckBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
-            this.xLeadCard = new System.Windows.Forms.CheckBox();
-            this.xViewHandrecord = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.rbIMPButler = new System.Windows.Forms.RadioButton();
+            this.rbIMPCavendish = new System.Windows.Forms.RadioButton();
+            this.rbIMPTeams = new System.Windows.Forms.RadioButton();
+            this.rbMatchpoints = new System.Windows.Forms.RadioButton();
             this.lGroupSectionsWarning = new System.Windows.Forms.Label();
-            this.xGroupSections = new System.Windows.Forms.CheckBox();
             this.xShowResults = new System.Windows.Forms.CheckBox();
-            this.xRepeatResults = new System.Windows.Forms.CheckBox();
+            this.xGroupSections = new System.Windows.Forms.CheckBox();
             this.xShowPercentage = new System.Windows.Forms.CheckBox();
+            this.xRepeatResults = new System.Windows.Forms.CheckBox();
             this.xShowContract = new System.Windows.Forms.CheckBox();
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
             this.tpNames = new System.Windows.Forms.TabPage();
@@ -158,11 +162,11 @@
             this.panel1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.statusStrip2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tpNames.SuspendLayout();
             this.sectionToolStrip.SuspendLayout();
@@ -188,9 +192,9 @@
             this.status1,
             this.status2,
             this.status3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 598);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 633);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(583, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(632, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusBar";
@@ -221,7 +225,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(583, 598);
+            this.groupBox1.Size = new System.Drawing.Size(632, 633);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -232,11 +236,11 @@
             this.tabControl1.Controls.Add(this.tpNames);
             this.tabControl1.Controls.Add(this.tpRecords);
             this.tabControl1.ImageList = this.ilTabIcons;
-            this.tabControl1.Location = new System.Drawing.Point(0, 43);
+            this.tabControl1.Location = new System.Drawing.Point(6, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.ShowToolTips = true;
-            this.tabControl1.Size = new System.Drawing.Size(577, 551);
+            this.tabControl1.Size = new System.Drawing.Size(620, 584);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -247,7 +251,7 @@
             this.tpSettings.Location = new System.Drawing.Point(4, 23);
             this.tpSettings.Name = "tpSettings";
             this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSettings.Size = new System.Drawing.Size(569, 524);
+            this.tpSettings.Size = new System.Drawing.Size(612, 557);
             this.tpSettings.TabIndex = 0;
             this.tpSettings.Text = "Ustawienia";
             this.tpSettings.UseVisualStyleBackColor = true;
@@ -259,16 +263,16 @@
             this.panel1.Controls.Add(this.lFirstSectorSettings);
             this.panel1.Controls.Add(this.cbSettingsSection);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox7);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox6);
             this.panel1.Controls.Add(this.groupBox3);
-            this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(3, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(563, 518);
+            this.panel1.Size = new System.Drawing.Size(606, 548);
             this.panel1.TabIndex = 29;
             // 
             // toolStrip2
@@ -281,9 +285,9 @@
             this.bLoad,
             this.bSave});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 471);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 501);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(606, 25);
             this.toolStrip2.TabIndex = 51;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -317,9 +321,9 @@
             this.lDetectedVersion,
             this.toolStripStatusLabel3,
             this.lRequiredFirmware});
-            this.statusStrip2.Location = new System.Drawing.Point(0, 496);
+            this.statusStrip2.Location = new System.Drawing.Point(0, 526);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(563, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(606, 22);
             this.statusStrip2.SizingGrip = false;
             this.statusStrip2.TabIndex = 50;
             this.statusStrip2.Text = "statusStrip2";
@@ -399,8 +403,52 @@
             this.label1.TabIndex = 47;
             this.label1.Text = "Sektor:";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.xCheckLeadCard);
+            this.groupBox5.Controls.Add(this.xLeadCard);
+            this.groupBox5.Controls.Add(this.xViewHandrecord);
+            this.groupBox5.Location = new System.Drawing.Point(309, 34);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(295, 114);
+            this.groupBox5.TabIndex = 42;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Rozkłady";
+            // 
+            // xCheckLeadCard
+            // 
+            this.xCheckLeadCard.AutoSize = true;
+            this.xCheckLeadCard.Location = new System.Drawing.Point(13, 65);
+            this.xCheckLeadCard.Name = "xCheckLeadCard";
+            this.xCheckLeadCard.Size = new System.Drawing.Size(180, 17);
+            this.xCheckLeadCard.TabIndex = 32;
+            this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
+            this.xCheckLeadCard.UseVisualStyleBackColor = true;
+            // 
+            // xLeadCard
+            // 
+            this.xLeadCard.AutoSize = true;
+            this.xLeadCard.Location = new System.Drawing.Point(13, 42);
+            this.xLeadCard.Name = "xLeadCard";
+            this.xLeadCard.Size = new System.Drawing.Size(111, 17);
+            this.xLeadCard.TabIndex = 21;
+            this.xLeadCard.Text = "pytaj o kartę wistu";
+            this.xLeadCard.UseVisualStyleBackColor = true;
+            // 
+            // xViewHandrecord
+            // 
+            this.xViewHandrecord.AutoSize = true;
+            this.xViewHandrecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.xViewHandrecord.Location = new System.Drawing.Point(13, 19);
+            this.xViewHandrecord.Name = "xViewHandrecord";
+            this.xViewHandrecord.Size = new System.Drawing.Size(123, 17);
+            this.xViewHandrecord.TabIndex = 29;
+            this.xViewHandrecord.Text = "pokazuj rozkłady";
+            this.xViewHandrecord.UseVisualStyleBackColor = true;
+            // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.xAutoShutDownBPC);
             this.groupBox7.Controls.Add(this.xCallTD);
             this.groupBox7.Controls.Add(this.bRandomPIN);
             this.groupBox7.Controls.Add(this.lPINWarning);
@@ -409,12 +457,22 @@
             this.groupBox7.Controls.Add(this.xPINcode);
             this.groupBox7.Controls.Add(this.xConfirmNP);
             this.groupBox7.Controls.Add(this.xScoreCorrection);
-            this.groupBox7.Location = new System.Drawing.Point(268, 324);
+            this.groupBox7.Location = new System.Drawing.Point(309, 300);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(294, 143);
+            this.groupBox7.Size = new System.Drawing.Size(294, 190);
             this.groupBox7.TabIndex = 44;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Opcje sędziowskie";
+            // 
+            // xAutoShutDownBPC
+            // 
+            this.xAutoShutDownBPC.AutoSize = true;
+            this.xAutoShutDownBPC.Location = new System.Drawing.Point(13, 138);
+            this.xAutoShutDownBPC.Name = "xAutoShutDownBPC";
+            this.xAutoShutDownBPC.Size = new System.Drawing.Size(166, 17);
+            this.xAutoShutDownBPC.TabIndex = 17;
+            this.xAutoShutDownBPC.Text = "automat. wyłącz BCS po sesji";
+            this.xAutoShutDownBPC.UseVisualStyleBackColor = true;
             // 
             // xCallTD
             // 
@@ -505,7 +563,7 @@
             this.groupBox2.Controls.Add(this.xShowPlayerNames);
             this.groupBox2.Location = new System.Drawing.Point(6, 34);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(256, 138);
+            this.groupBox2.Size = new System.Drawing.Size(294, 114);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Rozstawienie";
@@ -513,7 +571,7 @@
             // xMemberNumbers
             // 
             this.xMemberNumbers.AutoSize = true;
-            this.xMemberNumbers.Location = new System.Drawing.Point(12, 67);
+            this.xMemberNumbers.Location = new System.Drawing.Point(11, 65);
             this.xMemberNumbers.Name = "xMemberNumbers";
             this.xMemberNumbers.Size = new System.Drawing.Size(133, 17);
             this.xMemberNumbers.TabIndex = 6;
@@ -524,7 +582,7 @@
             // xShowPairNumbers
             // 
             this.xShowPairNumbers.AutoSize = true;
-            this.xShowPairNumbers.Location = new System.Drawing.Point(12, 44);
+            this.xShowPairNumbers.Location = new System.Drawing.Point(11, 42);
             this.xShowPairNumbers.Name = "xShowPairNumbers";
             this.xShowPairNumbers.Size = new System.Drawing.Size(118, 17);
             this.xShowPairNumbers.TabIndex = 5;
@@ -535,7 +593,7 @@
             // 
             this.xMemberNumbersNoBlankEntry.AutoSize = true;
             this.xMemberNumbersNoBlankEntry.Enabled = false;
-            this.xMemberNumbersNoBlankEntry.Location = new System.Drawing.Point(33, 90);
+            this.xMemberNumbersNoBlankEntry.Location = new System.Drawing.Point(34, 88);
             this.xMemberNumbersNoBlankEntry.Name = "xMemberNumbersNoBlankEntry";
             this.xMemberNumbersNoBlankEntry.Size = new System.Drawing.Size(131, 17);
             this.xMemberNumbersNoBlankEntry.TabIndex = 7;
@@ -546,7 +604,7 @@
             // 
             this.xShowPlayerNames.AutoSize = true;
             this.xShowPlayerNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.xShowPlayerNames.Location = new System.Drawing.Point(12, 21);
+            this.xShowPlayerNames.Location = new System.Drawing.Point(11, 19);
             this.xShowPlayerNames.Name = "xShowPlayerNames";
             this.xShowPlayerNames.Size = new System.Drawing.Size(126, 17);
             this.xShowPlayerNames.TabIndex = 9;
@@ -555,27 +613,16 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.xAutoShutDownBPC);
             this.groupBox6.Controls.Add(this.xRemainingBoards);
             this.groupBox6.Controls.Add(this.xNextSeatings);
             this.groupBox6.Controls.Add(this.xScoreRecap);
             this.groupBox6.Controls.Add(this.xAutoShowScoreRecap);
-            this.groupBox6.Location = new System.Drawing.Point(268, 178);
+            this.groupBox6.Location = new System.Drawing.Point(309, 154);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(294, 140);
             this.groupBox6.TabIndex = 43;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Koniec rundy";
-            // 
-            // xAutoShutDownBPC
-            // 
-            this.xAutoShutDownBPC.AutoSize = true;
-            this.xAutoShutDownBPC.Location = new System.Drawing.Point(13, 114);
-            this.xAutoShutDownBPC.Name = "xAutoShutDownBPC";
-            this.xAutoShutDownBPC.Size = new System.Drawing.Size(166, 17);
-            this.xAutoShutDownBPC.TabIndex = 17;
-            this.xAutoShutDownBPC.Text = "automat. wyłącz BCS po sesji";
-            this.xAutoShutDownBPC.UseVisualStyleBackColor = true;
             // 
             // xRemainingBoards
             // 
@@ -624,9 +671,9 @@
             this.groupBox3.Controls.Add(this.xIntermediateResults);
             this.groupBox3.Controls.Add(this.xAutoBoardNumber);
             this.groupBox3.Controls.Add(this.xCollectBidding);
-            this.groupBox3.Location = new System.Drawing.Point(4, 178);
+            this.groupBox3.Location = new System.Drawing.Point(5, 154);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(257, 140);
+            this.groupBox3.Size = new System.Drawing.Size(295, 140);
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Zapis rozdania";
@@ -681,124 +728,128 @@
             this.xCollectBidding.Text = "zbieraj licytację";
             this.xCollectBidding.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.xCheckLeadCard);
-            this.groupBox5.Controls.Add(this.xLeadCard);
-            this.groupBox5.Controls.Add(this.xViewHandrecord);
-            this.groupBox5.Location = new System.Drawing.Point(5, 324);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(257, 143);
-            this.groupBox5.TabIndex = 42;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Rozkłady";
-            // 
-            // xCheckLeadCard
-            // 
-            this.xCheckLeadCard.AutoSize = true;
-            this.xCheckLeadCard.Location = new System.Drawing.Point(12, 71);
-            this.xCheckLeadCard.Name = "xCheckLeadCard";
-            this.xCheckLeadCard.Size = new System.Drawing.Size(180, 17);
-            this.xCheckLeadCard.TabIndex = 32;
-            this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
-            this.xCheckLeadCard.UseVisualStyleBackColor = true;
-            // 
-            // xLeadCard
-            // 
-            this.xLeadCard.AutoSize = true;
-            this.xLeadCard.Location = new System.Drawing.Point(12, 48);
-            this.xLeadCard.Name = "xLeadCard";
-            this.xLeadCard.Size = new System.Drawing.Size(111, 17);
-            this.xLeadCard.TabIndex = 21;
-            this.xLeadCard.Text = "pytaj o kartę wistu";
-            this.xLeadCard.UseVisualStyleBackColor = true;
-            // 
-            // xViewHandrecord
-            // 
-            this.xViewHandrecord.AutoSize = true;
-            this.xViewHandrecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.xViewHandrecord.Location = new System.Drawing.Point(12, 25);
-            this.xViewHandrecord.Name = "xViewHandrecord";
-            this.xViewHandrecord.Size = new System.Drawing.Size(123, 17);
-            this.xViewHandrecord.TabIndex = 29;
-            this.xViewHandrecord.Text = "pokazuj rozkłady";
-            this.xViewHandrecord.UseVisualStyleBackColor = true;
-            // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.rbIMPButler);
+            this.groupBox4.Controls.Add(this.rbIMPCavendish);
+            this.groupBox4.Controls.Add(this.rbIMPTeams);
+            this.groupBox4.Controls.Add(this.rbMatchpoints);
             this.groupBox4.Controls.Add(this.lGroupSectionsWarning);
-            this.groupBox4.Controls.Add(this.xGroupSections);
             this.groupBox4.Controls.Add(this.xShowResults);
-            this.groupBox4.Controls.Add(this.xRepeatResults);
+            this.groupBox4.Controls.Add(this.xGroupSections);
             this.groupBox4.Controls.Add(this.xShowPercentage);
+            this.groupBox4.Controls.Add(this.xRepeatResults);
             this.groupBox4.Controls.Add(this.xShowContract);
             this.groupBox4.Controls.Add(this.xResultsOverview);
-            this.groupBox4.Location = new System.Drawing.Point(268, 34);
+            this.groupBox4.Location = new System.Drawing.Point(6, 300);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(294, 138);
+            this.groupBox4.Size = new System.Drawing.Size(294, 190);
             this.groupBox4.TabIndex = 41;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Protokół";
+            // 
+            // rbIMPButler
+            // 
+            this.rbIMPButler.AutoSize = true;
+            this.rbIMPButler.Enabled = false;
+            this.rbIMPButler.Location = new System.Drawing.Point(126, 136);
+            this.rbIMPButler.Name = "rbIMPButler";
+            this.rbIMPButler.Size = new System.Drawing.Size(79, 17);
+            this.rbIMPButler.TabIndex = 33;
+            this.rbIMPButler.Text = "IMP (butler)";
+            this.rbIMPButler.UseVisualStyleBackColor = true;
+            // 
+            // rbIMPCavendish
+            // 
+            this.rbIMPCavendish.AutoSize = true;
+            this.rbIMPCavendish.Enabled = false;
+            this.rbIMPCavendish.Location = new System.Drawing.Point(126, 112);
+            this.rbIMPCavendish.Name = "rbIMPCavendish";
+            this.rbIMPCavendish.Size = new System.Drawing.Size(102, 17);
+            this.rbIMPCavendish.TabIndex = 32;
+            this.rbIMPCavendish.Text = "IMP (cavendish)";
+            this.rbIMPCavendish.UseVisualStyleBackColor = true;
+            // 
+            // rbIMPTeams
+            // 
+            this.rbIMPTeams.AutoSize = true;
+            this.rbIMPTeams.Enabled = false;
+            this.rbIMPTeams.Location = new System.Drawing.Point(34, 136);
+            this.rbIMPTeams.Name = "rbIMPTeams";
+            this.rbIMPTeams.Size = new System.Drawing.Size(81, 17);
+            this.rbIMPTeams.TabIndex = 31;
+            this.rbIMPTeams.Text = "IMP (teamy)";
+            this.rbIMPTeams.UseVisualStyleBackColor = true;
+            // 
+            // rbMatchpoints
+            // 
+            this.rbMatchpoints.AutoSize = true;
+            this.rbMatchpoints.Enabled = false;
+            this.rbMatchpoints.Location = new System.Drawing.Point(34, 112);
+            this.rbMatchpoints.Name = "rbMatchpoints";
+            this.rbMatchpoints.Size = new System.Drawing.Size(67, 17);
+            this.rbMatchpoints.TabIndex = 30;
+            this.rbMatchpoints.Text = "% maksa";
+            this.rbMatchpoints.UseVisualStyleBackColor = true;
             // 
             // lGroupSectionsWarning
             // 
             this.lGroupSectionsWarning.Cursor = System.Windows.Forms.Cursors.Help;
             this.lGroupSectionsWarning.Image = ((System.Drawing.Image)(resources.GetObject("lGroupSectionsWarning.Image")));
-            this.lGroupSectionsWarning.Location = new System.Drawing.Point(9, 87);
+            this.lGroupSectionsWarning.Location = new System.Drawing.Point(9, 18);
             this.lGroupSectionsWarning.Name = "lGroupSectionsWarning";
             this.lGroupSectionsWarning.Size = new System.Drawing.Size(22, 18);
             this.lGroupSectionsWarning.TabIndex = 29;
             this.lGroupSectionsWarning.Visible = false;
             this.lGroupSectionsWarning.Click += new System.EventHandler(this.lGroupSectionsWarning_Click);
             // 
-            // xGroupSections
-            // 
-            this.xGroupSections.AutoSize = true;
-            this.xGroupSections.Enabled = false;
-            this.xGroupSections.Location = new System.Drawing.Point(34, 89);
-            this.xGroupSections.Name = "xGroupSections";
-            this.xGroupSections.Size = new System.Drawing.Size(227, 17);
-            this.xGroupSections.TabIndex = 4;
-            this.xGroupSections.Text = "wspólne maksowanie wszystkich sektorów";
-            this.xGroupSections.UseVisualStyleBackColor = true;
-            // 
             // xShowResults
             // 
             this.xShowResults.AutoSize = true;
-            this.xShowResults.Location = new System.Drawing.Point(13, 20);
+            this.xShowResults.Location = new System.Drawing.Point(11, 42);
             this.xShowResults.Name = "xShowResults";
-            this.xShowResults.Size = new System.Drawing.Size(159, 17);
+            this.xShowResults.Size = new System.Drawing.Size(161, 17);
             this.xShowResults.TabIndex = 1;
-            this.xShowResults.Text = "pokazuj wynik rozdania jako";
+            this.xShowResults.Text = "pokazuj zapisy rozdania jako";
             this.xShowResults.UseVisualStyleBackColor = true;
             this.xShowResults.CheckedChanged += new System.EventHandler(this.xShowResults_CheckedChanged);
+            // 
+            // xGroupSections
+            // 
+            this.xGroupSections.AutoSize = true;
+            this.xGroupSections.Location = new System.Drawing.Point(34, 19);
+            this.xGroupSections.Name = "xGroupSections";
+            this.xGroupSections.Size = new System.Drawing.Size(181, 17);
+            this.xGroupSections.TabIndex = 4;
+            this.xGroupSections.Text = "wspólny dla wszystkich sektorów";
+            this.xGroupSections.UseVisualStyleBackColor = true;
+            // 
+            // xShowPercentage
+            // 
+            this.xShowPercentage.AutoSize = true;
+            this.xShowPercentage.Location = new System.Drawing.Point(11, 88);
+            this.xShowPercentage.Name = "xShowPercentage";
+            this.xShowPercentage.Size = new System.Drawing.Size(128, 17);
+            this.xShowPercentage.TabIndex = 3;
+            this.xShowPercentage.Text = "pokaż wynik rozdania";
+            this.xShowPercentage.UseVisualStyleBackColor = true;
+            this.xShowPercentage.CheckedChanged += new System.EventHandler(this.xShowPercentage_CheckedChanged);
             // 
             // xRepeatResults
             // 
             this.xRepeatResults.AutoSize = true;
             this.xRepeatResults.Enabled = false;
-            this.xRepeatResults.Location = new System.Drawing.Point(34, 43);
+            this.xRepeatResults.Location = new System.Drawing.Point(34, 65);
             this.xRepeatResults.Name = "xRepeatResults";
             this.xRepeatResults.Size = new System.Drawing.Size(155, 17);
             this.xRepeatResults.TabIndex = 2;
             this.xRepeatResults.Text = "nieskończone przeglądanie";
             this.xRepeatResults.UseVisualStyleBackColor = true;
             // 
-            // xShowPercentage
-            // 
-            this.xShowPercentage.AutoSize = true;
-            this.xShowPercentage.Enabled = false;
-            this.xShowPercentage.Location = new System.Drawing.Point(34, 66);
-            this.xShowPercentage.Name = "xShowPercentage";
-            this.xShowPercentage.Size = new System.Drawing.Size(102, 17);
-            this.xShowPercentage.TabIndex = 3;
-            this.xShowPercentage.Text = "pokaż % wyniku";
-            this.xShowPercentage.UseVisualStyleBackColor = true;
-            // 
             // xShowContract
             // 
             this.xShowContract.AutoSize = true;
-            this.xShowContract.Location = new System.Drawing.Point(13, 112);
+            this.xShowContract.Location = new System.Drawing.Point(11, 159);
             this.xShowContract.Name = "xShowContract";
             this.xShowContract.Size = new System.Drawing.Size(150, 17);
             this.xShowContract.TabIndex = 20;
@@ -817,7 +868,7 @@
             "traveler, 6x1",
             "traveler, 6x2",
             "traveler, 4x1"});
-            this.xResultsOverview.Location = new System.Drawing.Point(178, 18);
+            this.xResultsOverview.Location = new System.Drawing.Point(178, 40);
             this.xResultsOverview.Name = "xResultsOverview";
             this.xResultsOverview.Size = new System.Drawing.Size(103, 21);
             this.xResultsOverview.TabIndex = 28;
@@ -832,7 +883,7 @@
             this.tpNames.Location = new System.Drawing.Point(4, 23);
             this.tpNames.Name = "tpNames";
             this.tpNames.Padding = new System.Windows.Forms.Padding(3);
-            this.tpNames.Size = new System.Drawing.Size(569, 524);
+            this.tpNames.Size = new System.Drawing.Size(612, 557);
             this.tpNames.TabIndex = 1;
             this.tpNames.Text = "Nazwiska";
             this.tpNames.UseVisualStyleBackColor = true;
@@ -846,9 +897,9 @@
             this.sectionToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.cbNamesSection});
-            this.sectionToolStrip.Location = new System.Drawing.Point(3, 471);
+            this.sectionToolStrip.Location = new System.Drawing.Point(3, 504);
             this.sectionToolStrip.Name = "sectionToolStrip";
-            this.sectionToolStrip.Size = new System.Drawing.Size(563, 25);
+            this.sectionToolStrip.Size = new System.Drawing.Size(606, 25);
             this.sectionToolStrip.TabIndex = 30;
             this.sectionToolStrip.Text = "toolStrip5";
             // 
@@ -1126,9 +1177,9 @@
             this.bSync,
             this.eInterval,
             this.bAutoSync});
-            this.syncToolStrip.Location = new System.Drawing.Point(3, 496);
+            this.syncToolStrip.Location = new System.Drawing.Point(3, 529);
             this.syncToolStrip.Name = "syncToolStrip";
-            this.syncToolStrip.Size = new System.Drawing.Size(563, 25);
+            this.syncToolStrip.Size = new System.Drawing.Size(606, 25);
             this.syncToolStrip.TabIndex = 27;
             this.syncToolStrip.Text = "toolStrip5";
             // 
@@ -1172,7 +1223,7 @@
             this.bTruncate});
             this.toolStrip4.Location = new System.Drawing.Point(3, 3);
             this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip4.Size = new System.Drawing.Size(606, 25);
             this.toolStrip4.TabIndex = 26;
             this.toolStrip4.Text = "toolStrip4";
             // 
@@ -1255,7 +1306,7 @@
             this.tpRecords.Location = new System.Drawing.Point(4, 23);
             this.tpRecords.Name = "tpRecords";
             this.tpRecords.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRecords.Size = new System.Drawing.Size(569, 524);
+            this.tpRecords.Size = new System.Drawing.Size(612, 557);
             this.tpRecords.TabIndex = 2;
             this.tpRecords.Text = "Rozkłady";
             this.tpRecords.UseVisualStyleBackColor = true;
@@ -1350,14 +1401,14 @@
             this.gwSections.AllowUserToResizeRows = false;
             this.gwSections.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.gwSections.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gwSections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwSections.Location = new System.Drawing.Point(9, 118);
             this.gwSections.MultiSelect = false;
@@ -1382,9 +1433,9 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bLoadHands,
             this.bClearHands});
-            this.toolStrip3.Location = new System.Drawing.Point(3, 496);
+            this.toolStrip3.Location = new System.Drawing.Point(3, 529);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip3.Size = new System.Drawing.Size(606, 25);
             this.toolStrip3.TabIndex = 9;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -1455,7 +1506,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 10, 1, 5);
-            this.toolStrip1.Size = new System.Drawing.Size(583, 42);
+            this.toolStrip1.Size = new System.Drawing.Size(632, 42);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -1498,7 +1549,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 620);
+            this.ClientSize = new System.Drawing.Size(632, 655);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
@@ -1522,6 +1573,8 @@
             this.toolStrip2.PerformLayout();
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1530,8 +1583,6 @@
             this.groupBox6.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tpNames.ResumeLayout(false);
@@ -1681,6 +1732,10 @@
         private System.Windows.Forms.Button bRandomPIN;
         private System.Windows.Forms.ImageList ilTabIcons;
         public System.Windows.Forms.CheckBox xCallTD;
+        private System.Windows.Forms.RadioButton rbIMPButler;
+        private System.Windows.Forms.RadioButton rbIMPCavendish;
+        private System.Windows.Forms.RadioButton rbIMPTeams;
+        private System.Windows.Forms.RadioButton rbMatchpoints;
     }
 }
 

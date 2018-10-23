@@ -119,7 +119,6 @@ namespace Aktywator
                     this.setHandRecordInfo(board.Key);
                 }
             }
-            main.xShowResults_CheckedChanged(null, EventArgs.Empty);
             if (this.detectDifferentRecordsInSections())
             {
                 if (main.xGroupSections.Checked)
@@ -129,6 +128,7 @@ namespace Aktywator
                 }
                 Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
             }
+            main.checkRecordsForSectionGroups();
         }
 
         private void setHandRecordInfo(int board, string section = null, List<string> layout = null, bool analysis = false)
@@ -524,7 +524,8 @@ namespace Aktywator
             int resultsOverview = 0;
             int.TryParse(Setting.load("BM2ResultsOverview", this, errors, section), out resultsOverview);
             main.xResultsOverview.SelectedIndex = resultsOverview;
-            main.xGroupSections.Checked = this.getSectionGroupCount() <= 1;
+
+            main.checkRecordsForSectionGroups();
 
             if (section == null && main.cbSettingsSection.Items.Count > 2)
             {
