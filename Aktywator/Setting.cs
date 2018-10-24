@@ -174,6 +174,19 @@ namespace Aktywator
             }
         }
 
+        public static void saveScoringType(Sql sql, int value, string section)
+        {
+            StringBuilder sb = new StringBuilder("UPDATE `Section` SET `ScoringType` = ");
+            sb.Append(value);
+            if (section != null)
+            {
+                sb.Append(" WHERE `ID` = ");
+                sb.Append(section);
+            }
+            sb.Append(";");
+            sql.query(sb.ToString());
+        }
+
         public static void saveSectionGroups(Sql sql, bool value, int teamTableOffset = 0)
         {
             if (teamTableOffset == 0)

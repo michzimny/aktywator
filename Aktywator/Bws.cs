@@ -250,7 +250,7 @@ namespace Aktywator
             settings = new List<Setting>();
             settings.Add(new Setting("ShowResults", main.xShowResults, this, new Version(2, 0, 0), new Version(1, 3, 1)));
             settings.Add(new Setting("RepeatResults", main.xRepeatResults, this, null, null));
-            settings.Add(new Setting("ShowPercentage", main.xShowPercentage, this, null, null));
+            settings.Add(new Setting("ShowPercentage", main.xShowPercentage, this, new Version(3, 6, 0), new Version(3, 0, 1)));
             settings.Add(new Setting("GroupSections", main.xGroupSections, this, new Version(2, 1, 10), new Version(1, 3, 1)));
             settings.Add(new Setting("ShowPairNumbers", main.xShowPairNumbers, this, null, null));
             settings.Add(new Setting("IntermediateResults", main.xIntermediateResults, this, null, new Version(1, 4, 1)));
@@ -347,6 +347,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2ValidateLeadCard", "bit", "false"));
             settings.Add(new Setting("BM2TDCall", "bit", "false"));
             settings.Add(new Setting("BM2ShowPlayerNames", "integer", "0"));
+            settings.Add(new Setting("ScoringType", "integer", "1", "`Section`"));
 
             foreach (Setting s in settings)
             {
@@ -525,6 +526,10 @@ namespace Aktywator
             int.TryParse(Setting.load("BM2ResultsOverview", this, errors, section), out resultsOverview);
             main.xResultsOverview.SelectedIndex = resultsOverview;
 
+            int scoringType = 1;
+            Int32.TryParse(Setting.load("ScoringType", this, errors, section, "`Section`", "`ID`"), out scoringType);
+            main.setScoringType(scoringType);
+
             main.checkRecordsForSectionGroups();
 
             if (section == null && main.cbSettingsSection.Items.Count > 2)
@@ -584,6 +589,7 @@ namespace Aktywator
             Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
             Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
             Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, (this.getMySQLDatabaseForSection() != null) ? Convert.ToInt32(main.numTeamsTableOffset.Value) : 0);
+            Setting.saveScoringType(this.sql, main.getScoringType(), section);
             this.loadSettings();
         }
 

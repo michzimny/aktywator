@@ -26,6 +26,8 @@ namespace Aktywator
         public static Version requiredBCSVersion;
         public static Version requiredFWVersion;
 
+        private Dictionary<RadioButton, int> _scoringType;
+
         public MainForm()
         {
             InitializeComponent();
@@ -34,6 +36,11 @@ namespace Aktywator
         private void MainForm_Load(object sender, EventArgs e)
         {
             if (!MySQL.getConfigured()) (new MysqlSettings()).ShowDialog();
+            this._scoringType = new Dictionary<RadioButton, int>();
+            this._scoringType.Add(this.rbMatchpoints, 1);
+            this._scoringType.Add(this.rbIMPCavendish, 2);
+            this._scoringType.Add(this.rbIMPButler, 3);
+            this._scoringType.Add(this.rbIMPTeams, 4);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -97,7 +104,6 @@ namespace Aktywator
             {
                 syncToolStrip.Visible = false;
                 namesPanel.Visible = false;
-                this.rbMatchpoints.Checked = true;
             }
 
             this.WindowState = FormWindowState.Normal;
@@ -744,5 +750,27 @@ namespace Aktywator
             this.rbIMPTeams.Enabled = xShowPercentage.Checked && teamsTournament;
         }
 
+        internal int getScoringType()
+        {
+            if (this.xShowPercentage.Checked)
+            {
+                foreach (KeyValuePair<RadioButton, int> type in this._scoringType)
+                {
+                    if (type.Key.Checked)
+                    {
+                        return type.Value;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        internal void setScoringType(int scoringType)
+        {
+            foreach (KeyValuePair<RadioButton, int> type in this._scoringType)
+            {
+                type.Key.Checked = (type.Value == scoringType);
+            }
+        }
     }
 }
