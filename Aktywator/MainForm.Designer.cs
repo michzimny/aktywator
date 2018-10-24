@@ -752,7 +752,7 @@
             // 
             this.rbIMPButler.AutoSize = true;
             this.rbIMPButler.Enabled = false;
-            this.rbIMPButler.Location = new System.Drawing.Point(126, 136);
+            this.rbIMPButler.Location = new System.Drawing.Point(127, 90);
             this.rbIMPButler.Name = "rbIMPButler";
             this.rbIMPButler.Size = new System.Drawing.Size(79, 17);
             this.rbIMPButler.TabIndex = 33;
@@ -763,7 +763,7 @@
             // 
             this.rbIMPCavendish.AutoSize = true;
             this.rbIMPCavendish.Enabled = false;
-            this.rbIMPCavendish.Location = new System.Drawing.Point(126, 112);
+            this.rbIMPCavendish.Location = new System.Drawing.Point(127, 66);
             this.rbIMPCavendish.Name = "rbIMPCavendish";
             this.rbIMPCavendish.Size = new System.Drawing.Size(102, 17);
             this.rbIMPCavendish.TabIndex = 32;
@@ -774,7 +774,7 @@
             // 
             this.rbIMPTeams.AutoSize = true;
             this.rbIMPTeams.Enabled = false;
-            this.rbIMPTeams.Location = new System.Drawing.Point(34, 136);
+            this.rbIMPTeams.Location = new System.Drawing.Point(35, 90);
             this.rbIMPTeams.Name = "rbIMPTeams";
             this.rbIMPTeams.Size = new System.Drawing.Size(81, 17);
             this.rbIMPTeams.TabIndex = 31;
@@ -785,7 +785,7 @@
             // 
             this.rbMatchpoints.AutoSize = true;
             this.rbMatchpoints.Enabled = false;
-            this.rbMatchpoints.Location = new System.Drawing.Point(34, 112);
+            this.rbMatchpoints.Location = new System.Drawing.Point(35, 66);
             this.rbMatchpoints.Name = "rbMatchpoints";
             this.rbMatchpoints.Size = new System.Drawing.Size(67, 17);
             this.rbMatchpoints.TabIndex = 30;
@@ -806,7 +806,7 @@
             // xShowResults
             // 
             this.xShowResults.AutoSize = true;
-            this.xShowResults.Location = new System.Drawing.Point(11, 42);
+            this.xShowResults.Location = new System.Drawing.Point(12, 113);
             this.xShowResults.Name = "xShowResults";
             this.xShowResults.Size = new System.Drawing.Size(161, 17);
             this.xShowResults.TabIndex = 1;
@@ -827,7 +827,7 @@
             // xShowPercentage
             // 
             this.xShowPercentage.AutoSize = true;
-            this.xShowPercentage.Location = new System.Drawing.Point(11, 88);
+            this.xShowPercentage.Location = new System.Drawing.Point(12, 42);
             this.xShowPercentage.Name = "xShowPercentage";
             this.xShowPercentage.Size = new System.Drawing.Size(128, 17);
             this.xShowPercentage.TabIndex = 3;
@@ -839,7 +839,7 @@
             // 
             this.xRepeatResults.AutoSize = true;
             this.xRepeatResults.Enabled = false;
-            this.xRepeatResults.Location = new System.Drawing.Point(34, 65);
+            this.xRepeatResults.Location = new System.Drawing.Point(35, 136);
             this.xRepeatResults.Name = "xRepeatResults";
             this.xRepeatResults.Size = new System.Drawing.Size(155, 17);
             this.xRepeatResults.TabIndex = 2;
@@ -868,7 +868,7 @@
             "traveler, 6x1",
             "traveler, 6x2",
             "traveler, 4x1"});
-            this.xResultsOverview.Location = new System.Drawing.Point(178, 40);
+            this.xResultsOverview.Location = new System.Drawing.Point(179, 111);
             this.xResultsOverview.Name = "xResultsOverview";
             this.xResultsOverview.Size = new System.Drawing.Size(103, 21);
             this.xResultsOverview.TabIndex = 28;
