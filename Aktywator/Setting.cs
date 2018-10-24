@@ -42,15 +42,18 @@ namespace Aktywator
             field.Checked = a.ToUpper() == "TRUE" ? true : false;
         }
 
-        public static string load(string name, Bws bws, StringBuilder errors, string section = null)
+        public static string load(string name, Bws bws, StringBuilder errors, string section = null, string table = "Settings", string sectionField = "`Section`")
         {
             StringBuilder str = new StringBuilder();
             str.Append("SELECT ");
             str.Append(name);
-            str.Append(" FROM Settings");
+            str.Append(" FROM ");
+            str.Append(table);
             if (section != null)
             {
-                str.Append(" WHERE `Section` = ");
+                str.Append(" WHERE ");
+                str.Append(sectionField);
+                str.Append(" = ");
                 str.Append(section);
             }
             try
