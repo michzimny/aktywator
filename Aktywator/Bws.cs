@@ -126,7 +126,7 @@ namespace Aktywator
                     MessageBox.Show(MainForm.differentRecordsInSections, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     main.xGroupSections.Checked = false;
                 }
-                Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
+                Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, (this.getMySQLDatabaseForSection() != null) ? Convert.ToInt32(main.numTeamsTableOffset.Value) : 0);
             }
             main.checkRecordsForSectionGroups();
         }
@@ -583,7 +583,7 @@ namespace Aktywator
             Setting.save("BM2NameSource", "2", this, errors, section);
             Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
             Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
-            Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
+            Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, (this.getMySQLDatabaseForSection() != null) ? Convert.ToInt32(main.numTeamsTableOffset.Value) : 0);
             this.loadSettings();
         }
 
@@ -613,6 +613,11 @@ namespace Aktywator
         }
 
         private int getBWSNumber(OleDbDataReader reader, int index)
+        {
+            return Bws.bwsNumber(reader, index);
+        }
+
+        public static int bwsNumber(OleDbDataReader reader, int index)
         {
             switch (Type.GetTypeCode(reader.GetFieldType(index)))
             {
