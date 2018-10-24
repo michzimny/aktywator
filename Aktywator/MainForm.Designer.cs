@@ -939,7 +939,7 @@
             this.namesPanel.Controls.Add(this.lTables);
             this.namesPanel.Location = new System.Drawing.Point(3, 31);
             this.namesPanel.Name = "namesPanel";
-            this.namesPanel.Size = new System.Drawing.Size(562, 425);
+            this.namesPanel.Size = new System.Drawing.Size(607, 470);
             this.namesPanel.TabIndex = 29;
             // 
             // bTeamsNamesSettings
@@ -1009,7 +1009,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 389);
+            this.label9.Location = new System.Drawing.Point(1, 436);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(499, 13);
             this.label9.TabIndex = 31;
@@ -1065,7 +1065,7 @@
             this.EastWest});
             this.namesGridView.Location = new System.Drawing.Point(2, 98);
             this.namesGridView.Name = "namesGridView";
-            this.namesGridView.Size = new System.Drawing.Size(557, 287);
+            this.namesGridView.Size = new System.Drawing.Size(601, 335);
             this.namesGridView.TabIndex = 28;
             this.namesGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellMouseEnter);
             this.namesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellValueChanged);
@@ -1144,7 +1144,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 406);
+            this.label8.Location = new System.Drawing.Point(3, 453);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(323, 13);
             this.label8.TabIndex = 12;
@@ -1314,7 +1314,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(458, 460);
+            this.label17.Location = new System.Drawing.Point(460, 507);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(71, 13);
             this.label17.TabIndex = 18;
@@ -1324,7 +1324,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.label18.Location = new System.Drawing.Point(432, 456);
+            this.label18.Location = new System.Drawing.Point(434, 503);
             this.label18.MinimumSize = new System.Drawing.Size(20, 20);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(20, 20);
@@ -1334,7 +1334,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(322, 460);
+            this.label15.Location = new System.Drawing.Point(324, 507);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(104, 13);
             this.label15.TabIndex = 16;
@@ -1344,7 +1344,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.BackColor = System.Drawing.Color.Crimson;
-            this.label16.Location = new System.Drawing.Point(296, 456);
+            this.label16.Location = new System.Drawing.Point(298, 503);
             this.label16.MinimumSize = new System.Drawing.Size(20, 20);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(20, 20);
@@ -1354,7 +1354,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(156, 460);
+            this.label13.Location = new System.Drawing.Point(158, 507);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(134, 13);
             this.label13.TabIndex = 14;
@@ -1365,7 +1365,7 @@
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.LimeGreen;
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(130, 456);
+            this.label14.Location = new System.Drawing.Point(132, 503);
             this.label14.MinimumSize = new System.Drawing.Size(20, 20);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(20, 20);
@@ -1376,7 +1376,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(34, 460);
+            this.label12.Location = new System.Drawing.Point(36, 507);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(90, 13);
             this.label12.TabIndex = 12;
@@ -1386,7 +1386,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.LimeGreen;
-            this.label10.Location = new System.Drawing.Point(8, 456);
+            this.label10.Location = new System.Drawing.Point(10, 503);
             this.label10.MinimumSize = new System.Drawing.Size(20, 20);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(20, 20);
@@ -1418,7 +1418,7 @@
             this.gwSections.ShowCellErrors = false;
             this.gwSections.ShowEditingIcon = false;
             this.gwSections.ShowRowErrors = false;
-            this.gwSections.Size = new System.Drawing.Size(554, 335);
+            this.gwSections.Size = new System.Drawing.Size(597, 382);
             this.gwSections.TabIndex = 10;
             this.gwSections.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gwSections_CellDoubleClick);
             this.gwSections.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gwSections_CellDoubleClick);
