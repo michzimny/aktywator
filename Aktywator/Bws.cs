@@ -528,7 +528,7 @@ namespace Aktywator
 
             int scoringType = 1;
             Int32.TryParse(Setting.load("ScoringType", this, errors, section, "`Section`", "`ID`"), out scoringType);
-            main.setScoringType(scoringType);
+            main.setScoringType((scoringType > 0) ? scoringType : 1);
 
             main.checkRecordsForSectionGroups();
 

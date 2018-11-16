@@ -38,8 +38,8 @@ namespace Aktywator
             if (!MySQL.getConfigured()) (new MysqlSettings()).ShowDialog();
             this._scoringType = new Dictionary<RadioButton, int>();
             this._scoringType.Add(this.rbMatchpoints, 1);
-            this._scoringType.Add(this.rbIMPCavendish, 2);
-            this._scoringType.Add(this.rbIMPButler, 3);
+            this._scoringType.Add(this.rbIMPButler, 2);
+            this._scoringType.Add(this.rbIMPCavendish, 3);
             this._scoringType.Add(this.rbIMPTeams, 4);
         }
 
