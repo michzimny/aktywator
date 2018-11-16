@@ -84,6 +84,7 @@
             this.xAutoBoardNumber = new System.Windows.Forms.CheckBox();
             this.xCollectBidding = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lScoringOptionsWarning = new System.Windows.Forms.Label();
             this.rbIMPButler = new System.Windows.Forms.RadioButton();
             this.rbIMPCavendish = new System.Windows.Forms.RadioButton();
             this.rbIMPTeams = new System.Windows.Forms.RadioButton();
@@ -730,6 +731,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lScoringOptionsWarning);
             this.groupBox4.Controls.Add(this.rbIMPButler);
             this.groupBox4.Controls.Add(this.rbIMPCavendish);
             this.groupBox4.Controls.Add(this.rbIMPTeams);
@@ -747,6 +749,17 @@
             this.groupBox4.TabIndex = 41;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Protokół";
+            // 
+            // lScoringOptionsWarning
+            // 
+            this.lScoringOptionsWarning.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lScoringOptionsWarning.Image = ((System.Drawing.Image)(resources.GetObject("lScoringOptionsWarning.Image")));
+            this.lScoringOptionsWarning.Location = new System.Drawing.Point(9, 41);
+            this.lScoringOptionsWarning.Name = "lScoringOptionsWarning";
+            this.lScoringOptionsWarning.Size = new System.Drawing.Size(22, 18);
+            this.lScoringOptionsWarning.TabIndex = 34;
+            this.lScoringOptionsWarning.Visible = false;
+            this.lScoringOptionsWarning.Click += new System.EventHandler(this.lScoringOptionsWarning_Click);
             // 
             // rbIMPButler
             // 
@@ -823,11 +836,12 @@
             this.xGroupSections.TabIndex = 4;
             this.xGroupSections.Text = "wspólny dla wszystkich sektorów";
             this.xGroupSections.UseVisualStyleBackColor = true;
+            this.xGroupSections.CheckedChanged += new System.EventHandler(this.xGroupSections_CheckedChanged);
             // 
             // xShowPercentage
             // 
             this.xShowPercentage.AutoSize = true;
-            this.xShowPercentage.Location = new System.Drawing.Point(12, 42);
+            this.xShowPercentage.Location = new System.Drawing.Point(34, 42);
             this.xShowPercentage.Name = "xShowPercentage";
             this.xShowPercentage.Size = new System.Drawing.Size(128, 17);
             this.xShowPercentage.TabIndex = 3;
@@ -1736,6 +1750,7 @@
         private System.Windows.Forms.RadioButton rbIMPCavendish;
         private System.Windows.Forms.RadioButton rbIMPTeams;
         private System.Windows.Forms.RadioButton rbMatchpoints;
+        public System.Windows.Forms.Label lScoringOptionsWarning;
     }
 }
 

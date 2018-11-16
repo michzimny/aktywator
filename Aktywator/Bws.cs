@@ -548,11 +548,7 @@ namespace Aktywator
 
         public void sectionGroupWarning()
         {
-            main.lGroupSectionsWarning.Visible = false;
-            if (main.xShowResults.Checked || this.detectDifferentRecordsInSections())
-            {
-                main.lGroupSectionsWarning.Visible = true;
-            }
+            main.lGroupSectionsWarning.Visible = this.detectDifferentRecordsInSections();
         }
 
         private int getSectionGroupCount()
@@ -589,7 +585,13 @@ namespace Aktywator
             Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
             Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
             Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, (this.getMySQLDatabaseForSection() != null) ? Convert.ToInt32(main.numTeamsTableOffset.Value) : 0);
-            Setting.saveScoringType(this.sql, main.getScoringType(), section);
+            int scoringType = main.getScoringType();
+            Setting.saveScoringType(this.sql, scoringType, section);
+            if (scoringType > 1 && scoringType < 4)
+            {
+                MessageBox.Show("Pamiętaj o skonfigurowaniu opcji liczenia turnieju na IMP (średnia, odrzucanie w butlerze, uśrednianie cavendisha) w Bridgemate Control Software ***PRZED*** wystartowaniem sesji!", "Ustawienia obliczania wyników",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             this.loadSettings();
         }
 

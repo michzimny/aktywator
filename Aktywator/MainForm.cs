@@ -93,6 +93,7 @@ namespace Aktywator
             bws.loadSettings();
 
             this.checkRecordsForSectionGroups();
+            this.scoringOptionsWarning();
 
             tournament = this.detectTeamyTournament();
             if (tournament != null)
@@ -355,7 +356,7 @@ namespace Aktywator
             bws.loadSettings();
         }
 
-        static public string sectionGroupWarningLabel = "Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!";
+        static public string sectionGroupWarningLabel = "Opcje sposobu liczenia wyników i grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie mogą być zaktualizowane w trakcie trwania sesji!";
         static public string differentRecordsInSections = "BWS zawiera różne rozkłady w różnych sektorach, opcja grupowania sektorów musi być wyłączona.";
 
         public void xShowResults_CheckedChanged(object sender, EventArgs e)
@@ -649,8 +650,7 @@ namespace Aktywator
 
         private void lGroupSectionsWarning_Click(object sender, EventArgs e)
         {
-            string message = bws.detectDifferentRecordsInSections() ? MainForm.differentRecordsInSections : MainForm.sectionGroupWarningLabel;
-            MessageBox.Show(message, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            MessageBox.Show(MainForm.differentRecordsInSections, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
         private void bTeamsNamesSettings_Click(object sender, EventArgs e)
@@ -748,6 +748,7 @@ namespace Aktywator
             this.rbIMPButler.Enabled = xShowPercentage.Checked && !teamsTournament;
             this.rbIMPCavendish.Enabled = xShowPercentage.Checked && !teamsTournament;
             this.rbIMPTeams.Enabled = xShowPercentage.Checked && teamsTournament;
+            this.scoringOptionsWarning();
         }
 
         internal int getScoringType()
@@ -771,6 +772,21 @@ namespace Aktywator
             {
                 type.Key.Checked = (type.Value == scoringType);
             }
+        }
+
+        private void scoringOptionsWarning()
+        {
+            lScoringOptionsWarning.Visible = (xGroupSections.Checked || xShowPercentage.Checked);
+        }
+
+        private void lScoringOptionsWarning_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(MainForm.sectionGroupWarningLabel, "Ustawienia wyświetlania wyników", MessageBoxButtons.OK, MessageBoxIcon.Question);
+        }
+
+        private void xGroupSections_CheckedChanged(object sender, EventArgs e)
+        {
+            this.scoringOptionsWarning();
         }
     }
 }
