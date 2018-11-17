@@ -156,6 +156,7 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
+            this.xFirstBoardManually = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -667,6 +668,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.xFirstBoardManually);
             this.groupBox3.Controls.Add(this.xCollectPlay);
             this.groupBox3.Controls.Add(this.xBoardOrderVerification);
             this.groupBox3.Controls.Add(this.xIntermediateResults);
@@ -718,6 +720,7 @@
             this.xAutoBoardNumber.TabIndex = 10;
             this.xAutoBoardNumber.Text = "automat. wpisuj numer rozdania";
             this.xAutoBoardNumber.UseVisualStyleBackColor = true;
+            this.xAutoBoardNumber.CheckedChanged += new System.EventHandler(this.xAutoBoardNumber_CheckedChanged);
             // 
             // xCollectBidding
             // 
@@ -1559,6 +1562,17 @@
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
             // 
+            // xFirstBoardManually
+            // 
+            this.xFirstBoardManually.AutoSize = true;
+            this.xFirstBoardManually.Enabled = false;
+            this.xFirstBoardManually.Location = new System.Drawing.Point(190, 22);
+            this.xFirstBoardManually.Name = "xFirstBoardManually";
+            this.xFirstBoardManually.Size = new System.Drawing.Size(103, 17);
+            this.xFirstBoardManually.TabIndex = 4;
+            this.xFirstBoardManually.Text = "pierwszy ręcznie";
+            this.xFirstBoardManually.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1751,6 +1765,7 @@
         private System.Windows.Forms.RadioButton rbIMPTeams;
         private System.Windows.Forms.RadioButton rbMatchpoints;
         public System.Windows.Forms.Label lScoringOptionsWarning;
+        public System.Windows.Forms.CheckBox xFirstBoardManually;
     }
 }
 

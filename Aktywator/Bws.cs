@@ -267,6 +267,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2AutoShowScoreRecap", main.xAutoShowScoreRecap, this, new Version(2, 5, 1), new Version(1, 0, 1)));
             settings.Add(new Setting("BM2ScoreCorrection", main.xScoreCorrection, this, new Version(2, 0, 0), new Version(1, 0, 1)));
             settings.Add(new Setting("BM2AutoBoardNumber", main.xAutoBoardNumber, this, new Version(2, 0, 0), new Version(2, 0, 1)));
+            settings.Add(new Setting("BM2FirstBoardManually", main.xFirstBoardManually, this, new Version(2, 7, 9), new Version(2, 7, 6)));
             settings.Add(new Setting("BM2ResetFunctionKey", main.xResetFunctionKey, this, new Version(2, 0, 0), new Version(1, 0, 1)));
             settings.Add(new Setting("BM2ViewHandrecord", main.xViewHandrecord, this, new Version(2, 6, 1), new Version(1, 6, 1)));
             settings.Add(new Setting("BM2RecordBidding", main.xCollectBidding, this, new Version(2, 0, 0), new Version(1, 3, 1)));
@@ -348,6 +349,7 @@ namespace Aktywator
             settings.Add(new Setting("BM2TDCall", "bit", "false"));
             settings.Add(new Setting("BM2ShowPlayerNames", "integer", "0"));
             settings.Add(new Setting("ScoringType", "integer", "1", "`Section`"));
+            settings.Add(new Setting("BM2FirstBoardManually", "bit", "false"));
 
             foreach (Setting s in settings)
             {

@@ -788,5 +788,14 @@ namespace Aktywator
         {
             this.scoringOptionsWarning();
         }
+
+        private void xAutoBoardNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            this.xFirstBoardManually.Enabled = xAutoBoardNumber.Checked;
+            if (!this.xFirstBoardManually.Enabled)
+            {
+                this.xFirstBoardManually.Checked = false;
+            }
+        }
     }
 }
