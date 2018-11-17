@@ -1,8 +1,8 @@
 ﻿Known issues:
 - nie działa zbieranie danych pośrednich, gdy wczytane są rozkłady (dane są zbierane w BWS, ale Kolektor Teamów ich nie czyta - potencjalny bug w Kolektorze)
-- nie działa update ustawienia maksowania każdego sektora w czasie sesji (samo maksowanie ustawione na początku sesji - działa)
+- nie działa update ustawienia maksowania każdego sektora w czasie sesji (samo maksowanie ustawione na początku sesji - działa); nie da się również zmienić sposoby liczenia (maksy/butler/cavendish) w trakcie sesji - ograniczenia BCS
 
-Aktywator 1.1.5 (dev)
+Aktywator 1.1.5 (release candidate)
 ??.??.2018 [mkl]
  * poprawa bezpieczeństwa PINów
    - losowanie PINu przy inicjalizacji
@@ -10,6 +10,7 @@ Aktywator 1.1.5 (dev)
    - wyłączanie rozkładów przy wykryciu "łatwego" PINu
  * opcja wezwania sędziego z pierniczka
  * obsługa wyświetlania wyniku w IMP, również dla turnieju teamów
+ * obsługa opcji "pierwszy numer ręcznie" przy automatycznym wpisywaniu numerów rozdań
 
 Aktywator 1.1.4
 05.10.2018 [mkl]
