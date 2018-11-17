@@ -586,7 +586,7 @@ namespace Aktywator
             Setting.save("BM2NameSource", "2", this, errors, section);
             Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
             Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
-            if (main.xShowResults.Checked)
+            if (main.xShowPercentage.Checked)
             {
                 Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, (this.getMySQLDatabaseForSection() != null) ? Convert.ToInt32(main.numTeamsTableOffset.Value) : 0);
                 int scoringType = main.getScoringType();
