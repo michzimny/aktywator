@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.open = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -86,6 +86,7 @@
             this.xAutoBoardNumber = new System.Windows.Forms.CheckBox();
             this.xCollectBidding = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lIMPScoringWarning = new System.Windows.Forms.Label();
             this.lScoringOptionsWarning = new System.Windows.Forms.Label();
             this.rbIMPButler = new System.Windows.Forms.RadioButton();
             this.rbIMPCavendish = new System.Windows.Forms.RadioButton();
@@ -757,6 +758,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lIMPScoringWarning);
             this.groupBox4.Controls.Add(this.lScoringOptionsWarning);
             this.groupBox4.Controls.Add(this.rbIMPButler);
             this.groupBox4.Controls.Add(this.rbIMPCavendish);
@@ -775,6 +777,17 @@
             this.groupBox4.TabIndex = 41;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Protokół";
+            // 
+            // lIMPScoringWarning
+            // 
+            this.lIMPScoringWarning.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lIMPScoringWarning.Image = ((System.Drawing.Image)(resources.GetObject("lIMPScoringWarning.Image")));
+            this.lIMPScoringWarning.Location = new System.Drawing.Point(9, 76);
+            this.lIMPScoringWarning.Name = "lIMPScoringWarning";
+            this.lIMPScoringWarning.Size = new System.Drawing.Size(22, 18);
+            this.lIMPScoringWarning.TabIndex = 35;
+            this.lIMPScoringWarning.Visible = false;
+            this.lIMPScoringWarning.Click += new System.EventHandler(this.lIMPScoringWarning_Click);
             // 
             // lScoringOptionsWarning
             // 
@@ -797,6 +810,7 @@
             this.rbIMPButler.TabIndex = 33;
             this.rbIMPButler.Text = "IMP (butler)";
             this.rbIMPButler.UseVisualStyleBackColor = true;
+            this.rbIMPButler.CheckedChanged += new System.EventHandler(this.rbIMPButler_CheckedChanged);
             // 
             // rbIMPCavendish
             // 
@@ -808,6 +822,7 @@
             this.rbIMPCavendish.TabIndex = 32;
             this.rbIMPCavendish.Text = "IMP (cavendish)";
             this.rbIMPCavendish.UseVisualStyleBackColor = true;
+            this.rbIMPCavendish.CheckedChanged += new System.EventHandler(this.rbIMPCavendish_CheckedChanged);
             // 
             // rbIMPTeams
             // 
@@ -819,6 +834,7 @@
             this.rbIMPTeams.TabIndex = 31;
             this.rbIMPTeams.Text = "IMP (teamy)";
             this.rbIMPTeams.UseVisualStyleBackColor = true;
+            this.rbIMPTeams.CheckedChanged += new System.EventHandler(this.rbIMPTeams_CheckedChanged);
             // 
             // rbMatchpoints
             // 
@@ -830,6 +846,7 @@
             this.rbMatchpoints.TabIndex = 30;
             this.rbMatchpoints.Text = "% maksa";
             this.rbMatchpoints.UseVisualStyleBackColor = true;
+            this.rbMatchpoints.CheckedChanged += new System.EventHandler(this.rbMatchpoints_CheckedChanged);
             // 
             // lGroupSectionsWarning
             // 
@@ -1441,14 +1458,14 @@
             this.gwSections.AllowUserToResizeRows = false;
             this.gwSections.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.gwSections.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.gwSections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwSections.Location = new System.Drawing.Point(9, 118);
             this.gwSections.MultiSelect = false;
@@ -1779,6 +1796,7 @@
         public System.Windows.Forms.Label lScoringOptionsWarning;
         public System.Windows.Forms.CheckBox xFirstBoardManually;
         public System.Windows.Forms.CheckBox xShowRecap;
+        public System.Windows.Forms.Label lIMPScoringWarning;
     }
 }
 

@@ -773,11 +773,18 @@ namespace Aktywator
             {
                 type.Key.Checked = (type.Value == scoringType);
             }
+            this.impScoringWarning();
         }
 
         private void scoringOptionsWarning()
         {
             lScoringOptionsWarning.Visible = (xGroupSections.Checked || xShowPercentage.Checked);
+        }
+
+        private void impScoringWarning()
+        {
+            int scoringType = this.getScoringType();
+            this.lIMPScoringWarning.Visible = (scoringType > 1 && scoringType < 4); 
         }
 
         private void lScoringOptionsWarning_Click(object sender, EventArgs e)
@@ -797,6 +804,32 @@ namespace Aktywator
             {
                 this.xFirstBoardManually.Checked = false;
             }
+        }
+
+        private void lIMPScoringWarning_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Pamiętaj o skonfigurowaniu opcji liczenia turnieju na IMP (średnia, odrzucanie w butlerze, uśrednianie cavendisha) w Bridgemate Control Software ***PRZED*** wystartowaniem sesji!", "Ustawienia obliczania wyników",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void rbMatchpoints_CheckedChanged(object sender, EventArgs e)
+        {
+            this.impScoringWarning();
+        }
+
+        private void rbIMPCavendish_CheckedChanged(object sender, EventArgs e)
+        {
+            this.impScoringWarning();
+        }
+
+        private void rbIMPButler_CheckedChanged(object sender, EventArgs e)
+        {
+            this.impScoringWarning();
+        }
+
+        private void rbIMPTeams_CheckedChanged(object sender, EventArgs e)
+        {
+            this.impScoringWarning();
         }
     }
 }
