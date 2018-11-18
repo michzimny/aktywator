@@ -615,6 +615,7 @@ namespace Aktywator
                 if (this.getMySQLDatabaseForSection() != null)
                 {
                     Setting.saveScoringType(this.sql, 4, section);
+                    Setting.saveSectionGroups(this.sql, true, Convert.ToInt32(main.numTeamsTableOffset.Value));
                     Setting.save("BM2SummaryPoints", "0", this, errors, section);
                 }
                 else
