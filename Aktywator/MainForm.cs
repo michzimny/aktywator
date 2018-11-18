@@ -89,6 +89,7 @@ namespace Aktywator
             // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
             this.bwsSettings = new List<Setting>(bws.initSettings());
             this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
+            this.bwsSettings.Add(new Setting("BM2GameSummary", this.xShowRecap, bws, new Version(3, 6, 0), new Version(3, 0, 1)));
             bindSettingChanges();
             bws.loadSettings();
 

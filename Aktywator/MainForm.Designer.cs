@@ -73,11 +73,13 @@
             this.xMemberNumbersNoBlankEntry = new System.Windows.Forms.CheckBox();
             this.xShowPlayerNames = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.xShowRecap = new System.Windows.Forms.CheckBox();
             this.xRemainingBoards = new System.Windows.Forms.CheckBox();
             this.xNextSeatings = new System.Windows.Forms.CheckBox();
             this.xScoreRecap = new System.Windows.Forms.CheckBox();
             this.xAutoShowScoreRecap = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.xFirstBoardManually = new System.Windows.Forms.CheckBox();
             this.xCollectPlay = new System.Windows.Forms.CheckBox();
             this.xBoardOrderVerification = new System.Windows.Forms.CheckBox();
             this.xIntermediateResults = new System.Windows.Forms.CheckBox();
@@ -156,7 +158,6 @@
             this.bLaunch = new System.Windows.Forms.ToolStripButton();
             this.bUpdateSession = new System.Windows.Forms.ToolStripButton();
             this.namesTimer = new System.Windows.Forms.Timer(this.components);
-            this.xFirstBoardManually = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -615,6 +616,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.xShowRecap);
             this.groupBox6.Controls.Add(this.xRemainingBoards);
             this.groupBox6.Controls.Add(this.xNextSeatings);
             this.groupBox6.Controls.Add(this.xScoreRecap);
@@ -625,6 +627,16 @@
             this.groupBox6.TabIndex = 43;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Koniec rundy";
+            // 
+            // xShowRecap
+            // 
+            this.xShowRecap.AutoSize = true;
+            this.xShowRecap.Location = new System.Drawing.Point(13, 114);
+            this.xShowRecap.Name = "xShowRecap";
+            this.xShowRecap.Size = new System.Drawing.Size(214, 17);
+            this.xShowRecap.TabIndex = 14;
+            this.xShowRecap.Text = "podgląd kontrolki/historii na koniec sesji";
+            this.xShowRecap.UseVisualStyleBackColor = true;
             // 
             // xRemainingBoards
             // 
@@ -680,6 +692,17 @@
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Zapis rozdania";
+            // 
+            // xFirstBoardManually
+            // 
+            this.xFirstBoardManually.AutoSize = true;
+            this.xFirstBoardManually.Enabled = false;
+            this.xFirstBoardManually.Location = new System.Drawing.Point(190, 22);
+            this.xFirstBoardManually.Name = "xFirstBoardManually";
+            this.xFirstBoardManually.Size = new System.Drawing.Size(103, 17);
+            this.xFirstBoardManually.TabIndex = 4;
+            this.xFirstBoardManually.Text = "pierwszy ręcznie";
+            this.xFirstBoardManually.UseVisualStyleBackColor = true;
             // 
             // xCollectPlay
             // 
@@ -1562,17 +1585,6 @@
             this.namesTimer.Interval = 3000;
             this.namesTimer.Tick += new System.EventHandler(this.namesTimer_Tick);
             // 
-            // xFirstBoardManually
-            // 
-            this.xFirstBoardManually.AutoSize = true;
-            this.xFirstBoardManually.Enabled = false;
-            this.xFirstBoardManually.Location = new System.Drawing.Point(190, 22);
-            this.xFirstBoardManually.Name = "xFirstBoardManually";
-            this.xFirstBoardManually.Size = new System.Drawing.Size(103, 17);
-            this.xFirstBoardManually.TabIndex = 4;
-            this.xFirstBoardManually.Text = "pierwszy ręcznie";
-            this.xFirstBoardManually.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1766,6 +1778,7 @@
         private System.Windows.Forms.RadioButton rbMatchpoints;
         public System.Windows.Forms.Label lScoringOptionsWarning;
         public System.Windows.Forms.CheckBox xFirstBoardManually;
+        public System.Windows.Forms.CheckBox xShowRecap;
     }
 }
 

@@ -385,8 +385,8 @@ namespace Aktywator
             }
             catch (OleDbException)
             {
-            } 
-            
+            }
+
             try
             {
                 sql.query("CREATE TABLE PlayerNames (ID integer, Name text(18));");
@@ -540,6 +540,10 @@ namespace Aktywator
                 this.sectionGroupWarning();
             }
 
+            int ranking = 0;
+            Int32.TryParse(Setting.load("BM2Ranking", this, errors, section), out ranking);
+            main.xShowRecap.Checked = (ranking > 0) && (Setting.load("BM2GameSummary", this, errors, section).ToUpper().Equals("TRUE"));
+
             if (errors.Length > 0)
             {
                 MessageBox.Show("Nie można uzyskać dostępu do pól: \n" + errors.ToString() + ".\nPrawdopodobnie te pola nie istnieją.",
@@ -601,6 +605,25 @@ namespace Aktywator
             {
                 Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, 0);
                 Setting.saveScoringType(this.sql, 1, section);
+            }
+            if (main.xShowRecap.Checked)
+            {
+                if (this.getMySQLDatabaseForSection() != null)
+                {
+                    Setting.saveScoringType(this.sql, 4, section);
+                    Setting.save("BM2SummaryPoints", "0", this, errors, section);
+                }
+                else
+                {
+                    Setting.save("BM2SummaryPoints", "1", this, errors, section); 
+                }
+                Setting.save("BM2Ranking", "2", this, errors, section); 
+                Setting.save("BM2GameSummary", "true", this, errors, section);
+            }
+            else
+            {
+                Setting.save("BM2Ranking", "0", this, errors, section);
+                Setting.save("BM2GameSummary", "false", this, errors, section);
             }
             this.loadSettings();
         }
