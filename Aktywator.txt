@@ -10,6 +10,7 @@ Aktywator 1.1.5 (release candidate)
    - wyłączanie rozkładów przy wykryciu "łatwego" PINu
  * opcja wezwania sędziego z pierniczka
  * obsługa wyświetlania wyniku w IMP, również dla turnieju teamów
+ * obsługa podsumowania meczu/historii turnieju po zakońćzeniu sesji
  * obsługa opcji "pierwszy numer ręcznie" przy automatycznym wpisywaniu numerów rozdań
 
 Aktywator 1.1.4
