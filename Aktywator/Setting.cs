@@ -42,15 +42,18 @@ namespace Aktywator
             field.Checked = a.ToUpper() == "TRUE" ? true : false;
         }
 
-        public static string load(string name, Bws bws, StringBuilder errors, string section = null)
+        public static string load(string name, Bws bws, StringBuilder errors, string section = null, string table = "Settings", string sectionField = "`Section`")
         {
             StringBuilder str = new StringBuilder();
             str.Append("SELECT ");
             str.Append(name);
-            str.Append(" FROM Settings");
+            str.Append(" FROM ");
+            str.Append(table);
             if (section != null)
             {
-                str.Append(" WHERE `Section` = ");
+                str.Append(" WHERE ");
+                str.Append(sectionField);
+                str.Append(" = ");
                 str.Append(section);
             }
             try
@@ -171,12 +174,56 @@ namespace Aktywator
             }
         }
 
-        public static void saveSectionGroups(Sql sql, bool value)
+        public static void saveScoringType(Sql sql, int value, string section)
         {
-            StringBuilder sb = new StringBuilder("UPDATE Tables SET `Group` = ");
-            sb.Append(value ? "1" : "`Section`");
+            StringBuilder sb = new StringBuilder("UPDATE `Section` SET `ScoringType` = ");
+            sb.Append(value);
+            if (section != null)
+            {
+                sb.Append(" WHERE `ID` = ");
+                sb.Append(section);
+            }
             sb.Append(";");
             sql.query(sb.ToString());
+        }
+
+        public static void saveSectionGroups(Sql sql, bool value, int teamTableOffset = 0)
+        {
+            if (teamTableOffset == 0)
+            {
+                StringBuilder sb = new StringBuilder("UPDATE Tables SET `Group` = ");
+                sb.Append(value ? "1" : "`Section`");
+                sb.Append(";");
+                sql.query(sb.ToString());
+            }
+            else
+            {
+                int group = 1;
+                StringBuilder tablesQuery = new StringBuilder("SELECT `Section`, (`Table` MOD ");
+                tablesQuery.Append(teamTableOffset);
+                tablesQuery.Append(") FROM `Tables` GROUP BY `Section`, (`Table` MOD ");
+                tablesQuery.Append(teamTableOffset);
+                tablesQuery.Append(");");
+                OleDbDataReader tables = sql.select(tablesQuery.ToString());
+                List<string> queries = new List<string>();
+                while (tables.Read())
+                {
+                    StringBuilder sb = new StringBuilder("UPDATE `Tables` SET `Group` = ");
+                    sb.Append(group++);
+                    sb.Append(" WHERE `Section` = ");
+                    sb.Append(Bws.bwsNumber(tables, 0));
+                    sb.Append(" AND (`Table` MOD ");
+                    sb.Append(teamTableOffset);
+                    sb.Append(") = ");
+                    sb.Append(Bws.bwsNumber(tables, 1));
+                    sb.Append(";");
+                    queries.Add(sb.ToString());
+                }
+                foreach (string query in queries)
+                {
+                    sql.query(query);
+                }
+            }
         }
     }
 }

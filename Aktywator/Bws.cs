@@ -119,7 +119,6 @@ namespace Aktywator
                     this.setHandRecordInfo(board.Key);
                 }
             }
-            main.xShowResults_CheckedChanged(null, EventArgs.Empty);
             if (this.detectDifferentRecordsInSections())
             {
                 if (main.xGroupSections.Checked)
@@ -127,8 +126,9 @@ namespace Aktywator
                     MessageBox.Show(MainForm.differentRecordsInSections, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     main.xGroupSections.Checked = false;
                 }
-                Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
+                Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, (this.getMySQLDatabaseForSection() != null) ? Convert.ToInt32(main.numTeamsTableOffset.Value) : 0);
             }
+            main.checkRecordsForSectionGroups();
         }
 
         private void setHandRecordInfo(int board, string section = null, List<string> layout = null, bool analysis = false)
@@ -250,7 +250,7 @@ namespace Aktywator
             settings = new List<Setting>();
             settings.Add(new Setting("ShowResults", main.xShowResults, this, new Version(2, 0, 0), new Version(1, 3, 1)));
             settings.Add(new Setting("RepeatResults", main.xRepeatResults, this, null, null));
-            settings.Add(new Setting("ShowPercentage", main.xShowPercentage, this, null, null));
+            settings.Add(new Setting("ShowPercentage", main.xShowPercentage, this, new Version(3, 6, 0), new Version(3, 0, 1)));
             settings.Add(new Setting("GroupSections", main.xGroupSections, this, new Version(2, 1, 10), new Version(1, 3, 1)));
             settings.Add(new Setting("ShowPairNumbers", main.xShowPairNumbers, this, null, null));
             settings.Add(new Setting("IntermediateResults", main.xIntermediateResults, this, null, new Version(1, 4, 1)));
@@ -267,11 +267,13 @@ namespace Aktywator
             settings.Add(new Setting("BM2AutoShowScoreRecap", main.xAutoShowScoreRecap, this, new Version(2, 5, 1), new Version(1, 0, 1)));
             settings.Add(new Setting("BM2ScoreCorrection", main.xScoreCorrection, this, new Version(2, 0, 0), new Version(1, 0, 1)));
             settings.Add(new Setting("BM2AutoBoardNumber", main.xAutoBoardNumber, this, new Version(2, 0, 0), new Version(2, 0, 1)));
+            settings.Add(new Setting("BM2FirstBoardManually", main.xFirstBoardManually, this, new Version(2, 7, 9), new Version(2, 7, 6)));
             settings.Add(new Setting("BM2ResetFunctionKey", main.xResetFunctionKey, this, new Version(2, 0, 0), new Version(1, 0, 1)));
             settings.Add(new Setting("BM2ViewHandrecord", main.xViewHandrecord, this, new Version(2, 6, 1), new Version(1, 6, 1)));
             settings.Add(new Setting("BM2RecordBidding", main.xCollectBidding, this, new Version(2, 0, 0), new Version(1, 3, 1)));
             settings.Add(new Setting("BM2RecordPlay", main.xCollectPlay, this, new Version(2, 0, 0), new Version(1, 3, 1)));
             settings.Add(new Setting("BM2ValidateLeadCard", main.xCheckLeadCard, this, new Version(3, 2, 1), new Version(2, 2, 1)));
+            settings.Add(new Setting("BM2TDCall", main.xCallTD, this, new Version(3, 3, 1), new Version(2, 3, 1)));
             return settings;
         }
 
@@ -344,7 +346,10 @@ namespace Aktywator
             settings.Add(new Setting("BM2RecordBidding", "bit", "false"));
             settings.Add(new Setting("BM2RecordPlay", "bit", "false"));
             settings.Add(new Setting("BM2ValidateLeadCard", "bit", "false"));
+            settings.Add(new Setting("BM2TDCall", "bit", "false"));
             settings.Add(new Setting("BM2ShowPlayerNames", "integer", "0"));
+            settings.Add(new Setting("ScoringType", "integer", "1", "`Section`"));
+            settings.Add(new Setting("BM2FirstBoardManually", "bit", "false"));
 
             foreach (Setting s in settings)
             {
@@ -352,7 +357,7 @@ namespace Aktywator
             }
 
             List<Setting> defaultSettings = new List<Setting>();
-            defaultSettings.Add(new Setting("BM2PINcode", "text(4)", "'5431'"));
+            defaultSettings.Add(new Setting("BM2PINcode", "text(4)", "'" + this._getRandomPIN() + "'"));
             defaultSettings.Add(new Setting("BM2Ranking", "integer", "0"));
             defaultSettings.Add(new Setting("BM2GameSummary", "bit", "false"));
             defaultSettings.Add(new Setting("BM2SummaryPoints", "integer", "0"));
@@ -380,8 +385,17 @@ namespace Aktywator
             }
             catch (OleDbException)
             {
-            } 
-            
+            }
+
+            try
+            {
+                sql.query("ALTER TABLE `Section` ADD COLUMN `Winners` integer;");
+            }
+            catch (OleDbException)
+            {
+            }
+            sql.query("UPDATE `Section` SET Winners = 1");
+
             try
             {
                 sql.query("CREATE TABLE PlayerNames (ID integer, Name text(18));");
@@ -414,6 +428,16 @@ namespace Aktywator
             catch (OleDbException)
             {
             }
+        }
+
+        internal int[] _unsafePINs = { 0, 0x0457, 0x08AE, 0x0D05, 0x115C, 0x15B3, 0x1A0A, 0x1E61, 0x22B8, 0x270F, 0x04D2, 0x1537, 0x582, 0x1159 };
+        internal string _getRandomPIN(int oldPIN = 0)
+        {
+            while (Array.IndexOf(this._unsafePINs, oldPIN) > -1)
+            {
+                oldPIN = (new Random()).Next(10000);
+            }
+            return String.Format("{0,4:D4}", oldPIN);
         }
 
         private void _ensureHandRecordStructure()
@@ -508,16 +532,26 @@ namespace Aktywator
             string playerNames = Setting.load("BM2ShowPlayerNames", this, errors, section);
             main.xShowPlayerNames.Checked = !("".Equals(playerNames) || "0".Equals(playerNames));
             main.xPINcode.Text = Setting.load("BM2PINcode", this, errors, section);
+            main.checkPINsafety(main.xPINcode.Text, this._unsafePINs);
             int resultsOverview = 0;
             int.TryParse(Setting.load("BM2ResultsOverview", this, errors, section), out resultsOverview);
             main.xResultsOverview.SelectedIndex = resultsOverview;
-            main.xGroupSections.Checked = this.getSectionGroupCount() <= 1;
+
+            int scoringType = 1;
+            Int32.TryParse(Setting.load("ScoringType", this, errors, section, "`Section`", "`ID`"), out scoringType);
+            main.setScoringType((scoringType > 0) ? scoringType : 1);
+
+            main.checkRecordsForSectionGroups();
 
             if (section == null && main.cbSettingsSection.Items.Count > 2)
             {
                 main.lFirstSectorSettings.Visible = true;
                 this.sectionGroupWarning();
             }
+
+            int ranking = 0;
+            Int32.TryParse(Setting.load("BM2Ranking", this, errors, section), out ranking);
+            main.xShowRecap.Checked = (ranking > 0) && (Setting.load("BM2GameSummary", this, errors, section).ToUpper().Equals("TRUE"));
 
             if (errors.Length > 0)
             {
@@ -529,11 +563,7 @@ namespace Aktywator
 
         public void sectionGroupWarning()
         {
-            main.lGroupSectionsWarning.Visible = false;
-            if (main.xShowResults.Checked || this.detectDifferentRecordsInSections())
-            {
-                main.lGroupSectionsWarning.Visible = true;
-            }
+            main.lGroupSectionsWarning.Visible = this.detectDifferentRecordsInSections();
         }
 
         private int getSectionGroupCount()
@@ -550,6 +580,7 @@ namespace Aktywator
         public void saveSettings()
         {
             string section = "*".Equals(main.cbSettingsSection.Text.Trim()) ? null : this.sectorLetterToNumber(main.cbSettingsSection.Text.Trim()).ToString();
+            main.checkPINsafety(main.xPINcode.Text, this._unsafePINs, true);
             StringBuilder errors = new StringBuilder();
             foreach (Setting s in settings)
             {
@@ -568,7 +599,37 @@ namespace Aktywator
             Setting.save("BM2NameSource", "2", this, errors, section);
             Setting.save("BM2PINcode", "'" + main.xPINcode.Text + "'", this, errors, section);
             Setting.save("BM2ResultsOverview", main.xResultsOverview.SelectedIndex.ToString(), this, errors, section);
-            Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked);
+            if (main.xShowPercentage.Checked)
+            {
+                Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, (this.getMySQLDatabaseForSection() != null) ? Convert.ToInt32(main.numTeamsTableOffset.Value) : 0);
+                int scoringType = main.getScoringType();
+                Setting.saveScoringType(this.sql, scoringType, section);
+            }
+            else
+            {
+                Setting.saveSectionGroups(this.sql, main.xGroupSections.Checked, 0);
+                Setting.saveScoringType(this.sql, 1, section);
+            }
+            if (main.xShowRecap.Checked)
+            {
+                if (this.getMySQLDatabaseForSection() != null)
+                {
+                    Setting.saveScoringType(this.sql, 4, section);
+                    Setting.saveSectionGroups(this.sql, true, Convert.ToInt32(main.numTeamsTableOffset.Value));
+                    Setting.save("BM2SummaryPoints", "0", this, errors, section);
+                }
+                else
+                {
+                    Setting.save("BM2SummaryPoints", "1", this, errors, section); 
+                }
+                Setting.save("BM2Ranking", "2", this, errors, section); 
+                Setting.save("BM2GameSummary", "true", this, errors, section);
+            }
+            else
+            {
+                Setting.save("BM2Ranking", "0", this, errors, section);
+                Setting.save("BM2GameSummary", "false", this, errors, section);
+            }
             this.loadSettings();
         }
 
@@ -598,6 +659,11 @@ namespace Aktywator
         }
 
         private int getBWSNumber(OleDbDataReader reader, int index)
+        {
+            return Bws.bwsNumber(reader, index);
+        }
+
+        public static int bwsNumber(OleDbDataReader reader, int index)
         {
             switch (Type.GetTypeCode(reader.GetFieldType(index)))
             {

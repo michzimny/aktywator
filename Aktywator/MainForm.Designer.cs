@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.open = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -38,7 +38,7 @@
             this.status3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tpSettings = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.bLoad = new System.Windows.Forms.ToolStripButton();
@@ -53,7 +53,15 @@
             this.lFirstSectorSettings = new System.Windows.Forms.Label();
             this.cbSettingsSection = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
+            this.xLeadCard = new System.Windows.Forms.CheckBox();
+            this.xViewHandrecord = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.xAutoShutDownBPC = new System.Windows.Forms.CheckBox();
+            this.xCallTD = new System.Windows.Forms.CheckBox();
+            this.bRandomPIN = new System.Windows.Forms.Button();
+            this.lPINWarning = new System.Windows.Forms.Label();
             this.xResetFunctionKey = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.xPINcode = new System.Windows.Forms.TextBox();
@@ -65,30 +73,33 @@
             this.xMemberNumbersNoBlankEntry = new System.Windows.Forms.CheckBox();
             this.xShowPlayerNames = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.xAutoShutDownBPC = new System.Windows.Forms.CheckBox();
+            this.xShowRecap = new System.Windows.Forms.CheckBox();
             this.xRemainingBoards = new System.Windows.Forms.CheckBox();
             this.xNextSeatings = new System.Windows.Forms.CheckBox();
             this.xScoreRecap = new System.Windows.Forms.CheckBox();
             this.xAutoShowScoreRecap = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.xFirstBoardManually = new System.Windows.Forms.CheckBox();
             this.xCollectPlay = new System.Windows.Forms.CheckBox();
             this.xBoardOrderVerification = new System.Windows.Forms.CheckBox();
             this.xIntermediateResults = new System.Windows.Forms.CheckBox();
             this.xAutoBoardNumber = new System.Windows.Forms.CheckBox();
             this.xCollectBidding = new System.Windows.Forms.CheckBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.xCheckLeadCard = new System.Windows.Forms.CheckBox();
-            this.xLeadCard = new System.Windows.Forms.CheckBox();
-            this.xViewHandrecord = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lIMPScoringWarning = new System.Windows.Forms.Label();
+            this.lScoringOptionsWarning = new System.Windows.Forms.Label();
+            this.rbIMPButler = new System.Windows.Forms.RadioButton();
+            this.rbIMPCavendish = new System.Windows.Forms.RadioButton();
+            this.rbIMPTeams = new System.Windows.Forms.RadioButton();
+            this.rbMatchpoints = new System.Windows.Forms.RadioButton();
             this.lGroupSectionsWarning = new System.Windows.Forms.Label();
-            this.xGroupSections = new System.Windows.Forms.CheckBox();
             this.xShowResults = new System.Windows.Forms.CheckBox();
-            this.xRepeatResults = new System.Windows.Forms.CheckBox();
+            this.xGroupSections = new System.Windows.Forms.CheckBox();
             this.xShowPercentage = new System.Windows.Forms.CheckBox();
+            this.xRepeatResults = new System.Windows.Forms.CheckBox();
             this.xShowContract = new System.Windows.Forms.CheckBox();
             this.xResultsOverview = new System.Windows.Forms.ComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tpNames = new System.Windows.Forms.TabPage();
             this.sectionToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.cbNamesSection = new System.Windows.Forms.ToolStripComboBox();
@@ -125,7 +136,7 @@
             this.bMysqlSettings = new System.Windows.Forms.ToolStripButton();
             this.bForceSync = new System.Windows.Forms.ToolStripButton();
             this.bTruncate = new System.Windows.Forms.ToolStripButton();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tpRecords = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -140,6 +151,7 @@
             this.bClearHands = new System.Windows.Forms.ToolStripButton();
             this.lRecordSections = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.ilTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openPBN = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -150,17 +162,17 @@
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tpSettings.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.statusStrip2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tpNames.SuspendLayout();
             this.sectionToolStrip.SuspendLayout();
             this.namesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNamesRefreshInterval)).BeginInit();
@@ -168,7 +180,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.namesGridView)).BeginInit();
             this.syncToolStrip.SuspendLayout();
             this.toolStrip4.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tpRecords.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gwSections)).BeginInit();
             this.toolStrip3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -184,9 +196,9 @@
             this.status1,
             this.status2,
             this.status3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 586);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 633);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(583, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(632, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusBar";
@@ -217,32 +229,36 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(583, 586);
+            this.groupBox1.Size = new System.Drawing.Size(632, 633);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
             // tabControl1
             // 
             this.tabControl1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(0, 43);
+            this.tabControl1.Controls.Add(this.tpSettings);
+            this.tabControl1.Controls.Add(this.tpNames);
+            this.tabControl1.Controls.Add(this.tpRecords);
+            this.tabControl1.ImageList = this.ilTabIcons;
+            this.tabControl1.Location = new System.Drawing.Point(6, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(577, 537);
+            this.tabControl1.ShowToolTips = true;
+            this.tabControl1.Size = new System.Drawing.Size(620, 584);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
-            // tabPage1
+            // tpSettings
             // 
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(569, 511);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Ustawienia";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpSettings.Controls.Add(this.panel1);
+            this.tpSettings.ImageIndex = 0;
+            this.tpSettings.Location = new System.Drawing.Point(4, 23);
+            this.tpSettings.Name = "tpSettings";
+            this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSettings.Size = new System.Drawing.Size(612, 557);
+            this.tpSettings.TabIndex = 0;
+            this.tpSettings.Text = "Ustawienia";
+            this.tpSettings.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -251,16 +267,16 @@
             this.panel1.Controls.Add(this.lFirstSectorSettings);
             this.panel1.Controls.Add(this.cbSettingsSection);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox7);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox6);
             this.panel1.Controls.Add(this.groupBox3);
-            this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(3, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(563, 502);
+            this.panel1.Size = new System.Drawing.Size(606, 548);
             this.panel1.TabIndex = 29;
             // 
             // toolStrip2
@@ -273,9 +289,9 @@
             this.bLoad,
             this.bSave});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 455);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 501);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(606, 25);
             this.toolStrip2.TabIndex = 51;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -309,9 +325,9 @@
             this.lDetectedVersion,
             this.toolStripStatusLabel3,
             this.lRequiredFirmware});
-            this.statusStrip2.Location = new System.Drawing.Point(0, 480);
+            this.statusStrip2.Location = new System.Drawing.Point(0, 526);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(563, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(606, 22);
             this.statusStrip2.SizingGrip = false;
             this.statusStrip2.TabIndex = 50;
             this.statusStrip2.Text = "statusStrip2";
@@ -391,19 +407,107 @@
             this.label1.TabIndex = 47;
             this.label1.Text = "Sektor:";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.xCheckLeadCard);
+            this.groupBox5.Controls.Add(this.xLeadCard);
+            this.groupBox5.Controls.Add(this.xViewHandrecord);
+            this.groupBox5.Location = new System.Drawing.Point(309, 34);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(295, 114);
+            this.groupBox5.TabIndex = 42;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Rozkłady";
+            // 
+            // xCheckLeadCard
+            // 
+            this.xCheckLeadCard.AutoSize = true;
+            this.xCheckLeadCard.Location = new System.Drawing.Point(13, 65);
+            this.xCheckLeadCard.Name = "xCheckLeadCard";
+            this.xCheckLeadCard.Size = new System.Drawing.Size(180, 17);
+            this.xCheckLeadCard.TabIndex = 32;
+            this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
+            this.xCheckLeadCard.UseVisualStyleBackColor = true;
+            // 
+            // xLeadCard
+            // 
+            this.xLeadCard.AutoSize = true;
+            this.xLeadCard.Location = new System.Drawing.Point(13, 42);
+            this.xLeadCard.Name = "xLeadCard";
+            this.xLeadCard.Size = new System.Drawing.Size(111, 17);
+            this.xLeadCard.TabIndex = 21;
+            this.xLeadCard.Text = "pytaj o kartę wistu";
+            this.xLeadCard.UseVisualStyleBackColor = true;
+            // 
+            // xViewHandrecord
+            // 
+            this.xViewHandrecord.AutoSize = true;
+            this.xViewHandrecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.xViewHandrecord.Location = new System.Drawing.Point(13, 19);
+            this.xViewHandrecord.Name = "xViewHandrecord";
+            this.xViewHandrecord.Size = new System.Drawing.Size(123, 17);
+            this.xViewHandrecord.TabIndex = 29;
+            this.xViewHandrecord.Text = "pokazuj rozkłady";
+            this.xViewHandrecord.UseVisualStyleBackColor = true;
+            // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.xAutoShutDownBPC);
+            this.groupBox7.Controls.Add(this.xCallTD);
+            this.groupBox7.Controls.Add(this.bRandomPIN);
+            this.groupBox7.Controls.Add(this.lPINWarning);
             this.groupBox7.Controls.Add(this.xResetFunctionKey);
             this.groupBox7.Controls.Add(this.label2);
             this.groupBox7.Controls.Add(this.xPINcode);
             this.groupBox7.Controls.Add(this.xConfirmNP);
             this.groupBox7.Controls.Add(this.xScoreCorrection);
-            this.groupBox7.Location = new System.Drawing.Point(268, 324);
+            this.groupBox7.Location = new System.Drawing.Point(309, 300);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(294, 121);
+            this.groupBox7.Size = new System.Drawing.Size(294, 190);
             this.groupBox7.TabIndex = 44;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Opcje sędziowskie";
+            // 
+            // xAutoShutDownBPC
+            // 
+            this.xAutoShutDownBPC.AutoSize = true;
+            this.xAutoShutDownBPC.Location = new System.Drawing.Point(13, 138);
+            this.xAutoShutDownBPC.Name = "xAutoShutDownBPC";
+            this.xAutoShutDownBPC.Size = new System.Drawing.Size(166, 17);
+            this.xAutoShutDownBPC.TabIndex = 17;
+            this.xAutoShutDownBPC.Text = "automat. wyłącz BCS po sesji";
+            this.xAutoShutDownBPC.UseVisualStyleBackColor = true;
+            // 
+            // xCallTD
+            // 
+            this.xCallTD.AutoSize = true;
+            this.xCallTD.Location = new System.Drawing.Point(13, 115);
+            this.xCallTD.Name = "xCallTD";
+            this.xCallTD.Size = new System.Drawing.Size(186, 17);
+            this.xCallTD.TabIndex = 32;
+            this.xCallTD.Text = "zawodnik może wezwać sędziego";
+            this.xCallTD.UseVisualStyleBackColor = true;
+            // 
+            // bRandomPIN
+            // 
+            this.bRandomPIN.Image = ((System.Drawing.Image)(resources.GetObject("bRandomPIN.Image")));
+            this.bRandomPIN.Location = new System.Drawing.Point(94, 21);
+            this.bRandomPIN.Name = "bRandomPIN";
+            this.bRandomPIN.Size = new System.Drawing.Size(22, 22);
+            this.bRandomPIN.TabIndex = 31;
+            this.bRandomPIN.UseVisualStyleBackColor = true;
+            this.bRandomPIN.Click += new System.EventHandler(this.bRandomPIN_Click);
+            // 
+            // lPINWarning
+            // 
+            this.lPINWarning.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lPINWarning.Image = ((System.Drawing.Image)(resources.GetObject("lPINWarning.Image")));
+            this.lPINWarning.Location = new System.Drawing.Point(10, 22);
+            this.lPINWarning.Name = "lPINWarning";
+            this.lPINWarning.Size = new System.Drawing.Size(22, 18);
+            this.lPINWarning.TabIndex = 30;
+            this.lPINWarning.Visible = false;
+            this.lPINWarning.Click += new System.EventHandler(this.lPINWarning_Click);
             // 
             // xResetFunctionKey
             // 
@@ -418,7 +522,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 25);
+            this.label2.Location = new System.Drawing.Point(30, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(25, 13);
             this.label2.TabIndex = 27;
@@ -426,12 +530,14 @@
             // 
             // xPINcode
             // 
-            this.xPINcode.Location = new System.Drawing.Point(41, 21);
+            this.xPINcode.Location = new System.Drawing.Point(56, 22);
             this.xPINcode.MaxLength = 4;
             this.xPINcode.Name = "xPINcode";
             this.xPINcode.Size = new System.Drawing.Size(37, 20);
             this.xPINcode.TabIndex = 14;
             this.xPINcode.Text = "0000";
+            this.xPINcode.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.xPINcode.TextChanged += new System.EventHandler(this.xPINcode_TextChanged);
             // 
             // xConfirmNP
             // 
@@ -461,7 +567,7 @@
             this.groupBox2.Controls.Add(this.xShowPlayerNames);
             this.groupBox2.Location = new System.Drawing.Point(6, 34);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(256, 138);
+            this.groupBox2.Size = new System.Drawing.Size(294, 114);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Rozstawienie";
@@ -469,7 +575,7 @@
             // xMemberNumbers
             // 
             this.xMemberNumbers.AutoSize = true;
-            this.xMemberNumbers.Location = new System.Drawing.Point(12, 67);
+            this.xMemberNumbers.Location = new System.Drawing.Point(11, 65);
             this.xMemberNumbers.Name = "xMemberNumbers";
             this.xMemberNumbers.Size = new System.Drawing.Size(133, 17);
             this.xMemberNumbers.TabIndex = 6;
@@ -480,7 +586,7 @@
             // xShowPairNumbers
             // 
             this.xShowPairNumbers.AutoSize = true;
-            this.xShowPairNumbers.Location = new System.Drawing.Point(12, 44);
+            this.xShowPairNumbers.Location = new System.Drawing.Point(11, 42);
             this.xShowPairNumbers.Name = "xShowPairNumbers";
             this.xShowPairNumbers.Size = new System.Drawing.Size(118, 17);
             this.xShowPairNumbers.TabIndex = 5;
@@ -491,7 +597,7 @@
             // 
             this.xMemberNumbersNoBlankEntry.AutoSize = true;
             this.xMemberNumbersNoBlankEntry.Enabled = false;
-            this.xMemberNumbersNoBlankEntry.Location = new System.Drawing.Point(33, 90);
+            this.xMemberNumbersNoBlankEntry.Location = new System.Drawing.Point(34, 88);
             this.xMemberNumbersNoBlankEntry.Name = "xMemberNumbersNoBlankEntry";
             this.xMemberNumbersNoBlankEntry.Size = new System.Drawing.Size(131, 17);
             this.xMemberNumbersNoBlankEntry.TabIndex = 7;
@@ -502,7 +608,7 @@
             // 
             this.xShowPlayerNames.AutoSize = true;
             this.xShowPlayerNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.xShowPlayerNames.Location = new System.Drawing.Point(12, 21);
+            this.xShowPlayerNames.Location = new System.Drawing.Point(11, 19);
             this.xShowPlayerNames.Name = "xShowPlayerNames";
             this.xShowPlayerNames.Size = new System.Drawing.Size(126, 17);
             this.xShowPlayerNames.TabIndex = 9;
@@ -511,27 +617,27 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.xAutoShutDownBPC);
+            this.groupBox6.Controls.Add(this.xShowRecap);
             this.groupBox6.Controls.Add(this.xRemainingBoards);
             this.groupBox6.Controls.Add(this.xNextSeatings);
             this.groupBox6.Controls.Add(this.xScoreRecap);
             this.groupBox6.Controls.Add(this.xAutoShowScoreRecap);
-            this.groupBox6.Location = new System.Drawing.Point(268, 178);
+            this.groupBox6.Location = new System.Drawing.Point(309, 154);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(294, 140);
             this.groupBox6.TabIndex = 43;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Koniec rundy";
             // 
-            // xAutoShutDownBPC
+            // xShowRecap
             // 
-            this.xAutoShutDownBPC.AutoSize = true;
-            this.xAutoShutDownBPC.Location = new System.Drawing.Point(13, 114);
-            this.xAutoShutDownBPC.Name = "xAutoShutDownBPC";
-            this.xAutoShutDownBPC.Size = new System.Drawing.Size(166, 17);
-            this.xAutoShutDownBPC.TabIndex = 17;
-            this.xAutoShutDownBPC.Text = "automat. wyłącz BCS po sesji";
-            this.xAutoShutDownBPC.UseVisualStyleBackColor = true;
+            this.xShowRecap.AutoSize = true;
+            this.xShowRecap.Location = new System.Drawing.Point(13, 114);
+            this.xShowRecap.Name = "xShowRecap";
+            this.xShowRecap.Size = new System.Drawing.Size(214, 17);
+            this.xShowRecap.TabIndex = 14;
+            this.xShowRecap.Text = "podgląd kontrolki/historii na koniec sesji";
+            this.xShowRecap.UseVisualStyleBackColor = true;
             // 
             // xRemainingBoards
             // 
@@ -575,17 +681,29 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.xFirstBoardManually);
             this.groupBox3.Controls.Add(this.xCollectPlay);
             this.groupBox3.Controls.Add(this.xBoardOrderVerification);
             this.groupBox3.Controls.Add(this.xIntermediateResults);
             this.groupBox3.Controls.Add(this.xAutoBoardNumber);
             this.groupBox3.Controls.Add(this.xCollectBidding);
-            this.groupBox3.Location = new System.Drawing.Point(4, 178);
+            this.groupBox3.Location = new System.Drawing.Point(5, 154);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(257, 140);
+            this.groupBox3.Size = new System.Drawing.Size(295, 140);
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Zapis rozdania";
+            // 
+            // xFirstBoardManually
+            // 
+            this.xFirstBoardManually.AutoSize = true;
+            this.xFirstBoardManually.Enabled = false;
+            this.xFirstBoardManually.Location = new System.Drawing.Point(190, 22);
+            this.xFirstBoardManually.Name = "xFirstBoardManually";
+            this.xFirstBoardManually.Size = new System.Drawing.Size(103, 17);
+            this.xFirstBoardManually.TabIndex = 4;
+            this.xFirstBoardManually.Text = "pierwszy ręcznie";
+            this.xFirstBoardManually.UseVisualStyleBackColor = true;
             // 
             // xCollectPlay
             // 
@@ -626,6 +744,7 @@
             this.xAutoBoardNumber.TabIndex = 10;
             this.xAutoBoardNumber.Text = "automat. wpisuj numer rozdania";
             this.xAutoBoardNumber.UseVisualStyleBackColor = true;
+            this.xAutoBoardNumber.CheckedChanged += new System.EventHandler(this.xAutoBoardNumber_CheckedChanged);
             // 
             // xCollectBidding
             // 
@@ -637,124 +756,157 @@
             this.xCollectBidding.Text = "zbieraj licytację";
             this.xCollectBidding.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.xCheckLeadCard);
-            this.groupBox5.Controls.Add(this.xLeadCard);
-            this.groupBox5.Controls.Add(this.xViewHandrecord);
-            this.groupBox5.Location = new System.Drawing.Point(5, 324);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(257, 121);
-            this.groupBox5.TabIndex = 42;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Rozkłady";
-            // 
-            // xCheckLeadCard
-            // 
-            this.xCheckLeadCard.AutoSize = true;
-            this.xCheckLeadCard.Location = new System.Drawing.Point(12, 71);
-            this.xCheckLeadCard.Name = "xCheckLeadCard";
-            this.xCheckLeadCard.Size = new System.Drawing.Size(180, 17);
-            this.xCheckLeadCard.TabIndex = 32;
-            this.xCheckLeadCard.Text = "sprawdź kartę wistu z rozkładem";
-            this.xCheckLeadCard.UseVisualStyleBackColor = true;
-            // 
-            // xLeadCard
-            // 
-            this.xLeadCard.AutoSize = true;
-            this.xLeadCard.Location = new System.Drawing.Point(12, 48);
-            this.xLeadCard.Name = "xLeadCard";
-            this.xLeadCard.Size = new System.Drawing.Size(111, 17);
-            this.xLeadCard.TabIndex = 21;
-            this.xLeadCard.Text = "pytaj o kartę wistu";
-            this.xLeadCard.UseVisualStyleBackColor = true;
-            // 
-            // xViewHandrecord
-            // 
-            this.xViewHandrecord.AutoSize = true;
-            this.xViewHandrecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.xViewHandrecord.Location = new System.Drawing.Point(12, 25);
-            this.xViewHandrecord.Name = "xViewHandrecord";
-            this.xViewHandrecord.Size = new System.Drawing.Size(123, 17);
-            this.xViewHandrecord.TabIndex = 29;
-            this.xViewHandrecord.Text = "pokazuj rozkłady";
-            this.xViewHandrecord.UseVisualStyleBackColor = true;
-            // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lIMPScoringWarning);
+            this.groupBox4.Controls.Add(this.lScoringOptionsWarning);
+            this.groupBox4.Controls.Add(this.rbIMPButler);
+            this.groupBox4.Controls.Add(this.rbIMPCavendish);
+            this.groupBox4.Controls.Add(this.rbIMPTeams);
+            this.groupBox4.Controls.Add(this.rbMatchpoints);
             this.groupBox4.Controls.Add(this.lGroupSectionsWarning);
-            this.groupBox4.Controls.Add(this.xGroupSections);
             this.groupBox4.Controls.Add(this.xShowResults);
-            this.groupBox4.Controls.Add(this.xRepeatResults);
+            this.groupBox4.Controls.Add(this.xGroupSections);
             this.groupBox4.Controls.Add(this.xShowPercentage);
+            this.groupBox4.Controls.Add(this.xRepeatResults);
             this.groupBox4.Controls.Add(this.xShowContract);
             this.groupBox4.Controls.Add(this.xResultsOverview);
-            this.groupBox4.Location = new System.Drawing.Point(268, 34);
+            this.groupBox4.Location = new System.Drawing.Point(6, 300);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(294, 138);
+            this.groupBox4.Size = new System.Drawing.Size(294, 190);
             this.groupBox4.TabIndex = 41;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Protokół";
+            // 
+            // lIMPScoringWarning
+            // 
+            this.lIMPScoringWarning.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lIMPScoringWarning.Image = ((System.Drawing.Image)(resources.GetObject("lIMPScoringWarning.Image")));
+            this.lIMPScoringWarning.Location = new System.Drawing.Point(9, 76);
+            this.lIMPScoringWarning.Name = "lIMPScoringWarning";
+            this.lIMPScoringWarning.Size = new System.Drawing.Size(22, 18);
+            this.lIMPScoringWarning.TabIndex = 35;
+            this.lIMPScoringWarning.Visible = false;
+            this.lIMPScoringWarning.Click += new System.EventHandler(this.lIMPScoringWarning_Click);
+            // 
+            // lScoringOptionsWarning
+            // 
+            this.lScoringOptionsWarning.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lScoringOptionsWarning.Image = ((System.Drawing.Image)(resources.GetObject("lScoringOptionsWarning.Image")));
+            this.lScoringOptionsWarning.Location = new System.Drawing.Point(9, 41);
+            this.lScoringOptionsWarning.Name = "lScoringOptionsWarning";
+            this.lScoringOptionsWarning.Size = new System.Drawing.Size(22, 18);
+            this.lScoringOptionsWarning.TabIndex = 34;
+            this.lScoringOptionsWarning.Visible = false;
+            this.lScoringOptionsWarning.Click += new System.EventHandler(this.lScoringOptionsWarning_Click);
+            // 
+            // rbIMPButler
+            // 
+            this.rbIMPButler.AutoSize = true;
+            this.rbIMPButler.Enabled = false;
+            this.rbIMPButler.Location = new System.Drawing.Point(127, 90);
+            this.rbIMPButler.Name = "rbIMPButler";
+            this.rbIMPButler.Size = new System.Drawing.Size(79, 17);
+            this.rbIMPButler.TabIndex = 33;
+            this.rbIMPButler.Text = "IMP (butler)";
+            this.rbIMPButler.UseVisualStyleBackColor = true;
+            this.rbIMPButler.CheckedChanged += new System.EventHandler(this.rbIMPButler_CheckedChanged);
+            // 
+            // rbIMPCavendish
+            // 
+            this.rbIMPCavendish.AutoSize = true;
+            this.rbIMPCavendish.Enabled = false;
+            this.rbIMPCavendish.Location = new System.Drawing.Point(127, 66);
+            this.rbIMPCavendish.Name = "rbIMPCavendish";
+            this.rbIMPCavendish.Size = new System.Drawing.Size(102, 17);
+            this.rbIMPCavendish.TabIndex = 32;
+            this.rbIMPCavendish.Text = "IMP (cavendish)";
+            this.rbIMPCavendish.UseVisualStyleBackColor = true;
+            this.rbIMPCavendish.CheckedChanged += new System.EventHandler(this.rbIMPCavendish_CheckedChanged);
+            // 
+            // rbIMPTeams
+            // 
+            this.rbIMPTeams.AutoSize = true;
+            this.rbIMPTeams.Enabled = false;
+            this.rbIMPTeams.Location = new System.Drawing.Point(35, 90);
+            this.rbIMPTeams.Name = "rbIMPTeams";
+            this.rbIMPTeams.Size = new System.Drawing.Size(81, 17);
+            this.rbIMPTeams.TabIndex = 31;
+            this.rbIMPTeams.Text = "IMP (teamy)";
+            this.rbIMPTeams.UseVisualStyleBackColor = true;
+            this.rbIMPTeams.CheckedChanged += new System.EventHandler(this.rbIMPTeams_CheckedChanged);
+            // 
+            // rbMatchpoints
+            // 
+            this.rbMatchpoints.AutoSize = true;
+            this.rbMatchpoints.Enabled = false;
+            this.rbMatchpoints.Location = new System.Drawing.Point(35, 66);
+            this.rbMatchpoints.Name = "rbMatchpoints";
+            this.rbMatchpoints.Size = new System.Drawing.Size(67, 17);
+            this.rbMatchpoints.TabIndex = 30;
+            this.rbMatchpoints.Text = "% maksa";
+            this.rbMatchpoints.UseVisualStyleBackColor = true;
+            this.rbMatchpoints.CheckedChanged += new System.EventHandler(this.rbMatchpoints_CheckedChanged);
             // 
             // lGroupSectionsWarning
             // 
             this.lGroupSectionsWarning.Cursor = System.Windows.Forms.Cursors.Help;
             this.lGroupSectionsWarning.Image = ((System.Drawing.Image)(resources.GetObject("lGroupSectionsWarning.Image")));
-            this.lGroupSectionsWarning.Location = new System.Drawing.Point(9, 87);
+            this.lGroupSectionsWarning.Location = new System.Drawing.Point(9, 18);
             this.lGroupSectionsWarning.Name = "lGroupSectionsWarning";
             this.lGroupSectionsWarning.Size = new System.Drawing.Size(22, 18);
             this.lGroupSectionsWarning.TabIndex = 29;
             this.lGroupSectionsWarning.Visible = false;
             this.lGroupSectionsWarning.Click += new System.EventHandler(this.lGroupSectionsWarning_Click);
             // 
-            // xGroupSections
-            // 
-            this.xGroupSections.AutoSize = true;
-            this.xGroupSections.Enabled = false;
-            this.xGroupSections.Location = new System.Drawing.Point(34, 89);
-            this.xGroupSections.Name = "xGroupSections";
-            this.xGroupSections.Size = new System.Drawing.Size(227, 17);
-            this.xGroupSections.TabIndex = 4;
-            this.xGroupSections.Text = "wspólne maksowanie wszystkich sektorów";
-            this.xGroupSections.UseVisualStyleBackColor = true;
-            // 
             // xShowResults
             // 
             this.xShowResults.AutoSize = true;
-            this.xShowResults.Location = new System.Drawing.Point(13, 20);
+            this.xShowResults.Location = new System.Drawing.Point(12, 113);
             this.xShowResults.Name = "xShowResults";
-            this.xShowResults.Size = new System.Drawing.Size(159, 17);
+            this.xShowResults.Size = new System.Drawing.Size(161, 17);
             this.xShowResults.TabIndex = 1;
-            this.xShowResults.Text = "pokazuj wynik rozdania jako";
+            this.xShowResults.Text = "pokazuj zapisy rozdania jako";
             this.xShowResults.UseVisualStyleBackColor = true;
             this.xShowResults.CheckedChanged += new System.EventHandler(this.xShowResults_CheckedChanged);
+            // 
+            // xGroupSections
+            // 
+            this.xGroupSections.AutoSize = true;
+            this.xGroupSections.Location = new System.Drawing.Point(34, 19);
+            this.xGroupSections.Name = "xGroupSections";
+            this.xGroupSections.Size = new System.Drawing.Size(181, 17);
+            this.xGroupSections.TabIndex = 4;
+            this.xGroupSections.Text = "wspólny dla wszystkich sektorów";
+            this.xGroupSections.UseVisualStyleBackColor = true;
+            this.xGroupSections.CheckedChanged += new System.EventHandler(this.xGroupSections_CheckedChanged);
+            // 
+            // xShowPercentage
+            // 
+            this.xShowPercentage.AutoSize = true;
+            this.xShowPercentage.Location = new System.Drawing.Point(34, 42);
+            this.xShowPercentage.Name = "xShowPercentage";
+            this.xShowPercentage.Size = new System.Drawing.Size(128, 17);
+            this.xShowPercentage.TabIndex = 3;
+            this.xShowPercentage.Text = "pokaż wynik rozdania";
+            this.xShowPercentage.UseVisualStyleBackColor = true;
+            this.xShowPercentage.CheckedChanged += new System.EventHandler(this.xShowPercentage_CheckedChanged);
             // 
             // xRepeatResults
             // 
             this.xRepeatResults.AutoSize = true;
             this.xRepeatResults.Enabled = false;
-            this.xRepeatResults.Location = new System.Drawing.Point(34, 43);
+            this.xRepeatResults.Location = new System.Drawing.Point(35, 136);
             this.xRepeatResults.Name = "xRepeatResults";
             this.xRepeatResults.Size = new System.Drawing.Size(155, 17);
             this.xRepeatResults.TabIndex = 2;
             this.xRepeatResults.Text = "nieskończone przeglądanie";
             this.xRepeatResults.UseVisualStyleBackColor = true;
             // 
-            // xShowPercentage
-            // 
-            this.xShowPercentage.AutoSize = true;
-            this.xShowPercentage.Enabled = false;
-            this.xShowPercentage.Location = new System.Drawing.Point(34, 66);
-            this.xShowPercentage.Name = "xShowPercentage";
-            this.xShowPercentage.Size = new System.Drawing.Size(102, 17);
-            this.xShowPercentage.TabIndex = 3;
-            this.xShowPercentage.Text = "pokaż % wyniku";
-            this.xShowPercentage.UseVisualStyleBackColor = true;
-            // 
             // xShowContract
             // 
             this.xShowContract.AutoSize = true;
-            this.xShowContract.Location = new System.Drawing.Point(13, 112);
+            this.xShowContract.Location = new System.Drawing.Point(11, 159);
             this.xShowContract.Name = "xShowContract";
             this.xShowContract.Size = new System.Drawing.Size(150, 17);
             this.xShowContract.TabIndex = 20;
@@ -773,24 +925,25 @@
             "traveler, 6x1",
             "traveler, 6x2",
             "traveler, 4x1"});
-            this.xResultsOverview.Location = new System.Drawing.Point(178, 18);
+            this.xResultsOverview.Location = new System.Drawing.Point(179, 111);
             this.xResultsOverview.Name = "xResultsOverview";
             this.xResultsOverview.Size = new System.Drawing.Size(103, 21);
             this.xResultsOverview.TabIndex = 28;
             // 
-            // tabPage2
+            // tpNames
             // 
-            this.tabPage2.Controls.Add(this.sectionToolStrip);
-            this.tabPage2.Controls.Add(this.namesPanel);
-            this.tabPage2.Controls.Add(this.syncToolStrip);
-            this.tabPage2.Controls.Add(this.toolStrip4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(569, 511);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Nazwiska";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpNames.Controls.Add(this.sectionToolStrip);
+            this.tpNames.Controls.Add(this.namesPanel);
+            this.tpNames.Controls.Add(this.syncToolStrip);
+            this.tpNames.Controls.Add(this.toolStrip4);
+            this.tpNames.ImageIndex = 1;
+            this.tpNames.Location = new System.Drawing.Point(4, 23);
+            this.tpNames.Name = "tpNames";
+            this.tpNames.Padding = new System.Windows.Forms.Padding(3);
+            this.tpNames.Size = new System.Drawing.Size(612, 557);
+            this.tpNames.TabIndex = 1;
+            this.tpNames.Text = "Nazwiska";
+            this.tpNames.UseVisualStyleBackColor = true;
             // 
             // sectionToolStrip
             // 
@@ -801,9 +954,9 @@
             this.sectionToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.cbNamesSection});
-            this.sectionToolStrip.Location = new System.Drawing.Point(3, 458);
+            this.sectionToolStrip.Location = new System.Drawing.Point(3, 504);
             this.sectionToolStrip.Name = "sectionToolStrip";
-            this.sectionToolStrip.Size = new System.Drawing.Size(563, 25);
+            this.sectionToolStrip.Size = new System.Drawing.Size(606, 25);
             this.sectionToolStrip.TabIndex = 30;
             this.sectionToolStrip.Text = "toolStrip5";
             // 
@@ -843,7 +996,7 @@
             this.namesPanel.Controls.Add(this.lTables);
             this.namesPanel.Location = new System.Drawing.Point(3, 31);
             this.namesPanel.Name = "namesPanel";
-            this.namesPanel.Size = new System.Drawing.Size(562, 425);
+            this.namesPanel.Size = new System.Drawing.Size(607, 470);
             this.namesPanel.TabIndex = 29;
             // 
             // bTeamsNamesSettings
@@ -913,7 +1066,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 389);
+            this.label9.Location = new System.Drawing.Point(1, 436);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(499, 13);
             this.label9.TabIndex = 31;
@@ -969,7 +1122,7 @@
             this.EastWest});
             this.namesGridView.Location = new System.Drawing.Point(2, 98);
             this.namesGridView.Name = "namesGridView";
-            this.namesGridView.Size = new System.Drawing.Size(557, 287);
+            this.namesGridView.Size = new System.Drawing.Size(601, 335);
             this.namesGridView.TabIndex = 28;
             this.namesGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellMouseEnter);
             this.namesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.namesGridView_CellValueChanged);
@@ -1048,7 +1201,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 406);
+            this.label8.Location = new System.Drawing.Point(3, 453);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(323, 13);
             this.label8.TabIndex = 12;
@@ -1081,9 +1234,9 @@
             this.bSync,
             this.eInterval,
             this.bAutoSync});
-            this.syncToolStrip.Location = new System.Drawing.Point(3, 483);
+            this.syncToolStrip.Location = new System.Drawing.Point(3, 529);
             this.syncToolStrip.Name = "syncToolStrip";
-            this.syncToolStrip.Size = new System.Drawing.Size(563, 25);
+            this.syncToolStrip.Size = new System.Drawing.Size(606, 25);
             this.syncToolStrip.TabIndex = 27;
             this.syncToolStrip.Text = "toolStrip5";
             // 
@@ -1127,7 +1280,7 @@
             this.bTruncate});
             this.toolStrip4.Location = new System.Drawing.Point(3, 3);
             this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip4.Size = new System.Drawing.Size(606, 25);
             this.toolStrip4.TabIndex = 26;
             this.toolStrip4.Text = "toolStrip4";
             // 
@@ -1192,32 +1345,33 @@
             this.bTruncate.Text = "Usuń nazwiska z BWS";
             this.bTruncate.Click += new System.EventHandler(this.bTruncate_Click);
             // 
-            // tabPage3
+            // tpRecords
             // 
-            this.tabPage3.Controls.Add(this.label17);
-            this.tabPage3.Controls.Add(this.label18);
-            this.tabPage3.Controls.Add(this.label15);
-            this.tabPage3.Controls.Add(this.label16);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.label14);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Controls.Add(this.gwSections);
-            this.tabPage3.Controls.Add(this.toolStrip3);
-            this.tabPage3.Controls.Add(this.lRecordSections);
-            this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(569, 511);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Rozkłady";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpRecords.Controls.Add(this.label17);
+            this.tpRecords.Controls.Add(this.label18);
+            this.tpRecords.Controls.Add(this.label15);
+            this.tpRecords.Controls.Add(this.label16);
+            this.tpRecords.Controls.Add(this.label13);
+            this.tpRecords.Controls.Add(this.label14);
+            this.tpRecords.Controls.Add(this.label12);
+            this.tpRecords.Controls.Add(this.label10);
+            this.tpRecords.Controls.Add(this.gwSections);
+            this.tpRecords.Controls.Add(this.toolStrip3);
+            this.tpRecords.Controls.Add(this.lRecordSections);
+            this.tpRecords.Controls.Add(this.label11);
+            this.tpRecords.ImageIndex = 2;
+            this.tpRecords.Location = new System.Drawing.Point(4, 23);
+            this.tpRecords.Name = "tpRecords";
+            this.tpRecords.Padding = new System.Windows.Forms.Padding(3);
+            this.tpRecords.Size = new System.Drawing.Size(612, 557);
+            this.tpRecords.TabIndex = 2;
+            this.tpRecords.Text = "Rozkłady";
+            this.tpRecords.UseVisualStyleBackColor = true;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(458, 460);
+            this.label17.Location = new System.Drawing.Point(460, 507);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(71, 13);
             this.label17.TabIndex = 18;
@@ -1227,7 +1381,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.label18.Location = new System.Drawing.Point(432, 456);
+            this.label18.Location = new System.Drawing.Point(434, 503);
             this.label18.MinimumSize = new System.Drawing.Size(20, 20);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(20, 20);
@@ -1237,7 +1391,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(322, 460);
+            this.label15.Location = new System.Drawing.Point(324, 507);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(104, 13);
             this.label15.TabIndex = 16;
@@ -1247,7 +1401,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.BackColor = System.Drawing.Color.Crimson;
-            this.label16.Location = new System.Drawing.Point(296, 456);
+            this.label16.Location = new System.Drawing.Point(298, 503);
             this.label16.MinimumSize = new System.Drawing.Size(20, 20);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(20, 20);
@@ -1257,7 +1411,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(156, 460);
+            this.label13.Location = new System.Drawing.Point(158, 507);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(134, 13);
             this.label13.TabIndex = 14;
@@ -1268,7 +1422,7 @@
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.LimeGreen;
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(130, 456);
+            this.label14.Location = new System.Drawing.Point(132, 503);
             this.label14.MinimumSize = new System.Drawing.Size(20, 20);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(20, 20);
@@ -1279,7 +1433,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(34, 460);
+            this.label12.Location = new System.Drawing.Point(36, 507);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(90, 13);
             this.label12.TabIndex = 12;
@@ -1289,7 +1443,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.LimeGreen;
-            this.label10.Location = new System.Drawing.Point(8, 456);
+            this.label10.Location = new System.Drawing.Point(10, 503);
             this.label10.MinimumSize = new System.Drawing.Size(20, 20);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(20, 20);
@@ -1304,14 +1458,14 @@
             this.gwSections.AllowUserToResizeRows = false;
             this.gwSections.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.gwSections.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gwSections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.gwSections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwSections.Location = new System.Drawing.Point(9, 118);
             this.gwSections.MultiSelect = false;
@@ -1321,7 +1475,7 @@
             this.gwSections.ShowCellErrors = false;
             this.gwSections.ShowEditingIcon = false;
             this.gwSections.ShowRowErrors = false;
-            this.gwSections.Size = new System.Drawing.Size(554, 335);
+            this.gwSections.Size = new System.Drawing.Size(597, 382);
             this.gwSections.TabIndex = 10;
             this.gwSections.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gwSections_CellDoubleClick);
             this.gwSections.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gwSections_CellDoubleClick);
@@ -1336,9 +1490,9 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bLoadHands,
             this.bClearHands});
-            this.toolStrip3.Location = new System.Drawing.Point(3, 483);
+            this.toolStrip3.Location = new System.Drawing.Point(3, 529);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(563, 25);
+            this.toolStrip3.Size = new System.Drawing.Size(606, 25);
             this.toolStrip3.TabIndex = 9;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -1381,6 +1535,15 @@
             this.label11.TabIndex = 1;
             this.label11.Text = resources.GetString("label11.Text");
             // 
+            // ilTabIcons
+            // 
+            this.ilTabIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilTabIcons.ImageStream")));
+            this.ilTabIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilTabIcons.Images.SetKeyName(0, "CheckBoxHS.png");
+            this.ilTabIcons.Images.SetKeyName(1, "EnvelopeHS.png");
+            this.ilTabIcons.Images.SetKeyName(2, "ShowAllCommentsHS.png");
+            this.ilTabIcons.Images.SetKeyName(3, "WarningHS.png");
+            // 
             // timer
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
@@ -1400,7 +1563,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 10, 1, 5);
-            this.toolStrip1.Size = new System.Drawing.Size(583, 42);
+            this.toolStrip1.Size = new System.Drawing.Size(632, 42);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -1443,7 +1606,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 608);
+            this.ClientSize = new System.Drawing.Size(632, 655);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
@@ -1460,13 +1623,15 @@
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tpSettings.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1475,12 +1640,10 @@
             this.groupBox6.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tpNames.ResumeLayout(false);
+            this.tpNames.PerformLayout();
             this.sectionToolStrip.ResumeLayout(false);
             this.sectionToolStrip.PerformLayout();
             this.namesPanel.ResumeLayout(false);
@@ -1492,8 +1655,8 @@
             this.syncToolStrip.PerformLayout();
             this.toolStrip4.ResumeLayout(false);
             this.toolStrip4.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tpRecords.ResumeLayout(false);
+            this.tpRecords.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gwSections)).EndInit();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
@@ -1513,7 +1676,7 @@
         private System.Windows.Forms.ToolStripStatusLabel status3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tpSettings;
         public System.Windows.Forms.TextBox xPINcode;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.CheckBox xAutoShutDownBPC;
@@ -1528,7 +1691,7 @@
         public System.Windows.Forms.CheckBox xShowPercentage;
         public System.Windows.Forms.CheckBox xRepeatResults;
         public System.Windows.Forms.CheckBox xShowResults;
-        public System.Windows.Forms.TabPage tabPage2;
+        public System.Windows.Forms.TabPage tpNames;
         public System.Windows.Forms.CheckBox xConfirmNP;
         public System.Windows.Forms.CheckBox xShowPlayerNames;
         public System.Windows.Forms.CheckBox xAutoBoardNumber;
@@ -1551,7 +1714,7 @@
         private System.Windows.Forms.Label lSkok;
         public System.Windows.Forms.ComboBox xResultsOverview;
         public System.Windows.Forms.CheckBox xViewHandrecord;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpRecords;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.OpenFileDialog openPBN;
         public System.Windows.Forms.CheckBox xCollectPlay;
@@ -1622,6 +1785,18 @@
         private System.Windows.Forms.ToolStrip sectionToolStrip;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox cbNamesSection;
+        public System.Windows.Forms.Label lPINWarning;
+        private System.Windows.Forms.Button bRandomPIN;
+        private System.Windows.Forms.ImageList ilTabIcons;
+        public System.Windows.Forms.CheckBox xCallTD;
+        private System.Windows.Forms.RadioButton rbIMPButler;
+        private System.Windows.Forms.RadioButton rbIMPCavendish;
+        private System.Windows.Forms.RadioButton rbIMPTeams;
+        private System.Windows.Forms.RadioButton rbMatchpoints;
+        public System.Windows.Forms.Label lScoringOptionsWarning;
+        public System.Windows.Forms.CheckBox xFirstBoardManually;
+        public System.Windows.Forms.CheckBox xShowRecap;
+        public System.Windows.Forms.Label lIMPScoringWarning;
     }
 }
 

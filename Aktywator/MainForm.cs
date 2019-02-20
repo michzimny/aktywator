@@ -26,6 +26,8 @@ namespace Aktywator
         public static Version requiredBCSVersion;
         public static Version requiredFWVersion;
 
+        private Dictionary<RadioButton, int> _scoringType;
+
         public MainForm()
         {
             InitializeComponent();
@@ -34,6 +36,11 @@ namespace Aktywator
         private void MainForm_Load(object sender, EventArgs e)
         {
             if (!MySQL.getConfigured()) (new MysqlSettings()).ShowDialog();
+            this._scoringType = new Dictionary<RadioButton, int>();
+            this._scoringType.Add(this.rbMatchpoints, 1);
+            this._scoringType.Add(this.rbIMPButler, 2);
+            this._scoringType.Add(this.rbIMPCavendish, 3);
+            this._scoringType.Add(this.rbIMPTeams, 4);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -82,13 +89,18 @@ namespace Aktywator
             // cloning Setting List returned from Bws, because we're going to extend it for version tracking purposes
             this.bwsSettings = new List<Setting>(bws.initSettings());
             this.bwsSettings.Add(new Setting("BM2ShowPlayerNames", this.xShowPlayerNames, bws, new Version(2, 0, 0), new Version(1, 3, 1)));
+            this.bwsSettings.Add(new Setting("BM2GameSummary", this.xShowRecap, bws, new Version(3, 6, 0), new Version(3, 0, 1)));
             bindSettingChanges();
             bws.loadSettings();
+
+            this.checkRecordsForSectionGroups();
+            this.scoringOptionsWarning();
 
             tournament = this.detectTeamyTournament();
             if (tournament != null)
             {
                 updateTournamentInfo(tournament);
+                this.rbIMPTeams.Checked = true;
             }
             else
             {
@@ -97,6 +109,30 @@ namespace Aktywator
             }
 
             this.WindowState = FormWindowState.Normal;
+        }
+
+        internal void checkRecordsForSectionGroups()
+        {
+            xGroupSections.Enabled = false;
+            if (this.detectTeamyTournament() == null)
+            {
+                if (cbSettingsSection.Items.Count > 2)
+                {
+                    if (bws.detectDifferentRecordsInSections())
+                    {
+                        bws.sectionGroupWarning();
+                        xGroupSections.Checked = false;
+                    }
+                    else
+                    {
+                        xGroupSections.Enabled = true;
+                    }
+                }
+            }
+            else
+            {
+                xGroupSections.Checked = false;
+            }
         }
 
         private void shortenFilenameLabel()
@@ -321,46 +357,18 @@ namespace Aktywator
             bws.loadSettings();
         }
 
-        static public string sectionGroupWarningLabel = "Opcja grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie może być zaktualizowana w trakcie trwania sesji!";
+        static public string sectionGroupWarningLabel = "Opcje sposobu liczenia wyników i grupowania zapisów w sektorach (albo osobnego maksowania sektorów) nie mogą być zaktualizowane w trakcie trwania sesji!";
         static public string differentRecordsInSections = "BWS zawiera różne rozkłady w różnych sektorach, opcja grupowania sektorów musi być wyłączona.";
 
         public void xShowResults_CheckedChanged(object sender, EventArgs e)
         {
-            if (xShowResults.Checked)
-            {
-                xRepeatResults.Enabled = true;
-                xShowPercentage.Enabled = true;
-                xResultsOverview.Enabled = true;
-                xGroupSections.Enabled = !bws.detectDifferentRecordsInSections();
-            }
-            else
-            {
-                xRepeatResults.Enabled = false;
-                xShowPercentage.Enabled = false;
-                xShowPercentage.Checked = false;
-                xResultsOverview.Enabled = false;
-                xGroupSections.Enabled = false;
-            }
-            if (cbSettingsSection.Items.Count > 2 || bws.detectDifferentRecordsInSections())
-            {
-                bws.sectionGroupWarning();
-            }
-            if (cbSettingsSection.Items.Count <= 2)
-            {
-                xGroupSections.Enabled = false;
-            }
+            xRepeatResults.Enabled = xShowResults.Checked;
+            xResultsOverview.Enabled = xShowResults.Checked;
         }
 
         private void xMemberNumbers_CheckedChanged(object sender, EventArgs e)
         {
-            if (xMemberNumbers.Checked)
-            {
-                xMemberNumbersNoBlankEntry.Enabled = true;
-            }
-            else
-            {
-                xMemberNumbersNoBlankEntry.Enabled = false;
-            }
+            xMemberNumbersNoBlankEntry.Enabled = xMemberNumbers.Checked;
         }
 
         private void bMySQLTournament_Click(object sender, EventArgs e)
@@ -536,15 +544,19 @@ namespace Aktywator
                         confirmMsg.Append("\nNagłówek pliku: " + pbn.title);
                     }
                     confirmMsg.Append("\nPierwszy rozkład: ");
-                    for (int i = 0; i < pbn.handRecords[bws.lowBoard()].north.Length; i++)
+                    int lowBoard = bws.lowBoard();
+                    while (lowBoard < pbn.handRecords.Length && pbn.handRecords[lowBoard] == null) {
+                        lowBoard++;
+                    }
+                    for (int i = 0; i < pbn.handRecords[lowBoard].north.Length; i++)
                     {
-                        if ("".Equals(pbn.handRecords[bws.lowBoard()].north[i]))
+                        if ("".Equals(pbn.handRecords[lowBoard].north[i]))
                         {
                             confirmMsg.Append("renons, ");
                         }
                         else
                         {
-                            confirmMsg.Append(pbn.handRecords[bws.lowBoard()].north[i]);
+                            confirmMsg.Append(pbn.handRecords[lowBoard].north[i]);
                             break;
                         }
                     }
@@ -639,8 +651,7 @@ namespace Aktywator
 
         private void lGroupSectionsWarning_Click(object sender, EventArgs e)
         {
-            string message = bws.detectDifferentRecordsInSections() ? MainForm.differentRecordsInSections : MainForm.sectionGroupWarningLabel;
-            MessageBox.Show(message, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            MessageBox.Show(MainForm.differentRecordsInSections, "Ustawienia grupowania zapisów w sektorach", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
         private void bTeamsNamesSettings_Click(object sender, EventArgs e)
@@ -678,5 +689,147 @@ namespace Aktywator
             }
         }
 
+
+        internal void checkPINsafety(string pin, int[] unsafePINs, bool explicitWarning = false)
+        {
+            try
+            {
+                if (Array.IndexOf(unsafePINs, Int32.Parse(pin)) > -1)
+                {
+                    this.lPINWarning.Visible = true;
+                    this.tpRecords.Enabled = false;
+                    this.tpRecords.ImageIndex = 3;
+                    this.tpRecords.ToolTipText = "Wczytanie rozkładów przy przewidywalnym PINie jest niedozwolone.";
+                    if (explicitWarning)
+                    {
+                        MessageBox.Show("Próbujesz ustawić PIN, który jest łatwy do przewidzenia przez zawodników.\n\nMam nadzieję, że wiesz, co robisz!\n\nNiestety, nie możemy pozwolić Ci na wgranie do BWSa rozkładów.", "Przewidywalny PIN!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        this.bws.clearHandRecords();
+                    }
+                }
+                else
+                {
+                    this.lPINWarning.Visible = false;
+                    this.tpRecords.Enabled = true;
+                    this.tpRecords.ImageIndex = 2;
+                    this.tpRecords.ToolTipText = "";
+                }
+            }
+            catch (FormatException e)
+            {
+            }
+        }
+
+        private void xPINcode_TextChanged(object sender, EventArgs e)
+        {
+            this.checkPINsafety(this.xPINcode.Text, this.bws._unsafePINs);
+        }
+
+        private void lPINWarning_Click(object sender, EventArgs e)
+        {
+            this.checkPINsafety(this.xPINcode.Text, this.bws._unsafePINs, true);
+        }
+
+        private void bRandomPIN_Click(object sender, EventArgs e)
+        {
+            this.xPINcode.Text = this.bws._getRandomPIN();
+        }
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (!e.TabPage.Enabled)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void xShowPercentage_CheckedChanged(object sender, EventArgs e)
+        {
+            bool teamsTournament = (this.detectTeamyTournament() != null);
+            this.rbMatchpoints.Enabled = xShowPercentage.Checked && !teamsTournament;
+            this.rbIMPButler.Enabled = xShowPercentage.Checked && !teamsTournament;
+            this.rbIMPCavendish.Enabled = xShowPercentage.Checked && !teamsTournament;
+            this.rbIMPTeams.Enabled = xShowPercentage.Checked && teamsTournament;
+            this.scoringOptionsWarning();
+        }
+
+        internal int getScoringType()
+        {
+            if (this.xShowPercentage.Checked)
+            {
+                foreach (KeyValuePair<RadioButton, int> type in this._scoringType)
+                {
+                    if (type.Key.Checked)
+                    {
+                        return type.Value;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        internal void setScoringType(int scoringType)
+        {
+            foreach (KeyValuePair<RadioButton, int> type in this._scoringType)
+            {
+                type.Key.Checked = (type.Value == scoringType);
+            }
+            this.impScoringWarning();
+        }
+
+        private void scoringOptionsWarning()
+        {
+            lScoringOptionsWarning.Visible = (xGroupSections.Checked || xShowPercentage.Checked);
+        }
+
+        private void impScoringWarning()
+        {
+            int scoringType = this.getScoringType();
+            this.lIMPScoringWarning.Visible = (scoringType > 1 && scoringType < 4); 
+        }
+
+        private void lScoringOptionsWarning_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(MainForm.sectionGroupWarningLabel, "Ustawienia wyświetlania wyników", MessageBoxButtons.OK, MessageBoxIcon.Question);
+        }
+
+        private void xGroupSections_CheckedChanged(object sender, EventArgs e)
+        {
+            this.scoringOptionsWarning();
+        }
+
+        private void xAutoBoardNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            this.xFirstBoardManually.Enabled = xAutoBoardNumber.Checked;
+            if (!this.xFirstBoardManually.Enabled)
+            {
+                this.xFirstBoardManually.Checked = false;
+            }
+        }
+
+        private void lIMPScoringWarning_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Pamiętaj o skonfigurowaniu opcji liczenia turnieju na IMP (średnia, odrzucanie w butlerze, uśrednianie cavendisha) w Bridgemate Control Software ***PRZED*** wystartowaniem sesji!", "Ustawienia obliczania wyników",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void rbMatchpoints_CheckedChanged(object sender, EventArgs e)
+        {
+            this.impScoringWarning();
+        }
+
+        private void rbIMPCavendish_CheckedChanged(object sender, EventArgs e)
+        {
+            this.impScoringWarning();
+        }
+
+        private void rbIMPButler_CheckedChanged(object sender, EventArgs e)
+        {
+            this.impScoringWarning();
+        }
+
+        private void rbIMPTeams_CheckedChanged(object sender, EventArgs e)
+        {
+            this.impScoringWarning();
+        }
     }
 }
