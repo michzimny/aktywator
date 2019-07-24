@@ -2,6 +2,10 @@
 - nie działa zbieranie danych pośrednich, gdy wczytane są rozkłady (dane są zbierane w BWS, ale Kolektor Teamów ich nie czyta - potencjalny bug w Kolektorze)
 - nie działa update ustawienia maksowania każdego sektora w czasie sesji (samo maksowanie ustawione na początku sesji - działa); nie da się również zmienić sposoby liczenia (maksy/butler/cavendish) w trakcie sesji - ograniczenia BCS
 
+Aktywator 1.16
+??.??.???? [mkl]
+ * wersja z poprawkami błędów
+
 Aktywator 1.1.5
 17.11.2018 [mkl]
  * poprawa bezpieczeństwa PINów
