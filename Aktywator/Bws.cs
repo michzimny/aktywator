@@ -733,6 +733,13 @@ namespace Aktywator
                 }
                 pairs[sectionNumber].Add(new PairPosition { pairNo = nsPairNumber, position = "NS", table = tableNumber });
                 pairs[sectionNumber].Add(new PairPosition { pairNo = ewPairNumber, position = "EW", table = tableNumber });
+                if (tournament.type == Tournament.TYPE_TEAMY && MainForm.teamNames.arePlayerNamesDisplayed())
+                {
+                    sectionPairs[sectionNumber].Add(nsPairNumber + TeamNamesSettings.OpenClosedDiff);
+                    sectionPairs[sectionNumber].Add(ewPairNumber + TeamNamesSettings.OpenClosedDiff);
+                    pairs[sectionNumber].Add(new PairPosition { pairNo = nsPairNumber + TeamNamesSettings.OpenClosedDiff, position = "EW", table = tableNumber + SKOK_STOLOW });
+                    pairs[sectionNumber].Add(new PairPosition { pairNo = ewPairNumber + TeamNamesSettings.OpenClosedDiff, position = "NS", table = tableNumber + SKOK_STOLOW });
+                }
             }
             d.Close();
 
@@ -833,13 +840,13 @@ namespace Aktywator
                             PairPosition pair = pairs[sections.Key].Find(delegate(PairPosition p) { return p.pairNo == pairNumber; });
                             for (int i = 0; i < names[pair.pairNo].Count; i++) {
                                 countNew += this.updateName(sections.Key.ToString(), pair.table.ToString(), pair.position[i].ToString(), names[pair.pairNo][i]);
-                                if (tournament.type == Tournament.TYPE_TEAMY)
+                                if (tournament.type == Tournament.TYPE_TEAMY && !MainForm.teamNames.arePlayerNamesDisplayed())
                                 {
                                     char otherTableSeat = seatMapping[(Array.IndexOf(seatMapping, pair.position[i]) + 2) % 4];
                                     countNew += this.updateName(sections.Key.ToString(), (pair.table + SKOK_STOLOW).ToString(), otherTableSeat.ToString(), names[pair.pairNo][i]);
                                 }
                             }
-                            count += names[pair.pairNo].Count * ((tournament.type == Tournament.TYPE_TEAMY) ? 2 : 1);
+                            count += names[pair.pairNo].Count * ((tournament.type == Tournament.TYPE_TEAMY && !MainForm.teamNames.arePlayerNamesDisplayed()) ? 2 : 1);
                         }
                     }
                 }
