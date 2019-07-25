@@ -859,6 +859,12 @@ namespace Aktywator
                     s.createField(sql);
                     Setting.save(s.name, s.defaultStr, this, errors);
                 }
+                if (tournament.type == Tournament.TYPE_TEAMY)
+                {
+                    // we do this so the names in the closed room are displayed correctly (they're being somehow mapped to participants numbers when preloaded)
+                    sql.query("UPDATE RoundData SET NSPair = NSPair + " + TeamNamesSettings.OpenClosedDiff + " WHERE NSPair < " + TeamNamesSettings.OpenClosedDiff + " AND `Table` > " + SKOK_STOLOW);
+                    sql.query("UPDATE RoundData SET EWPair = EWPair + " + TeamNamesSettings.OpenClosedDiff + " WHERE EWPair < " + TeamNamesSettings.OpenClosedDiff + " AND `Table` > " + SKOK_STOLOW);
+                }
                 if (interactive)
                 {
                     if (errors.Length > 0)
